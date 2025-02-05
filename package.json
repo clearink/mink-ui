@@ -1,8 +1,8 @@
 {
-  "name": "ink-ui",
+  "name": "mink-ui",
   "version": "0.0.1",
   "private": "true",
-  "description": "ink ui",
+  "description": "mink ui",
   "author": "clearink",
   "license": "MIT",
   "keywords": [
@@ -10,20 +10,18 @@
   ],
   "scripts": {
     "commit": "git-cz",
-    "prepare": "husky install",
+    "prepare": "husky install & pnpm run build:scripts",
     "lint": "eslint .",
-    "build:scripts": "pnpm --filter @internal/scripts build",
-    "gen:icons": "pnpm --filter @ink-ui/icons gen",
-    "build:core": "pnpm --filter @ink-ui/core build",
-    "build:icons": "pnpm --filter @ink-ui/icons build",
-    "build:emator": "pnpm --filter @ink-ui/emator build",
-    "build:docs": "pnpm --filter @internal/docs build",
-    "dev:docs": "pnpm --filter @internal/docs dev",
-    "dev:play": "pnpm --filter @internal/playground dev"
+    "dev": "pnpm --filter @mink-ui/docs dev",
+    "build:scripts": "pnpm --filter @mink-ui/scripts build",
+    "gen:icons": "pnpm --filter @mink-ui/icons gen",
+    "build:core": "pnpm --filter @mink-ui/core build",
+    "build:icons": "pnpm --filter @mink-ui/icons build",
+    "build:emator": "pnpm --filter @mink-ui/emator build",
+    "build:docs": "pnpm --filter @mink-ui/docs build"
   },
   "dependencies": {
-    "@internal/types": "workspace:^",
-    "@internal/utils": "workspace:^"
+    "@mink-ui/shared": "workspace:^"
   },
   "devDependencies": {
     "@antfu/eslint-config": "3.8.0",

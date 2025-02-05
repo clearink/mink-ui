@@ -1,6 +1,6 @@
-import type { Writable } from '@internal/types'
+import type { Writable } from '@mink-ui/shared'
 
-import { isUndefined } from '@internal/utils'
+import { isUndefined } from '@mink-ui/shared'
 
 import type { Context } from '../interface'
 

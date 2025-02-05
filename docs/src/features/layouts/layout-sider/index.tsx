@@ -1,7 +1,7 @@
 import type { ForwardedRef } from 'react'
 
-import { cls } from '@comps/_shared/utils'
-import { coalesce, isNullish } from '@internal/utils'
+import { cls } from '@mink-ui/core/_shared/utils'
+import { coalesce, isNullish } from '@mink-ui/shared'
 import routes from '@routes'
 import { forwardRef } from 'react'
 import { NavLink } from 'react-router-dom'

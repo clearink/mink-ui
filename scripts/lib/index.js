@@ -26,26 +26,26 @@ const constants = new Constant().add(() => ({
   resolveCjs: instance.resolveCwd.bind(null, 'lib'),
   resolveUmd: instance.resolveCwd.bind(null, 'dist'),
   resolveSrc: instance.resolveCwd.bind(null, 'src'),
-  resolveUtils: instance.resolveRoot.bind(null, 'packages', '_internal', 'utils'),
-  resolveTypes: instance.resolveRoot.bind(null, 'packages', '_internal', 'types'),
-  resolveComps: instance.resolveRoot.bind(null, 'packages', 'components'),
+  resolveCore: instance.resolveRoot.bind(null, 'packages', 'core'),
   resolveIcons: instance.resolveRoot.bind(null, 'packages', 'icons'),
-  resolveEmator: instance.resolveRoot.bind(null, 'packages', 'emator')
+  resolveEmator: instance.resolveRoot.bind(null, 'packages', 'emator'),
+  resolveShared: instance.resolveRoot.bind(null, 'packages', 'shared')
 })).add(instance => ({
   esm: instance.resolveEsm('.'),
   cjs: instance.resolveCjs('.'),
   umd: instance.resolveUmd('.'),
   src: instance.resolveSrc('.'),
-  comps: instance.resolveComps('.'),
+  core: instance.resolveCore('.'),
   icons: instance.resolveIcons('.'),
-  emator: instance.resolveEmator('.')
+  emator: instance.resolveEmator('.'),
+  shared: instance.resolveShared('.')
 })).add(() => ({
   browserslist: ['> 0.5%', 'last 2 versions', 'not dead'],
   cssExtensions: ['.scss', '.sass', '.css'],
   ignoreFiles: ['**/__tests__', '**/__docs__'],
   jsExtensions: ['.tsx', '.ts', '.jsx', '.js', '.mjs', '.mts'],
   iconAttrNamePrefix: '__#icon#__',
-  fullCssFileName: 'ink-ui'
+  fullCssFileName: 'mink-ui'
 })).add(instance => ({
   babelOptions: {
     babelHelpers: 'runtime',

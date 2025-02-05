@@ -1,4 +1,4 @@
-import { capitalize } from '@internal/utils'
+import { capitalize } from '@mink-ui/shared'
 
 import { constants } from './constants'
 

@@ -1,10 +1,10 @@
 import type { HTMLAttributes } from 'react'
 
-import { cls } from '@comps/_shared/utils'
-import { Divider } from '@comps/divider'
-import { Tooltip } from '@comps/tooltip'
-import UpOutlined from '@icons/icons/UpOutlined'
-import { omit } from '@internal/utils'
+import { cls } from '@mink-ui/core/_shared/utils'
+import { Divider } from '@mink-ui/core/divider'
+import { Tooltip } from '@mink-ui/core/tooltip'
+import UpOutlined from '@mink-ui/icons/icons/UpOutlined'
+import { omit } from '@mink-ui/shared'
 import MarkedBlock from '@shared/components/markdown-block'
 import { useState } from 'react'
 

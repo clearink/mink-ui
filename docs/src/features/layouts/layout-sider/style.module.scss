@@ -1,6 +1,6 @@
 .layout_sider {
-  padding: var(--ink-unit-12) 0;
-  border-right: 1px solid var(--ink-color-border);
+  padding: var(--mink-unit-12) 0;
+  border-right: 1px solid var(--mink-color-border);
   min-height: 100%;
 
   .menu_group {
@@ -9,55 +9,55 @@
   }
 
   .menu_title {
-    color: var(--ink-color-text-description);
-    margin: var(--ink-unit-8) var(--ink-unit-6);
+    color: var(--mink-color-text-description);
+    margin: var(--mink-unit-8) var(--mink-unit-6);
     position: relative;
     &::after {
       position: absolute;
       content: '';
       width: 100%;
       left: 0;
-      bottom: calc(var(--ink-unit-4) * -0.5);
-      border-bottom: 1px solid var(--ink-color-border);
+      bottom: calc(var(--mink-unit-4) * -0.5);
+      border-bottom: 1px solid var(--mink-color-border);
     }
   }
 
   .menu_item {
     text-decoration: none;
-    color: var(--ink-color-text);
+    color: var(--mink-color-text);
     display: flex;
     position: relative;
     align-items: center;
-    height: var(--ink-unit-11);
-    padding: 0 var(--ink-unit-4);
-    margin: var(--ink-unit-1_5) var(--ink-unit-2);
-    border-radius: var(--ink-unit-1);
+    height: var(--mink-unit-11);
+    padding: 0 var(--mink-unit-4);
+    margin: var(--mink-unit-1_5) var(--mink-unit-2);
+    border-radius: var(--mink-unit-1);
     overflow: hidden;
     transition:
       color 0.3s ease-in-out,
       background-color 0.3s ease-in-out;
 
     &.is_active {
-      background-color: var(--ink-color-primary-bg);
-      color: var(--ink-color-link-active);
+      background-color: var(--mink-color-primary-bg);
+      color: var(--mink-color-link-active);
     }
 
     &:hover {
-      background-color: var(--ink-color-fill-secondary);
+      background-color: var(--mink-color-fill-secondary);
     }
   }
 
   .item_subtitle {
-    margin-left: var(--ink-unit-2);
+    margin-left: var(--mink-unit-2);
     white-space: nowrap;
     flex: 1;
   }
 
   .item_tags {
-    padding: 0 var(--ink-unit-2);
-    right: var(--ink-unit-2);
-    color: var(--ink-color-success);
-    background-color: var(--ink-color-success-bg);
-    border-radius: var(--ink-unit-1);
+    padding: 0 var(--mink-unit-2);
+    right: var(--mink-unit-2);
+    color: var(--mink-color-success);
+    background-color: var(--mink-color-success-bg);
+    border-radius: var(--mink-unit-1);
   }
 }

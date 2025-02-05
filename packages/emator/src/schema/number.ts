@@ -1,4 +1,4 @@
-import { isNumber, isUndefined } from '@internal/utils'
+import { isNumber, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 

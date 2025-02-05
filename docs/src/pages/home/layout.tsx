@@ -1,5 +1,5 @@
-import { SwitchTransition } from '@comps/_shared/components'
 import { HomeHeader } from '@features/home'
+import { SwitchTransition } from '@mink-ui/core/_shared/components'
 import { useLocation, useOutlet } from 'react-router-dom'
 
 import styles from './layout.module.scss'

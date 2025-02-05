@@ -1,12 +1,11 @@
 {
-  "name": "@internal/docs",
+  "name": "@mink-ui/docs",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist",
     "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
@@ -21,7 +20,7 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "@internal/scripts": "workspace:^",
+    "@mink-ui/scripts": "workspace:^",
     "@types/fs-extra": "11.0.1",
     "@types/loadable__component": "5.13.9",
     "@types/prismjs": "1.26.5",
@@ -32,6 +31,7 @@
     "gh-pages": "6.1.1",
     "gray-matter": "4.0.3",
     "prettier": "3.3.3",
+    "sass": "catalog:",
     "slash": "3.0.0",
     "vite": "catalog:",
     "vite-plugin-eslint2": "5.0.1"

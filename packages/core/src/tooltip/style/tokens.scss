@@ -1,0 +1,7 @@
+$mink-tooltip-max-width: var(--#{$prefix}-unit-64);
+
+$mink-tooltip-px: calc(var(--#{$prefix}-padding-xs) / 2);
+
+$mink-tooltip-py: var(--#{$prefix}-padding-xs);
+
+$mink-tooltip-arrow-size: 16px;

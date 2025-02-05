@@ -30,12 +30,10 @@ export const constants = new Constant()
     resolveUmd: instance.resolveCwd.bind(null, 'dist'),
     resolveSrc: instance.resolveCwd.bind(null, 'src'),
 
-    resolveUtils: instance.resolveRoot.bind(null, 'packages', '_internal', 'utils'),
-    resolveTypes: instance.resolveRoot.bind(null, 'packages', '_internal', 'types'),
-
-    resolveComps: instance.resolveRoot.bind(null, 'packages', 'components'),
+    resolveCore: instance.resolveRoot.bind(null, 'packages', 'core'),
     resolveIcons: instance.resolveRoot.bind(null, 'packages', 'icons'),
     resolveEmator: instance.resolveRoot.bind(null, 'packages', 'emator'),
+    resolveShared: instance.resolveRoot.bind(null, 'packages', 'shared'),
   }))
   .add(instance => ({
     esm: instance.resolveEsm('.'),
@@ -43,9 +41,10 @@ export const constants = new Constant()
     umd: instance.resolveUmd('.'),
     src: instance.resolveSrc('.'),
 
-    comps: instance.resolveComps('.'),
+    core: instance.resolveCore('.'),
     icons: instance.resolveIcons('.'),
     emator: instance.resolveEmator('.'),
+    shared: instance.resolveShared('.'),
   }))
   .add(() => ({
     browserslist: ['> 0.5%', 'last 2 versions', 'not dead'],
@@ -53,7 +52,7 @@ export const constants = new Constant()
     ignoreFiles: ['**/__tests__', '**/__docs__'],
     jsExtensions: ['.tsx', '.ts', '.jsx', '.js', '.mjs', '.mts'],
     iconAttrNamePrefix: '__#icon#__',
-    fullCssFileName: 'ink-ui',
+    fullCssFileName: 'mink-ui',
   }))
   .add(instance => ({
     babelOptions: {

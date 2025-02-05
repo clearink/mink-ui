@@ -1,0 +1,159 @@
+// 引入 css 基础配置文件
+@import '../../style/base.scss';
+@import './tokens.scss';
+@import './mixins.scss';
+
+$comp: #{$prefix}-segmented;
+
+.#{$comp} {
+  @include reset-component();
+
+  display: inline-block;
+  padding: $mink-segmented-padding;
+  color: var(--#{$prefix}-color-text-label);
+  background: var(--#{$prefix}-color-bg-layout);
+  border-radius: $mink-segmented-border-radius;
+  transition: all var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-in-out);
+
+  &__group {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  &-item {
+    @include reset-component();
+
+    user-select: none;
+
+    position: relative;
+    text-align: center;
+    border-radius: $mink-segmented-border-radius;
+    transform: translateZ(0);
+    cursor: pointer;
+    transition: color var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-in-out);
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      transition: background-color var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-in-out);
+      content: '';
+      pointer-events: none;
+    }
+
+    &:hover:not(&--selected, &--disabled) {
+      color: var(--#{$prefix}-color-text);
+
+      &::after {
+        background-color: var(--#{$prefix}-color-fill-secondary);
+      }
+    }
+
+    &:active:not(&--selected, &--disabled) {
+      color: var(--#{$prefix}-color-text);
+
+      &::after {
+        background-color: var(--#{$prefix}-color-fill);
+      }
+    }
+
+    &--selected {
+      color: var(--#{$prefix}-color-text);
+      background-color: var(--#{$prefix}-color-bg-elevated);
+      box-shadow: var(--#{$prefix}-box-shadow-tertiary);
+    }
+
+    &--disabled,
+    &--disabled:hover,
+    &--disabled:active {
+      color: var(--#{$prefix}-color-text-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  &-item__radio {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &-item__label {
+    min-height: $mink-segmented-height;
+    padding: 0 $mink-segmented-px;
+    overflow: hidden;
+    line-height: $mink-segmented-height;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__thumb {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    padding: $mink-segmented-padding 0;
+    background-color: var(--#{$prefix}-color-bg-elevated);
+    border-radius: $mink-segmented-border-radius;
+    box-shadow: var(--#{$prefix}-box-shadow-tertiary);
+
+    & ~ .#{$comp}-item:not(.#{$comp}-item--selected):not(.#{$comp}-item--disabled)::after {
+      background-color: transparent;
+    }
+  }
+
+  &-thumb-motion {
+    &-enter-active {
+      transition:
+        transform var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
+        width var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out);
+      user-select: none;
+      will-change: width;
+    }
+  }
+
+  &--block {
+    display: flex;
+
+    .#{$comp}-item {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  &--lg {
+    border-radius: $mink-segmented-border-radius-lg;
+    .#{$comp}-item__label {
+      min-height: $mink-segmented-height-lg;
+      padding: 0 $mink-segmented-px-lg;
+      font-size: var(--#{$prefix}-font-size-lg);
+      line-height: $mink-segmented-height-lg;
+    }
+
+    .#{$comp}__thumb,
+    .#{$comp}-item {
+      border-radius: $mink-segmented-border-radius-lg;
+    }
+  }
+
+  &--sm {
+    border-radius: $mink-segmented-border-radius-sm;
+    .#{$comp}-item__label {
+      min-height: $mink-segmented-height-sm;
+      padding: 0 $mink-segmented-px-sm;
+      line-height: $mink-segmented-height-sm;
+    }
+
+    .#{$comp}__thumb,
+    .#{$comp}-item {
+      border-radius: $mink-segmented-border-radius-sm;
+    }
+  }
+}

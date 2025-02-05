@@ -1,4 +1,4 @@
-import { isUndefined } from '@internal/utils'
+import { isUndefined } from '@mink-ui/shared'
 import path from 'node:path'
 import slash from 'slash'
 

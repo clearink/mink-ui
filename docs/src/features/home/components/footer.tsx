@@ -1,4 +1,4 @@
-import { cls } from '@comps/_shared/utils'
+import { cls } from '@mink-ui/core/_shared/utils'
 
 import styles from './footer.module.scss'
 

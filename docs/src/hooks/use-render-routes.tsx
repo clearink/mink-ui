@@ -1,6 +1,6 @@
 import type { CustomRouteObject } from '@shared/types'
 
-import { coalesce, isArray } from '@internal/utils'
+import { coalesce, isArray } from '@mink-ui/shared'
 import { useMemo } from 'react'
 import { Route } from 'react-router-dom'
 

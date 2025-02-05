@@ -1,0 +1,14 @@
+{
+  "name": "@mink-ui/shared",
+  "version": "0.0.1",
+  "private": "true",
+  "description": "mink-ui shared",
+  "author": "clearink",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "scripts": {
+    "lint:ts": "tsc --noEmit"
+  }
+
+}

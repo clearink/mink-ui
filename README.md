@@ -1,1 +1,1 @@
-# `@ink-ui`
+# `@mink-ui`

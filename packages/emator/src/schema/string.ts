@@ -1,4 +1,4 @@
-import { isNullish, isString, isUndefined } from '@internal/utils'
+import { isNullish, isString, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 

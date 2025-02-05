@@ -1,4 +1,4 @@
-import type { IconComp, IconDesc } from '@icons/_shared/types'
+import type { IconComp, IconDesc } from '@mink-ui/icons/_shared/types'
 
 import { type ForwardedRef, forwardRef } from 'react'
 
@@ -16,7 +16,7 @@ export default function withIcon(Icon: IconComp, desc: IconDesc) {
       <span
         {...props}
         ref={ref}
-        className={`ink-icon icon-${name}${className ? ` ${className}` : ''}`}
+        className={`mink-icon icon-${name}${className ? ` ${className}` : ''}`}
         style={style}
         aria-label={name}
         role="img"

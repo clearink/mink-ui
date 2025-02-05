@@ -12,14 +12,14 @@ $header-height: 48px;
   display: flex;
   align-items: center;
   padding: 0 24px;
-  border-bottom: 1px solid var(--ink-color-border);
+  border-bottom: 1px solid var(--mink-color-border);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   max-width: 100%;
-  background: var(--ink-color-bg);
+  background: var(--mink-color-bg);
   backdrop-filter: blur(8px);
 }
 
@@ -38,7 +38,7 @@ $header-height: 48px;
 }
 
 .link-item {
-  color: var(--ink-color-text);
+  color: var(--mink-color-text);
 
   text-decoration: none;
   &:not(:first-child) {
@@ -46,11 +46,11 @@ $header-height: 48px;
   }
 
   &:hover {
-    color: var(--ink-color-hover);
+    color: var(--mink-color-hover);
   }
 
   &:active,
   &.active {
-    color: var(--ink-color-active);
+    color: var(--mink-color-active);
   }
 }

@@ -1,4 +1,4 @@
-import { isBoolean, isUndefined } from '@internal/utils'
+import { isBoolean, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 

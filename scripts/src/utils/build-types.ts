@@ -1,11 +1,13 @@
-import glob from 'fast-glob'
 import fse from 'fs-extra'
+import path from 'node:path'
+import slash from 'slash'
 import tsm from 'ts-morph'
 
 import type { BuiltinTypeDefinitionItem } from '../interface'
 
 import { constants } from './constants'
 import { getBuiltinSources } from './get-builtin-sources'
+import { removeExtname } from './remove-extname'
 import replaceSpecifier from './replace-specifier'
 
 export interface BuildDtsOptions {
@@ -37,11 +39,19 @@ export async function buildTypes(options: BuildDtsOptions) {
     throw new Error(project.formatDiagnosticsWithColorAndContext(diagnostics))
   }
 
-  await project.emit({ emitOnlyDtsFiles: true })
+  await Promise.all(
+    project.getSourceFiles().map(async (sourceFile) => {
+      await sourceFile.emit({ emitOnlyDtsFiles: true })
 
-  // copy dts files to lib
-  const files = await glob.async('**/*.d.ts', { cwd: constants.esm })
+      const filePath = sourceFile.getFilePath()
 
-  await Promise.all(files.map(file =>
-    fse.copy(constants.resolveEsm(file), constants.resolveCjs(file))))
+      const entryName = removeExtname(slash(path.relative(constants.src, filePath)))
+
+      const sourcePath = constants.resolveEsm(`${entryName}.d.ts`)
+
+      const targetPath = constants.resolveCjs(`${entryName}.d.ts`)
+
+      return fse.copy(sourcePath, targetPath)
+    }),
+  )
 }

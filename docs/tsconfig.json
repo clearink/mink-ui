@@ -11,12 +11,12 @@
       "@pages/*": ["./src/pages/*"],
       "@routes": ["./src/routes"],
       /** others */
-      "@comps": ["../packages/components/src"],
-      "@comps/*": ["../packages/components/src/*"],
-      "@icons": ["../packages/icons/src"],
-      "@icons/*": ["../packages/icons/src/*"],
-      "@emator": ["../packages/emator/src"],
-      "@emator/*": ["../packages/emator/src/*"]
+      "@mink-ui/core": ["../packages/core/src"],
+      "@mink-ui/core/*": ["../packages/core/src/*"],
+      "@mink-ui/icons": ["../packages/icons/src"],
+      "@mink-ui/icons/*": ["../packages/icons/src/*"],
+      "@mink-ui/emator": ["../packages/emator/src"],
+      "@mink-ui/emator/*": ["../packages/emator/src/*"]
     }
   },
   "references": [{ "path": "./tsconfig.node.json" }],

@@ -1,0 +1,21 @@
+$mink-checkbox-outline-width: 2px;
+
+$mink-checkbox-inner-width: var(--#{$prefix}-unit-4);
+
+$mink-checkbox-inner-height: var(--#{$prefix}-unit-4);
+
+$mink-checkbox-arrow-width: calc($mink-checkbox-inner-width / 14 * 5);
+
+$mink-checkbox-arrow-height: calc($mink-checkbox-inner-height / 14 * 8);
+
+$mink-checkbox-arrow-transition-enter:
+  all var(--#{$prefix}-motion-duration-1) var(--#{$prefix}-motion-ease-in-back),
+  opacity var(--#{$prefix}-motion-duration-1);
+
+$mink-checkbox-arrow-transition-exit:
+  all var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-out-back),
+  opacity var(--#{$prefix}-motion-duration-1);
+
+$mink-checkbox-inner-transition: all var(--#{$prefix}-motion-duration-3);
+
+$mink-checkbox-outline-offset: 1px;

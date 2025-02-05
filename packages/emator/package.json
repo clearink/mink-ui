@@ -1,16 +1,16 @@
 {
-  "name": "@ink-ui/emator",
-  "version": "0.0.6",
-  "description": "ink-ui form schema validator",
+  "name": "@mink-ui/emator",
+  "version": "0.0.3",
+  "description": "mink-ui form schema validator",
   "author": "clearink",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/clearink/ink-ui.git",
+    "url": "https://github.com/clearink/mink-ui.git",
     "directory": "packages/emator"
   },
   "keywords": [
-    "ink-ui",
+    "mink-ui",
     "schema validator"
   ],
   "sideEffects": [
@@ -29,16 +29,17 @@
   ],
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.com"
+    "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "build": "ink-scripts build:emator",
-    "lint:ts": "tsc --noEmit"
+    "build": "mink-cli build:emator",
+    "lint:ts": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@babel/runtime": "catalog:"
   },
   "devDependencies": {
-    "@internal/scripts": "workspace:^"
+    "@mink-ui/scripts": "workspace:^"
   }
 }

@@ -1,6 +1,6 @@
 import type { CustomRouteMeta, CustomRouteObject } from '@shared/types'
 
-import { isArray } from '@internal/utils'
+import { isArray } from '@mink-ui/shared'
 
 export default function formatRecords(
   routes: CustomRouteObject[] | undefined,

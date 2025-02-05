@@ -1,7 +1,7 @@
 .markdown_block {
   overflow: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--ink-color-fill) transparent;
+  scrollbar-color: var(--mink-color-fill) transparent;
   scrollbar-gutter: stable;
   p,
   pre {
@@ -9,11 +9,11 @@
   }
 
   :global(.language-shell) {
-    margin: var(--ink-unit-4) 0;
+    margin: var(--mink-unit-4) 0;
     display: inline-block;
-    padding: var(--ink-unit-4);
-    border-radius: var(--ink-unit-1);
-    background-color: var(--ink-color-primary-bg);
+    padding: var(--mink-unit-4);
+    border-radius: var(--mink-unit-1);
+    background-color: var(--mink-color-primary-bg);
   }
 
   pre {

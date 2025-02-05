@@ -38,7 +38,7 @@ const routes: CustomRouteObject[] = [
                   tags: 'tag',
                   group: { title: '反馈', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/alert/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/alert/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'badge',
@@ -49,7 +49,7 @@ const routes: CustomRouteObject[] = [
                   desc: '图标右上角的圆形徽标数字。',
                   group: { title: '反馈', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/badge/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/badge/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'button',
@@ -60,7 +60,7 @@ const routes: CustomRouteObject[] = [
                   desc: '按钮是一种命令组件，可发起一个即时操作。',
                   group: { title: '基础', order: 0 },
                 },
-                component: lazyLoad(() => import('@comps/button/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/button/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'checkbox',
@@ -71,7 +71,7 @@ const routes: CustomRouteObject[] = [
                   desc: 'CheckBox 按钮组 desc',
                   group: { title: '数据录入', order: 3 },
                 },
-                component: lazyLoad(() => import('@comps/checkbox/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/checkbox/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'collapse',
@@ -82,7 +82,7 @@ const routes: CustomRouteObject[] = [
                   desc: '可以折叠/展开的内容区域。',
                   group: { title: '数据展示', order: 4 },
                 },
-                component: lazyLoad(() => import('@comps/collapse/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/collapse/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'divider',
@@ -94,7 +94,7 @@ const routes: CustomRouteObject[] = [
                   tags: 'layout',
                   group: { title: '布局', order: 1 },
                 },
-                component: lazyLoad(() => import('@comps/divider/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/divider/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'form',
@@ -105,7 +105,7 @@ const routes: CustomRouteObject[] = [
                   desc: 'Form 表单 desc',
                   group: { title: '数据录入', order: 3 },
                 },
-                component: lazyLoad(() => import('@comps/form/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/form/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'grid',
@@ -116,7 +116,7 @@ const routes: CustomRouteObject[] = [
                   desc: '24 栅格系统。',
                   group: { title: '布局', order: 1 },
                 },
-                component: lazyLoad(() => import('@comps/grid/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/grid/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'modal',
@@ -127,7 +127,7 @@ const routes: CustomRouteObject[] = [
                   desc: '展示一个对话框，提供标题、内容区、操作区。',
                   group: { title: '反馈', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/modal/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/modal/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'notification',
@@ -139,7 +139,7 @@ const routes: CustomRouteObject[] = [
                   tags: 'test',
                   group: { title: '反馈', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/notification/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/notification/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'segmented',
@@ -150,7 +150,7 @@ const routes: CustomRouteObject[] = [
                   desc: '用于展示多个选项并允许用户选择其中单个选项。',
                   group: { title: '数据展示', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/segmented/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/segmented/__docs__/index.zh-CN.md')),
               },
               {
                 path: 'tooltip',
@@ -161,7 +161,7 @@ const routes: CustomRouteObject[] = [
                   desc: '简单的文字提示气泡框。',
                   group: { title: '数据展示', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/tooltip/__docs__/index.zh-CN.md')),
+                component: lazyLoad(() => import('@mink-ui/core/tooltip/__docs__/index.zh-CN.md')),
               },
             ],
           },
@@ -177,7 +177,7 @@ const routes: CustomRouteObject[] = [
                   desc: '警告提示，展现需要关注的信息。',
                   group: { title: '反馈', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/alert/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/alert/__docs__/index.en-US.md')),
               },
               {
                 path: 'badge',
@@ -187,7 +187,7 @@ const routes: CustomRouteObject[] = [
                   desc: '图标右上角的圆形徽标数字。en',
                   group: { title: 'Feedback', order: 1 },
                 },
-                component: lazyLoad(() => import('@comps/badge/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/badge/__docs__/index.en-US.md')),
               },
               {
                 path: 'button',
@@ -197,7 +197,7 @@ const routes: CustomRouteObject[] = [
                   desc: '按钮是一种命令组件，可发起一个即时操作。',
                   group: { title: 'Basic', order: 0 },
                 },
-                component: lazyLoad(() => import('@comps/button/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/button/__docs__/index.en-US.md')),
               },
               {
                 path: 'checkbox',
@@ -207,7 +207,7 @@ const routes: CustomRouteObject[] = [
                   desc: 'CheckBox 按钮组 desc',
                   group: { title: '数据录入', order: 3 },
                 },
-                component: lazyLoad(() => import('@comps/checkbox/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/checkbox/__docs__/index.en-US.md')),
               },
               {
                 path: 'collapse',
@@ -217,7 +217,7 @@ const routes: CustomRouteObject[] = [
                   desc: '可以折叠/展开的内容区域。',
                   group: { title: '数据展示', order: 4 },
                 },
-                component: lazyLoad(() => import('@comps/collapse/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/collapse/__docs__/index.en-US.md')),
               },
               {
                 path: 'divider',
@@ -228,7 +228,7 @@ const routes: CustomRouteObject[] = [
                   tags: 'layout',
                   group: { title: '布局', order: 1 },
                 },
-                component: lazyLoad(() => import('@comps/divider/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/divider/__docs__/index.en-US.md')),
               },
               {
                 path: 'form',
@@ -238,7 +238,7 @@ const routes: CustomRouteObject[] = [
                   desc: 'Form 表单 desc',
                   group: { title: '数据录入', order: 3 },
                 },
-                component: lazyLoad(() => import('@comps/form/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/form/__docs__/index.en-US.md')),
               },
               {
                 path: 'grid',
@@ -248,7 +248,7 @@ const routes: CustomRouteObject[] = [
                   desc: '24 栅格系统。',
                   group: { title: '布局', order: 1 },
                 },
-                component: lazyLoad(() => import('@comps/grid/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/grid/__docs__/index.en-US.md')),
               },
               {
                 path: 'modal',
@@ -258,7 +258,7 @@ const routes: CustomRouteObject[] = [
                   desc: '展示一个对话框，提供标题、内容区、操作区。',
                   group: { title: '反馈', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/modal/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/modal/__docs__/index.en-US.md')),
               },
               {
                 path: 'notification',
@@ -269,7 +269,7 @@ const routes: CustomRouteObject[] = [
                   desc: '全局展示通知提醒信息。',
                   group: { title: '反馈', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/notification/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/notification/__docs__/index.en-US.md')),
               },
               {
                 path: 'segmented',
@@ -279,7 +279,7 @@ const routes: CustomRouteObject[] = [
                   desc: '用于展示多个选项并允许用户选择其中单个选项。',
                   group: { title: '数据展示', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/segmented/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/segmented/__docs__/index.en-US.md')),
               },
               {
                 path: 'tooltip',
@@ -289,7 +289,7 @@ const routes: CustomRouteObject[] = [
                   desc: '简单的文字提示气泡框。',
                   group: { title: '数据展示', order: 5 },
                 },
-                component: lazyLoad(() => import('@comps/tooltip/__docs__/index.en-US.md')),
+                component: lazyLoad(() => import('@mink-ui/core/tooltip/__docs__/index.en-US.md')),
               },
             ],
           },

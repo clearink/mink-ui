@@ -1,4 +1,4 @@
-import { isArray, isUndefined } from '@internal/utils'
+import { isArray, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 

@@ -1,4 +1,4 @@
-import { isNull, isNullish, isUndefined, omit } from '@internal/utils'
+import { isNull, isNullish, isUndefined, omit } from '@mink-ui/shared'
 
 import type {
   Context,

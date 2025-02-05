@@ -1,7 +1,5 @@
 packages:
   - 'packages/*'
-  - packages/_internal/utils
-  - packages/_internal/types
   - scripts
   - docs
 
@@ -14,3 +12,4 @@ catalog:
   react: 18.2.0
   react-dom: 18.2.0
   vite: 5.4.10
+  sass: 1.77.6

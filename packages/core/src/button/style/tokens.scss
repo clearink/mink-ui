@@ -1,0 +1,28 @@
+$mink-btn-border: 1px solid transparent;
+
+$mink-btn-padding-sm: 0 7px;
+
+$mink-btn-padding: 0 15px;
+
+$mink-btn-padding-lg: 0 19px;
+
+$mink-btn-height-sm: var(--#{$prefix}-unit-6);
+
+$mink-btn-height: var(--#{$prefix}-unit-8);
+
+$mink-btn-height-lg: var(--#{$prefix}-unit-10);
+
+$mink-btn-font-size-sm: var(--#{$prefix}-font-size-sm);
+
+$mink-btn-font-size: var(--#{$prefix}-font-size);
+
+$mink-btn-font-size-lg: var(--#{$prefix}-font-size);
+
+$mink-btn-transition:
+  all var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
+  outline 0s,
+  outline-offset 0s;
+
+$mink-btn-outline-width: 3px;
+
+$mink-btn-outline-offset: 1px;

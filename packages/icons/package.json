@@ -1,16 +1,16 @@
 {
-  "name": "@ink-ui/icons",
-  "version": "0.0.10",
-  "description": "ink-ui icons",
+  "name": "@mink-ui/icons",
+  "version": "0.0.3",
+  "description": "mink-ui icons",
   "author": "clearink",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/clearink/ink-ui.git",
+    "url": "https://github.com/clearink/mink-ui.git",
     "directory": "packages/icons"
   },
   "keywords": [
-    "ink-ui",
+    "mink-ui",
     "react",
     "icons"
   ],
@@ -30,12 +30,13 @@
   ],
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.com"
+    "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "build": "ink-scripts build:icons",
-    "gen": "ink-scripts gen:icons",
-    "lint:ts": "tsc --noEmit"
+    "build": "mink-cli build:icons",
+    "gen": "mink-cli gen:icons",
+    "lint:ts": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "react": "catalog:",
@@ -45,6 +46,6 @@
     "@babel/runtime": "catalog:"
   },
   "devDependencies": {
-    "@internal/scripts": "workspace:^"
+    "@mink-ui/scripts": "workspace:^"
   }
 }

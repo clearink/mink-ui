@@ -1,9 +1,9 @@
-import { constants } from '@internal/scripts'
+import { constants } from '@mink-ui/scripts'
 
 import type { WatcherDataItem } from '../interface'
 
 export default function generateSourceText(items: WatcherDataItem[]) {
-  const compDir = constants.resolveComps('./src')
+  const compDir = constants.resolveCore('./src')
 
   const blogDir = constants.resolveCwd('./src/pages')
 
@@ -40,7 +40,7 @@ const routes: CustomRouteObject[] = [
               ${items
                 .filter(item => item.meta.category === 'component')
                 .map((item) => {
-                  const specifier = item.filePath.replace(compDir, '@comps')
+                  const specifier = item.filePath.replace(compDir, '@mink-ui/core')
 
                   return `{${[
                     `path: ${JSON.stringify(item.routePath)}`,
@@ -58,7 +58,7 @@ const routes: CustomRouteObject[] = [
               ${items
                 .filter(item => item.meta.category === 'component-en')
                 .map((item) => {
-                  const specifier = item.filePath.replace(compDir, '@comps')
+                  const specifier = item.filePath.replace(compDir, '@mink-ui/core')
 
                   return `{${[
                     `path: ${JSON.stringify(item.routePath)}`,

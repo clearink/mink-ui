@@ -1,4 +1,4 @@
-import { constants } from '@internal/scripts'
+import { constants } from '@mink-ui/scripts'
 import glob from 'fast-glob'
 import matter from 'gray-matter'
 import fs from 'node:fs'

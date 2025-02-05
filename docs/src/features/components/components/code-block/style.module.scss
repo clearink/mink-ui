@@ -1,10 +1,10 @@
 .code_block {
-  border: 1px solid var(--ink-color-border);
-  border-radius: var(--ink-unit-1);
+  border: 1px solid var(--mink-color-border);
+  border-radius: var(--mink-unit-1);
 }
 
 .example_preview {
-  padding: var(--ink-unit-10) var(--ink-unit-6) var(--ink-unit-6);
+  padding: var(--mink-unit-10) var(--mink-unit-6) var(--mink-unit-6);
   min-height: 100px;
   overflow: auto;
 }
@@ -16,12 +16,12 @@
 }
 
 .example_desc {
-  padding: var(--ink-unit-4) var(--ink-unit-6);
+  padding: var(--mink-unit-4) var(--mink-unit-6);
 }
 
 .example_toolbar {
-  border-top: 1px dashed var(--ink-color-border);
-  padding: var(--ink-unit-4);
+  border-top: 1px dashed var(--mink-color-border);
+  padding: var(--mink-unit-4);
   display: flex;
   align-items: center;
   justify-content: flex-end;

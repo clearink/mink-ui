@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@emator/*": ["./src/*"]
+      "@mink-ui/emator/*": ["./src/*"]
     }
   },
   "include": ["src"],

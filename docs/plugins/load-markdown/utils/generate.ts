@@ -1,6 +1,6 @@
 import type { FormattedSection } from '../interface'
 
-export default function generate(sections: FormattedSection[]) {
+export function generateSourceCode(sections: FormattedSection[]) {
   return `import Section from '@shared/components/section'
 import MarkdownBlock from '@shared/components/markdown-block'
 import SemanticBlock from '@shared/components/semantic-block'

@@ -55,6 +55,10 @@ export async function buildSource(options: BuildSourceOptions) {
       external: options.externals,
       input: constants.resolveSrc('index.ts'),
       plugins: plugins.concat(replace(options.replaces)),
+      treeshake: {
+        propertyReadSideEffects: false,
+        moduleSideEffects: false,
+      },
     }).then((bundle) => {
       return Promise.all([
         bundle.write({

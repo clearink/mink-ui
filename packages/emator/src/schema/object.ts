@@ -1,6 +1,6 @@
-import type { Full, MayBe, NonUndefined } from '@internal/types'
+import type { Full, MayBe, NonUndefined } from '@mink-ui/shared'
 
-import { isObject, isUndefined } from '@internal/utils'
+import { isObject, isUndefined } from '@mink-ui/shared'
 
 import type { Context } from '../interface'
 

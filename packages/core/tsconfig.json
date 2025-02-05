@@ -1,0 +1,11 @@
+{
+  "extends": ["../../tsconfig.json"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@mink-ui/core/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

@@ -13,10 +13,11 @@ import { removeExtname } from './remove-extname'
 export function getBuiltinSources(project: Project, builtins: BuiltinTypeDefinitionItem[]) {
   return Promise.all(
     builtins.map(item =>
-      glob.async('**/*.ts{,x}', { cwd: item.mapping, ignore: item.ignores })
+      glob.async('**/*.ts{,x}', { cwd: item.mapping, ignore: constants.ignoreFiles })
         .then(results =>
           Promise.all(results.map((relative) => {
             const sourcePath = path.resolve(item.mapping, relative)
+
             const targetPath = path.resolve(item.replacement, relative)
 
             return fse.readFile(sourcePath, { encoding: 'utf8' })
@@ -33,7 +34,7 @@ export async function getBuiltinEntries(builtins: BuiltinTypescriptCodeItem[]) {
 
   await Promise.all(
     builtins.map(item =>
-      glob.async('**/*.ts{,x}', { cwd: item.replacement, ignore: item.ignores })
+      glob.async('**/*.ts{,x}', { cwd: item.replacement, ignore: constants.ignoreFiles })
         .then(results =>
           results.forEach((relative) => {
             const sourcePath = path.resolve(item.replacement, relative)

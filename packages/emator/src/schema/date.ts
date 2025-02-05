@@ -1,4 +1,4 @@
-import { isDate, isUndefined } from '@internal/utils'
+import { isDate, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 

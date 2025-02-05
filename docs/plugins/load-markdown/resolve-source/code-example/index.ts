@@ -2,57 +2,70 @@ import type { TokensList } from 'marked'
 
 import type { CustomPluginStore, ExampleItem } from '../../interface'
 
-import { updateVirtualModules } from '../../utils/virtual-module'
+import { updateModules, updateWatches } from '../../utils/virtual-module'
 import formatAttrs from '../format-attrs'
-import formatModuleId from '../format-id'
-import formatCompName from '../format-name'
-import formatFilePath from '../format-path'
-import formatSalt from '../format-salt'
-import formatContent from './format-content'
+import { formatCssId, formatJsxId } from '../format-id'
+import { formatExampleName, formatInfoName } from '../format-name'
+import { formatFilePath } from '../format-path'
 
 export default function parseCodeExample(
-  tokens: TokensList,
-  fileId: string,
   _store: CustomPluginStore,
+  tokens: TokensList,
+  parentPath: string,
+  parentId: string,
 ) {
+  const set = new Set<string>()
+
   const examples = tokens.reduce((result, token) => {
-    Array.from(token.raw.trim().matchAll(/^<example([^]*?)\/>$/gi))
+    Array
+      .from(token.raw.trim().matchAll(/^<example([^]*?)\/>$/gi))
       .forEach((matched) => {
-        const attrs = formatAttrs(matched[1])
+        const { src, title, disabled } = formatAttrs(matched[1])
 
-        if (!attrs.src || result.find(e => e.src === attrs.src)) return
+        if (!src || set.has(src)) return
 
-        const example = { ...attrs } as unknown as ExampleItem
+        set.add(src)
 
-        example.filePath = formatFilePath(attrs.src, fileId)
+        const filePath = formatFilePath(src, parentPath)
 
-        example.compName = formatCompName(example.filePath)
+        const exampleName = formatExampleName(filePath)
 
-        example.moduleId = formatModuleId(example.filePath, _store)
+        const infoName = formatInfoName(filePath)
 
-        const [sourceCode, rawText, desc] = formatContent(example.filePath)
+        const jsxId = formatJsxId(_store, filePath)
 
-        const salt = formatSalt(sourceCode, example.moduleId, _store)
+        const cssId = formatCssId(_store, filePath)
 
-        result.push({ ...example, sourceCode, rawText, desc, salt })
+        updateModules(_store, jsxId, filePath)
+
+        updateModules(_store, cssId, filePath)
+
+        updateWatches(_store, filePath, [jsxId, cssId, parentId])
+
+        result.push({
+          title,
+          disabled,
+          filePath,
+          exampleName,
+          infoName,
+          jsxId,
+          cssId,
+        })
       })
     return result
   }, [] as ExampleItem[])
 
-  updateVirtualModules(examples, _store)
-
   return {
     title: '代码演示',
-    files: examples.map(item => item.filePath),
     imports: examples
-      .map(item => `import ${item.compName} from '${item.moduleId}?salt=${item.salt}'`)
+      .map(item => `import ${item.exampleName}, { ${item.infoName} } from '${item.jsxId}'\nimport '${item.cssId}'`)
       .join('\n'),
     code: `<CodeBlockList items={[
       ${examples.map(item => `{
-          desc: ${JSON.stringify(item.desc)},
+          desc: ${item.infoName}.desc,
           disabled: ${JSON.stringify(!!item.disabled)},
-          element: <${item.compName} />,
-          rawText: ${JSON.stringify(item.rawText)},
+          element: <div className={${item.infoName}.cssWrapName}><${item.exampleName} /></div>,
+          rawText: ${item.infoName}.rawText,
           title: ${JSON.stringify(item.title)},
         }`).join(',\n')}
     ]} />`,
