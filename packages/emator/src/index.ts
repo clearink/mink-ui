@@ -1,4 +1,4 @@
-import type BaseSchema from './schema/base'
+import type { BaseSchema } from './schema/base'
 
 import AnySchema from './schema/any'
 import ArraySchema from './schema/array'

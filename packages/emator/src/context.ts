@@ -1,4 +1,4 @@
-import { isFunction, isNullish, isNumber, isString } from '@internal/utils'
+import { isFunction, isNullish, isNumber, isString } from '@mink-ui/shared'
 
 import type { Context, Message, Name, SchemaIssue } from './interface'
 

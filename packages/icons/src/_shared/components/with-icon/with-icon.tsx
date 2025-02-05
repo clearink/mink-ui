@@ -1,7 +1,6 @@
-import type { IconComp, IconDesc } from '@icons/_shared/types'
-
 import { type ForwardedRef, forwardRef } from 'react'
 
+import type { IconComp, IconDesc } from '../../../_shared/types'
 import type { IconWrapProps } from './with-icon.props'
 
 export default function withIcon(Icon: IconComp, desc: IconDesc) {
@@ -16,7 +15,7 @@ export default function withIcon(Icon: IconComp, desc: IconDesc) {
       <span
         {...props}
         ref={ref}
-        className={`ink-icon icon-${name}${className ? ` ${className}` : ''}`}
+        className={`mink-icon icon-${name}${className ? ` ${className}` : ''}`}
         style={style}
         aria-label={name}
         role="img"

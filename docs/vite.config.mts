@@ -1,4 +1,4 @@
-import { constants } from '@internal/scripts'
+import { constants } from '@mink-ui/scripts'
 import react from '@vitejs/plugin-react'
 // import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
@@ -9,6 +9,10 @@ import loadMarkdown from './plugins/load-markdown'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
+  optimizeDeps: {
+    include: ['@mink-ui/icons'],
+  },
   plugins: [
     react(),
     eslint({
@@ -18,27 +22,24 @@ export default defineConfig({
     // visualizer({ gzipSize: true, brotliSize: true, open: true }),
     loadMarkdown(),
     emitWatches({
-      groups: ['./src/pages/**/*.md', '../packages/components/src/**/*.md'],
+      groups: ['./src/pages/**/*.md', '../packages/core/src/**/*.md'],
       output: './src/routes/routes.config.tsx',
     }),
   ],
   resolve: {
     alias: [
-      { find: '@shared', replacement: constants.resolveSrc('./_shared') },
-      { find: '@features', replacement: constants.resolveSrc('./features') },
-      { find: '@hooks', replacement: constants.resolveSrc('./hooks') },
-      { find: '@libs', replacement: constants.resolveSrc('./libs') },
-      { find: '@pages', replacement: constants.resolveSrc('./pages') },
-      { find: '@routes', replacement: constants.resolveSrc('./routes') },
+      { find: '@shared', replacement: constants.resolveSrc('_shared') },
+      { find: '@features', replacement: constants.resolveSrc('features') },
+      { find: '@hooks', replacement: constants.resolveSrc('hooks') },
+      { find: '@libs', replacement: constants.resolveSrc('libs') },
+      { find: '@pages', replacement: constants.resolveSrc('pages') },
+      { find: '@routes', replacement: constants.resolveSrc('routes') },
 
       /** others */
-      { find: /^@ink-ui\/core(\/(esm|lib)?)?/, replacement: constants.resolveComps('./src') },
-      { find: /^@ink-ui\/icons(\/(esm|lib)?)?/, replacement: constants.resolveIcons('./src') },
-      { find: /^@ink-ui\/emator(\/(esm|lib)?)?/, replacement: constants.resolveEmator('./src') },
-      { find: '@comps', replacement: constants.resolveComps('./src') },
-      { find: '@icons', replacement: constants.resolveIcons('./src') },
-      { find: '@emator', replacement: constants.resolveEmator('./src') },
+      { find: '@mink-ui/core', replacement: constants.resolveCore('src') },
+      { find: '@mink-ui/icons', replacement: constants.resolveIcons('src') },
+      { find: '@mink-ui/emator', replacement: constants.resolveEmator('src') },
+      { find: '@mink-ui/shared', replacement: constants.resolveShared('src') },
     ],
   },
-  base: './',
 })

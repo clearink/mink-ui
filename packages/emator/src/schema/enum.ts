@@ -1,12 +1,10 @@
-import type { Writable } from '@internal/types'
-
-import { isUndefined } from '@internal/utils'
+import { type Writable, isUndefined } from '@mink-ui/shared'
 
 import type { Context } from '../interface'
 
-import { enums } from '../locales/default'
+import { enums } from '../locales/en-US'
 import { Invalid, Valid } from '../make-rule'
-import BaseSchema from './base'
+import { BaseSchema } from './base'
 
 export type EnumItem = boolean | number | string | symbol
 export type EnumInput = Readonly<[EnumItem, ...EnumItem[]]>

@@ -1,13 +1,17 @@
-import type { Full, MayBe, NonUndefined } from '@internal/types'
-
-import { isObject, isUndefined } from '@internal/utils'
+import {
+  type Full,
+  type MayBe,
+  type NonUndefined,
+  isObject,
+  isUndefined,
+} from '@mink-ui/shared'
 
 import type { Context } from '../interface'
 
 import SchemaContext from '../context'
-import { object } from '../locales/default'
+import { object } from '../locales/en-US'
 import { Invalid, Valid } from '../make-rule'
-import BaseSchema from './base'
+import { BaseSchema } from './base'
 
 export type ObjectShape = Record<string, BaseSchema>
 

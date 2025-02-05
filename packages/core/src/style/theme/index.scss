@@ -1,0 +1,73 @@
+@import './colors.scss';
+@import './layout.scss';
+
+:root {
+  @include mink-typography();
+  @include mink-size();
+  @include mink-unit();
+  @include mink-control-height();
+  @include mink-margin();
+  @include mink-padding();
+  @include mink-radius();
+  @include mink-motion();
+  @include mink-shadow();
+  @include mink-color-icon();
+  @include mink-color-neutral();
+  @include mink-color-link();
+  @include mink-misc();
+}
+
+// 亮色模式
+:root,
+:root[data-theme='light'],
+:root[data-prefers-color='light'] {
+  @include mink-color-blue('light');
+  @include mink-color-volcano('light');
+  @include mink-color-red('light');
+  @include mink-color-cyan('light');
+  @include mink-color-geek-blue('light');
+  @include mink-color-gold('light');
+  @include mink-color-green('light');
+  @include mink-color-yellow('light');
+  @include mink-color-lime('light');
+  @include mink-color-magenta('light');
+  @include mink-color-orange('light');
+  @include mink-color-purple('light');
+  @include mink-color-primary('light');
+  @include mink-color-success('light');
+  @include mink-color-warning('light');
+  @include mink-color-info('light');
+  @include mink-color-error('light');
+  @include mink-color-control('light');
+  @include mink-color-text('light');
+  @include mink-color-background('light');
+  @include mink-color-border('light');
+  @include mink-color-fill('light');
+}
+
+// 深色模式
+:root[data-theme='dark'],
+:root[data-prefers-color='dark'] {
+  @include mink-color-blue('dark');
+  @include mink-color-volcano('dark');
+  @include mink-color-red('dark');
+  @include mink-color-cyan('dark');
+  @include mink-color-geek-blue('dark');
+  @include mink-color-gold('dark');
+  @include mink-color-green('dark');
+  @include mink-color-yellow('dark');
+  @include mink-color-lime('dark');
+  @include mink-color-magenta('dark');
+  @include mink-color-orange('dark');
+  @include mink-color-purple('dark');
+  @include mink-color-primary('dark');
+  @include mink-color-success('dark');
+  @include mink-color-warning('dark');
+  @include mink-color-info('dark');
+  @include mink-color-error('dark');
+  @include mink-color-control('dark');
+  @include mink-color-text('dark');
+  @include mink-color-background('dark');
+  @include mink-color-border('dark');
+  @include mink-color-fill('dark');
+}

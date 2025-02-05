@@ -6,10 +6,8 @@ export async function formatPkgJson(filePath: string) {
 
     return {
       pkgJson: json as Record<string, any>,
-      externals: Object.keys(dependencies)
-        .concat(Object.keys(peerDependencies))
-        .map(pkg => new RegExp(`^${pkg}`))
-        .concat(/node_modules/) as (RegExp | string)[],
+      dependencies: Object.keys(dependencies),
+      peerDependencies: Object.keys(peerDependencies),
     }
   })
 }

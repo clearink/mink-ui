@@ -1,4 +1,4 @@
-import { ctxHelper } from '@comps/_shared/utils'
+import { ctxHelper } from '@mink-ui/core/_shared/utils'
 
 export interface HomeLayoutContextState {
 }

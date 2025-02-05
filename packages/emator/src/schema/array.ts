@@ -1,12 +1,12 @@
-import { isArray, isUndefined } from '@internal/utils'
+import { isArray, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 
 import SchemaContext from '../context'
-import { array } from '../locales/default'
+import { array } from '../locales/en-US'
 import { Invalid, Valid, makeRule } from '../make-rule'
 import AnySchema from './any'
-import BaseSchema from './base'
+import { BaseSchema } from './base'
 
 export type MakeInnerType<T extends any[]> =
   T extends Array<infer I> ? (I extends BaseSchema ? I['_Out'][] : any[]) : any[]

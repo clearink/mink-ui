@@ -10,7 +10,7 @@ export default function HomeHeader() {
       <div className={styles.content}>
         <div className={styles.left}>
           <span className={styles.slogan} onClick={() => { navigate('/') }}>
-            ink-ui
+            mink-ui
           </span>
         </div>
         <div className={styles.right}>

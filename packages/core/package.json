@@ -1,0 +1,58 @@
+{
+  "name": "@mink-ui/core",
+  "version": "0.0.8",
+  "description": "mink-ui core components",
+  "author": "clearink",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clearink/mink-ui.git",
+    "directory": "packages/components"
+  },
+  "keywords": [
+    "mink-ui",
+    "react",
+    "components"
+  ],
+  "sideEffects": [
+    "dist/*",
+    "esm/**/style/*",
+    "lib/**/style/*",
+    "*.scss"
+  ],
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "unpkg": "./dist/index.min.js",
+  "jsdelivr": "./dist/index.min.js",
+  "types": "./src/index.ts",
+  "files": ["dist", "esm", "lib"],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org",
+    "main": "./lib/index.js",
+    "module": "./esm/index.mjs",
+    "unpkg": "./dist/index.min.js",
+    "types": "./esm/index.d.ts"
+  },
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "mink-cli build:core",
+    "lint:ts": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "catalog:",
+    "@mink-ui/icons": "workspace:^",
+    "@mink-ui/shared": "workspace:^",
+    "classnames": "2.5.1",
+    "react-fast-compare": "3.2.0",
+    "react-is": "18.3.1"
+  },
+  "devDependencies": {
+    "@mink-ui/scripts": "workspace:^",
+    "@types/react-is": "18.3.0"
+  }
+}

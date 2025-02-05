@@ -2,53 +2,69 @@ import type { TokensList } from 'marked'
 
 import type { CustomPluginStore, SemanticItem } from '../../interface'
 
-import { updateVirtualModules } from '../../utils/virtual-module'
+import { updateModules, updateWatches } from '../../utils/virtual-module'
 import formatAttrs from '../format-attrs'
-import formatId from '../format-id'
-import formatName from '../format-name'
-import formatPath from '../format-path'
-import formatSalt from '../format-salt'
-import formatContent from './format-content'
+import { formatCssId, formatJsxId } from '../format-id'
+import { formatExampleName, formatInfoName } from '../format-name'
+import { formatFilePath } from '../format-path'
 
 export default function parseSemanticDom(
-  tokens: TokensList,
-  fileId: string,
   _store: CustomPluginStore,
+  tokens: TokensList,
+  parentPath: string,
+  parentId: string,
 ) {
+  const set = new Set<string>()
+
   const semantics = tokens.reduce((result, token) => {
-    Array.from(token.raw.trim().matchAll(/^<semantic([^]*?)\/>$/gi))
+    Array
+      .from(token.raw.trim().matchAll(/^<semantic([^]*?)\/>$/gi))
       .forEach((matched) => {
-        const attrs = formatAttrs(matched[1])
+        const { src, disabled } = formatAttrs(matched[1])
 
-        if (!attrs.src || result.find(_ => _.src === attrs.src)) return
+        if (!src || set.has(src)) return
 
-        const semantic = { ...attrs } as unknown as SemanticItem
+        set.add(src)
 
-        semantic.filePath = formatPath(attrs.src, fileId)
+        const filePath = formatFilePath(src, parentPath)
 
-        semantic.compName = formatName(semantic.filePath)
+        const exampleName = formatExampleName(filePath)
 
-        semantic.moduleId = formatId(semantic.filePath, _store)
+        const infoName = formatInfoName(filePath)
 
-        const sourceCode = formatContent(semantic.filePath)
+        const jsxId = formatJsxId(_store, filePath)
 
-        const salt = formatSalt(sourceCode, semantic.moduleId, _store)
+        const cssId = formatCssId(_store, filePath)
 
-        result.push({ ...semantic, sourceCode, salt })
+        updateModules(_store, jsxId, filePath)
+
+        updateModules(_store, cssId, filePath)
+
+        updateWatches(_store, filePath, [cssId, jsxId, parentId])
+
+        result.push({
+          disabled,
+          filePath,
+          exampleName,
+          infoName,
+          jsxId,
+          cssId,
+        })
       })
     return result
   }, [] as SemanticItem[])
 
-  updateVirtualModules(semantics, _store)
-
   return {
     title: 'Semantic DOM',
-    files: semantics.map(item => item.filePath),
     imports: semantics
-      .map(item => `import ${item.compName} from '${item.moduleId}?salt=${item.salt}'`)
+      .map(item => `import ${item.exampleName}, { ${item.infoName} } from '${item.jsxId}'\nimport '${item.cssId}'`)
       .join('\n'),
     code: semantics
-      .map(item => `<SemanticBlock><${item.compName} /></SemanticBlock>`)
+      .map(item => `<SemanticBlock>
+          <div className={${item.infoName}.cssWrapName}>
+            <${item.exampleName} />
+          </div>
+        </SemanticBlock>`)
       .join('\n'),
   }
 }

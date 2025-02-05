@@ -1,7 +1,7 @@
-import { SwitchTransition } from '@comps/_shared/components'
-import { cls } from '@comps/_shared/utils'
-import { Grid } from '@comps/grid'
 import { HomeFooter } from '@features/home'
+import { SwitchTransition } from '@mink-ui/core/_shared/components'
+import { cls } from '@mink-ui/core/_shared/utils'
+import { Grid } from '@mink-ui/core/grid'
 import { useLocation, useOutlet } from 'react-router-dom'
 
 import LayoutSider from '../layout-sider'

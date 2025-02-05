@@ -1,5 +1,5 @@
-import { withDefaults } from '@comps/_shared/utils'
-import { makeTimeout } from '@internal/utils'
+import { withDefaults } from '@mink-ui/core/_shared/utils'
+import { makeTimeout } from '@mink-ui/shared'
 import { useEffect, useState } from 'react'
 
 import styles from './style.module.scss'

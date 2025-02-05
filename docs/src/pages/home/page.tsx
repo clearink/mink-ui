@@ -1,5 +1,5 @@
-import Button from '@comps/button'
 import { HomeFooter } from '@features/home'
+import Button from '@mink-ui/core/button'
 import { useNavigate } from 'react-router-dom'
 
 import styles from './page.module.scss'

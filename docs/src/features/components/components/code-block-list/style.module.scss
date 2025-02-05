@@ -1,8 +1,8 @@
 .code_block_list {
   display: flex;
   flex-direction: column;
-  margin: calc(var(--ink-unit-1_5) * -1);
+  margin: calc(var(--mink-unit-1_5) * -1);
   .block_item {
-    margin-bottom: var(--ink-unit-4);
+    margin-bottom: var(--mink-unit-4);
   }
 }

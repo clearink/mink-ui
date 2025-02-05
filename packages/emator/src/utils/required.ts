@@ -1,6 +1,6 @@
-import { isUndefined } from '@internal/utils'
+import { isUndefined } from '@mink-ui/shared'
 
-import type BaseSchema from '../schema/base'
+import type { BaseSchema } from '../schema/base'
 
 import { EffectSchema } from '../schema/base'
 

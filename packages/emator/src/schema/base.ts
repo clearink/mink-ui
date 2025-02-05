@@ -1,4 +1,4 @@
-import { isNull, isNullish, isUndefined, omit } from '@internal/utils'
+import { isNull, isNullish, isUndefined, omit } from '@mink-ui/shared'
 
 import type {
   Context,
@@ -12,7 +12,7 @@ import type {
 } from '../interface'
 
 import SchemaContext from '../context'
-import { base, union } from '../locales/default'
+import { base, union } from '../locales/en-US'
 import { Invalid, Valid, makeRule } from '../make-rule'
 
 /** ========================================================================== */
@@ -20,7 +20,7 @@ import { Invalid, Valid, makeRule } from '../make-rule'
 /** BaseSchema                                                                 */
 /** ========================================================================== */
 /** ========================================================================== */
-export default abstract class BaseSchema<Out = any, In = Out> {
+export abstract class BaseSchema<Out = any, In = Out> {
   readonly _In!: In
 
   readonly _Out!: Out

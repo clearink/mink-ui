@@ -1,10 +1,10 @@
-import { isBoolean, isUndefined } from '@internal/utils'
+import { isBoolean, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 
-import { boolean } from '../locales/default'
+import { boolean } from '../locales/en-US'
 import { Invalid, Valid, makeRule } from '../make-rule'
-import BaseSchema from './base'
+import { BaseSchema } from './base'
 
 export default class BooleanSchema extends BaseSchema<boolean | undefined> {
   constructor(private message: Message = boolean.invalid) {

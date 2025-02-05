@@ -1,5 +1,5 @@
-import { cls } from '@comps/_shared/utils'
 import marked from '@libs/marked'
+import { cls } from '@mink-ui/core/_shared/utils'
 import { useEffect, useState } from 'react'
 
 import styles from './style.module.scss'

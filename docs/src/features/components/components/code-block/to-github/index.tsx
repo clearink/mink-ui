@@ -1,5 +1,5 @@
-import { Tooltip } from '@comps/tooltip'
-import EditOutlined from '@icons/icons/EditOutlined'
+import { Tooltip } from '@mink-ui/core/tooltip'
+import { EditOutlined } from '@mink-ui/icons'
 
 import styles from './style.module.scss'
 

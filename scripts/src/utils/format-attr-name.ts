@@ -1,6 +1,5 @@
-import { capitalize } from '@internal/utils'
-
 import { constants } from './constants'
+import { capitalize } from './shared'
 
 const re = new RegExp(`^${constants.iconAttrNamePrefix}`)
 

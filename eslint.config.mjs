@@ -62,12 +62,6 @@ export default antfu({
         selector: 'WithStatement',
       },
     ],
-    'no-restricted-imports': ['error', {
-      patterns: [{
-        group: ['@features/*/*'],
-        message: '请直接使用 @features/xxx 导入语句',
-      }],
-    }],
     'eslint-comments/no-unlimited-disable': 'off',
   },
 }).overrides({

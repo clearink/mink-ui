@@ -1,1 +1,1 @@
-# `ink-ui icons`
+# `mink-ui icons`

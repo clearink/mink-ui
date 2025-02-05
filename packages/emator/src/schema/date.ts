@@ -1,10 +1,10 @@
-import { isDate, isUndefined } from '@internal/utils'
+import { isDate, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 
-import { date } from '../locales/default'
+import { date } from '../locales/en-US'
 import { Invalid, Valid, makeRule } from '../make-rule'
-import BaseSchema from './base'
+import { BaseSchema } from './base'
 
 export default class DateSchema extends BaseSchema<Date | undefined> {
   constructor(private message: Message = date.invalid) {

@@ -1,7 +1,7 @@
-import { capitalize } from '@internal/utils'
 import path from 'node:path'
 
 import { removeExtname } from './remove-extname'
+import { capitalize } from './shared'
 
 export function formatIconName(file: string) {
   const basename = path.basename(file)

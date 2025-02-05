@@ -9,7 +9,7 @@ export default function replaceSpecifier(
   project: Project,
   options: BuildDtsOptions,
 ) {
-  const { externals, builtins: alias } = options
+  const { externals, alias } = options
 
   project.getSourceFiles().forEach((sourceFile) => {
     const filePath = sourceFile.getFilePath()

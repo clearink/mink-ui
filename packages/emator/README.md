@@ -1,1 +1,1 @@
-# `ink-ui schema validator`
+# `mink-ui schema validator`

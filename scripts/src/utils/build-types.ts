@@ -1,20 +1,21 @@
-import glob from 'fast-glob'
-import fse from 'fs-extra'
-import tsm from 'ts-morph'
+import type { Alias } from '@rollup/plugin-alias'
 
-import type { BuiltinTypeDefinitionItem } from '../interface'
+import fse from 'fs-extra'
+import path from 'node:path'
+import slash from 'slash'
+import tsm from 'ts-morph'
 
 import { constants } from './constants'
 import { getBuiltinSources } from './get-builtin-sources'
-import replaceSpecifier from './replace-specifier'
+import { removeExtname } from './remove-extname'
 
 export interface BuildDtsOptions {
   externals: (RegExp | string)[]
-  builtins: BuiltinTypeDefinitionItem[]
+  alias: Alias[]
 }
 
 // 打包类型
-export async function buildTypes(options: BuildDtsOptions) {
+export async function buildTypes() {
   const project = new tsm.Project({
     skipAddingFilesFromTsConfig: true,
     tsConfigFilePath: constants.resolveCwd('tsconfig.json'),
@@ -26,10 +27,9 @@ export async function buildTypes(options: BuildDtsOptions) {
     },
   })
 
-  await getBuiltinSources(project, options.builtins)
+  await getBuiltinSources(project)
 
-  // 替换 alias
-  replaceSpecifier(project, options)
+  // replaceSpecifier(project, options)
 
   const diagnostics = project.getPreEmitDiagnostics()
 
@@ -37,11 +37,19 @@ export async function buildTypes(options: BuildDtsOptions) {
     throw new Error(project.formatDiagnosticsWithColorAndContext(diagnostics))
   }
 
-  await project.emit({ emitOnlyDtsFiles: true })
+  await Promise.all(
+    project.getSourceFiles().map(async (sourceFile) => {
+      await sourceFile.emit({ emitOnlyDtsFiles: true })
 
-  // copy dts files to lib
-  const files = await glob.async('**/*.d.ts', { cwd: constants.esm })
+      const filePath = sourceFile.getFilePath()
 
-  await Promise.all(files.map(file =>
-    fse.copy(constants.resolveEsm(file), constants.resolveCjs(file))))
+      const entryName = removeExtname(slash(path.relative(constants.src, filePath)))
+
+      const sourcePath = constants.resolveEsm(`${entryName}.d.ts`)
+
+      const targetPath = constants.resolveCjs(`${entryName}.d.ts`)
+
+      return fse.copy(sourcePath, targetPath)
+    }),
+  )
 }

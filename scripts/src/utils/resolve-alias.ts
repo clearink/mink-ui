@@ -1,6 +1,7 @@
-import { isUndefined } from '@internal/utils'
 import path from 'node:path'
 import slash from 'slash'
+
+import { isUndefined } from './shared'
 
 function moduleMatches(pattern: RegExp | string, value: string) {
   if (pattern instanceof RegExp) return pattern.test(value)

@@ -1,11 +1,11 @@
-import { isNullish, isString, isUndefined } from '@internal/utils'
+import { isNullish, isString, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 
-import { base, string } from '../locales/default'
+import { base, string } from '../locales/en-US'
 import { Invalid, Valid, makeRule } from '../make-rule'
 import * as REGEX from '../utils/regex'
-import BaseSchema, { EffectSchema } from './base'
+import { BaseSchema, EffectSchema } from './base'
 
 export default class StringSchema extends BaseSchema<string | undefined> {
   constructor(private message: Message = string.invalid) {

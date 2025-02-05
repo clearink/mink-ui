@@ -1,10 +1,10 @@
-import { isNumber, isUndefined } from '@internal/utils'
+import { isNumber, isUndefined } from '@mink-ui/shared'
 
 import type { Context, Message } from '../interface'
 
-import { number } from '../locales/default'
+import { number } from '../locales/en-US'
 import { Invalid, Valid, makeRule } from '../make-rule'
-import BaseSchema from './base'
+import { BaseSchema } from './base'
 
 export default class NumberSchema extends BaseSchema<number | undefined> {
   constructor(private message: Message = number.invalid) {

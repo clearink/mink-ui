@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
 
-import { constants } from '@internal/scripts'
+import { constants } from '@mink-ui/scripts'
 import fse from 'fs-extra'
 import prettier from 'prettier'
 
