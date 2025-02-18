@@ -1,1 +1,0 @@
-import{j as e}from"./index-CsKKL_Kz.js";import"./index-BC_TnJie.js";import{S as r}from"./index-ByX4AT8g.js";function s(){return e.jsx(r,{options:["Daily","Weekly","Monthly","Quarterly","Yearly"],onChange:o=>{console.log(o)}})}export{s as A};
