@@ -2,7 +2,7 @@ import type { ExternalNamePath, InternalFieldMeta } from '../_shared.props'
 import type { ExternalFormFieldProps } from '../field/props'
 import type { FormListHelpers, InternalListField } from './control/props'
 
-export interface InternalFormListProps extends Pick<ExternalFormFieldProps, 'preserve' | 'rule'> {
+export interface InternalFormListProps extends Pick<ExternalFormFieldProps, 'rule'> {
   children: (
     fields: InternalListField[],
     helpers: FormListHelpers,
@@ -14,4 +14,11 @@ export interface InternalFormListProps extends Pick<ExternalFormFieldProps, 'pre
   initialValue?: any[]
 
   name: ExternalNamePath
+
+  /**
+  /* @private
+   * @zh-CN 嵌套 List 表单时标识
+   */
+  refreshField?: () => void
+
 }

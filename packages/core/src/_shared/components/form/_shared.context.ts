@@ -2,19 +2,20 @@ import type { AnyObj } from '@mink-ui/shared'
 
 import { noop } from '@mink-ui/shared'
 
-import type { ExternalFieldData } from './_shared.props'
+import type { ExternalFieldData, InternalNamePath } from './_shared.props'
 import type { ExternalFormInstance, InternalFormInstance } from './form/control/props'
+import type { InternalFormProps } from './form/props'
 
 import { ctxHelper, logger } from '../../../_shared/utils'
 
-export interface InternalFormContextState {
+export interface InternalFormProviderContextState {
   register: (form: ExternalFormInstance, name?: string) => () => void
   triggerFormChange: (name: string, changedFields: ExternalFieldData[]) => void
   triggerFormFinish: (name: string, values: AnyObj) => void
 }
 
-// Form 组件传递数据给 Form.Field
-export const InternalFormContext = ctxHelper<InternalFormContextState>({
+// Form 组件联动
+export const InternalFormProviderContext = ctxHelper<InternalFormProviderContextState>({
   register: () => noop,
   triggerFormChange: noop,
   triggerFormFinish: noop,
@@ -32,17 +33,15 @@ export const InternalFormInstanceContext = ctxHelper<InternalFormInstance>({
   getFieldsValue: notFoundContext,
   getInternalHooks: () => ({
     dispatch: notFoundContext,
-    ensureInitialized: notFoundContext,
-    getControl: notFoundContext,
-    metaUpdate: notFoundContext,
     registerField: notFoundContext,
-    registerSubscribe: notFoundContext,
-    registerWatch: notFoundContext,
     setFields: notFoundContext,
-    setInitialValues: notFoundContext,
-    setInternalFormMisc: notFoundContext,
-    setPreserve: notFoundContext,
-    subscribe: notFoundContext,
+    updateControlsMap: notFoundContext,
+    registerWatch: notFoundContext,
+    setInternalFormProps: notFoundContext,
+    collectDependencies: notFoundContext,
+    updateDependencies: notFoundContext,
+    mergeInitialValues: notFoundContext,
+    initInitialValue: notFoundContext,
   }),
   isFieldTouched: notFoundContext,
   isFieldValidating: notFoundContext,
@@ -55,3 +54,22 @@ export const InternalFormInstanceContext = ctxHelper<InternalFormInstance>({
   validateField: notFoundContext,
   validateFields: notFoundContext,
 }, 'InternalFormInstanceContext')
+
+// 由 Form 组件传递给 Field 组件的某些属性
+export interface InternalFormContextState {
+  validateTrigger: InternalFormProps['validateTrigger']
+}
+
+export const InternalFormContext = ctxHelper<InternalFormContextState>({
+  validateTrigger: undefined,
+})
+
+export interface InternalFormListContextState {
+  listPath: InternalNamePath
+}
+
+// Form.List 组件传递给 Form.Item 组件的某些属性
+export const InternalFormListContext = ctxHelper<InternalFormListContextState | null>(
+  null,
+  'InternalFormListContext',
+)

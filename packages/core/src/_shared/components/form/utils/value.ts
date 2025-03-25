@@ -1,17 +1,23 @@
-import { hasOwn, isArray, isNullish, isNumber, isObject, rawType } from '@mink-ui/shared'
+import { hasOwn, isArray, isNullish, isNumber, isObject, isPureObject, rawType } from '@mink-ui/shared'
 
 import type { InternalNamePath } from '../_shared.props'
+
+function _clone<V = any>(source: V, attr: InternalNamePath[number]): V {
+  if (isArray(source)) return [...source] as V
+
+  if (isObject(source)) return { ...source }
+
+  if (isNullish(source) && isNumber(attr)) return [] as V
+
+  return { ...source } as V
+}
 
 function _setIn<V = any>(source: V, paths: InternalNamePath, value: any, cursor: number): V {
   if (cursor >= paths.length) return value
 
   const attr = paths[cursor]
 
-  let data = {} as V
-
-  if (isArray(source)) data = source.concat() as unknown as V
-  else if (isObject(source)) data = { ...source }
-  else if (isNumber(attr)) data = [] as unknown as V
+  const data = _clone(source, attr)
 
   data[attr] = _setIn(data[attr], paths, value, cursor + 1)
 
@@ -22,29 +28,37 @@ export function setIn<V = any>(source: V, paths: InternalNamePath, value: any): 
   return !isObject(source) ? source : _setIn(source, paths, value, 0)
 }
 
-export function getIn<V = any>(values: V, paths: InternalNamePath): any {
+export function getIn<V = any>(entity: V, paths: InternalNamePath): any {
   const len = paths.length
 
   for (let i = 0; i < len; i++) {
-    if (isNullish(values)) return values
-    values = values[paths[i]]
+    if (isNullish(entity)) return undefined
+
+    entity = entity[paths[i]]
   }
 
   // 空路径返回 undefined
-  return len ? values : undefined
+  return len > 0 ? entity : undefined
 }
 
+// 也需要深拷贝
 function _deleteIn<V = any>(source: V, paths: InternalNamePath, cursor: number): V {
   if (cursor >= paths.length) return source
 
   const attr = paths[cursor]
 
+  // source 不是对象 || 不存在该属性
+  if (!isObject(source as any)) return source
+
+  // 不存在该属性
   if (!hasOwn(source as any, attr)) return source
 
-  if (cursor === paths.length - 1) delete source[attr]
-  else _deleteIn(source[attr], paths, cursor + 1)
+  const data = _clone(source, attr)
 
-  return source
+  if (cursor === paths.length - 1) delete data[attr]
+  else data[attr] = _deleteIn(data[attr], paths, cursor + 1)
+
+  return data
 }
 
 // 删除指定字段
@@ -53,58 +67,49 @@ export function deleteIn<V = any>(source: V, paths: InternalNamePath): any {
 }
 
 // 合并对象
-function internalMerge(target: any, source: any, map = new WeakMap()) {
-  if (rawType(target) !== rawType(source)) return source
-
-  if (!isObject(target)) return source
-
+function _merge(target: any, source: any, map = new WeakMap()) {
   if (map.has(target)) return map.get(target)
 
-  // 数组直接覆盖
-  if (isArray(target)) return source
+  if (rawType(target) !== rawType(source)) return source
 
-  // 其他非基础类型数据
-  if (!isObject(target)) return target
+  // 不是 Array && 不是原始的 Object
+  if (!isArray(target) && !isPureObject(target)) return source
 
-  const init = { ...target }
+  // 数组替换时需要直接使用最新值
+  const merged = isArray(target) ? [] : { ...target }
 
-  map.set(target, init)
+  map.set(target, merged)
 
   return Object.entries(source).reduce((result, [key, value]) => {
-    result[key] = internalMerge(result[key], value, map)
+    result[key] = _merge(target[key], value, map)
 
     return result
-  }, init)
+  }, merged)
 }
 
 // 合并数据
-export function mergeValue<V = any>(target: V, ...sources: any[]): V {
-  const init = isArray(target) ? target.concat() : { ...target }
+export function merge<V = any>(target: V, ...sources: any[]): V {
+  const init = isArray(target) ? [...target] : { ...target }
 
-  return sources.reduce((result, current) => internalMerge(result, current), init)
+  return sources.reduce((result, current) => _merge(result, current), init)
 }
 
-// 仅复制路径下的值
-export function cloneWithPath<V>(source: V, paths: InternalNamePath) {
-  if (!isObject(source) || !paths.length) return source
+// 设置对象值, 但不进行拷贝
+function _defineIn<V = any>(source: V, paths: InternalNamePath, value: any, cursor: number): V {
+  if (cursor >= paths.length) return value
 
-  const [path, ...rest] = paths
-  const init = isArray(source) ? [] : {}
-  init[path] = cloneWithPath(source[path], rest)
+  const attr = paths[cursor]
 
-  return init as V
+  let data = {} as V
+
+  if (isObject(source[attr])) data = source[attr] as V
+  else if (isNumber(paths[cursor + 1])) data = [] as V
+
+  source[attr] = _defineIn(data, paths, value, cursor + 1)
+
+  return source
 }
 
-export function hasOwnWithPath<V>(source: V, paths: InternalNamePath) {
-  const len = paths.length
-
-  for (let i = 0; i < len; i++) {
-    const key = paths[i]
-
-    if (!hasOwn(source as any, key)) return false
-
-    source = source[key]
-  }
-
-  return !!len
+export function defineIn<V = any>(source: V, paths: InternalNamePath, value: any): V {
+  return !isObject(source) ? source : _defineIn(source, paths, value, 0)
 }

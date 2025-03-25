@@ -1,13 +1,13 @@
 import { batch, noop } from '@mink-ui/shared'
 import { useMemo, useRef } from 'react'
 
-import type { InternalFormContextState } from '../_shared.context'
+import type { InternalFormProviderContextState } from '../_shared.context'
 import type { Forms, InternalFormProviderProps } from './props'
 
 import { betterDisplayName } from '../../../../_shared/utils'
 
 // import FormProviderControl from './control'
-import { InternalFormContext } from '../_shared.context'
+import { InternalFormProviderContext } from '../_shared.context'
 
 function FormProvider(props: InternalFormProviderProps) {
   // TODO: chore
@@ -15,9 +15,9 @@ function FormProvider(props: InternalFormProviderProps) {
 
   const forms = useRef<Forms>({})
 
-  const parentContext = InternalFormContext.useState()
+  const parentContext = InternalFormProviderContext.useState()
 
-  const formContext = useMemo<InternalFormContextState>(() => {
+  const formProviderContext = useMemo<InternalFormProviderContextState>(() => {
     return {
       register: batch(parentContext.register, (form, name) => {
         if (!name) return noop
@@ -32,9 +32,9 @@ function FormProvider(props: InternalFormProviderProps) {
   }, [parentContext])
 
   return (
-    <InternalFormContext.Provider value={formContext}>
+    <InternalFormProviderContext.Provider value={formProviderContext}>
       {props.children}
-    </InternalFormContext.Provider>
+    </InternalFormProviderContext.Provider>
   )
 }
 

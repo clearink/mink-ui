@@ -1,16 +1,10 @@
 import type { ExternalFormInstance } from '../control/props'
 
-import { useConstant, useForceUpdate, useMounted } from '../../../../../_shared/hooks'
-import FormGroupControl from '../control'
+import { useConstant, useForceUpdate } from '../../../../../_shared/hooks'
+import FormControl from '../control'
 
 export default function useForm<S = any>(form?: ExternalFormInstance<S>) {
-  const mounted = useMounted()
+  const forceUpdate = useForceUpdate()
 
-  const update = useForceUpdate()
-
-  return useConstant<ExternalFormInstance<S>>(() => {
-    const callback = () => mounted() && update()
-
-    return form || new FormGroupControl(callback).injectForm()
-  })
+  return useConstant(() => form || new FormControl<S>(forceUpdate).injectForm())
 }

@@ -1,5 +1,4 @@
 export interface InternalListField {
-  isListField: boolean
   key: number
   name: number
 }

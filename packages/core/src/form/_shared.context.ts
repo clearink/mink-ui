@@ -2,9 +2,9 @@ import { noop } from '@mink-ui/shared'
 
 import type { ColProps } from '../col'
 import type {
-  FieldMeta,
   FormLabelAlign,
   FormLayout,
+  MetaChangeEvent,
   RequiredMark,
   ValidateStatus,
 } from './_shared.props'
@@ -38,4 +38,4 @@ export const FormItemContext = ctxHelper<FormItemContextState>({}, 'FormItemCont
 // 收集子字段的 errors 与 warnings
 
 // 收集 noStyle 字段的错误到最近的Form.Item组件上
-export const NoStyleContext = ctxHelper<(meta: FieldMeta) => void>(noop, 'NoStyleContext')
+export const NoStyleContext = ctxHelper<(meta: MetaChangeEvent) => void>(noop, 'NoStyleContext')

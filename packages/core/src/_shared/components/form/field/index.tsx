@@ -1,64 +1,102 @@
-import { isUndefined, toArray } from '@mink-ui/shared'
-import { Fragment, useEffect, useMemo } from 'react'
+import { fallback, isUndefined, toArray } from '@mink-ui/shared'
+import { Fragment, useMemo, useReducer } from 'react'
+import isEqual from 'react-fast-compare'
 
 import type { ExternalFormFieldProps, InternalFormFieldProps } from './props'
 
-import { useConstant, useDeepMemo, useWatchValue } from '../../../../_shared/hooks'
-import { betterDisplayName, withDefaults } from '../../../../_shared/utils'
-import { InternalFormInstanceContext } from '../_shared.context'
+import { betterDisplayName, logger, withDefaults } from '../../../../_shared/utils'
+import { useWatchValue } from '../../../hooks'
+import { InternalFormContext, InternalFormInstanceContext, InternalFormListContext } from '../_shared.context'
 import { HOOK_MARK } from '../form/control'
-import { _getName } from '../utils/path'
-import useFieldControl from './hooks/use-field-control'
-import useInjectField from './hooks/use-inject-field'
+import { _getId } from '../utils/path'
+import useFieldBootstrap from './hooks/use-field-bootstrap'
 import { defaultInternalFormFieldProps } from './props'
+import { normalizeChildren } from './utils/children'
+import { defaultGetValueFromEvent, defaultGetValueProps } from './utils/getter'
 
 function _InternalFormField(_props: InternalFormFieldProps) {
-  const props = withDefaults(_props, defaultInternalFormFieldProps)
+  const props = useMemo(() => {
+    const valuePropName = fallback(_props.valuePropName, defaultInternalFormFieldProps.valuePropName)!
+    return withDefaults(_props, {
+      ...defaultInternalFormFieldProps,
+      getValueProps: defaultGetValueProps(valuePropName),
+      getValueFromEvent: defaultGetValueFromEvent(valuePropName),
+    })
+  }, [_props])
 
-  const { rule, dependencies } = props
+  const { name, dependencies } = props
 
-  // 父级表单方法
+  // 表单实例
   const instance = InternalFormInstanceContext.useState()
+  // 表单上下文
+  const formContext = InternalFormContext.useState()
 
   const internalHooks = useMemo(() => instance.getInternalHooks(HOOK_MARK)!, [instance])
 
-  const [control, resetCount] = useFieldControl()
+  const [control, refreshCount] = useFieldBootstrap(internalHooks, instance, props)
 
-  useMemo(() => { control.setInternalFieldProps(props) }, [control, props])
-
-  // 设置初始值,减少一次 re-render
-  useConstant(() => { internalHooks.ensureInitialized(control) })
-
-  // 注册子字段 销毁时移除该字段
-  useEffect(() => internalHooks.registerField(control), [control, internalHooks])
-
-  // 监听依赖字段, 当依赖字段变更时，会执行 control 自身的校验函数
-  // 当 dependencies 改变时，重新订阅
-  // name 属性变化会直接重新mount，在此处不用考虑
-  const key = useDeepMemo(() => dependencies, [dependencies])
-  useEffect(() => internalHooks.subscribe(control), [control, internalHooks, key])
-
-  // rule 变为空时清除当前的错误信息
-  const returnEarly = useWatchValue(rule, (curr, prev) => {
-    if (!curr && prev) control.metaUpdate({ errors: [], warnings: [] })
+  // 监听 name 变化
+  const returnEarly1 = useWatchValue(name, {
+    compare: isEqual,
+    listener: (_, prev) => { internalHooks.updateControlsMap(control, prev) },
   })
 
-  // 数据注入
-  const children = useInjectField(props, instance, control, internalHooks)
+  // 监听 dependencies 变化
+  const returnEarly2 = useWatchValue(dependencies, {
+    compare: isEqual,
+    listener: () => { internalHooks.updateDependencies(control) },
+  })
 
-  return returnEarly ? null : <Fragment key={resetCount}>{children}</Fragment>
+  if (returnEarly1 || returnEarly2) return null
+
+  return (
+    <Fragment key={refreshCount}>
+      {normalizeChildren(internalHooks, formContext, instance, control, props)}
+    </Fragment>
+  )
 }
 
 function InternalFormField(props: ExternalFormFieldProps) {
-  const { isListField, name } = props
+  const { isFormList, name, preserve } = props
 
-  const { listPath = [] } = InternalFormInstanceContext.useState()
+  const listContext = InternalFormListContext.useState()
 
-  const path = isUndefined(name) ? [] : listPath.concat(toArray(name))
+  const listPath = listContext?.listPath || []
 
-  const key = isListField ? 'keep' : _getName(path)
+  const arrayName = toArray(name)
 
-  return <_InternalFormField key={key} {...props} name={path} />
+  const fieldName = isUndefined(name) ? [] : listPath.concat(arrayName)
+
+  let isListField: InternalFormFieldProps['isListField']
+
+  if (!listContext) isListField = false
+  else if (listPath.length === 0) isListField = false
+  else if (arrayName.length === 0) isListField = false
+  else if (arrayName.length > 1) isListField = { type: 'complex', listPath }
+  else isListField = { type: 'simple', listPath }
+
+  if (process.env.NODE_ENV !== 'production') {
+    logger(
+      preserve === false && isListField && isListField.type === 'simple',
+      '`preserve` should not apply on Form.List direct field.',
+    )
+  }
+
+  // 仅为 Form.List reset 提供
+  const [refreshCount, refreshField] = useReducer(count => count + 1, 0)
+
+  return (
+    <Fragment key={refreshCount}>
+      <_InternalFormField
+        {...props}
+        // 是列表字段时, 需要固定一个 key, 保证列表字段不会频繁的卸载和挂载
+        key={isListField ? 'controlled' : _getId(fieldName)}
+        isListField={isListField}
+        refreshField={isFormList ? refreshField : undefined}
+        name={fieldName}
+      />
+    </Fragment>
+  )
 }
 
 betterDisplayName(InternalFormField, 'InternalForm.Field')

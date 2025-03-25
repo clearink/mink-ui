@@ -1,12 +1,12 @@
-import type { AnyObj } from '@mink-ui/shared'
+import type { AnyObj, VoidFn } from '@mink-ui/shared'
 import type { ReactNode } from 'react'
 
 import type {
-  ExternalFieldMeta,
   ExternalNamePath,
   FormActionType,
   InternalFieldMeta,
   InternalNamePath,
+  MetaChangeEvent,
   RuleLike,
 } from '../_shared.props'
 import type { ExternalFormInstance } from '../form/control/props'
@@ -15,7 +15,7 @@ export interface InternalFormFieldProps<S = any> {
   children?:
   | ((
     control: AnyObj,
-    meta: InternalFieldMeta,
+    metadata: InternalFieldMeta,
     formInstance: ExternalFormInstance<S>,
   ) => React.ReactNode)
   | ReactNode
@@ -45,8 +45,25 @@ export interface InternalFormFieldProps<S = any> {
    */
   initialValue?: S
 
-  /* @private */
-  isListField?: boolean
+  /**
+   * @private
+   * @zh-CN 字段是否为 Form.List 组件
+   */
+  isFormList?: boolean
+
+  /**
+   * @private
+   * @zh-CN 字段是否为列表字段 complex 表示 list.0.xxx 之类的字段
+   */
+  isListField?: { listPath: InternalNamePath, type: 'complex' }
+    | { listPath: InternalNamePath, type: 'simple' }
+    | false
+
+  /**
+   * @private
+   * @zh-CN resetFields 时需要对Form.List进行特殊操作
+   */
+  refreshField?: VoidFn
 
   /**
    * @zh-CN 字段路径
@@ -56,7 +73,12 @@ export interface InternalFormFieldProps<S = any> {
   /**
    * @zh-CN 字段状态变更通知
    */
-  onMetaChange?: (meta: ExternalFieldMeta) => void
+  onMetaChange?: (meta: MetaChangeEvent) => void
+
+  /**
+   * @zh-CN 字段重置回调函数
+   */
+  onReset?: () => void
 
   /**
    * @zh-CN 字段删除时仍然保留数据
@@ -72,7 +94,7 @@ export interface InternalFormFieldProps<S = any> {
    * @zh-CN 自定义字段更新逻辑，说明[见下](#shouldUpdate)
    * @default false
    */
-  shouldUpdate?: ((prev: S, next: S, action: FormActionType) => boolean) | boolean
+  shouldUpdate?: ((prev: S, next: S, action: FormActionType) => boolean) | true
 
   /**
    * @zh-CN 收集字段时机
@@ -93,13 +115,13 @@ export interface InternalFormFieldProps<S = any> {
   validateTrigger?: false | string | string[]
 
   /**
-   * @zh-CN 注入属性名称(名称待优化)
+   * @zh-CN 注入属性名称
    * @default value
    */
   valuePropName?: string
 }
 
-export interface ExternalFormFieldProps<S = any> extends Omit<InternalFormFieldProps<S>, 'name'> {
+export interface ExternalFormFieldProps<S = any> extends Omit<InternalFormFieldProps<S>, 'isListField' | 'name'> {
   /**
    * @zh-CN 字段路径
    */

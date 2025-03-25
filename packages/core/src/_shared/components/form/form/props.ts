@@ -1,6 +1,6 @@
 import type { ComponentType, FormEvent, FormHTMLAttributes, ReactNode } from 'react'
 
-import type { InternalFieldData } from '../_shared.props'
+import type { InternalFieldInfo, InternalFormValidateErrorInfo } from '../_shared.props'
 import type { ExternalFormInstance } from './control/props'
 
 export interface InternalFormProps<S = any>
@@ -10,7 +10,7 @@ export interface InternalFormProps<S = any>
   /**
    * @zh-CN 通过状态管理（如 redux）控制表单字段，如非强需求不推荐使用
    */
-  fields?: InternalFieldData[]
+  fields?: InternalFieldInfo[]
 
   /**
    * @zh-CN useForm 返回值，不传会自动创建
@@ -25,14 +25,14 @@ export interface InternalFormProps<S = any>
   /**
    * @zh-CN 校验失败后的回调
    */
-  onFailed?: (errors: any) => void
+  onFailed?: (errors: InternalFormValidateErrorInfo<S>) => void
 
   /**
    * @zh-CN 字段变更时的回调, 仅在用户操作表单项时触发
    */
   onFieldsChange?: (
-    changedFields: InternalFieldData[],
-    getFields: () => InternalFieldData[],
+    changedFields: InternalFieldInfo[],
+    getFields: () => InternalFieldInfo[],
   ) => void
 
   /**

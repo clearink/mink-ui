@@ -29,11 +29,11 @@ export default class FormListControl {
   }
 
   private dispatchEvent = (value: any[]) => {
-    const internalHook = this._context?.getInternalHooks(HOOK_MARK)
+    const internalHooks = this._context?.getInternalHooks(HOOK_MARK)
 
-    internalHook?.dispatch({
-      fields: [{ name: this._listPath, value }],
+    internalHooks?.dispatch({
       type: 'setFields',
+      fields: [{ name: this._listPath, value }],
     })
 
     this._rule && this._context?.validateFields([this._listPath])
@@ -94,7 +94,7 @@ export default class FormListControl {
     this.dispatchEvent(list)
   }
 
-  public ensureFieldKey = (index: number) => {
+  ensureFieldKey = (index: number) => {
     const origin = this._keys[index]
     if (isUndefined(origin)) {
       this._keys[index] = this._id
@@ -103,7 +103,7 @@ export default class FormListControl {
     return this._keys[index]
   }
 
-  public getFeatures = (): FormListHelpers => {
+  getFeatures = (): FormListHelpers => {
     return {
       append: this.append,
       insert: this.insert,
@@ -115,7 +115,7 @@ export default class FormListControl {
     }
   }
 
-  public setInternalFormListMisc = (
+  setInternalListProps = (
     context: InternalFormInstance,
     listPath: InternalNamePath,
     rule: InternalFormFieldProps['rule'],

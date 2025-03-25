@@ -22,7 +22,7 @@ const Form = Object.assign(InternalForm, {
  * |---------------------------------------------------------|
  */
 
-export type { ExternalFieldData, ExternalFieldMeta, ExternalNamePath } from './_shared.props'
+export type { ExternalFieldData, ExternalNamePath, MetaChangeEvent } from './_shared.props'
 export type * from './field/props'
 export type * from './form/control/props'
 export type * from './form/props'

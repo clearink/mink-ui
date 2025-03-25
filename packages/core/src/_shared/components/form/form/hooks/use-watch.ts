@@ -27,12 +27,18 @@ export default function useWatch<T>(namePath?: ExternalNamePath, form?: External
     )
   }
 
-  const registerWatch = useEvent(() =>
-    internalHook?.registerWatch(() => {
+  const registerWatch = useEvent(() => {
+    const handleCallback = () => {
       const nextValue = instance?.getFieldValue(currentPath)
       // 只浅比较
       if (!shallowEqual(nextValue, value)) setValue(nextValue)
-    }),
+    }
+
+    // 获取当前值
+    handleCallback()
+
+    return internalHook?.registerWatch(handleCallback)
+  },
   )
 
   useEffect(registerWatch, [registerWatch, currentPath])

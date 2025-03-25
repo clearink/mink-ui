@@ -1,20 +1,16 @@
-import type { InternalFormContextState } from '../../_shared.context'
-import type {
-  ExternalNamePath,
-  FormAction,
-  InternalFieldData,
-  InternalNamePath,
-  WatchCallBack,
-} from '../../_shared.props'
-import type { FormFieldControl, InvalidFieldControl } from '../../field/control'
+import type { InternalFormProviderContextState } from '../../_shared.context'
+import type { ExternalNamePath, FormAction, InternalFieldErrorInfo, InternalFieldInfo, InternalFieldMeta, InternalNamePath, WatchCallBack } from '../../_shared.props'
+import type { FormFieldControl } from '../../field/control'
 import type { InternalFormProps } from '../props'
+
+export type FilterFieldFunction = (meta: InternalFieldMeta) => boolean
 
 export interface InternalFormInstance<S = any> {
   /**
    * @zh-CN 获取字段错误信息
    *
    */
-  getFieldError: (field: ExternalNamePath) => string[]
+  getFieldError: (namePath: ExternalNamePath) => string[]
 
   /**
    * @zh-CN 表单收集的数据
@@ -24,51 +20,43 @@ export interface InternalFormInstance<S = any> {
   /**
    * @zh-CN 获取一组字段错误信息
    */
-  getFieldsError: (
-    fields?: ExternalNamePath[],
-  ) => Pick<InternalFieldData, 'errors' | 'name' | 'warnings'>[]
+  getFieldsError: (nameList?: ExternalNamePath[]) => InternalFieldErrorInfo[]
 
   /**
    * @zh-CN 表单收集的数据
    */
-  getFieldsValue: (fields?: ExternalNamePath[] | true) => S
+  getFieldsValue: GetFieldsValueFunction<S>
 
   /**
    * @private
    * @zh-CN 内部方法，外部禁止使用
    */
-  getInternalHooks: (secret: symbol) => InternalHookReturn<S> | undefined
+  getInternalHooks: (secret: symbol) => InternalHooksReturn<S> | undefined
 
   /**
    * @zh-CN 字段是否 touched 了
    */
-  isFieldTouched: (field: ExternalNamePath) => boolean
+  isFieldTouched: (namePath: ExternalNamePath) => boolean
 
   /**
    * @zh-CN 字段是否处于校验中
    */
-  isFieldValidating: (field: ExternalNamePath) => boolean
+  isFieldValidating: (namePath: ExternalNamePath) => boolean
 
   /**
    * @zh-CN 字段是否都 touched 了
    */
-  isFieldsTouched: (fields?: ExternalNamePath[]) => boolean
+  isFieldsTouched: IsFieldsTouchedFunction
 
   /**
    * @zh-CN 字段是否都处于校验中
    */
-  isFieldsValidating: (fields?: ExternalNamePath[]) => boolean
+  isFieldsValidating: (nameList?: ExternalNamePath[]) => boolean
 
   /**
-   * @private
-   * @zh-CN FormList 使用
+   * @zh-CN 重置一组字段
    */
-  listPath?: InternalNamePath
-
-  /**
-   * @zh-CN 重置一组字段到 `initialValues`
-   */
-  resetFields: (fields?: ExternalNamePath[]) => void
+  resetFields: (nameList?: ExternalNamePath[]) => void
 
   /**
    * @zh-CN 设置表单字段数据
@@ -93,16 +81,10 @@ export interface InternalFormInstance<S = any> {
   /**
    * @zh-CN 参数校验
    */
-  validateFields: (namePath?: ExternalNamePath[]) => Promise<S>
-
-  /**
-   * @private
-   * @zh-CN 设置字段校验时的时机
-   */
-  validateTrigger?: false | string | string[]
+  validateFields: ValidateFieldsFunction<S>
 }
 
-export interface InternalHookReturn<State = any> {
+export interface InternalHooksReturn<State = any> {
   /**
    * @private
    * @zh-CN 字段需要更新时需要发布的事件
@@ -111,20 +93,21 @@ export interface InternalHookReturn<State = any> {
 
   /**
    * @private
-   * @zh-CN 更新字段默认值
+   * @zh-CN 注册字段
    */
-  ensureInitialized: (control: FormFieldControl) => void
+  registerField: (control: FormFieldControl, fieldDisplay: any) => (preserve?: boolean) => void
 
   /**
    * @private
-   * @zh-CN 根据名称设置 fieldMeta 属性
+   * @zh-CN 设置字段状态
    */
-  metaUpdate: (namePath: ExternalNamePath, meta: Partial<InternalFieldData>) => void
+  setFields: (fields: InternalFieldInfo[]) => void
+
   /**
    * @private
-   * @zh-CN 注册字段
+   * @zh-CN 更新字段 Map 信息
    */
-  registerField: (control: FormFieldControl) => (preserve?: boolean) => void
+  updateControlsMap: (control: FormFieldControl, preName: InternalNamePath) => void
 
   /**
    * @private
@@ -134,35 +117,57 @@ export interface InternalHookReturn<State = any> {
 
   /**
    * @private
+   * @zh-CN 同步 form props 与父级表单实例
+   */
+  setInternalFormProps: (props: InternalFormProps, formProvider: InternalFormProviderContextState) => void
+
+  /**
+   * @private
    * @zh-CN 订阅依赖字段
    */
+  collectDependencies: (control: FormFieldControl) => () => void
 
   /**
    * @private
-   * @zh-CN 设置字段状态
+   * @zh-CN 订阅依赖字段
    */
-  setFields: (fields: InternalFieldData[]) => void
+  updateDependencies: (control: FormFieldControl) => void
 
   /**
    * @private
-   * @zh-CN 设置默认值
+   * @zh-CN 合并 Form 组件设置的默认值
    */
-  setInitialValues: (initial: Partial<State> | undefined) => void
+  mergeInitialValues: (initialValues: Partial<State> | undefined) => void
 
   /**
    * @private
-   * @zh-CN 同步 form 参数
+   * @zh-CN 初始化字段初始值
    */
-  setInternalFormMisc: (props: InternalFormProps, parent: InternalFormContextState) => void
-
-  subscribe: (control: FormFieldControl) => () => void
+  initInitialValue: (control: FormFieldControl) => void
 }
 
-export type ControlFindReturn<R extends boolean> = R extends true
-  ? FormFieldControl[]
-  : (FormFieldControl | InvalidFieldControl)[]
+export type ExternalFormInstance<S = any> = Omit<InternalFormInstance<S>, 'getInternalHooks'>
 
-export type ExternalFormInstance<S = any> = Omit<
-  InternalFormInstance<S>,
-  'getInternalHooks' | 'listPath' | 'validateTrigger'
->
+export interface GetFieldsValueFieldMetaFilter {
+  (meta: InternalFieldMeta | null): boolean
+}
+
+export interface GetFieldsValueConfig {
+  strict?: boolean
+  filter?: GetFieldsValueFieldMetaFilter
+}
+
+export interface GetFieldsValueFunction<S = any> {
+  (original: true): S
+  (nameList?: ExternalNamePath[], filter?: GetFieldsValueFieldMetaFilter): any
+  (config: GetFieldsValueConfig): any
+}
+
+export interface IsFieldsTouchedFunction {
+  (nameList?: ExternalNamePath[], allFieldsTouched?: boolean): any
+  (allFieldsTouched?: boolean): any
+}
+
+export interface ValidateFieldsFunction<S = any> {
+  (nameList?: ExternalNamePath[]): Promise<S>
+}

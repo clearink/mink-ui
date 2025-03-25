@@ -1,24 +1,22 @@
-import { useMemo } from 'react'
-
-import type { NamePath } from '../../_shared.props'
 import type { FormInstance } from '../props'
 
 import { Form as InternalForm } from '../../../_shared/components'
 
 // form 示例, TODO: 还需要额外实现 scrollToField
 export default function useForm<S = any>(form?: FormInstance<S>) {
-  const internalForm = InternalForm.useForm<S>()
+  const internalForm = InternalForm.useForm<S>(form)
 
-  return useMemo<FormInstance<S>>(() => {
-    return (
-      form ?? {
-        ...internalForm,
-        scrollToField: (name: NamePath) => {
-          console.log(name)
-        },
-      }
-    )
-  }, [internalForm, form])
+  return internalForm as FormInstance<S>
+  // return useMemo<FormInstance<S>>(() => {
+  //   return (
+  //     form ?? {
+  //       ...internalForm,
+  //       scrollToField: (name: NamePath) => {
+  //         console.log(name)
+  //       },
+  //     }
+  //   )
+  // }, [internalForm, form])
 }
 /** ==================================================== */
 /** Features                                             */
@@ -27,11 +25,11 @@ export default function useForm<S = any>(form?: FormInstance<S>) {
 // // TODO: 不属于该处的功能. 因为有可能没有dom
 // // 滚动到对应位置
 // scrollToField = (namePath: NamePath = []) => {
-//   const key = _getName(namePath)
+//   const id = _getId(namePath)
 
-//   if (!key) return
+//   if (!id) return
 
-//   const control = this.$controls.getControls().find(({ _key }) => _key === key)
+//   const control = this.$controls.getControls().find(({ _id }) => _id === id)
 
 //   const formName = this.$props.props.name
 //   const fieldId = control?._getId(formName)

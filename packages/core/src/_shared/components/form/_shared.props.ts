@@ -9,17 +9,29 @@ export interface InternalFieldMeta {
   errors: string[]
   name: InternalNamePath
   touched: boolean
-  validating: boolean // 字段级别的校验
+  // 是否正在校验
+  validating: boolean
+  // 是否校验过了
+  validated: boolean
   warnings: string[]
 }
 
-export type ExternalFieldMeta = { mounted: boolean } & InternalFieldMeta
+export type MetaChangeEvent = { mounted: boolean } & InternalFieldMeta
 
-export type InternalFieldData = { value: any } & InternalFieldMeta
+export type InternalFieldInfo = { value: any } & InternalFieldMeta
+
+export type InternalFieldErrorInfo = Pick<InternalFieldMeta, 'errors' | 'name' | 'warnings'>
+
+export interface InternalFormValidateErrorInfo<S = any> {
+  message: string
+  values: S
+  errorFields: { errors: string[], name: InternalNamePath }[]
+  isExpired: boolean
+}
 
 export type ExternalFieldData = {
   name: ExternalNamePath
-} & Partial<Omit<InternalFieldData, 'name'>>
+} & Partial<Omit<InternalFieldInfo, 'name'>>
 
 export type WatchCallBack = () => void
 
@@ -28,20 +40,21 @@ export type FormActionType = FormAction['type']
 export type FormAction =
   | {
     control: FormFieldControl
-    type: 'fieldEvent' // 用户调用事件主动触发
-    value: any
-  }
-  | {
-    control: FormFieldControl
+    fieldDisplay: any
     type: 'registerField'
   }
   | {
     control: FormFieldControl
-    type: 'removeField' // 卸载字段时触发
+    type: 'fieldEvent'
+    value: any
+  }
+  | {
+    control: FormFieldControl
+    type: 'unregisterField'
   }
   | {
     fields: ExternalFieldData[]
-    type: 'setFields' //  setFields
+    type: 'setFields'
   }
   | {
     nameList?: ExternalNamePath[]
@@ -49,16 +62,19 @@ export type FormAction =
   }
   | {
     state: any
-    type: 'setFieldsValue' // setFieldsValue
+    type: 'setFieldsValue'
   }
 
 export interface RuleOptions {
   abortEarly?: boolean
   path: InternalNamePath
+  warningOnly?: boolean
 }
 export interface RuleIssue {
   message: any
 }
 export interface RuleLike {
-  validate: (value: any, options?: RuleOptions) => Promise<{ issues: RuleIssue[] }>
+  validate: (value: any, options?: RuleOptions) => Promise<any>
 }
+
+export type FieldCleanBehavior = 'clean' | 'keep' | 'none'

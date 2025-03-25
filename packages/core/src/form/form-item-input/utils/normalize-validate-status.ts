@@ -1,9 +1,9 @@
 import { isNullish } from '@mink-ui/shared'
 
-import type { FieldMeta, ValidateStatus } from '../../_shared.props'
+import type { MetaChangeEvent, ValidateStatus } from '../../_shared.props'
 
 export default function normalizeValidateStatus(
-  meta: FieldMeta,
+  meta: MetaChangeEvent,
   status: undefined | ValidateStatus,
 ): undefined | ValidateStatus {
   if (!isNullish(status)) return status

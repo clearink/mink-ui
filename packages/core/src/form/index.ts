@@ -1,16 +1,17 @@
-import { List as InternalList, useWatch } from '../_shared/components'
+import { useWatch } from '../_shared/components'
 import _Form from './form'
 import useForm from './form/hooks/use-form'
 import useFormInstance from './form/hooks/use-form-instance'
 import FormErrorList from './form-error-list'
 import FormItem from './form-item'
 import useFormItemStatus from './form-item/hooks/use-item-status'
+import FormList from './form-list'
 
 // CompoundedForm
 const Form = Object.assign(_Form, {
   ErrorList: FormErrorList,
   Item: Object.assign(FormItem, { useStatus: useFormItemStatus }),
-  List: InternalList,
+  List: FormList,
   useForm,
   useFormInstance,
   useWatch,

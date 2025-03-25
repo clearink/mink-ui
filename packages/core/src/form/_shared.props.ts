@@ -1,9 +1,9 @@
 // 内部使用
-import type { ExternalFieldMeta, ExternalNamePath } from '../_shared/components'
+import type { ExternalNamePath, MetaChangeEvent } from '../_shared/components'
 
 export type NamePath = ExternalNamePath
 
-export type FieldMeta = ExternalFieldMeta
+export type { MetaChangeEvent }
 
 export type FormLabelAlign = 'left' | 'right'
 

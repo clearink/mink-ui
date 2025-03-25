@@ -3,8 +3,8 @@ import { isFunction, shallowEqual } from '@mink-ui/shared'
 import { useExactState } from '../use-exact-state'
 
 export interface WatchOptions<S> {
-  compare: (current: S, previous: null | S) => boolean
-  listener: (current: S, previous: null | S) => boolean | void
+  compare: (current: S, previous: S) => boolean
+  listener: (current: S, previous: S) => boolean | void
 }
 
 function formatOptions<S>(options: WatchOptions<S> | WatchOptions<S>['listener']): WatchOptions<S> {
@@ -20,13 +20,14 @@ function useWatchValue<S>(current: S, args: any): boolean {
 
   const [value, update] = useExactState(() => current)
 
-  if (compare(current, value)) return false
+  const shouldUpdate = !compare(current, value)
 
-  listener(current, value)
+  if (shouldUpdate) {
+    listener(current, value)
+    update(current)
+  }
 
-  update(current)
-
-  return true
+  return shouldUpdate
 }
 
 export { useWatchValue }

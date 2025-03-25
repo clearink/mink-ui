@@ -1,169 +1,256 @@
+import type { VoidFn } from '@mink-ui/shared'
+
 import { isFunction, isNullish, isUndefined, toArray } from '@mink-ui/shared'
 import isEqual from 'react-fast-compare'
 
 import type {
   ExternalNamePath,
+  FieldCleanBehavior,
   FormActionType,
+  InternalFieldErrorInfo,
+  InternalFieldInfo,
   InternalFieldMeta,
   InternalNamePath,
-  RuleIssue,
-  RuleOptions,
+  MetaChangeEvent,
 } from '../../_shared.props'
 import type { InternalFormFieldProps } from '../props'
 
-import { _getName } from '../../utils/path'
+import { FieldValidateError } from '../../utils/errors'
+import { _getId } from '../../utils/path'
 import { getIn } from '../../utils/value'
 
+const FIELD_MARK = Symbol.for('_$mink-ui-form-field$_')
+
 export class FormFieldControl {
-  private _dirty = false
-
-  public _errors: string[] = []
-
-  private _getInitial: (() => any) | undefined
-
-  public _key = ''
-
-  public _name: InternalNamePath = []
-
-  public _props: Partial<InternalFormFieldProps> = {}
-
-  public _shouldHook: InternalFormFieldProps['shouldUpdate']
-
-  // 字段是否 touch 过
-  public _touched = false
-
-  public _validating = false
-
-  public _warnings: string[] = []
+  private _getInitialValue: (() => any) | undefined
 
   private lastValidate: null | Promise<any> = null
 
-  public forceUpdate: () => void
+  private mounted: boolean = false
 
-  public metaUpdate = (meta: Partial<InternalFieldMeta>) => {
-    const prev = this.meta
-    // 同步全部
-    !isNullish(meta.dirty) && (this._dirty = meta.dirty)
-    !isNullish(meta.touched) && (this._touched = meta.touched)
-    !isNullish(meta.errors) && (this._errors = meta.errors)
-    !isNullish(meta.warnings) && (this._warnings = meta.warnings)
-    !isNullish(meta.validating) && (this._validating = meta.validating)
+  private _dirty = false
 
-    this.lastValidate = this._validating ? Promise.resolve([]) : null
+  refresh: () => void
 
-    const current = this.meta
+  forceUpdate: () => void
 
-    const mounted = this.mounted()
+  _errors: string[] = []
 
-    // meta 属性前后一致且此时组件没有销毁 可以直接返回
-    if (isEqual(prev, current) && mounted) return
+  _id = ''
 
-    const { children, onMetaChange } = this._props
+  _name: InternalNamePath = []
 
-    onMetaChange?.({ ...current, mounted })
+  _props: Partial<InternalFormFieldProps> = {}
 
-    isFunction(children) && this.forceUpdate()
+  // 字段是否 touch 过
+  _touched = false
+
+  _validating = false
+
+  _preValidating = false
+
+  _warnings: string[] = []
+
+  // 字段卸载时的行为(处理 ListField)
+  __behavior: FieldCleanBehavior = 'clean'
+
+  // 字段是否改变过
+  get dirty() {
+    const { _dirty, _props: { initialValue } } = this
+
+    if (_dirty || !isUndefined(initialValue)) return true
+
+    return !isUndefined(this._getInitialValue?.())
   }
 
-  public reset = () => {
-    this.metaUpdate({
-      dirty: false,
-      errors: [],
-      touched: false,
-      validating: false,
-      warnings: [],
-    })
+  constructor(_forceUpdate: VoidFn, _refresh: VoidFn) {
+    this.forceUpdate = () => { this.mounted && _forceUpdate() }
 
-    this.lastValidate = null
-    this.mounted() && this._reset()
+    this.refresh = () => { this.mounted && _refresh() }
   }
 
-  public setGetInitial = (getInitial: () => any) => {
-    this._getInitial = getInitial
-  }
-
-  public setInternalFieldProps = (props: Partial<InternalFormFieldProps>) => {
+  setInternalFieldProps = (props: Partial<InternalFormFieldProps>) => {
     this._props = props
-
-    this._shouldHook = props.shouldUpdate
 
     if (this._name === props.name) return
 
-    this._key = _getName(props.name)
+    this._id = _getId(props.name)
 
-    this._name = props.name || []
+    this._name = toArray(props.name)
   }
 
-  public shouldUpdate = (prev: any, next: any, type: FormActionType) => {
-    const { _key: key, _name: name, _shouldHook: handler } = this
-
-    if (isUndefined(handler) && key) return getIn(prev, name) !== getIn(next, name)
-
-    return isFunction(handler) ? handler(prev, next, type) : !!handler
+  setGetInitialValue = (getInitialValue: () => any) => {
+    this._getInitialValue = getInitialValue
   }
 
-  // 字段校验
-  public validate = async (value: any, options?: RuleOptions) => {
-    const { rule: validator } = this._props
+  triggerMetaChange = (metaData: MetaChangeEvent) => {
+    const { children, onMetaChange } = this._props
 
-    // 没有操作过的字段不能校验, 没有校验规则的也不用校验
-    if (!this._touched || !validator || !this._key) return
+    onMetaChange?.(metaData)
 
-    const promise = validator.validate(value, options)
-
-    this.lastValidate = promise
-
-    return promise
-      .then(() => undefined)
-      .catch(e => e)
-      .then((error = {}) => {
-        if (this.lastValidate !== promise) return
-
-        const { issues = [] } = error as { issues: RuleIssue[] }
-        const errors = issues.map(issue => issue.message) as string[]
-
-        this.metaUpdate({ errors, validating: false })
-      })
+    // 当 children 是函数时, 为了获得最新的 metaData 需要强制更新一次
+    isFunction(children) && this.forceUpdate()
   }
 
-  public constructor(
-    _forceUpdate: () => void,
-    private _reset: () => void,
-    private mounted: () => boolean,
-  ) {
-    this.forceUpdate = () => mounted() && _forceUpdate()
+  // 标记已经挂载
+  markIsMounted = () => {
+    this.mounted = true
   }
 
-  // 字段是否改变过
-  public get dirty() {
-    if (this._dirty || !isUndefined(this._props.initialValue)) return true
+  // 标记已经卸载
+  markIsUnmounted = () => {
+    this.mounted = false
 
-    return !isUndefined(this._getInitial?.())
+    // 卸载时触发一次 metaChange 事件
+    this.triggerMetaChange({ ...this.getMetaData(), mounted: false })
   }
 
-  public get meta(): InternalFieldMeta {
+  // 设置卸载行为
+  markCleanBehavior = (behavior: FieldCleanBehavior) => {
+    this.__behavior = behavior
+  }
+
+  isFormList = () => !!this._props.isFormList
+
+  hasInitialValue = () => !isUndefined(this._props.initialValue)
+
+  getFieldInfo = (value: any): InternalFieldInfo => {
+    const data = { ...this.getMetaData(), name: this._name, value }
+
+    // 添加特殊标记
+    Object.defineProperty(data, FIELD_MARK, { value: true })
+
+    return data
+  }
+
+  getMetaData = (): InternalFieldMeta => {
     return {
       dirty: this.dirty,
       errors: this._errors,
       name: this._name,
       touched: this._touched,
       validating: this._validating,
-      warnings: [], // TODO: 后续加上
+      warnings: this._warnings, // TODO: 后续加上
+      validated: this.lastValidate === null,
     }
+  }
+
+  getErrorInfo = (): InternalFieldErrorInfo => {
+    return {
+      name: this._name,
+      errors: this._errors,
+      warnings: this._warnings,
+    }
+  }
+
+  // 更新 meta 属性 TODO: 需要优化
+  metaUpdate = (meta: Partial<InternalFieldMeta>) => {
+    const prev = this.getMetaData()
+
+    // 同步全部的 meta 属性
+    if (!isNullish(meta.dirty)) this._dirty = meta.dirty
+
+    if (!isNullish(meta.touched)) this._touched = meta.touched
+
+    if (!isNullish(meta.errors)) this._errors = meta.errors
+
+    if (!isNullish(meta.warnings)) this._warnings = meta.warnings
+
+    if (!isNullish(meta.validating)) this._validating = meta.validating
+
+    const next = this.getMetaData()
+
+    // 值没有改变 || 字段已经卸载了
+    if (isEqual(prev, next) || !this.mounted) return
+
+    this.triggerMetaChange({ ...next, mounted: true })
+  }
+
+  // 重置字段
+  resetField = () => {
+    // TODO: 优化下
+    this.metaUpdate({
+      touched: false,
+      dirty: false,
+      validating: false,
+      errors: [],
+      warnings: [],
+    })
+
+    this.lastValidate = null
+
+    this._props.onReset?.()
+
+    this.refresh()
+  }
+
+  shouldUpdate = (prev: any, next: any, type: FormActionType) => {
+    const { _id, _name, _props: { shouldUpdate } } = this
+
+    if (shouldUpdate === true) return true
+
+    if (isFunction(shouldUpdate)) return shouldUpdate(prev, next, type)
+
+    // _id 必须有效, 否则 getIn 一直都是 undefined
+    return !!_id && getIn(prev, _name) !== getIn(next, _name)
+  }
+
+  // 字段校验
+  validate = (value: any) => {
+    // 校验前
+    this.metaUpdate({ dirty: true, errors: [], warnings: [], validating: true })
+
+    const validatePromise = Promise.resolve().then(() => {
+      const { rule: validator } = this._props
+
+      if (!this.mounted || !this._id || !validator) return null
+
+      const promise = validator
+        .validate(value, { path: this._name })
+        .catch(result => new FieldValidateError(result, { path: this._name }))
+        .then(result => result instanceof FieldValidateError ? result : null)
+
+      // 更新 meta 属性
+      promise.then((result) => {
+        // 判断是否过期
+        if (this.lastValidate !== validatePromise) return
+
+        this.lastValidate = null
+
+        const hasError = result instanceof FieldValidateError
+
+        const errors = hasError ? result.errors : []
+
+        const warnings = hasError ? result.warnings : []
+        // 校验后
+        this.metaUpdate({ errors, warnings, validating: true })
+      })
+
+      return promise
+    })
+
+    this.lastValidate = validatePromise
+
+    return validatePromise
   }
 }
 
-// 不合法的字段
-export class InvalidFieldControl {
-  public _errors: string[] = []
+export class FakeFieldControl {
+  _name: InternalNamePath
 
-  public _name: InternalNamePath
-
-  public _props: Partial<InternalFormFieldProps> = {}
-
-  public _warnings: string[] = []
+  _props: Partial<InternalFormFieldProps> = {}
 
   constructor(name: ExternalNamePath) {
     this._name = toArray(name)
+  }
+
+  getMetaData = () => null
+
+  getErrorInfo = (): InternalFieldErrorInfo => {
+    return {
+      name: this._name,
+      errors: [],
+      warnings: [],
+    }
   }
 }

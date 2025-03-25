@@ -8,7 +8,7 @@ import { logger } from '../../../_shared/utils'
 
 /**
  * 1. shouldUpdate 与 dependencies // 同时存在 "`shouldUpdate` and `dependencies` shouldn't be used together."
- * 2. render props && _key 使用 // render props 不应该成为一个 field(name 不应该和 render props 一起使用)
+ * 2. render props && name 使用 // render props 不应该成为一个 field(name 不应该和 render props 一起使用)
  * 3. render props && !(shouldUpdate || dependencies) // render props 只能与 shouldUpdate ，dependencies 一起使用
  * 4. 使用 dependencies 时必须设置 name 或者使用 render props
  */
@@ -32,8 +32,9 @@ export function isInvalidUsage(props: FormItemProps) {
   }
 
   if (shouldUpdate && dependencies.length) {
-    if (process.env.NODE_ENV !== 'production')
+    if (process.env.NODE_ENV !== 'production') {
       logger(true, 'Form.Item', '`shouldUpdate` and `dependencies` shouldn\'t be used together.')
+    }
 
     return true
   }
@@ -52,7 +53,9 @@ export function isInvalidUsage(props: FormItemProps) {
 
   if (dependencies.length && !(functional || hasName)) {
     // dependencies 仅在 render props 或者 name 合法时使用
-    if (process.env.NODE_ENV !== 'production') logger(true, 'Form.Item', 'Must set `name` or use render props when `dependencies` is set.')
+    if (process.env.NODE_ENV !== 'production') {
+      logger(true, 'Form.Item', 'Must set `name` or use render props when `dependencies` is set.')
+    }
 
     return true
   }

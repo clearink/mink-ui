@@ -1,13 +1,12 @@
 import type { ReactNode } from 'react'
 
 import type { ColProps } from '../../col'
-import type { FieldMeta, ValidateStatus } from '../_shared.props'
+import type { MetaChangeEvent, ValidateStatus } from '../_shared.props'
+
+export type MetaChangeHandler = (meta: MetaChangeEvent) => void
 
 export interface FormItemInputProps {
-  children: (
-    onMetaChange: (meta: FieldMeta) => void,
-    onSubMetaChange: (meta: FieldMeta) => void,
-  ) => ReactNode
+  children: (onMetaChange: MetaChangeHandler, onSubMetaChange: MetaChangeHandler) => ReactNode
   extra?: ReactNode
   getOuter: () => HTMLDivElement | null
 

@@ -5,77 +5,82 @@ import type { InternalFormListProps } from './props'
 
 import { useConstant, useDeepMemo } from '../../../../_shared/hooks'
 import { betterDisplayName, logger } from '../../../../_shared/utils'
-import { InternalFormInstanceContext } from '../_shared.context'
+import { InternalFormInstanceContext, InternalFormListContext } from '../_shared.context'
 import InternalFormField from '../field'
+import { _getId } from '../utils/path'
 import { getIn } from '../utils/value'
 import FormListControl from './control'
 
 function InternalFormList(props: InternalFormListProps) {
-  const { children, initialValue, name, preserve, rule } = props
+  const { children, initialValue, name, rule } = props
 
-  if (process.env.NODE_ENV !== 'production')
-    logger(isUndefined(name), 'Form.List', 'Miss `name` prop.')
+  const formInstance = InternalFormInstanceContext.useState()
 
-  const instance = InternalFormInstanceContext.useState()
+  const parentContext = InternalFormListContext.useState()
 
   const listPath = useDeepMemo(() => {
-    return toArray(instance.listPath).concat(toArray(name))
-  }, [instance.listPath, name])
+    if (!parentContext?.listPath) return toArray(name)
 
-  const instanceContext = useMemo(() => ({ ...instance, listPath }), [instance, listPath])
+    return parentContext.listPath.concat(toArray(name))
+  }, [parentContext?.listPath, name])
+
+  const listContext = useMemo(() => ({ listPath }), [listPath])
 
   const control = useConstant(() => new FormListControl())
 
-  control.setInternalFormListMisc(instance, listPath, rule)
+  useMemo(() => {
+    control.setInternalListProps(formInstance, listPath, rule)
+  }, [control, formInstance, listPath, rule])
 
   const helpers = useMemo(() => control.getFeatures(), [control])
 
-  const invalidChildren = !isFunction(children)
+  //  name 无效 || children 不是函数
+  const invalidChildren = !isFunction(children) || !_getId(name)
 
-  if (process.env.NODE_ENV !== 'production')
-    logger(invalidChildren, 'Form.List only accepts function as children.')
+  if (process.env.NODE_ENV !== 'production') {
+    logger(!_getId(name), 'Form.List Miss `name` prop.')
+    logger(!isFunction(children), 'Form.List only accepts function as children.')
+  }
 
   if (invalidChildren) return null
 
   return (
-    <InternalFormInstanceContext.Provider value={instanceContext}>
-      <InternalFormField
-        initialValue={initialValue}
-        name={[]}
-        preserve={preserve}
-        rule={rule}
-        shouldUpdate={(prev, next, type) => {
-          const path = toArray(name)
+    <InternalFormField
+      initialValue={initialValue}
+      name={name}
+      rule={rule}
+      isFormList
+      shouldUpdate={(prev, next) => {
+        const path = toArray(name)
 
-          const prevList = getIn(prev, path)
+        const prevList = getIn(prev, path)
 
-          const nextList = getIn(next, path)
+        const nextList = getIn(next, path)
 
-          // 用户主动触发的默认不更新 或者 setFieldValue
-          if (type !== 'setFields' && type !== 'fieldEvent')
-            return prevList !== nextList
+        // Form.List 简单判断是否需要更新自身, 避免重复渲染
+        // TODO: 后续跟进验证分析
+        if (rawType(prevList) !== rawType(nextList)) return true
 
-          // 数据类型不同
-          if (rawType(prevList) !== rawType(nextList)) return true
+        return isArray(nextList) && prevList.length !== nextList.length
+      }}
+    >
+      {({ value }: any, meta) => {
+        if (process.env.NODE_ENV !== 'production') {
+          logger(!isArray(value) && !isUndefined(value), `value of '${listPath.join(' > ')}' is not an array type.`)
+        }
 
-          return isArray(nextList) && prevList.length !== nextList.length
-        }}
-      >
-        {({ value }: any, meta) => {
-          const fields = toArray(value, true).map((_, index) => ({
-            isListField: true,
-            key: control.ensureFieldKey(index),
-            name: index,
-          }))
+        const fields = toArray(value, true).map((_, index) => ({
+          key: control.ensureFieldKey(index),
+          name: index,
+        }))
 
-          if (process.env.NODE_ENV !== 'production') {
-            logger(!isArray(value), `'${listPath.join(' > ')}' is not an array`)
-          }
-
-          return children(fields, helpers, meta)
-        }}
-      </InternalFormField>
-    </InternalFormInstanceContext.Provider>
+        return (
+          <InternalFormListContext.Provider value={listContext}>
+            {children(fields, helpers, meta)}
+          </InternalFormListContext.Provider>
+        )
+      }}
+    </InternalFormField>
   )
 }
 
