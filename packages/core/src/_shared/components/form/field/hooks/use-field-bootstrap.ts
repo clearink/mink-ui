@@ -11,14 +11,12 @@ export default function useFieldBootstrap<S = any>(
   formInstance: InternalFormInstance,
   props: InternalFormFieldProps<S>,
 ) {
-  const { refreshField: _refreshField } = props
-
   const forceUpdate = useForceUpdate()
 
   // 刷新字段
   const [refreshCount, refreshField] = useReducer(count => count + 1, 0)
 
-  const control = useConstant(() => new FormFieldControl(forceUpdate, _refreshField || refreshField))
+  const control = useConstant(() => new FormFieldControl(forceUpdate, refreshField))
 
   useMemo(() => { control.setInternalFieldProps(props) }, [control, props])
 

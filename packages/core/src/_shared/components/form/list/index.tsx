@@ -14,7 +14,7 @@ import FormListControl from './control'
 function InternalFormList(props: InternalFormListProps) {
   const { children, initialValue, name, rule } = props
 
-  const formInstance = InternalFormInstanceContext.useState()
+  const instance = InternalFormInstanceContext.useState()
 
   const parentContext = InternalFormListContext.useState()
 
@@ -24,15 +24,15 @@ function InternalFormList(props: InternalFormListProps) {
     return parentContext.listPath.concat(toArray(name))
   }, [parentContext?.listPath, name])
 
-  const listContext = useMemo(() => ({ listPath }), [listPath])
-
-  const control = useConstant(() => new FormListControl())
+  const listControl = useConstant(() => new FormListControl())
 
   useMemo(() => {
-    control.setInternalListProps(formInstance, listPath, rule)
-  }, [control, formInstance, listPath, rule])
+    listControl.setInternalListProps(props, instance, listPath)
+  }, [listControl, props, instance, listPath])
 
-  const helpers = useMemo(() => control.getFeatures(), [control])
+  const listContext = useMemo(() => ({ listPath, listControl }), [listPath, listControl])
+
+  const helpers = useMemo(() => listControl.getFeatures(), [listControl])
 
   //  name 无效 || children 不是函数
   const invalidChildren = !isFunction(children) || !_getId(name)
@@ -70,7 +70,7 @@ function InternalFormList(props: InternalFormListProps) {
         }
 
         const fields = toArray(value, true).map((_, index) => ({
-          key: control.ensureFieldKey(index),
+          key: listControl.ensureFieldKey(index),
           name: index,
         }))
 

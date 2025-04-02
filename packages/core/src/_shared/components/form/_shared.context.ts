@@ -5,6 +5,7 @@ import { noop } from '@mink-ui/shared'
 import type { ExternalFieldData, InternalNamePath } from './_shared.props'
 import type { ExternalFormInstance, InternalFormInstance } from './form/control/props'
 import type { InternalFormProps } from './form/props'
+import type FormListControl from './list/control'
 
 import { ctxHelper, logger } from '../../../_shared/utils'
 
@@ -66,6 +67,7 @@ export const InternalFormContext = ctxHelper<InternalFormContextState>({
 
 export interface InternalFormListContextState {
   listPath: InternalNamePath
+  listControl: FormListControl
 }
 
 // Form.List 组件传递给 Form.Item 组件的某些属性

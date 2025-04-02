@@ -257,8 +257,45 @@ export class FormInitialControl<State = any> {
     private $controls: FormControlsControl,
   ) {}
 
-  getInitialValue = (name: ExternalNamePath) => {
+  // 获取 Form 上对应的初始值
+  getFromInitialValue = (name: ExternalNamePath) => {
     return getIn(this._initialValues, toArray(name))
+  }
+
+  // 获取 Form.Item 上对应的初始值
+  getFieldInitialValue = (controls: FormFieldControl[]) => {
+    // 1. 尝试获取对应 Form.List 上对应字段的初始值
+    for (let i = 0; i < controls.length; i++) {
+      const control = controls[i]
+
+      const { isListField } = control._props
+
+      if (!isListField) continue
+
+      const { listPath, listControl } = isListField
+
+      if (!listControl) continue
+
+      const namePath = control._name.slice(listPath.length)
+
+      const fieldInitial = getIn(listControl._props.initialValue, namePath)
+
+      if (!isUndefined(fieldInitial)) return fieldInitial
+    }
+
+    // 2. 检查自身是否有 initialValue
+    const pureControl = controls.find(ctrl => ctrl.hasInitialValue())
+
+    if (pureControl) return pureControl._props.initialValue
+  }
+
+  // 获取最终的初始值
+  getInitialValue = (control: FormFieldControl) => {
+    const formInitial = this.getFromInitialValue(control._name)
+
+    if (!isUndefined(formInitial)) return formInitial
+
+    return this.getFieldInitialValue([control])
   }
 
   // 合并 Form 初始值
@@ -297,15 +334,18 @@ export class FormInitialControl<State = any> {
 
   // 确保已经初始化字段值
   ensureInitialValue = (control: FormFieldControl) => {
-    const { $state, $controls } = this
+    const { $state } = this
 
-    const { isFormList, initialValue: fieldInitial } = control._props
+    const { _display, _props: { isListField, initialValue } } = control
+
+    // fix StrictMode
+    if (_display) return $state.setFieldValue(control._name, _display.value)
 
     // name 不合法 || 没有字段级别的初始值
-    if (!control._id || isUndefined(fieldInitial)) return
+    if (!control._id || isUndefined(initialValue)) return
 
     // 设置了 Form 级别的初始值
-    if (!isUndefined(this.getInitialValue(control._name))) {
+    if (!isListField && !isUndefined(this.getFromInitialValue(control._name))) {
       if (process.env.NODE_ENV !== 'production') {
         logger(
           true,
@@ -329,16 +369,11 @@ export class FormInitialControl<State = any> {
       return
     }
 
-    // 修正字段初始值
-    const fieldCurrent = $state.getFieldValue(control._name)
+    // 已经有值了
+    if (!isUndefined($state.getFieldValue(control._name))) return
 
-    if (isUndefined(fieldCurrent)) return $state.setFieldValue(control._name, fieldInitial)
-
-    // 不是 Form.List 字段 || 不存在 complex 的子字段
-    if (!isFormList || !$controls.hasComplexListFieldControl(control)) return
-
-    // 需要合并 list 的每一项值(且以 fieldCurrent 为准)
-    return $state.setFieldValue(control._name, fieldCurrent.map((e, i) => merge(fieldInitial[i], e)))
+    // 获取最终的初始值
+    return $state.setFieldValue(control._name, this.getInitialValue(control))
   }
 
   cleanFieldInitialValue = (control: FormFieldControl) => {
@@ -361,7 +396,7 @@ export class FormInitialControl<State = any> {
     // Form.List 还没有卸载, 直接删除复杂字段的值
     const initialValue = isListField && control.__behavior === 'clean'
       ? undefined
-      : this.getInitialValue(control._name)
+      : this.getFromInitialValue(control._name)
 
     if (isUndefined(initialValue)) return $state.deleteFieldValue(control._name)
 
@@ -392,37 +427,6 @@ export class FormInitialControl<State = any> {
     return this.cleanFieldInitialValue(control)
   }
 
-  // 获取字段初始值
-  getFieldInitialValue = (controls: FormFieldControl[]) => {
-    // 1. 尝试获取对应 Form.List 上对应字段的初始值
-    for (let i = 0; i < controls.length; i++) {
-      const control = controls[i]
-
-      const { isListField } = control._props
-
-      if (!isListField) continue
-
-      const { listPath } = isListField
-
-      const listControl = this.$controls._map.get(_getId(listPath))?.find((ctrl) => {
-        return ctrl.hasInitialValue() && ctrl.isFormList()
-      })
-
-      if (!listControl) continue
-
-      const namePath = control._name.slice(listPath.length)
-
-      const fieldInitial = getIn(listControl._props.initialValue, namePath)
-
-      if (!isUndefined(fieldInitial)) return fieldInitial
-    }
-
-    // 2. 检查自身是否有 initialValue
-    const pureControl = controls.find(ctrl => ctrl.hasInitialValue())
-
-    if (pureControl) return pureControl._props.initialValue
-  }
-
   // 重置为字段初始值
   resetInitialValues = (
     controlsMap: Map<string, FormFieldControl[]>,
@@ -440,7 +444,7 @@ export class FormInitialControl<State = any> {
 
       const namePath = controls[0]._name
 
-      const formInitial = this.getInitialValue(namePath)
+      const formInitial = this.getFromInitialValue(namePath)
 
       if (!isUndefined(formInitial)) {
         // 重置全部 && 都不是 Form.List
@@ -475,7 +479,7 @@ export class FormControlsControl {
 
   // 注册 FormFieldControl
   registerControl = (control: FormFieldControl, $initial: FormInitialControl) => {
-    control.setGetInitialValue(() => $initial.getInitialValue(control._name))
+    control.setGetInitialValue(() => $initial.getInitialValue(control))
 
     pushItem(this._list, control)
 
@@ -513,17 +517,6 @@ export class FormControlsControl {
 
       return isListField && isArrayEqual(isListField.listPath, listControl._name)
     })
-  }
-
-  // 是否存在指定 listControl 的 complex 子字段
-  hasComplexListFieldControl = (listControl: FormFieldControl) => {
-    return this
-      .getFormListFieldControls(listControl)
-      .some((control) => {
-        const { isListField } = control._props
-
-        return !!isListField && isListField.type === 'complex'
-      })
   }
 
   // 设置指定 Form.List 下的所有 listField 在卸载时的行为
@@ -605,16 +598,16 @@ export class FormControlsControl {
 
     const result = new Map<string, FormFieldControl[]>()
 
+    const nameTuples = nameList.map(e => [_getId(e), toArray(e)] as const)
+
     this._map.forEach((controls, _id) => {
       if (!_id) return
 
       const childPath = controls[0]._name
 
       // 找自身与子级
-      nameList.forEach((parentPath) => {
-        const pid = _getId(parentPath)
-
-        if (!isParentOf(toArray(parentPath), childPath)) return
+      nameTuples.forEach(([pid, name]) => {
+        if (!isParentOf(name, childPath)) return
 
         result.set(pid, pushItem(result.get(pid) || [], controls))
       })
@@ -876,7 +869,7 @@ export class FormDispatchControl<State = any> {
 
       const [prev, next] = $initial.ensureInitialValue(control) || []
 
-      control.markIsMounted()
+      control.markIsMounted($state)
 
       $initial.triggerTwiceUpdate(control, fieldDisplay)
 

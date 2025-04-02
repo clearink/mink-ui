@@ -1,4 +1,4 @@
-import type { AnyObj, VoidFn } from '@mink-ui/shared'
+import type { AnyObj } from '@mink-ui/shared'
 import type { ReactNode } from 'react'
 
 import type {
@@ -10,6 +10,7 @@ import type {
   RuleLike,
 } from '../_shared.props'
 import type { ExternalFormInstance } from '../form/control/props'
+import type FormListControl from '../list/control'
 
 export interface InternalFormFieldProps<S = any> {
   children?:
@@ -55,15 +56,9 @@ export interface InternalFormFieldProps<S = any> {
    * @private
    * @zh-CN 字段是否为列表字段 complex 表示 list.0.xxx 之类的字段
    */
-  isListField?: { listPath: InternalNamePath, type: 'complex' }
-    | { listPath: InternalNamePath, type: 'simple' }
+  isListField?: { listControl: FormListControl | undefined, listPath: InternalNamePath, type: 'complex' }
+    | { listControl: FormListControl | undefined, listPath: InternalNamePath, type: 'simple' }
     | false
-
-  /**
-   * @private
-   * @zh-CN resetFields 时需要对Form.List进行特殊操作
-   */
-  refreshField?: VoidFn
 
   /**
    * @zh-CN 字段路径

@@ -1,5 +1,5 @@
 import { fallback, isUndefined, toArray } from '@mink-ui/shared'
-import { Fragment, useMemo, useReducer } from 'react'
+import { Fragment, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 
 import type { ExternalFormFieldProps, InternalFormFieldProps } from './props'
@@ -57,11 +57,13 @@ function _InternalFormField(_props: InternalFormFieldProps) {
 }
 
 function InternalFormField(props: ExternalFormFieldProps) {
-  const { isFormList, name, preserve } = props
+  const { name, preserve } = props
 
   const listContext = InternalFormListContext.useState()
 
   const listPath = listContext?.listPath || []
+
+  const listControl = listContext?.listControl
 
   const arrayName = toArray(name)
 
@@ -72,8 +74,8 @@ function InternalFormField(props: ExternalFormFieldProps) {
   if (!listContext) isListField = false
   else if (listPath.length === 0) isListField = false
   else if (arrayName.length === 0) isListField = false
-  else if (arrayName.length > 1) isListField = { type: 'complex', listPath }
-  else isListField = { type: 'simple', listPath }
+  else if (arrayName.length > 1) isListField = { type: 'complex', listPath, listControl }
+  else isListField = { type: 'simple', listPath, listControl }
 
   if (process.env.NODE_ENV !== 'production') {
     logger(
@@ -82,20 +84,15 @@ function InternalFormField(props: ExternalFormFieldProps) {
     )
   }
 
-  // 仅为 Form.List reset 提供
-  const [refreshCount, refreshField] = useReducer(count => count + 1, 0)
-
   return (
-    <Fragment key={refreshCount}>
-      <_InternalFormField
-        {...props}
-        // 是列表字段时, 需要固定一个 key, 保证列表字段不会频繁的卸载和挂载
-        key={isListField ? 'controlled' : _getId(fieldName)}
-        isListField={isListField}
-        refreshField={isFormList ? refreshField : undefined}
-        name={fieldName}
-      />
-    </Fragment>
+    <_InternalFormField
+      {...props}
+      // 是列表字段时, 需要固定一个 key, 保证列表字段不会频繁的卸载和挂载
+      key={isListField ? 'controlled' : _getId(fieldName)}
+      isListField={isListField}
+      // 列表字段刷新时, 直接刷新整个 _InternalFormField
+      name={fieldName}
+    />
   )
 }
 

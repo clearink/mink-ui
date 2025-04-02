@@ -13,6 +13,7 @@ import type {
   InternalNamePath,
   MetaChangeEvent,
 } from '../../_shared.props'
+import type { FormStateControl } from '../../form/control'
 import type { InternalFormFieldProps } from '../props'
 
 import { FieldValidateError } from '../../utils/errors'
@@ -21,18 +22,24 @@ import { getIn } from '../../utils/value'
 
 const FIELD_MARK = Symbol.for('_$mink-ui-form-field$_')
 
+// 字段是否已经验证过
+const VALIDATE_FINISH = Symbol.for('_$field-validate-finish$_')
+const VALIDATE_INITIAL = Symbol.for('_$field-validate-initial$_')
+
 export class FormFieldControl {
   private _getInitialValue: (() => any) | undefined
 
-  private lastValidate: null | Promise<any> = null
+  private lastValidate: Promise<FieldValidateError | null> | symbol = VALIDATE_FINISH
 
-  private mounted: boolean = false
+  private _mounted = false
 
   private _dirty = false
 
-  refresh: () => void
+  private refresh: () => void
 
   forceUpdate: () => void
+
+  _display: { value: any } | undefined = undefined
 
   _errors: string[] = []
 
@@ -56,17 +63,13 @@ export class FormFieldControl {
 
   // 字段是否改变过
   get dirty() {
-    const { _dirty, _props: { initialValue } } = this
-
-    if (_dirty || !isUndefined(initialValue)) return true
-
-    return !isUndefined(this._getInitialValue?.())
+    return this._dirty || !isUndefined(this._getInitialValue?.())
   }
 
   constructor(_forceUpdate: VoidFn, _refresh: VoidFn) {
-    this.forceUpdate = () => { this.mounted && _forceUpdate() }
+    this.forceUpdate = () => { this._mounted && _forceUpdate() }
 
-    this.refresh = () => { this.mounted && _refresh() }
+    this.refresh = () => { this._mounted && _refresh() }
   }
 
   setInternalFieldProps = (props: Partial<InternalFormFieldProps>) => {
@@ -93,13 +96,18 @@ export class FormFieldControl {
   }
 
   // 标记已经挂载
-  markIsMounted = () => {
-    this.mounted = true
+  markIsMounted = ($state: FormStateControl) => {
+    this._mounted = true
+
+    if (this._display) return
+
+    // 缓存第一次视图值
+    this._display = { value: $state.getFieldValue(this._name) }
   }
 
   // 标记已经卸载
   markIsUnmounted = () => {
-    this.mounted = false
+    this._mounted = false
 
     // 卸载时触发一次 metaChange 事件
     this.triggerMetaChange({ ...this.getMetaData(), mounted: false })
@@ -131,7 +139,7 @@ export class FormFieldControl {
       touched: this._touched,
       validating: this._validating,
       warnings: this._warnings, // TODO: 后续加上
-      validated: this.lastValidate === null,
+      validated: this.lastValidate === VALIDATE_FINISH,
     }
   }
 
@@ -161,7 +169,7 @@ export class FormFieldControl {
     const next = this.getMetaData()
 
     // 值没有改变 || 字段已经卸载了
-    if (isEqual(prev, next) || !this.mounted) return
+    if (isEqual(prev, next) || !this._mounted) return
 
     this.triggerMetaChange({ ...next, mounted: true })
   }
@@ -177,7 +185,7 @@ export class FormFieldControl {
       warnings: [],
     })
 
-    this.lastValidate = null
+    this.lastValidate = VALIDATE_INITIAL
 
     this._props.onReset?.()
 
@@ -203,7 +211,7 @@ export class FormFieldControl {
     const validatePromise = Promise.resolve().then(() => {
       const { rule: validator } = this._props
 
-      if (!this.mounted || !this._id || !validator) return null
+      if (!this._mounted || !this._id || !validator) return null
 
       const promise = validator
         .validate(value, { path: this._name })
@@ -215,7 +223,7 @@ export class FormFieldControl {
         // 判断是否过期
         if (this.lastValidate !== validatePromise) return
 
-        this.lastValidate = null
+        this.lastValidate = VALIDATE_FINISH
 
         const hasError = result instanceof FieldValidateError
 
