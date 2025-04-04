@@ -1,1 +1,0 @@
-import{j as e}from"./index-CZ9nobDP.js";import{S as n,M as r}from"./index-BPXy8e1k.js";function a(){return e.jsx("div",{className:"source-container",children:e.jsx(n,{title:"如何安装",children:e.jsx(r,{rawText:"```shell\nyarn add @mink-ui/core\n```"})})})}export{a as default};
