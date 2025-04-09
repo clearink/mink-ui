@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  actions: write
+  pull-requests: write
+
+jobs:
+  version:
+    name: Version
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    strategy:
+      matrix:
+        node-version: [20.18.1]
+        pnpm-version: [9.12.3]
+
+    steps:
+      # checkout
+      - name: Checkout Branch
+        uses: actions/checkout@v4
+
+      # 设置 npm 账户
+      - name: Setup Npm Account
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

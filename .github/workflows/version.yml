@@ -12,8 +12,10 @@ permissions:
 
 jobs:
   version:
-    timeout-minutes: 15
+    name: Version
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     strategy:
       matrix:
         node-version: [20.18.1]
@@ -42,10 +44,19 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      # 设置 git 账户
+      - name: Setup Git Account
+        run: |
+          git config user.name "clearink"
+          git config user.email "1561939638@qq.com"
+
       # 生成更新版本的 PR
       - name: Create Release Pull Request
         uses: changesets/action@v1
         with:
           version: pnpm run ci:version
+          commit: 'chore: update versions'
+          title: 'chore: update versions'
+          setupGitUser: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

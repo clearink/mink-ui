@@ -7,14 +7,17 @@ on:
       - main
     paths:
       - 'docs/**'
-      - 'packages/**/src/**'
+      - 'packages/**'
 
 permissions:
   contents: write
 
 jobs:
   website:
+    name: Website
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     strategy:
       matrix:
         node-version: [20.18.1]
@@ -56,6 +59,8 @@ jobs:
       # 发布到 github pages
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
+        if: github.ref == 'refs/heads/master'
         with:
+          branch: gh-pages
           folder: docs/dist
           clean: true
