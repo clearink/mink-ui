@@ -59,4 +59,4 @@ jobs:
           title: 'chore: update versions'
           setupGitUser: false
         env:
-          GITHUB_TOKEN: ${{ secrets.CLEARINK_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
