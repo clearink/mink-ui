@@ -1,4 +1,4 @@
-name: deploy to github pages
+name: Website
 
 on:
   push:
@@ -22,6 +22,7 @@ jobs:
 
     steps:
       # checkout
+      - name: Checkout Branch
       - uses: actions/checkout@v4
 
       # 安装 pnpm
@@ -39,8 +40,8 @@ jobs:
           cache: pnpm
 
       # 安装依赖
-      - name: Setup Dependencies
-        run: pnpm install --force --frozen-lockfile
+      - name: Install Dependencies
+        run: pnpm install
 
       # # ESLint 校验
       # - name: Run ESLint

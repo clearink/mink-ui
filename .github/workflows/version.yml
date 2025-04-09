@@ -1,12 +1,14 @@
-name: Release Package
+name: Version
 
 on:
   push:
     branches:
-      - master
+      - release/**
 
-env:
-  CI: true
+permissions:
+  contents: write
+  actions: write
+  pull-requests: write
 
 jobs:
   release:
@@ -19,6 +21,7 @@ jobs:
 
     steps:
       # checkout
+      - name: Checkout Branch
       - uses: actions/checkout@v4
 
       # 安装 pnpm
@@ -36,16 +39,13 @@ jobs:
           cache: pnpm
 
       # 安装依赖
-      - name: Setup Dependencies
-        run: pnpm install --force --frozen-lockfile
+      - name: Install Dependencies
+        run: pnpm install
 
-      # 生成 PR
+      # 生成更新版本的 PR
       - name: Create Release Pull Request
         uses: changesets/action@v1
+        with:
+          version: pnpm run ci:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        with:
-          commit: 'chore: update versions'
-          title: 'chore: update versions'
-          publish: pnpm run ci:publish
