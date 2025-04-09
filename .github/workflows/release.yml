@@ -30,4 +30,4 @@ jobs:
       - name: Setup Npm Account
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.CLEARINK_NPM_TOKEN }}
