@@ -4,7 +4,7 @@
 
 ## en-US
 
-通过 `action` 可以自定义右上角操作项。
+通过 `action` 可以自定义右上角操作项。en-US
 
 ```tsx
 import { Alert, Button, Space } from '@mink-ui/core'
