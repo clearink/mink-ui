@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   version:
-    name: Version
+    name: Release
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -26,8 +26,38 @@ jobs:
       - name: Checkout Branch
         uses: actions/checkout@v4
 
-      # 设置 npm 账户
-      - name: Setup Npm Account
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+      # 安装 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+          version: ${{ matrix.pnpm-version }}
+
+      # 设置 node
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      # 安装依赖
+      - name: Install Dependencies
+        run: pnpm install
+
+      # 构建打包脚本
+      - name: Run Build Tasks
+        run: |
+          pnpm run gen:icons
+          pnpm build:shared
+          pnpm build:emator
+          pnpm build:icons
+          pnpm build:core
+
+      - name: Publish to npm
+        uses: changesets/action@v1
+        with:
+          version: pnpm run ci:version
+          publish: pnpm run ci:publish
         env:
-          NPM_TOKEN: ${{ secrets.CLEARINK_NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
