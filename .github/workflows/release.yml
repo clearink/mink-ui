@@ -1,0 +1,51 @@
+name: Release Package
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  CI: true
+
+jobs:
+  release:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.18.1]
+        pnpm-version: [9.12.3]
+
+    steps:
+      # checkout
+      - uses: actions/checkout@v4
+
+      # 安装 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+          version: ${{ matrix.pnpm-version }}
+
+          # 设置 node
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      # 安装依赖
+      - name: Setup Dependencies
+        run: pnpm install --force --frozen-lockfile
+
+      # 生成 PR
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          commit: 'chore: update versions'
+          title: 'chore: update versions'
+          publish: pnpm run ci:publish
