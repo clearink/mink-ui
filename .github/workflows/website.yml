@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 jobs:
-  deploy:
+  website:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,7 +23,7 @@ jobs:
     steps:
       # checkout
       - name: Checkout Branch
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       # 安装 pnpm
       - name: Setup pnpm

@@ -1,7 +1,5 @@
 import type { AnyObj } from '@mink-ui/shared'
 
-import { noop } from '@mink-ui/shared'
-
 import type { ExternalFieldData, InternalNamePath } from './_shared.props'
 import type { ExternalFormInstance, InternalFormInstance } from './form/control/props'
 import type { InternalFormProps } from './form/props'
@@ -16,11 +14,7 @@ export interface InternalFormProviderContextState {
 }
 
 // Form 组件联动
-export const InternalFormProviderContext = ctxHelper<InternalFormProviderContextState | null>({
-  register: () => noop,
-  triggerFormChange: noop,
-  triggerFormFinish: noop,
-}, 'InternalFormContext')
+export const InternalFormProviderContext = ctxHelper<InternalFormProviderContextState | null>(null, 'InternalFormContext')
 
 const notFoundContext: any = () => {
   if (process.env.NODE_ENV !== 'production')

@@ -19,15 +19,19 @@ function FormProvider(props: InternalFormProviderProps) {
 
   const formProviderContext = useMemo<InternalFormProviderContextState>(() => {
     return {
-      register: batch(parentContext.register, (form, name) => {
+      register: batch(parentContext?.register, (form, name) => {
         if (!name) return noop
 
         forms.current[name] = form
 
         return () => { delete forms.current[name] }
       }),
-      triggerFormChange: parentContext.triggerFormChange,
-      triggerFormFinish: parentContext.triggerFormFinish,
+      triggerFormChange: (name, changeFields) => {
+        parentContext?.triggerFormChange(name, changeFields)
+      },
+      triggerFormFinish: (name, values) => {
+        parentContext?.triggerFormFinish(name, values)
+      },
     }
   }, [parentContext])
 
