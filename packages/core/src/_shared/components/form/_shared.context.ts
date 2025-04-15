@@ -16,7 +16,7 @@ export interface InternalFormProviderContextState {
 }
 
 // Form 组件联动
-export const InternalFormProviderContext = ctxHelper<InternalFormProviderContextState>({
+export const InternalFormProviderContext = ctxHelper<InternalFormProviderContextState | null>({
   register: () => noop,
   triggerFormChange: noop,
   triggerFormFinish: noop,

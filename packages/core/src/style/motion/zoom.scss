@@ -10,16 +10,16 @@
   &-enter-active {
     will-change: transform;
     transition:
-      opacity var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-out-circ),
-      transform var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-out-circ);
+      opacity var(--#{$prefix}-motion-duration-1) var(--#{$prefix}-motion-ease-out-circ),
+      transform var(--#{$prefix}-motion-duration-1) var(--#{$prefix}-motion-ease-out-circ);
     pointer-events: none;
   }
 
   &-exit-active {
     will-change: transform;
     transition:
-      opacity var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-in-out-circ),
-      transform var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-in-out-circ);
+      opacity var(--#{$prefix}-motion-duration-1) var(--#{$prefix}-motion-ease-in-out-circ),
+      transform var(--#{$prefix}-motion-duration-1) var(--#{$prefix}-motion-ease-in-out-circ);
     pointer-events: none;
   }
 

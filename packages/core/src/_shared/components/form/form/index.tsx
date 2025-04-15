@@ -65,7 +65,7 @@ function InternalForm<State = any>(
   // 合并初始值
   useConstant(() => { internalHooks.mergeInitialValues(initialValues) })
 
-  useEffect(() => formProvider.register(instance, name), [instance, name, formProvider])
+  useEffect(() => formProvider?.register(instance, name), [instance, name, formProvider])
 
   useSyncFields(internalHooks, fields)
 

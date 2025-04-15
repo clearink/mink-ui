@@ -20,9 +20,9 @@ function GroupTransition<E extends HTMLElement>(
   }), [states])
 
   const returnEarly = useWatchValue(children, () => {
-    if (isNodesEqual(states.current, children)) return false
+    if (isNodesEqual(states.current, children)) return
 
-    return (actions.updateElements(), true)
+    actions.updateElements()
   })
 
   return returnEarly ? null : <>{actions.renderNodes(children)}</>

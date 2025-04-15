@@ -132,7 +132,7 @@ export default class FormControl<State = any> {
  * @zh-CN 负责 Form 组件的 props
  */
 export class FormPropsControl {
-  _formProvider: InternalFormProviderContextState | undefined
+  _formProvider: InternalFormProviderContextState | null = null
 
   _props: Partial<InternalFormProps> = {}
 
@@ -144,7 +144,7 @@ export class FormPropsControl {
 
   setInternalFormProps = (
     props: Partial<InternalFormProps>,
-    formProvider: InternalFormProviderContextState,
+    formProvider: InternalFormProviderContextState | null,
   ) => {
     this._props = props
     this._formProvider = formProvider
@@ -447,22 +447,18 @@ export class FormInitialControl<State = any> {
       const formInitial = this.getFromInitialValue(namePath)
 
       if (!isUndefined(formInitial)) {
-        // 重置全部 && 都不是 Form.List
-        if (!hasNameList && controls.every(ctrl => !ctrl.isFormList())) return
-
         if (formInitial === $state.getFieldValue(namePath)) return
 
-        $state.setFieldValue(namePath, formInitial)
+        return $state.setFieldValue(namePath, formInitial)
       }
-      else {
-        const fieldInitial = this.getFieldInitialValue(controls)
 
-        if (isUndefined(fieldInitial)) return hasNameList && $state.deleteFieldValue(namePath)
+      const fieldInitial = this.getFieldInitialValue(controls)
 
-        if (fieldInitial === $state.getFieldValue(namePath)) return
+      if (isUndefined(fieldInitial)) return hasNameList && $state.deleteFieldValue(namePath)
 
-        $state.setFieldValue(namePath, fieldInitial)
-      }
+      if (fieldInitial === $state.getFieldValue(namePath)) return
+
+      $state.setFieldValue(namePath, fieldInitial)
     })
 
     return [prev, $state._state]

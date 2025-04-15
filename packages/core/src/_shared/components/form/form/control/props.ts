@@ -119,7 +119,7 @@ export interface InternalHooksReturn<State = any> {
    * @private
    * @zh-CN 同步 form props 与父级表单实例
    */
-  setInternalFormProps: (props: InternalFormProps, formProvider: InternalFormProviderContextState) => void
+  setInternalFormProps: (props: InternalFormProps, formProvider: InternalFormProviderContextState | null) => void
 
   /**
    * @private
