@@ -23,12 +23,13 @@ export default function useFieldBootstrap<S = any>(
   // 提前初始化字段 (避免在 registerField 多次调用)
   useConstant(() => { internalHooks.initInitialValue(control) })
 
-  const fieldDisplay = useConstant(() => formInstance.getFieldValue(control._name))
+  // 字段在该 render 阶段时的值
+  const fieldTransient = useConstant(() => formInstance.getFieldValue(control._name))
 
   // 注册字段
   useIsomorphicEffect(() => {
-    return internalHooks.registerField(control, fieldDisplay)
-  }, [internalHooks, control, fieldDisplay])
+    return internalHooks.registerField(control, fieldTransient)
+  }, [internalHooks, control, fieldTransient])
 
   // 收集依赖
   useEffect(() => internalHooks.collectDependencies(control), [internalHooks, control])

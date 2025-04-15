@@ -1,5 +1,6 @@
 import {
   execute,
+  fallback,
   isArray,
   isArrayEqual,
   isFunction,
@@ -322,24 +323,38 @@ export class FormInitialControl<State = any> {
   }
 
   // 在某些场景下触发一次额外的更新
-  triggerTwiceUpdate = (control: FormFieldControl, fieldDisplay: any) => {
-    const { shouldUpdate } = control._props
+  triggerTwiceUpdate = (action: { type: 'registerField' } & FormAction, _prev: any, _next: any) => {
+    const { type, control, fieldTransient } = action
 
-    if (shouldUpdate === true) return control.forceUpdate()
+    const { forceUpdate, shouldUpdate } = control
 
     const fieldCurrent = this.$state.getFieldValue(control._name)
 
-    if (fieldDisplay !== fieldCurrent) control.forceUpdate()
+    // 与展示值不同
+    if (fieldTransient !== fieldCurrent) return forceUpdate()
+
+    const prev = fallback(_prev, this.$state._state)
+
+    const next = fallback(_next, this.$state._state)
+
+    // 自定义逻辑
+    if (shouldUpdate(prev, next, type)) return forceUpdate()
   }
 
   // 确保已经初始化字段值
   ensureInitialValue = (control: FormFieldControl) => {
     const { $state } = this
 
-    const { _display, _props: { isListField, initialValue } } = control
+    const { _firstState, _props: { isListField, initialValue } } = control
 
     // fix StrictMode
-    if (_display) return $state.setFieldValue(control._name, _display.value)
+    if (_firstState) {
+      const fieldCurrent = $state.getFieldValue(control._name)
+
+      if (fieldCurrent === _firstState.value) return
+
+      return $state.setFieldValue(control._name, _firstState.value)
+    }
 
     // name 不合法 || 没有字段级别的初始值
     if (!control._id || isUndefined(initialValue)) return
@@ -861,19 +876,19 @@ export class FormDispatchControl<State = any> {
 
     // 注册字段
     if (action.type === 'registerField') {
-      const { type, control, fieldDisplay } = action
+      const { type, control } = action
 
       const [prev, next] = $initial.ensureInitialValue(control) || []
 
       control.markIsMounted($state)
 
-      $initial.triggerTwiceUpdate(control, fieldDisplay)
+      $initial.triggerTwiceUpdate(action, prev, next)
 
       if (isUndefined(prev) || isUndefined(next)) return
 
       this.updateControl((ctrl) => {
-        // 字段 shouldUpdate === true 已在注册时额外 forceUpdate
-        if (ctrl._props.shouldUpdate === true) return false
+        // 当前字段已经在 triggerTwiceUpdate 处理过了(如果不是处于 StrictMode, 理论上不会执行到这里)
+        if (control === ctrl) return false
 
         // 具有相同的父路径或者是同一个路径
         if (hasSameSuffix(control._name, ctrl._name)) return true
@@ -1015,10 +1030,10 @@ export class FormDispatchControl<State = any> {
   }
 
   // 注册字段
-  registerField = (control: FormFieldControl, fieldDisplay: any) => {
+  registerField = (control: FormFieldControl, fieldTransient: any) => {
     const unregisterControl = this.$controls.registerControl(control, this.$initial)
 
-    this.dispatch({ type: 'registerField', control, fieldDisplay })
+    this.dispatch({ type: 'registerField', control, fieldTransient })
 
     return () => {
       unregisterControl()

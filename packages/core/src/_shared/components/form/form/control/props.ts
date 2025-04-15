@@ -95,7 +95,7 @@ export interface InternalHooksReturn<State = any> {
    * @private
    * @zh-CN 注册字段
    */
-  registerField: (control: FormFieldControl, fieldDisplay: any) => (preserve?: boolean) => void
+  registerField: (control: FormFieldControl, fieldTransient: any) => () => void
 
   /**
    * @private

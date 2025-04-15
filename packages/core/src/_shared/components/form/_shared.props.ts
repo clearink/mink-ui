@@ -40,7 +40,7 @@ export type FormActionType = FormAction['type']
 export type FormAction =
   | {
     control: FormFieldControl
-    fieldDisplay: any
+    fieldTransient: any
     type: 'registerField'
   }
   | {

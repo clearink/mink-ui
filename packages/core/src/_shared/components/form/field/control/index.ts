@@ -39,7 +39,7 @@ export class FormFieldControl {
 
   forceUpdate: () => void
 
-  _display: { value: any } | undefined = undefined
+  _firstState: { value: any } | undefined = undefined
 
   _errors: string[] = []
 
@@ -99,10 +99,10 @@ export class FormFieldControl {
   markIsMounted = ($state: FormStateControl) => {
     this._mounted = true
 
-    if (this._display) return
+    if (this._firstState) return
 
     // 缓存第一次视图值
-    this._display = { value: $state.getFieldValue(this._name) }
+    this._firstState = { value: $state.getFieldValue(this._name) }
   }
 
   // 标记已经卸载
