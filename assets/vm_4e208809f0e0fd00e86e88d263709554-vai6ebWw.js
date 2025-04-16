@@ -1,0 +1,5 @@
+import{j as e}from"./index-Cd6mE_fN.js";import{S as s,M as a}from"./index-DCYNzB5B.js";import{S as r}from"./index-nUFW5qfr.js";import{C as c}from"./index-BNn7wRws.js";import{i as t,A as o,a as i,b as d,c as l,d as m}from"./vm_6d5333002ee7c7e0f341ad6428eea7f4-Dt7OT9EX.js";import"./index-BvKnu16c.js";import"./flatten-children-D6k-U1cC.js";import"./index-BLpYbYPs.js";import"./index-C0ifig8b.js";import"./pick-BK4giCUn.js";import"./is-null-D6OXYL3N.js";function u(){return e.jsxs("div",{className:"source-container",children:[e.jsx(s,{title:"何时使用",children:e.jsx(a,{rawText:"随你"})}),e.jsx(s,{title:"代码演示",children:e.jsx(c,{items:[{desc:t.desc,disabled:!1,element:e.jsx("div",{className:t.cssWrapName,children:e.jsx(o,{})}),rawText:t.rawText,title:"基本用法"},{desc:i.desc,disabled:!1,element:e.jsx("div",{className:i.cssWrapName,children:e.jsx(d,{})}),rawText:i.rawText,title:"数据校验"}]})}),e.jsx(s,{title:"API",children:e.jsx(a,{rawText:`### Form Props
+
+TODO`})}),e.jsx(s,{title:"Semantic DOM",children:e.jsx(r,{children:e.jsx("div",{className:l.cssWrapName,children:e.jsx(m,{})})})}),e.jsx(s,{title:"FAQ",children:e.jsx(a,{rawText:`### Q1
+
+qxxx`})})]})}export{u as default};
