@@ -1,0 +1,369 @@
+@use 'sass:color';
+@use 'sass:map';
+
+@use '../constants/index.scss' as *;
+@use './palette.scss' as *;
+
+@mixin mink-color-blue($theme) {
+  --#{$ns}-color-blue-1: #{map.get($color-blue, #{$theme}-blue-1)};
+  --#{$ns}-color-blue-2: #{map.get($color-blue, #{$theme}-blue-2)};
+  --#{$ns}-color-blue-3: #{map.get($color-blue, #{$theme}-blue-3)};
+  --#{$ns}-color-blue-4: #{map.get($color-blue, #{$theme}-blue-4)};
+  --#{$ns}-color-blue-5: #{map.get($color-blue, #{$theme}-blue-5)};
+  --#{$ns}-color-blue-6: #{map.get($color-blue, #{$theme}-blue-6)};
+  --#{$ns}-color-blue-7: #{map.get($color-blue, #{$theme}-blue-7)};
+  --#{$ns}-color-blue-8: #{map.get($color-blue, #{$theme}-blue-8)};
+  --#{$ns}-color-blue-9: #{map.get($color-blue, #{$theme}-blue-9)};
+  --#{$ns}-color-blue-10: #{map.get($color-blue, #{$theme}-blue-10)};
+}
+
+@mixin mink-color-cyan($theme) {
+  --#{$ns}-color-cyan-1: #{map.get($color-cyan, #{$theme}-cyan-1)};
+  --#{$ns}-color-cyan-2: #{map.get($color-cyan, #{$theme}-cyan-2)};
+  --#{$ns}-color-cyan-3: #{map.get($color-cyan, #{$theme}-cyan-3)};
+  --#{$ns}-color-cyan-4: #{map.get($color-cyan, #{$theme}-cyan-4)};
+  --#{$ns}-color-cyan-5: #{map.get($color-cyan, #{$theme}-cyan-5)};
+  --#{$ns}-color-cyan-6: #{map.get($color-cyan, #{$theme}-cyan-6)};
+  --#{$ns}-color-cyan-7: #{map.get($color-cyan, #{$theme}-cyan-7)};
+  --#{$ns}-color-cyan-8: #{map.get($color-cyan, #{$theme}-cyan-8)};
+  --#{$ns}-color-cyan-9: #{map.get($color-cyan, #{$theme}-cyan-9)};
+  --#{$ns}-color-cyan-10: #{map.get($color-cyan, #{$theme}-cyan-10)};
+}
+
+@mixin mink-color-geek-blue($theme) {
+  --#{$ns}-color-geek-blue-1: #{map.get($color-geek-blue, #{$theme}-geek-blue-1)};
+  --#{$ns}-color-geek-blue-2: #{map.get($color-geek-blue, #{$theme}-geek-blue-2)};
+  --#{$ns}-color-geek-blue-3: #{map.get($color-geek-blue, #{$theme}-geek-blue-3)};
+  --#{$ns}-color-geek-blue-4: #{map.get($color-geek-blue, #{$theme}-geek-blue-4)};
+  --#{$ns}-color-geek-blue-5: #{map.get($color-geek-blue, #{$theme}-geek-blue-5)};
+  --#{$ns}-color-geek-blue-6: #{map.get($color-geek-blue, #{$theme}-geek-blue-6)};
+  --#{$ns}-color-geek-blue-7: #{map.get($color-geek-blue, #{$theme}-geek-blue-7)};
+  --#{$ns}-color-geek-blue-8: #{map.get($color-geek-blue, #{$theme}-geek-blue-8)};
+  --#{$ns}-color-geek-blue-9: #{map.get($color-geek-blue, #{$theme}-geek-blue-9)};
+  --#{$ns}-color-geek-blue-10: #{map.get($color-geek-blue, #{$theme}-geek-blue-10)};
+}
+
+@mixin mink-color-gold($theme) {
+  --#{$ns}-color-gold-1: #{map.get($color-gold, #{$theme}-gold-1)};
+  --#{$ns}-color-gold-2: #{map.get($color-gold, #{$theme}-gold-2)};
+  --#{$ns}-color-gold-3: #{map.get($color-gold, #{$theme}-gold-3)};
+  --#{$ns}-color-gold-4: #{map.get($color-gold, #{$theme}-gold-4)};
+  --#{$ns}-color-gold-5: #{map.get($color-gold, #{$theme}-gold-5)};
+  --#{$ns}-color-gold-6: #{map.get($color-gold, #{$theme}-gold-6)};
+  --#{$ns}-color-gold-7: #{map.get($color-gold, #{$theme}-gold-7)};
+  --#{$ns}-color-gold-8: #{map.get($color-gold, #{$theme}-gold-8)};
+  --#{$ns}-color-gold-9: #{map.get($color-gold, #{$theme}-gold-9)};
+  --#{$ns}-color-gold-10: #{map.get($color-gold, #{$theme}-gold-10)};
+}
+
+@mixin mink-color-green($theme) {
+  --#{$ns}-color-green-1: #{map.get($color-green, #{$theme}-green-1)};
+  --#{$ns}-color-green-2: #{map.get($color-green, #{$theme}-green-2)};
+  --#{$ns}-color-green-3: #{map.get($color-green, #{$theme}-green-3)};
+  --#{$ns}-color-green-4: #{map.get($color-green, #{$theme}-green-4)};
+  --#{$ns}-color-green-5: #{map.get($color-green, #{$theme}-green-5)};
+  --#{$ns}-color-green-6: #{map.get($color-green, #{$theme}-green-6)};
+  --#{$ns}-color-green-7: #{map.get($color-green, #{$theme}-green-7)};
+  --#{$ns}-color-green-8: #{map.get($color-green, #{$theme}-green-8)};
+  --#{$ns}-color-green-9: #{map.get($color-green, #{$theme}-green-9)};
+  --#{$ns}-color-green-10: #{map.get($color-green, #{$theme}-green-10)};
+}
+
+@mixin mink-color-lime($theme) {
+  --#{$ns}-color-lime-1: #{map.get($color-lime, #{$theme}-lime-1)};
+  --#{$ns}-color-lime-2: #{map.get($color-lime, #{$theme}-lime-2)};
+  --#{$ns}-color-lime-3: #{map.get($color-lime, #{$theme}-lime-3)};
+  --#{$ns}-color-lime-4: #{map.get($color-lime, #{$theme}-lime-4)};
+  --#{$ns}-color-lime-5: #{map.get($color-lime, #{$theme}-lime-5)};
+  --#{$ns}-color-lime-6: #{map.get($color-lime, #{$theme}-lime-6)};
+  --#{$ns}-color-lime-7: #{map.get($color-lime, #{$theme}-lime-7)};
+  --#{$ns}-color-lime-8: #{map.get($color-lime, #{$theme}-lime-8)};
+  --#{$ns}-color-lime-9: #{map.get($color-lime, #{$theme}-lime-9)};
+  --#{$ns}-color-lime-10: #{map.get($color-lime, #{$theme}-lime-10)};
+}
+
+@mixin mink-color-magenta($theme) {
+  --#{$ns}-color-magenta-1: #{map.get($color-magenta, #{$theme}-magenta-1)};
+  --#{$ns}-color-magenta-2: #{map.get($color-magenta, #{$theme}-magenta-2)};
+  --#{$ns}-color-magenta-3: #{map.get($color-magenta, #{$theme}-magenta-3)};
+  --#{$ns}-color-magenta-4: #{map.get($color-magenta, #{$theme}-magenta-4)};
+  --#{$ns}-color-magenta-5: #{map.get($color-magenta, #{$theme}-magenta-5)};
+  --#{$ns}-color-magenta-6: #{map.get($color-magenta, #{$theme}-magenta-6)};
+  --#{$ns}-color-magenta-7: #{map.get($color-magenta, #{$theme}-magenta-7)};
+  --#{$ns}-color-magenta-8: #{map.get($color-magenta, #{$theme}-magenta-8)};
+  --#{$ns}-color-magenta-9: #{map.get($color-magenta, #{$theme}-magenta-9)};
+  --#{$ns}-color-magenta-10: #{map.get($color-magenta, #{$theme}-magenta-10)};
+}
+
+@mixin mink-color-orange($theme) {
+  --#{$ns}-color-orange-1: #{map.get($color-orange, #{$theme}-orange-1)};
+  --#{$ns}-color-orange-2: #{map.get($color-orange, #{$theme}-orange-2)};
+  --#{$ns}-color-orange-3: #{map.get($color-orange, #{$theme}-orange-3)};
+  --#{$ns}-color-orange-4: #{map.get($color-orange, #{$theme}-orange-4)};
+  --#{$ns}-color-orange-5: #{map.get($color-orange, #{$theme}-orange-5)};
+  --#{$ns}-color-orange-6: #{map.get($color-orange, #{$theme}-orange-6)};
+  --#{$ns}-color-orange-7: #{map.get($color-orange, #{$theme}-orange-7)};
+  --#{$ns}-color-orange-8: #{map.get($color-orange, #{$theme}-orange-8)};
+  --#{$ns}-color-orange-9: #{map.get($color-orange, #{$theme}-orange-9)};
+  --#{$ns}-color-orange-10: #{map.get($color-orange, #{$theme}-orange-10)};
+}
+
+@mixin mink-color-purple($theme) {
+  --#{$ns}-color-purple-1: #{map.get($color-purple, #{$theme}-purple-1)};
+  --#{$ns}-color-purple-2: #{map.get($color-purple, #{$theme}-purple-2)};
+  --#{$ns}-color-purple-3: #{map.get($color-purple, #{$theme}-purple-3)};
+  --#{$ns}-color-purple-4: #{map.get($color-purple, #{$theme}-purple-4)};
+  --#{$ns}-color-purple-5: #{map.get($color-purple, #{$theme}-purple-5)};
+  --#{$ns}-color-purple-6: #{map.get($color-purple, #{$theme}-purple-6)};
+  --#{$ns}-color-purple-7: #{map.get($color-purple, #{$theme}-purple-7)};
+  --#{$ns}-color-purple-8: #{map.get($color-purple, #{$theme}-purple-8)};
+  --#{$ns}-color-purple-9: #{map.get($color-purple, #{$theme}-purple-9)};
+  --#{$ns}-color-purple-10: #{map.get($color-purple, #{$theme}-purple-10)};
+}
+
+@mixin mink-color-red($theme) {
+  --#{$ns}-color-red-1: #{map.get($color-red, #{$theme}-red-1)};
+  --#{$ns}-color-red-2: #{map.get($color-red, #{$theme}-red-2)};
+  --#{$ns}-color-red-3: #{map.get($color-red, #{$theme}-red-3)};
+  --#{$ns}-color-red-4: #{map.get($color-red, #{$theme}-red-4)};
+  --#{$ns}-color-red-5: #{map.get($color-red, #{$theme}-red-5)};
+  --#{$ns}-color-red-6: #{map.get($color-red, #{$theme}-red-6)};
+  --#{$ns}-color-red-7: #{map.get($color-red, #{$theme}-red-7)};
+  --#{$ns}-color-red-8: #{map.get($color-red, #{$theme}-red-8)};
+  --#{$ns}-color-red-9: #{map.get($color-red, #{$theme}-red-9)};
+  --#{$ns}-color-red-10: #{map.get($color-red, #{$theme}-red-10)};
+}
+
+@mixin mink-color-volcano($theme) {
+  --#{$ns}-color-volcano-1: #{map.get($color-volcano, #{$theme}-volcano-1)};
+  --#{$ns}-color-volcano-2: #{map.get($color-volcano, #{$theme}-volcano-2)};
+  --#{$ns}-color-volcano-3: #{map.get($color-volcano, #{$theme}-volcano-3)};
+  --#{$ns}-color-volcano-4: #{map.get($color-volcano, #{$theme}-volcano-4)};
+  --#{$ns}-color-volcano-5: #{map.get($color-volcano, #{$theme}-volcano-5)};
+  --#{$ns}-color-volcano-6: #{map.get($color-volcano, #{$theme}-volcano-6)};
+  --#{$ns}-color-volcano-7: #{map.get($color-volcano, #{$theme}-volcano-7)};
+  --#{$ns}-color-volcano-8: #{map.get($color-volcano, #{$theme}-volcano-8)};
+  --#{$ns}-color-volcano-9: #{map.get($color-volcano, #{$theme}-volcano-9)};
+  --#{$ns}-color-volcano-10: #{map.get($color-volcano, #{$theme}-volcano-10)};
+}
+
+@mixin mink-color-yellow($theme) {
+  --#{$ns}-color-yellow-1: #{map.get($color-yellow, #{$theme}-yellow-1)};
+  --#{$ns}-color-yellow-2: #{map.get($color-yellow, #{$theme}-yellow-2)};
+  --#{$ns}-color-yellow-3: #{map.get($color-yellow, #{$theme}-yellow-3)};
+  --#{$ns}-color-yellow-4: #{map.get($color-yellow, #{$theme}-yellow-4)};
+  --#{$ns}-color-yellow-5: #{map.get($color-yellow, #{$theme}-yellow-5)};
+  --#{$ns}-color-yellow-6: #{map.get($color-yellow, #{$theme}-yellow-6)};
+  --#{$ns}-color-yellow-7: #{map.get($color-yellow, #{$theme}-yellow-7)};
+  --#{$ns}-color-yellow-8: #{map.get($color-yellow, #{$theme}-yellow-8)};
+  --#{$ns}-color-yellow-9: #{map.get($color-yellow, #{$theme}-yellow-9)};
+  --#{$ns}-color-yellow-10: #{map.get($color-yellow, #{$theme}-yellow-10)};
+}
+
+@mixin mink-color-primary($theme) {
+  --#{$ns}-color-primary-bg: var(--#{$ns}-color-blue-1);
+  --#{$ns}-color-primary-bg-hover: var(--#{$ns}-color-blue-2);
+  --#{$ns}-color-primary-border: var(--#{$ns}-color-blue-3);
+  --#{$ns}-color-primary-border-hover: var(--#{$ns}-color-blue-4);
+  --#{$ns}-color-primary-hover: var(--#{$ns}-color-blue-5);
+  --#{$ns}-color-primary: var(--#{$ns}-color-blue-6);
+  --#{$ns}-color-primary-active: var(--#{$ns}-color-blue-7);
+  --#{$ns}-color-primary-text-hover: var(--#{$ns}-color-blue-8);
+  --#{$ns}-color-primary-text: var(--#{$ns}-color-blue-9);
+  --#{$ns}-color-primary-text-active: var(--#{$ns}-color-blue-10);
+}
+
+@mixin mink-color-success($theme) {
+  --#{$ns}-color-success-bg: var(--#{$ns}-color-green-1);
+  --#{$ns}-color-success-bg-hover: var(--#{$ns}-color-green-2);
+  --#{$ns}-color-success-border: var(--#{$ns}-color-green-3);
+  --#{$ns}-color-success-border-hover: var(--#{$ns}-color-green-4);
+  --#{$ns}-color-success-hover: var(--#{$ns}-color-green-5);
+  --#{$ns}-color-success: var(--#{$ns}-color-green-6);
+  --#{$ns}-color-success-active: var(--#{$ns}-color-green-7);
+  --#{$ns}-color-success-text-hover: var(--#{$ns}-color-green-8);
+  --#{$ns}-color-success-text: var(--#{$ns}-color-green-9);
+  --#{$ns}-color-success-text-active: var(--#{$ns}-color-green-10);
+}
+
+@mixin mink-color-warning($theme) {
+  --#{$ns}-color-warning-bg: var(--#{$ns}-color-gold-1);
+  --#{$ns}-color-warning-bg-hover: var(--#{$ns}-color-gold-2);
+  --#{$ns}-color-warning-border: var(--#{$ns}-color-gold-3);
+  --#{$ns}-color-warning-border-hover: var(--#{$ns}-color-gold-4);
+  --#{$ns}-color-warning-hover: var(--#{$ns}-color-gold-5);
+  --#{$ns}-color-warning: var(--#{$ns}-color-gold-6);
+  --#{$ns}-color-warning-active: var(--#{$ns}-color-gold-7);
+  --#{$ns}-color-warning-text-hover: var(--#{$ns}-color-gold-8);
+  --#{$ns}-color-warning-text: var(--#{$ns}-color-gold-9);
+  --#{$ns}-color-warning-text-active: var(--#{$ns}-color-gold-10);
+}
+
+// TODO: 这个颜色后续要改成别的
+@mixin mink-color-info($theme) {
+  --#{$ns}-color-info-bg: var(--#{$ns}-color-blue-1);
+  --#{$ns}-color-info-bg-hover: var(--#{$ns}-color-blue-2);
+  --#{$ns}-color-info-border: var(--#{$ns}-color-blue-3);
+  --#{$ns}-color-info-border-hover: var(--#{$ns}-color-blue-4);
+  --#{$ns}-color-info-hover: var(--#{$ns}-color-blue-5);
+  --#{$ns}-color-info: var(--#{$ns}-color-blue-6);
+  --#{$ns}-color-info-active: var(--#{$ns}-color-blue-7);
+  --#{$ns}-color-info-text-hover: var(--#{$ns}-color-blue-8);
+  --#{$ns}-color-info-text: var(--#{$ns}-color-blue-9);
+  --#{$ns}-color-info-text-active: var(--#{$ns}-color-blue-10);
+}
+
+@mixin mink-color-error($theme) {
+  @if $theme == 'light' {
+    --#{$ns}-color-error-bg: #fff2f0;
+    --#{$ns}-color-error-bg-hover: #fff1f0;
+    --#{$ns}-color-error-bg-active: #ffccc7;
+    --#{$ns}-color-error-border: #ffccc7;
+    --#{$ns}-color-error-border-hover: #ffa39e;
+    --#{$ns}-color-error-hover: #ff7875;
+    --#{$ns}-color-error: #ff4d4f;
+    --#{$ns}-color-error-active: #d9363e;
+    --#{$ns}-color-error-text-hover: #ff7875;
+    --#{$ns}-color-error-text: #ff4d4f;
+    --#{$ns}-color-error-text-active: #d9363e;
+  } @else if $theme == 'dark' {
+    --#{$ns}-color-error-bg: #2c1618;
+    --#{$ns}-color-error-bg-hover: #451d1f;
+    --#{$ns}-color-error-bg-active: #5b2526;
+    --#{$ns}-color-error-border: #5b2526;
+    --#{$ns}-color-error-border-hover: #7e2e2f;
+    --#{$ns}-color-error-hover: #e86e6b;
+    --#{$ns}-color-error: #dc4446;
+    --#{$ns}-color-error-active: #ad393a;
+    --#{$ns}-color-error-text-hover: #e86e6b;
+    --#{$ns}-color-error-text: #dc4446;
+    --#{$ns}-color-error-text-active: #ad393a;
+  }
+}
+
+@mixin mink-color-control($theme) {
+  @if $theme == 'light' {
+    --#{$ns}-color-control-item-bg-active: var(--#{$ns}-color-primary-bg);
+    --#{$ns}-color-control-item-bg-active-disabled: var(--#{$ns}-color-fill);
+    --#{$ns}-color-control-item-bg-active-hover: var(--#{$ns}-color-primary-bg-hover);
+    --#{$ns}-color-control-item-bg-hover: var(--#{$ns}-color-fill-tertiary);
+    --#{$ns}-color-control-outline: #0591ff;
+    --#{$ns}-color-control-tmp-outline: var(--#{$ns}-color-fill-quaternary);
+  } @else if $theme == 'dark' {
+    --#{$ns}-color-control-item-bg-active: var(--#{$ns}-color-primary-bg);
+    --#{$ns}-color-control-item-bg-active-disabled: var(--#{$ns}-color-fill);
+    --#{$ns}-color-control-item-bg-active-hover: var(--#{$ns}-color-primary-bg-hover);
+    --#{$ns}-color-control-item-bg-hover: var(--#{$ns}-color-fill-tertiary);
+    --#{$ns}-color-control-outline: var(--#{$ns}-color-primary-bg);
+    --#{$ns}-color-control-tmp-outline: var(--#{$ns}-color-fill-quaternary);
+  }
+}
+
+@mixin mink-color-text($theme) {
+  @if $theme == 'light' {
+    --#{$ns}-color-text: rgb(0 0 0 / 88%);
+    --#{$ns}-color-text-secondary: rgb(0 0 0 / 65%);
+    --#{$ns}-color-text-tertiary: rgb(0 0 0 / 45%);
+    --#{$ns}-color-text-quaternary: rgb(0 0 0 / 25%);
+    --#{$ns}-color-text-light-solid: rgb(255 255 255 / 100%);
+    --#{$ns}-color-text-heading: var(--#{$ns}-color-text);
+    --#{$ns}-color-text-label: var(--#{$ns}-color-text-secondary);
+    --#{$ns}-color-text-description: var(--#{$ns}-color-text-tertiary);
+    --#{$ns}-color-text-disabled: var(--#{$ns}-color-text-quaternary);
+    --#{$ns}-color-text-placeholder: var(--#{$ns}-color-text-quaternary);
+  } @else if $theme == 'dark' {
+    --#{$ns}-color-text: rgb(255 255 255 / 85%);
+    --#{$ns}-color-text-secondary: rgb(255 255 255 / 65%);
+    --#{$ns}-color-text-tertiary: rgb(255 255 255 / 45%);
+    --#{$ns}-color-text-quaternary: rgb(255 255 255 / 25%);
+    --#{$ns}-color-text-light-solid: rgb(255 255 255 / 100%);
+    --#{$ns}-color-text-heading: var(--#{$ns}-color-text);
+    --#{$ns}-color-text-label: var(--#{$ns}-color-text-secondary);
+    --#{$ns}-color-text-description: var(--#{$ns}-color-text-tertiary);
+    --#{$ns}-color-text-disabled: var(--#{$ns}-color-text-quaternary);
+    --#{$ns}-color-text-placeholder: var(--#{$ns}-color-text-quaternary);
+  }
+}
+
+@mixin mink-color-fill($theme) {
+  @if $theme == 'light' {
+    --#{$ns}-color-fill: rgb(0 0 0 / 15%);
+    --#{$ns}-color-fill-secondary: rgb(0 0 0 / 6%);
+    --#{$ns}-color-fill-tertiary: rgb(0 0 0 / 4%);
+    --#{$ns}-color-fill-quaternary: rgb(0 0 0 / 2%);
+    --#{$ns}-color-fill-content: var(--#{$ns}-color-fill-secondary);
+    --#{$ns}-color-fill-content-hover: var(--#{$ns}-color-fill);
+    --#{$ns}-color-fill-alter: var(--#{$ns}-color-fill-quaternary);
+  } @else if $theme == 'dark' {
+    --#{$ns}-color-fill: rgb(255 255 255 / 18%);
+    --#{$ns}-color-fill-secondary: rgb(255 255 255 / 12%);
+    --#{$ns}-color-fill-tertiary: rgb(255 255 255 / 8%);
+    --#{$ns}-color-fill-quaternary: rgb(255 255 255 / 4%);
+    --#{$ns}-color-fill-content: var(--#{$ns}-color-fill-secondary);
+    --#{$ns}-color-fill-content-hover: var(--#{$ns}-color-fill);
+    --#{$ns}-color-fill-alter: var(--#{$ns}-color-fill-quaternary);
+  }
+}
+
+@mixin mink-color-bg($theme) {
+  @if $theme == 'light' {
+    --#{$ns}-color-bg: var(--#{$ns}-color-white);
+    --#{$ns}-color-bg-container: var(--#{$ns}-color-white);
+    --#{$ns}-color-bg-elevated: var(--#{$ns}-color-white);
+    --#{$ns}-color-bg-layout: #f5f5f5;
+    --#{$ns}-color-bg-mask: rgb(0 0 0 / 45%);
+    --#{$ns}-color-bg-spot-light: rgb(0 0 0 / 85%);
+    --#{$ns}-color-bg-container-disabled: var(--#{$ns}-color-fill-tertiary);
+    --#{$ns}-color-bg-text-active: var(--#{$ns}-color-fill);
+    --#{$ns}-color-bg-text-hover: var(--#{$ns}-color-fill-secondary);
+    --#{$ns}-color-bg-border: var(--#{$ns}-color-bg-container);
+    --#{$ns}-color-bg-blur: var(--#{$ns}-color-transparent);
+  } @else if $theme == 'dark' {
+    --#{$ns}-color-bg: #141414;
+    --#{$ns}-color-bg-container: var(--#{$ns}-color-bg);
+    --#{$ns}-color-bg-elevated: #1f1f1f;
+    --#{$ns}-color-bg-layout: var(--#{$ns}-color-bg);
+    --#{$ns}-color-bg-mask: rgb(0 0 0 / 45%);
+    --#{$ns}-color-bg-spot-light: #424242;
+    --#{$ns}-color-bg-container-disabled: var(--#{$ns}-color-fill-tertiary);
+    --#{$ns}-color-bg-text-active: var(--#{$ns}-color-fill);
+    --#{$ns}-color-bg-text-hover: var(--#{$ns}-color-fill-secondary);
+    --#{$ns}-color-bg-border: var(--#{$ns}-color-bg-container);
+    --#{$ns}-color-bg-blur: rgb(255 255 255 / 0.04);
+  }
+}
+
+@mixin mink-color-border($theme) {
+  @if $theme == 'light' {
+    --#{$ns}-color-border: #d9d9d9;
+    --#{$ns}-color-border-secondary: #f0f0f0;
+    --#{$ns}-color-border-split: rgb(0 0 0 / 6%);
+  } @else if $theme == 'dark' {
+    --#{$ns}-color-border: #424242;
+    --#{$ns}-color-border-secondary: #303030;
+    --#{$ns}-color-border-split: rgb(255 255 255 / 6%);
+  }
+}
+
+@mixin mink-color-shadow() {
+  --#{$ns}-box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);
+  --#{$ns}-box-shadow-secondary: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);
+  --#{$ns}-box-shadow-tertiary: 0 1px 2px 0 rgb(0 0 0 / 3%), 0 1px 6px -1px rgb(0 0 0 / 2%), 0 2px 4px 0 rgb(0 0 0 / 2%);
+}
+
+@mixin mink-color-icon() {
+  --#{$ns}-color-icon: var(--#{$ns}-color-text-tertiary);
+  --#{$ns}-color-icon-hover: var(--#{$ns}-color-text);
+}
+
+@mixin mink-color-neutral() {
+  --#{$ns}-color-white: #fff;
+  --#{$ns}-color-black: #000;
+  --#{$ns}-color-transparent: transparent;
+}
+
+@mixin mink-color-link() {
+  --#{$ns}-color-link: var(--#{$ns}-color-blue-6);
+  --#{$ns}-color-link-hover: var(--#{$ns}-color-blue-5);
+  --#{$ns}-color-link-active: var(--#{$ns}-color-blue-7);
+}

@@ -1,24 +1,19 @@
 ## zh-CN
 
-基本
+基本用法展示徽标数字。
 
 ## en-US
 
-basic
+Basic usage showing badge count.
 
 ```tsx
-import { Badge, Button, Space } from '@mink-ui/core'
+import { Badge } from '@mink-ui/core'
 
 export default function App() {
   return (
-    <Space>
-      <Badge count={12}>
-        <Button>Badge</Button>
-      </Badge>
-      <Badge count={23}>
-        <Button>Badge</Button>
-      </Badge>
-    </Space>
+    <Badge count={5}>
+      <span>Messages</span>
+    </Badge>
   )
 }
 ```

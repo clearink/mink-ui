@@ -1,37 +1,62 @@
-// 引入 css 变量文件
-@import '../../style/base.scss';
-@import './tokens.scss';
-@import './mixins.scss';
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
 
-$comp: #{$prefix}-space;
+$ns-space: #{$ns}-space;
 
-.#{$comp} {
+.#{$ns-space} {
   @include reset-component();
 
   display: inline-flex;
   width: 100%;
-}
 
-.#{$comp}--align-start {
-  align-items: flex-start;
-}
+  &--align {
+    &-start {
+      align-items: flex-start;
+    }
 
-.#{$comp}--align-center {
-  align-items: center;
-}
+    &-center {
+      align-items: center;
+    }
 
-.#{$comp}--align-baseline {
-  align-items: baseline;
-}
+    &-end {
+      align-items: flex-end;
+    }
+  }
 
-.#{$comp}--align-end {
-  align-items: flex-end;
-}
+  &--vertical {
+    flex-direction: column;
+  }
 
-.#{$comp}--vertical {
-  flex-direction: column;
-}
+  &--wrap {
+    flex-wrap: wrap;
+  }
 
-.#{$comp}--wrap {
-  flex-wrap: wrap;
+  &--row {
+    &-small {
+      row-gap: $space-gutter-small;
+    }
+
+    &-middle {
+      row-gap: $space-gutter-middle;
+    }
+
+    &-large {
+      row-gap: $space-gutter-large;
+    }
+  }
+
+  &--col {
+    &-small {
+      column-gap: $space-gutter-small;
+    }
+
+    &-middle {
+      column-gap: $space-gutter-middle;
+    }
+
+    &-large {
+      column-gap: $space-gutter-large;
+    }
+  }
 }

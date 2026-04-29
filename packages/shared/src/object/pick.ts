@@ -4,7 +4,7 @@ export function pick<T extends Record<string, any>, K extends keyof T>(
 ): Pick<T, K> {
   const result = {} as T
 
-  for (let i = 0, len = keys.length; i < len; i++) {
+  for (let len = keys.length, i = 0; i < len; i++) {
     const key = keys[i]
 
     if (key in source) result[key] = source[key]

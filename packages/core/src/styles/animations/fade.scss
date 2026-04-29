@@ -1,0 +1,15 @@
+@use '../constants/index.scss' as *;
+
+.#{$ns}-fade-enter-from,
+.#{$ns}-fade-exit-to {
+  opacity: 0;
+}
+
+.#{$ns}-fade-enter-active,
+.#{$ns}-fade-exit-active {
+  transition: opacity var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-out-circ);
+}
+
+.#{$ns}-fade-exit-done {
+  display: none !important;
+}

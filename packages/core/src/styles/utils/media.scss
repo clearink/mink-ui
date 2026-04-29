@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use '../constants/index.scss' as *;
+
+@mixin media($break-point: md, $type: min) {
+  $width: map.get($map-break-point, $break-point);
+
+  @if $width {
+    @media screen and (#{$type}-width: $width) {
+      @content;
+    }
+  } @else {
+    @media screen and (#{$type}-width: $break-point) {
+      @content;
+    }
+  }
+}

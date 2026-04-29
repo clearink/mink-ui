@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "src/**/*.ts",
+    "../../packages/shared/src/array/to-array.ts",
+    "../../packages/shared/src/array/is-array.ts",
+    "../../packages/shared/src/is/is-object.ts",
+    "../../packages/shared/src/is/is-undefined.ts",
+    "../../packages/shared/src/string/capitalize.ts"
+  ],
+  "exclude": ["node_modules"]
+}

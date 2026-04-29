@@ -1,21 +1,20 @@
-// 引入 css 基础配置文件
-@import '../../style/base.scss';
-@import './tokens.scss';
-@import './mixins.scss';
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
 
-$comp: #{$prefix}-segmented;
+$ns-segmented: #{$ns}-segmented;
 
-.#{$comp} {
+.#{$ns-segmented} {
   @include reset-component();
 
   display: inline-block;
   padding: $mink-segmented-padding;
-  color: var(--#{$prefix}-color-text-label);
-  background: var(--#{$prefix}-color-bg-layout);
+  color: var(--#{$ns}-color-text-label);
+  background: var(--#{$ns}-color-bg-layout);
   border-radius: $mink-segmented-border-radius;
-  transition: all var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-in-out);
+  transition: all var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-in-out);
 
-  &__group {
+  &__inner {
     position: relative;
     display: flex;
     align-items: stretch;
@@ -23,106 +22,24 @@ $comp: #{$prefix}-segmented;
     width: 100%;
   }
 
-  &-item {
-    @include reset-component();
-
-    user-select: none;
-
-    position: relative;
-    text-align: center;
-    border-radius: $mink-segmented-border-radius;
-    transform: translateZ(0);
-    cursor: pointer;
-    transition: color var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-in-out);
-
-    &::after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      transition: background-color var(--#{$prefix}-motion-duration-2) var(--#{$prefix}-motion-ease-in-out);
-      content: '';
-      pointer-events: none;
-    }
-
-    &:hover:not(&--selected, &--disabled) {
-      color: var(--#{$prefix}-color-text);
-
-      &::after {
-        background-color: var(--#{$prefix}-color-fill-secondary);
-      }
-    }
-
-    &:active:not(&--selected, &--disabled) {
-      color: var(--#{$prefix}-color-text);
-
-      &::after {
-        background-color: var(--#{$prefix}-color-fill);
-      }
-    }
-
-    &--selected {
-      color: var(--#{$prefix}-color-text);
-      background-color: var(--#{$prefix}-color-bg-elevated);
-      box-shadow: var(--#{$prefix}-box-shadow-tertiary);
-    }
-
-    &--disabled,
-    &--disabled:hover,
-    &--disabled:active {
-      color: var(--#{$prefix}-color-text-disabled);
-      cursor: not-allowed;
-    }
-  }
-
-  &-item__radio {
-    position: absolute;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  &-item__label {
-    min-height: $mink-segmented-height;
-    padding: 0 $mink-segmented-px;
-    overflow: hidden;
-    line-height: $mink-segmented-height;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
   &__thumb {
     position: absolute;
     width: 0;
     height: 100%;
     padding: $mink-segmented-padding 0;
-    background-color: var(--#{$prefix}-color-bg-elevated);
+    background-color: var(--#{$ns}-color-bg-elevated);
     border-radius: $mink-segmented-border-radius;
-    box-shadow: var(--#{$prefix}-box-shadow-tertiary);
+    box-shadow: var(--#{$ns}-box-shadow-tertiary);
 
-    & ~ .#{$comp}-item:not(.#{$comp}-item--selected):not(.#{$comp}-item--disabled)::after {
+    & ~ .#{$ns-segmented}-item:not(.#{$ns-segmented}-item--selected):not(.#{$ns-segmented}-item--disabled)::after {
       background-color: transparent;
-    }
-  }
-
-  &-thumb-motion {
-    &-enter-active {
-      transition:
-        transform var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
-        width var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out);
-      user-select: none;
-      will-change: width;
     }
   }
 
   &--block {
     display: flex;
 
-    .#{$comp}-item {
+    .#{$ns-segmented}-item {
       flex: 1;
       min-width: 0;
     }
@@ -130,30 +47,111 @@ $comp: #{$prefix}-segmented;
 
   &--lg {
     border-radius: $mink-segmented-border-radius-lg;
-    .#{$comp}-item__label {
+    .#{$ns-segmented}-item__label {
       min-height: $mink-segmented-height-lg;
       padding: 0 $mink-segmented-px-lg;
-      font-size: var(--#{$prefix}-font-size-lg);
+      font-size: var(--#{$ns}-font-size-lg);
       line-height: $mink-segmented-height-lg;
     }
 
-    .#{$comp}__thumb,
-    .#{$comp}-item {
+    .#{$ns-segmented}__thumb,
+    .#{$ns-segmented}-item {
       border-radius: $mink-segmented-border-radius-lg;
     }
   }
 
   &--sm {
     border-radius: $mink-segmented-border-radius-sm;
-    .#{$comp}-item__label {
+    .#{$ns-segmented}-item__label {
       min-height: $mink-segmented-height-sm;
       padding: 0 $mink-segmented-px-sm;
       line-height: $mink-segmented-height-sm;
     }
 
-    .#{$comp}__thumb,
-    .#{$comp}-item {
+    .#{$ns-segmented}__thumb,
+    .#{$ns-segmented}-item {
       border-radius: $mink-segmented-border-radius-sm;
     }
+  }
+
+  &-motion {
+    &-enter-active {
+      user-select: none;
+      transition:
+        transform var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
+        width var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
+    }
+  }
+}
+
+.#{$ns-segmented}-item {
+  @include reset-component();
+
+  user-select: none;
+
+  position: relative;
+  text-align: center;
+  border-radius: $mink-segmented-border-radius;
+  transform: translateZ(0);
+  cursor: pointer;
+  transition: color var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-in-out);
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    transition: background-color var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-in-out);
+    content: '';
+    pointer-events: none;
+  }
+
+  &:hover:not(&--selected, &--disabled) {
+    color: var(--#{$ns}-color-text);
+
+    &::after {
+      background-color: var(--#{$ns}-color-fill-secondary);
+    }
+  }
+
+  &:active:not(&--selected, &--disabled) {
+    color: var(--#{$ns}-color-text);
+
+    &::after {
+      background-color: var(--#{$ns}-color-fill);
+    }
+  }
+
+  &--selected {
+    color: var(--#{$ns}-color-text);
+    background-color: var(--#{$ns}-color-bg-elevated);
+    box-shadow: var(--#{$ns}-box-shadow-tertiary);
+  }
+
+  &--disabled,
+  &--disabled:hover,
+  &--disabled:active {
+    color: var(--#{$ns}-color-text-disabled);
+    cursor: not-allowed;
+  }
+
+  &__radio {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__label {
+    min-height: $mink-segmented-height;
+    padding: 0 $mink-segmented-px;
+    overflow: hidden;
+    line-height: $mink-segmented-height;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }

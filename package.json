@@ -1,5 +1,6 @@
 {
   "name": "mink-ui",
+  "type": "module",
   "version": "0.0.1",
   "private": "true",
   "description": "mink ui",
@@ -8,63 +9,53 @@
   "keywords": [
     "ui"
   ],
+  "engines": {
+    "node": ">=22.x",
+    "pnpm": ">=10.28.0"
+  },
   "scripts": {
     "commit": "git-cz",
-    "prepare": "husky install",
-    "postinstall": "pnpm run build:scripts",
-    "lint": "eslint .",
-    "dev": "pnpm --filter @mink-ui/docs dev",
-    "build:scripts": "pnpm --filter @mink-ui/scripts build",
+    "prepare": "husky",
+    "postinstall": "pnpm build:cli & pnpm sub:icons & pnpm sub:shared",
+    "dev": "pnpm --filter @apps/website dev",
     "gen:icons": "pnpm --filter @mink-ui/icons gen",
-    "build:core": "pnpm --filter @mink-ui/core build",
-    "build:icons": "pnpm --filter @mink-ui/icons build",
-    "build:emator": "pnpm --filter @mink-ui/emator build",
-    "build:docs": "pnpm --filter @mink-ui/docs build",
-    "build:shared": "pnpm --filter @mink-ui/shared build",
+    "sub:core": "pnpm --filter @mink-ui/core sub",
+    "sub:icons": "pnpm --filter @mink-ui/icons sub",
+    "sub:shared": "pnpm --filter @mink-ui/shared sub",
+    "build:cli": "pnpm --filter @internal/cli build:all",
+    "build:website": "pnpm --filter @apps/website build",
     "ci:version": "pnpm changeset version",
-    "ci:publish": "pnpm publish --filter @mink-ui/core"
-  },
-  "dependencies": {
-    "@mink-ui/shared": "workspace:^"
+    "lint": "eslint --fix",
+    "test": "vitest"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "3.8.0",
-    "@changesets/cli": "^2.28.1",
-    "@commitlint/cli": "19.3.0",
-    "@commitlint/config-conventional": "19.2.2",
-    "@commitlint/cz-commitlint": "19.2.0",
-    "@eslint-react/eslint-plugin": "1.16.1",
-    "@types/node": "18.11.18",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "commitizen": "4.3.0",
-    "cross-env": "7.0.3",
-    "eslint": "9.14.0",
-    "eslint-plugin-format": "0.1.2",
-    "eslint-plugin-react-hooks": "5.0.0",
-    "eslint-plugin-react-refresh": "0.4.14",
-    "husky": "8.0.0",
-    "lint-staged": "15.2.7",
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "rollup-plugin-visualizer": "5.12.0",
+    "@antfu/eslint-config": "8.2.0",
+    "@changesets/cli": "2.29.8",
+    "@commitlint/cli": "20.4.1",
+    "@commitlint/config-conventional": "20.4.1",
+    "@commitlint/cz-commitlint": "20.4.1",
+    "@eslint-react/eslint-plugin": "3.0.0",
+    "@types/node": "22.16.0",
+    "commitizen": "4.3.1",
+    "cross-env": "10.1.0",
+    "eslint": "10.2.1",
+    "eslint-plugin-format": "2.0.1",
+    "eslint-plugin-react-refresh": "0.5.2",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7",
     "tslib": "2.5.0",
     "typescript": "5.4.5",
-    "vitest": "^3.1.1"
+    "vitest": "4.0.18"
   },
   "config": {
     "commitizen": {
       "path": "@commitlint/cz-commitlint"
     }
   },
-  "pnpm": {
-    "patchedDependencies": {
-      "eslint-plugin-react-hooks@5.0.0": "patches/eslint-plugin-react-hooks@5.0.0.patch"
-    }
-  },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,json,md,css,scss,sass}": [
-      "eslint --cache-location ./node_modules/.cache/.eslintcache --cache --fix"
+    "*.{ts,tsx,js,jsx,cjs,mjs,css,sass,scss,md,json,yml,yaml}": [
+      "eslint --cache-location ./node_modules/.cache/.eslintcache --cache --fix",
+      "git add"
     ]
   }
 }

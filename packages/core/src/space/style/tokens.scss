@@ -1,0 +1,7 @@
+@use '../../styles/helpers.scss' as *;
+
+$space-gutter-small: var(--#{$ns}-padding-xs);
+
+$space-gutter-middle: var(--#{$ns}-padding);
+
+$space-gutter-large: var(--#{$ns}-padding-lg);

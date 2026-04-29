@@ -1,0 +1,52 @@
+[
+  {
+    "name": "count",
+    "type": "ReactNode",
+    "zh-CN": "徽标内容",
+    "en-US": "Badge content"
+  },
+  {
+    "name": "overflowCount",
+    "type": "number",
+    "default": "99",
+    "zh-CN": "展示封顶数字",
+    "en-US": "Max count to display"
+  },
+  {
+    "name": "dot",
+    "type": "boolean",
+    "default": "false",
+    "zh-CN": "不展示数字，只展示一个小圆点",
+    "en-US": "Show dot instead of count"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  },
+  {
+    "name": "classNames",
+    "type": "Record<'root' | 'indicator', string>",
+    "zh-CN": "语义化类名",
+    "en-US": "Semantic class names"
+  },
+  {
+    "name": "styles",
+    "type": "Record<'root' | 'indicator', React.CSSProperties>",
+    "zh-CN": "语义化样式",
+    "en-US": "Semantic styles"
+  }
+]

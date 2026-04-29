@@ -1,0 +1,11 @@
+.source_link {
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: var(--mink-unit-2);
+  color: var(--mink-color-icon);
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: var(--mink-color-icon-hover);
+  }
+}

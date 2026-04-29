@@ -1,97 +1,80 @@
 ## zh-CN
 
-位置有 12 个方向。
+通过 `placement` 属性设置 Tooltip 的弹出位置，支持 12 个方向。
 
 ## en-US
 
-位置有 12 个方向。
+Set the popup position with the `placement` attribute. There are 12 placement options available.
 
 ```tsx
-import { Button, Segmented, Space, Tooltip } from '@mink-ui/core'
-import { useMemo, useState } from 'react'
+import { Button, Tooltip } from '@mink-ui/core'
 
-const text = (
-  <div>
-    <div>content text</div>
-    <div>content text</div>
-  </div>
-)
+const topPlacements = ['topLeft', 'top', 'topRight'] as const
+const bottomPlacements = ['bottomLeft', 'bottom', 'bottomRight'] as const
+const leftPlacements = ['leftTop', 'left', 'leftBottom'] as const
+const rightPlacements = ['rightTop', 'right', 'rightBottom'] as const
 
 export default function App() {
-  const [arrow, setArrow] = useState<'Center' | 'Hide' | 'Show'>('Show')
-
-  const arrowConfig = useMemo(() => {
-    if (arrow === 'Hide') {
-      return false
-    }
-
-    if (arrow === 'Show') {
-      return true
-    }
-
-    return {
-      pointAtCenter: true,
-    }
-  }, [arrow])
   return (
-    <div>
-      <div>
-        <Segmented
-          value={arrow}
-          options={['Show', 'Hide', 'Center']}
-          onChange={setArrow}
-          style={{ marginBottom: 24 }}
-        />
+    <div className="placement-grid">
+      <div className="placement-row">
+        {topPlacements.map(placement => (
+          <Tooltip key={placement} content={placement} placement={placement}>
+            <Button>{placement}</Button>
+          </Tooltip>
+        ))}
       </div>
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Tooltip placement="topLeft" content={text} arrow={arrowConfig}>
-            <Button style={{ margin: 4, width: 80 }}>TL</Button>
-          </Tooltip>
-          <Tooltip placement="top" content={text} arrow={arrowConfig}>
-            <Button style={{ margin: 4, width: 80 }}>Top</Button>
-          </Tooltip>
-          <Tooltip placement="topRight" content={text} arrow={arrowConfig}>
-            <Button style={{ margin: 4, width: 80 }}>TR</Button>
-          </Tooltip>
+      <div className="placement-row">
+        <div className="placement-side">
+          {leftPlacements.map(placement => (
+            <Tooltip key={placement} content={placement} placement={placement}>
+              <Button>{placement}</Button>
+            </Tooltip>
+          ))}
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Tooltip placement="leftTop" content={text} arrow={arrowConfig}>
-              <Button style={{ margin: 4, width: 80 }}>LT</Button>
+        <div className="placement-center" />
+        <div className="placement-side">
+          {rightPlacements.map(placement => (
+            <Tooltip key={placement} content={placement} placement={placement}>
+              <Button>{placement}</Button>
             </Tooltip>
-            <Tooltip placement="left" content={text} arrow={arrowConfig}>
-              <Button style={{ margin: 4, width: 80 }}>Left</Button>
-            </Tooltip>
-            <Tooltip placement="leftBottom" content={text} arrow={arrowConfig}>
-              <Button style={{ margin: 4, width: 80 }}>LB</Button>
-            </Tooltip>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Tooltip placement="rightTop" content={text} arrow={arrowConfig}>
-              <Button style={{ margin: 4, width: 80 }}>RT</Button>
-            </Tooltip>
-            <Tooltip placement="right" content={text} arrow={arrowConfig}>
-              <Button style={{ margin: 4, width: 80 }}>Right</Button>
-            </Tooltip>
-            <Tooltip placement="rightBottom" content={text} arrow={arrowConfig}>
-              <Button style={{ margin: 4, width: 80 }}>RB</Button>
-            </Tooltip>
-          </div>
+          ))}
         </div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Tooltip placement="bottomLeft" content={text} arrow={arrowConfig}>
-            <Button style={{ margin: 4, width: 80 }}>BL</Button>
+      </div>
+      <div className="placement-row">
+        {bottomPlacements.map(placement => (
+          <Tooltip key={placement} content={placement} placement={placement}>
+            <Button>{placement}</Button>
           </Tooltip>
-          <Tooltip placement="bottom" content={text} arrow={arrowConfig}>
-            <Button style={{ margin: 4, width: 80 }}>Bottom</Button>
-          </Tooltip>
-          <Tooltip placement="bottomRight" content={text} arrow={arrowConfig}>
-            <Button style={{ margin: 4, width: 80 }}>BR</Button>
-          </Tooltip>
-        </div>
+        ))}
       </div>
     </div>
   )
+}
+```
+
+```scss
+.placement-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mink-unit-3);
+  align-items: center;
+}
+
+.placement-row {
+  display: flex;
+  gap: var(--mink-unit-3);
+  justify-content: center;
+}
+
+.placement-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mink-unit-3);
+}
+
+.placement-center {
+  width: 80px;
+  height: 80px;
 }
 ```

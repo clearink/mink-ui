@@ -6,7 +6,7 @@ on:
       - master
       - main
     paths:
-      - 'docs/**'
+      - 'apps/**'
       - 'packages/**/src/**'
 
 permissions:
@@ -14,48 +14,46 @@ permissions:
 
 jobs:
   website:
+    name: Build & Deploy Website
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.18.1]
-        pnpm-version: [9.12.3]
+        node-version: [22.22.0]
+        pnpm-version: [10.28.0]
 
     steps:
-      # checkout
       - name: Checkout Branch
         uses: actions/checkout@v4
 
-      # 安装 pnpm
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
           version: ${{ matrix.pnpm-version }}
 
-      # 设置 node
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
 
-      # 安装依赖
       - name: Install Dependencies
         run: pnpm install
 
-      # # ESLint 校验
-      # - name: Run ESLint
-      #   run: pnpm run lint
+      - name: Generate Icons
+        run: pnpm gen:icons
 
-      # 构建打包脚本
-      - name: Run Build Tasks
-        run: |
-          pnpm run gen:icons
-          pnpm run build:docs
+      - name: Run ESLint
+        run: pnpm lint
 
-      # 发布到 github pages
-      - name: Deploy 🚀
+      - name: Run Tests
+        run: pnpm test -- --run
+
+      - name: Build Website
+        run: pnpm build:website
+
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: docs/dist
+          folder: apps/website/dist
           clean: true

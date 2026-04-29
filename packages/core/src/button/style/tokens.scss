@@ -1,25 +1,27 @@
-$mink-btn-border: 1px solid transparent;
+@use '../../styles/helpers.scss' as *;
 
-$mink-btn-padding-sm: 0 7px;
+$mink-btn-border: var(--#{$ns}-line-width) var(--#{$ns}-line-type) var(--#{$ns}-color-transparent);
 
-$mink-btn-padding: 0 15px;
+$mink-btn-padding-sm: 0 calc(var(--#{$ns}-padding-xs) - var(--#{$ns}-line-width));
 
-$mink-btn-padding-lg: 0 19px;
+$mink-btn-padding: 0 calc(var(--#{$ns}-padding) - var(--#{$ns}-line-width));
 
-$mink-btn-height-sm: var(--#{$prefix}-unit-6);
+$mink-btn-padding-lg: 0 calc(var(--#{$ns}-padding-md) - var(--#{$ns}-line-width));
 
-$mink-btn-height: var(--#{$prefix}-unit-8);
+$mink-btn-height-sm: var(--#{$ns}-height-sm);
 
-$mink-btn-height-lg: var(--#{$prefix}-unit-10);
+$mink-btn-height: var(--#{$ns}-height);
 
-$mink-btn-font-size-sm: var(--#{$prefix}-font-size-sm);
+$mink-btn-height-lg: var(--#{$ns}-height-large);
 
-$mink-btn-font-size: var(--#{$prefix}-font-size);
+$mink-btn-font-size-sm: var(--#{$ns}-font-size-sm);
 
-$mink-btn-font-size-lg: var(--#{$prefix}-font-size);
+$mink-btn-font-size: var(--#{$ns}-font-size);
+
+$mink-btn-font-size-lg: var(--#{$ns}-font-size);
 
 $mink-btn-transition:
-  all var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
+  all var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
   outline 0s,
   outline-offset 0s;
 

@@ -1,10 +1,10 @@
-// 引入 css 基础配置文件
-@import '../../style/base.scss';
-@import './tokens.scss';
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
 
-$comp: #{$prefix}-badge;
+$ns-badge: #{$ns}-badge;
 
-.#{$comp} {
+.#{$ns-badge} {
   @include reset-component();
 
   position: relative;
@@ -18,16 +18,16 @@ $comp: #{$prefix}-badge;
     display: inline-block;
     z-index: 1;
     height: $mink-badge-indicator-height;
-    padding: 0 var(--#{$prefix}-unit-2);
-    color: var(--#{$prefix}-color-bg-container);
+    padding: 0 var(--#{$ns}-unit-2);
+    color: var(--#{$ns}-color-bg-container);
     line-height: $mink-badge-indicator-height;
-    background-color: var(--#{$prefix}-color-error);
+    background-color: var(--#{$ns}-color-error);
     border-radius: $mink-badge-indicator-radius;
     transform: translate(50%, -50%);
     transform-origin: 100% 0%;
   }
 
-  &-scroll-group {
+  &__number-items {
     display: inline-block;
     height: 100%;
     overflow: hidden;
@@ -38,34 +38,31 @@ $comp: #{$prefix}-badge;
     flex-direction: column;
   }
 
-  &-scroll-number-motion {
-    &-enter-active {
-      transition: transform var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out);
-    }
-    &-exit-done {
-      display: none;
-    }
-  }
-
-  &-scroll-group-motion {
+  &-motion {
     &-enter-from,
     &-exit-to {
       opacity: 0;
     }
-
     &-enter-active,
     &-exit-active {
-      will-change: width;
+      user-select: none;
+      overflow: hidden;
       transition:
-        opacity var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
-        width var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out);
+        opacity var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
+        width var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
     }
 
     &-exit-done {
       display: none;
     }
   }
-}
 
-.#{$comp}--dot {
+  &-scroll-number-motion {
+    &-enter-active {
+      transition: transform var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
+    }
+    &-exit-done {
+      display: none !important;
+    }
+  }
 }

@@ -1,0 +1,26 @@
+[
+  {
+    "name": "message",
+    "type": "ReactNode",
+    "zh-CN": "错误提示内容",
+    "en-US": "Error message"
+  },
+  {
+    "name": "description",
+    "type": "ReactNode",
+    "zh-CN": "辅助性文字介绍",
+    "en-US": "Supplementary description"
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "zh-CN": "唯一标识",
+    "en-US": "Unique identifier"
+  },
+  {
+    "name": "children",
+    "type": "ReactNode",
+    "zh-CN": "子元素",
+    "en-US": "Children"
+  }
+]

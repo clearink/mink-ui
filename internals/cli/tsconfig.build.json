@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    /* 基本配置 */
+    "lib": ["ESNext"],
+
+    /* 输出 */
+    "declarationDir": "lib"
+  },
+  "include": ["src/utils/constants.ts"],
+  "exclude": ["node_modules"]
+}

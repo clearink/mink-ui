@@ -11,7 +11,7 @@ import { Button, Space } from '@mink-ui/core'
 
 export default function App() {
   return (
-    <Space wrap>
+    <Space>
       <Button variant="filled">Primary Button</Button>
       <Button>Default Button</Button>
       <Button variant="dashed">Dashed Button</Button>

@@ -1,5 +1,5 @@
 import type { AnyFn } from '../interface'
 
-export function execute(fn: AnyFn) {
-  fn()
+export function execute<T extends AnyFn>(fn: T): ReturnType<T> {
+  return fn()
 }

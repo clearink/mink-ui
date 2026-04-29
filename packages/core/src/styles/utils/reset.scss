@@ -1,0 +1,12 @@
+@use '../constants/index.scss' as *;
+
+@mixin reset-component() {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: var(--#{$ns}-color-text);
+  font-size: var(--#{$ns}-font-size);
+  font-family: var(--#{$ns}-font-family);
+  line-height: var(--#{$ns}-line-height);
+  list-style: none;
+}

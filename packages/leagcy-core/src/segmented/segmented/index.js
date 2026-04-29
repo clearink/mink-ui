@@ -1,0 +1,38 @@
+import { createElement as _createElement } from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { forwardRef, useEffect } from 'react';
+import { CssTransition } from '../../_shared/components';
+import { useDeepMemo, usePrefixCls, useSemanticStyles } from '../../_shared/hooks';
+import { betterDisplayName, withDefaults } from '../../_shared/utils';
+import { SizeContext } from '../../config-provider/_shared.context';
+import SegmentedItem from '../segmented-item';
+import useFormatClassNames from './hooks/use-format-class-names';
+import useSegmented from './hooks/use-segmented';
+import useSegmentedValue from './hooks/use-segmented-value';
+import { defaultSegmentedProps } from './props';
+import normalizeOptions from './utils/normalize-options';
+function Segmented(_props, _ref) {
+    const props = withDefaults(_props, {
+        ...defaultSegmentedProps,
+        size: SizeContext.useState(),
+    });
+    const { disabled, options: _options } = props;
+    const prefixCls = usePrefixCls('segmented');
+    const classNames = useFormatClassNames(prefixCls, props);
+    const styles = useSemanticStyles(props);
+    const options = useDeepMemo(() => normalizeOptions(_options), [_options]);
+    const [active, onChange] = useSegmentedValue(props, options);
+    const { returnEarly, refs, showThumb, handleEnter, handleEntering, handleEntered } = useSegmented(active);
+    // fix react strict mode
+    useEffect(() => () => { refs.reset(); }, [refs]);
+    if (returnEarly)
+        return null;
+    return (_jsx("div", { ref: _ref, className: classNames.root, style: styles.root, children: _jsxs("div", { ref: refs.$group, className: classNames.group, style: styles.group, children: [showThumb && (_jsx(CssTransition, { classNames: `${prefixCls}-thumb-motion`, appear: true, when: true, timeouts: 3000, onEnter: handleEnter, onEntered: handleEntered, onEntering: handleEntering, children: _jsx("div", { ref: refs.$thumb, className: classNames.thumb, style: styles.thumb }) })), options.map(item => (_createElement(SegmentedItem, { ...item, key: item.value, ref: (el) => {
+                        if (el)
+                            refs.items.set(item.value, el);
+                        else
+                            refs.items.delete(item.value);
+                    }, checked: active === item.value, disabled: disabled || item.disabled, showThumb: showThumb, onChange: onChange })))] }) }));
+}
+betterDisplayName(Segmented);
+export default forwardRef(Segmented);

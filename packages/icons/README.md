@@ -1,1 +1,0 @@
-# `mink-ui icons`

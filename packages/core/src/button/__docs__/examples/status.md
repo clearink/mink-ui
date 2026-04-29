@@ -1,10 +1,10 @@
 ## zh-CN
 
-按钮分为：`danger`、`info`、`primary`、`success`、`warning` 五种状态。
+按钮分为：`danger` `info` `primary` `success` `warning` 五种状态。
 
 ## en-US
 
-按钮分为：`danger`、`info`、`primary`、`success`、`warning` 五种状态。
+按钮分为：`danger` `info` `primary` `success` `warning` 五种状态。
 
 ```tsx
 import { Button, Space } from '@mink-ui/core'
@@ -16,7 +16,7 @@ export default function App() {
         <div key={variant} style={{ marginBottom: 16 }}>
           <Space wrap>
             {['danger', 'info', 'primary', 'success', 'warning'].map(theme => (
-              <Button key={theme} variant={variant} theme={theme}>
+              <Button key={theme} theme={theme} variant={variant}>
                 {theme}
               </Button>
             ))}

@@ -2,6 +2,13 @@
 
 ```shell
 pnpm install
-pnpm run gen:icons
 pnpm run dev
 ```
+
+build 时
+
+packages/shared
+
+packages/icons
+
+packages/core

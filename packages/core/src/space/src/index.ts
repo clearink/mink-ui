@@ -1,0 +1,13 @@
+import Space from './space'
+
+/**
+ * |---------------------------------------------------------|
+ * |------------------- export definition -------------------|
+ * |---------------------------------------------------------|
+ */
+
+export type { SpaceProps } from './space.props'
+
+export { Space }
+
+export default Space

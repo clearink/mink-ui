@@ -1,21 +1,18 @@
-import { isUndefined } from '@mink-ui/shared'
 import { useEffect } from 'react'
 
-import type { ScreenMatch } from './breakpoint'
-
-import { useEvent } from '../use-event'
+import { useConstant } from '../use-constant'
 import { useExactState } from '../use-exact-state'
-import observer from './breakpoint-observer'
+import { shouldScreenMatchUpdate } from './utils/helpers'
+import observer from './utils/observer'
 
-// 基础响应式断点 hooks
-export function useBreakpoint(shouldUpdate?: (query: ScreenMatch<boolean>) => boolean) {
-  const [matches, updateMatches] = useExactState(observer.getCurrentMatches)
+export function useBreakpoint() {
+  useConstant(() => observer.initial())
 
-  const handler = useEvent((query: ScreenMatch<boolean>) => {
-    if (isUndefined(shouldUpdate) || shouldUpdate(query)) updateMatches(query)
-  })
+  const [matches, update] = useExactState(() => observer.current)
 
-  useEffect(() => observer.subscribe(handler), [handler])
+  useEffect(() => observer.subscribe((next) => {
+    update(prev => shouldScreenMatchUpdate(prev, next) ? next : prev)
+  }), [update])
 
   return matches
 }

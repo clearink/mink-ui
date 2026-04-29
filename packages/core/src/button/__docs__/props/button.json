@@ -1,0 +1,113 @@
+[
+  {
+    "name": "ref",
+    "type": "React.Ref<HTMLButtonElement>",
+    "zh-CN": "`button` 或 `a` 元素的引用",
+    "en-US": "The ref of the `button` or `a` element"
+  },
+  {
+    "name": "block",
+    "type": "boolean",
+    "zh-CN": "占据一行",
+    "en-US": "Take up the whole line"
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "zh-CN": "是否禁用",
+    "en-US": "Whether to disable"
+  },
+  {
+    "name": "ghost",
+    "type": "boolean",
+    "zh-CN": "幽灵按钮",
+    "en-US": "Ghost button"
+  },
+  {
+    "name": "icon",
+    "type": "React.ReactNode",
+    "zh-CN": "按钮图标",
+    "en-US": "Button icon"
+  },
+  {
+    "name": "loading",
+    "enum": true,
+    "type": ["boolean", "{ delay: number }"],
+    "zh-CN": "加载中",
+    "en-US": "Loading"
+  },
+  {
+    "name": "shape",
+    "enum": true,
+    "type": ["round", "default", "circle"],
+    "defaultValue": "default",
+    "zh-CN": "按钮形状",
+    "en-US": "Button shape"
+  },
+  {
+    "name": "size",
+    "enum": true,
+    "type": ["small", "middle", "large"],
+    "defaultValue": "middle",
+    "zh-CN": "按钮尺寸",
+    "en-US": "Button size"
+  },
+  {
+    "name": "theme",
+    "enum": true,
+    "type": ["danger", "info", "primary", "success", "warning"],
+    "defaultValue": "primary",
+    "zh-CN": "按钮主题",
+    "en-US": "Button theme"
+  },
+  {
+    "name": "variant",
+    "enum": true,
+    "type": ["dashed", "filled", "outlined", "link", "text"],
+    "defaultValue": "outlined",
+    "zh-CN": "按钮风格",
+    "en-US": "Button variant"
+  },
+  {
+    "name": "onClick",
+    "type": "(event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void",
+    "zh-CN": "点击事件",
+    "en-US": "Click event"
+  },
+  {
+    "name": "children",
+    "type": "React.ReactNode",
+    "zh-CN": "按钮内容",
+    "en-US": "Button content"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  },
+  {
+    "name": "classNames",
+    "type": "Record<'root' | 'icon' | 'text', style>",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "styles",
+    "type": "Record<'root' | 'icon' | 'text', React.CSSProperties>",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  }
+]

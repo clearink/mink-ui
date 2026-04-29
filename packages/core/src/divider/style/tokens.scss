@@ -1,11 +1,19 @@
-$mink-divider-border: 1px solid var(--#{$prefix}-color-border);
+@use '../../styles/helpers.scss' as *;
 
-$mink-divider-color-text: var(--#{$prefix}-color-text);
+$mink-divider-align-ratio: 0.05;
 
-$mink-divider-margin-horizontal: 24px 0;
+$mink-divider-border: 1px solid var(--#{$ns}-color-border);
+
+$mink-divider-color-text: var(--#{$ns}-color-text);
+
+$mink-divider-margin-small: var(--#{$ns}-unit-2) 0;
+
+$mink-divider-margin-middle: var(--#{$ns}-unit-4) 0;
+
+$mink-divider-margin-large: var(--#{$ns}-unit-6) 0;
 
 $mink-divider-margin-vertical: 0 8px;
 
 $mink-divider-margin-with-text: 16px 0;
 
-$mink-divider-margin-inner-text: 0 16px;
+$mink-divider-margin-content: 0 16px;

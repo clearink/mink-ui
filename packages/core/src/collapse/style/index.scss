@@ -1,32 +1,72 @@
-// 引入 css 基础配置文件
-@import '../../style/base.scss';
-@import './tokens.scss';
-@import './mixins.scss';
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
 
-$comp: #{$prefix}-collapse;
+$ns-collapse: #{$ns}-collapse;
 
-.#{$comp} {
+.#{$ns-collapse} {
   @include reset-component();
 
-  background-color: var(--#{$prefix}-color-fill-alter);
-  border-radius: var(--#{$prefix}-border-radius);
+  background-color: var(--#{$ns}-color-fill-alter);
+  border-radius: var(--#{$ns}-border-radius);
 
   &-item {
     @include reset-component();
 
-    border-bottom: 1px solid var(--#{$prefix}-color-border);
+    border-bottom: 1px solid var(--#{$ns}-color-border);
 
     &:first-child {
-      border-radius: var(--#{$prefix}-unit-1) var(--#{$prefix}-unit-1) 0 0;
+      border-radius: var(--#{$ns}-unit-1) var(--#{$ns}-unit-1) 0 0;
     }
 
     &:last-child {
       border-bottom: 0;
-      border-radius: 0 0 var(--#{$prefix}-unit-1) var(--#{$prefix}-unit-1);
+      border-radius: 0 0 var(--#{$ns}-unit-1) var(--#{$ns}-unit-1);
+    }
+
+    &__icon {
+      margin-right: var(--#{$ns}-unit-3);
+      font-size: var(--#{$ns}-font-size-sm);
+      transition-duration: var(--#{$ns}-motion-duration-3);
+      transition-property: transform;
+
+      &--collapsible {
+        cursor: pointer;
+      }
+    }
+
+    &__header {
+      display: flex;
+      padding: var(--#{$ns}-unit-3) var(--#{$ns}-unit-4);
+      outline: 0;
+
+      &:focus-visible {
+        box-shadow: inset 0 0 0 2px var(--#{$ns}-color-primary-active);
+      }
+
+      &--collapsible {
+        cursor: pointer;
+      }
+    }
+
+    &__title {
+      flex: auto;
+
+      &--collapsible {
+        cursor: pointer;
+      }
+    }
+
+    &__extra {
+      margin-left: var(--#{$ns}-unit-3);
+    }
+
+    &__content {
+      padding: var(--#{$ns}-unit-4);
     }
 
     &--expanded {
-      .#{$comp}-item__icon {
+      .#{$ns-collapse}-item__icon {
         transform: rotate(90deg);
       }
     }
@@ -35,84 +75,51 @@ $comp: #{$prefix}-collapse;
     }
   }
 
-  &-item__header {
-    display: flex;
-    padding: var(--#{$prefix}-unit-3) var(--#{$prefix}-unit-4);
-    outline: 0;
-
-    &:focus-visible {
-      box-shadow: inset 0 0 0 2px var(--#{$prefix}-color-primary-active);
-    }
-  }
-
-  &-item__title {
-    flex: auto;
-  }
-
-  &-item__extra {
-    margin-left: var(--#{$prefix}-unit-3);
-  }
-
-  &-item__content {
-    padding: var(--#{$prefix}-unit-4);
-  }
-
-  &-item__icon {
-    margin-right: var(--#{$prefix}-unit-3);
-    font-size: var(--#{$prefix}-font-size-sm);
-    transition-duration: var(--#{$prefix}-motion-duration-3);
-    transition-property: transform;
-  }
-
-  &-item__collapsible {
-    cursor: pointer;
-  }
-
   &--bordered {
     background-color: transparent;
 
-    .#{$comp}-item {
-      border-right: 1px solid var(--#{$prefix}-color-border);
-      border-left: 1px solid var(--#{$prefix}-color-border);
+    .#{$ns-collapse}-item {
+      border-right: 1px solid var(--#{$ns}-color-border);
+      border-left: 1px solid var(--#{$ns}-color-border);
 
       &:first-child {
-        border-top: 1px solid var(--#{$prefix}-color-border);
+        border-top: 1px solid var(--#{$ns}-color-border);
       }
 
       &:last-child {
-        border-bottom: 1px solid var(--#{$prefix}-color-border);
+        border-bottom: 1px solid var(--#{$ns}-color-border);
       }
     }
 
-    .#{$comp}-item__content {
-      border-top: 1px solid var(--#{$prefix}-color-border);
+    .#{$ns-collapse}-item__content {
+      border-top: 1px solid var(--#{$ns}-color-border);
     }
   }
 
   &--ghost {
     background-color: transparent;
-    .#{$comp}-item {
+    .#{$ns-collapse}-item {
       border: 0;
     }
   }
 
   &--icon-end {
-    .#{$comp}-item__icon {
+    .#{$ns-collapse}-item__icon {
       order: 1;
       margin-right: 0;
-      margin-left: var(--#{$prefix}-unit-3);
+      margin-left: var(--#{$ns}-unit-3);
     }
   }
 
   &--sm {
-    .#{$comp}-item__content {
-      padding: var(--#{$prefix}-unit-3);
+    .#{$ns-collapse}-item__content {
+      padding: var(--#{$ns}-unit-3);
     }
   }
 
   &--lg {
-    .#{$comp}-item__content {
-      padding: var(--#{$prefix}-unit-3);
+    .#{$ns-collapse}-item__content {
+      padding: var(--#{$ns}-unit-3);
     }
   }
 
@@ -125,10 +132,9 @@ $comp: #{$prefix}-collapse;
     &-enter-active,
     &-exit-active {
       overflow-y: hidden;
-      will-change: height;
       transition:
-        opacity var(--#{$prefix}-motion-duration-3) ease-in-out,
-        height var(--#{$prefix}-motion-duration-2) ease-in-out;
+        opacity var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-in-out),
+        height var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-in-out);
     }
 
     &-exit-done {

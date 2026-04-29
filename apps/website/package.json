@@ -1,0 +1,59 @@
+{
+  "name": "@apps/website",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "description": "mink-ui design website",
+  "author": "clearink",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clearink/mink-ui.git",
+    "directory": "apps/website"
+  },
+  "keywords": [
+    "mink-ui",
+    "design",
+    "components",
+    "website"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint:ts": "tsc -b"
+  },
+  "dependencies": {
+    "@loadable/component": "5.16.7",
+    "@mink-ui/core": "workspace:*",
+    "axios": "1.12.2",
+    "marked": "16.3.0",
+    "marked-highlight": "2.2.2",
+    "nprogress": "0.2.0",
+    "prismjs": "1.30.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-router-dom": "6.3.0"
+  },
+  "devDependencies": {
+    "@internal/cli": "workspace:^",
+    "@mink-ui/icons": "workspace:^",
+    "@mink-ui/shared": "workspace:^",
+    "@types/fs-extra": "11.0.4",
+    "@types/loadable__component": "5.13.9",
+    "@types/prismjs": "1.26.5",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "5.2.0",
+    "chokidar": "3.6.0",
+    "fast-glob": "3.3.3",
+    "fs-extra": "11.3.0",
+    "gh-pages": "6.3.0",
+    "gray-matter": "4.0.3",
+    "prettier": "3.6.2",
+    "sass": "catalog:",
+    "slash": "5.1.0",
+    "vite": "7.1.7",
+    "vite-plugin-eslint2": "5.0.5"
+  }
+}

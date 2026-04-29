@@ -16,10 +16,10 @@ import { Col, Row } from '@mink-ui/core'
 export default function App() {
   return (
     <Row>
-      <Col span={18} push={6}>
+      <Col push={6} span={18}>
         col-18 col-push-6
       </Col>
-      <Col span={6} pull={18}>
+      <Col pull={18} span={6}>
         col-6 col-pull-18
       </Col>
     </Row>

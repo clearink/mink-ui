@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    /* 基本配置 */
+    "target": "esnext",
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "esnext",
+
+    /* 类型检查 */
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+
+    /* 模块解析 */
+    "moduleDetection": "force",
+    "useDefineForClassFields": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
+
+    /* 性能 */
+    "skipLibCheck": true,
+
+    /* 输出 */
+    "noEmit": true
+  }
+}

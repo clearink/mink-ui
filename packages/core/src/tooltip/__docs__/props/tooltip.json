@@ -1,0 +1,156 @@
+[
+  {
+    "name": "children",
+    "type": "React.ReactElement",
+    "zh-CN": "触发元素",
+    "en-US": "Trigger element"
+  },
+  {
+    "name": "content",
+    "type": "React.ReactNode",
+    "zh-CN": "提示内容",
+    "en-US": "Tooltip content"
+  },
+  {
+    "name": "isOpen",
+    "type": "boolean",
+    "zh-CN": "是否打开（受控）",
+    "en-US": "Whether the tooltip is open (controlled)"
+  },
+  {
+    "name": "defaultIsOpen",
+    "type": "boolean",
+    "zh-CN": "默认是否打开",
+    "en-US": "Whether the tooltip is open by default"
+  },
+  {
+    "name": "placement",
+    "enum": true,
+    "type": ["top", "topLeft", "topRight", "bottom", "bottomLeft", "bottomRight", "left", "leftTop", "leftBottom", "right", "rightTop", "rightBottom"],
+    "defaultValue": "top",
+    "zh-CN": "弹出位置",
+    "en-US": "Popup placement"
+  },
+  {
+    "name": "trigger",
+    "enum": true,
+    "type": ["hover", "click", "focus", "contextMenu"],
+    "defaultValue": "hover",
+    "zh-CN": "触发方式，支持数组组合多种方式",
+    "en-US": "Trigger mode, supports array for multiple modes"
+  },
+  {
+    "name": "arrow",
+    "type": "boolean | { pointAtCenter: boolean }",
+    "defaultValue": "true",
+    "zh-CN": "箭头配置，设为 false 隐藏箭头，设为 { pointAtCenter: true } 箭头指向目标中心",
+    "en-US": "Arrow config, set to false to hide, set to { pointAtCenter: true } to center the arrow"
+  },
+  {
+    "name": "flip",
+    "type": "boolean | Partial<Record<'horizontal' | 'vertical', boolean>>",
+    "defaultValue": "true",
+    "zh-CN": "贴边翻转，当弹出层超出视口时自动翻转到对侧",
+    "en-US": "Edge flip, automatically flips to the opposite side when overflowing the viewport"
+  },
+  {
+    "name": "shift",
+    "type": "boolean | Partial<Record<'horizontal' | 'vertical', boolean>>",
+    "defaultValue": "true",
+    "zh-CN": "贴边偏移，当弹出层超出视口时自动移动到可视区域内",
+    "en-US": "Edge shift, automatically shifts into the viewport when overflowing"
+  },
+  {
+    "name": "offset",
+    "type": "[number, number] | number",
+    "defaultValue": "0",
+    "zh-CN": "弹出层偏移量，数组形式为 [水平, 垂直]",
+    "en-US": "Popup offset, array form is [horizontal, vertical]"
+  },
+  {
+    "name": "fresh",
+    "type": "boolean",
+    "zh-CN": "关闭后仍更新 tooltip 内容",
+    "en-US": "Update tooltip content even when closed"
+  },
+  {
+    "name": "openDelay",
+    "type": "number",
+    "defaultValue": "100",
+    "zh-CN": "打开延迟时间（毫秒）",
+    "en-US": "Open delay in milliseconds"
+  },
+  {
+    "name": "closeDelay",
+    "type": "number",
+    "defaultValue": "100",
+    "zh-CN": "关闭延迟时间（毫秒）",
+    "en-US": "Close delay in milliseconds"
+  },
+  {
+    "name": "transition",
+    "type": "CssTransitionProps['attrs']",
+    "zh-CN": "动画配置",
+    "en-US": "Transition config"
+  },
+  {
+    "name": "onOpenChange",
+    "type": "(isOpen: boolean) => void",
+    "zh-CN": "打开/关闭状态变化回调",
+    "en-US": "Callback when open state changes"
+  },
+  {
+    "name": "getContainer",
+    "type": "() => HTMLElement",
+    "zh-CN": "弹出层挂载容器，默认挂载到 body",
+    "en-US": "Mount container for the popup, defaults to body"
+  },
+  {
+    "name": "mountOnEnter",
+    "type": "boolean",
+    "zh-CN": "是否在首次显示时才挂载",
+    "en-US": "Whether to mount on first show"
+  },
+  {
+    "name": "unmountOnExit",
+    "type": "boolean",
+    "zh-CN": "是否在隐藏时卸载",
+    "en-US": "Whether to unmount when hidden"
+  },
+  {
+    "name": "zIndex",
+    "type": "number",
+    "zh-CN": "弹出层层级",
+    "en-US": "Z-index of the popup"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  },
+  {
+    "name": "classNames",
+    "type": "Record<'arrow' | 'root' | 'wrapper', string>",
+    "zh-CN": "语义化类名",
+    "en-US": "Semantic class names"
+  },
+  {
+    "name": "styles",
+    "type": "Record<'arrow' | 'root' | 'wrapper', React.CSSProperties>",
+    "zh-CN": "语义化样式",
+    "en-US": "Semantic styles"
+  }
+]

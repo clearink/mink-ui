@@ -1,0 +1,19 @@
+$mink-segmented-padding: calc(var(--#{$prefix}-padding-xxs) / 2);
+
+$mink-segmented-px-sm: var(--#{$prefix}-padding-xs);
+
+$mink-segmented-px: var(--#{$prefix}-padding-sm);
+
+$mink-segmented-px-lg: var(--#{$prefix}-padding);
+
+$mink-segmented-border-radius-sm: var(--#{$prefix}-border-radius-sm);
+
+$mink-segmented-border-radius: var(--#{$prefix}-border-radius);
+
+$mink-segmented-border-radius-lg: var(--#{$prefix}-border-radius-lg);
+
+$mink-segmented-height-sm: calc(var(--#{$prefix}-control-height-sm) - var(--#{$prefix}-padding-xxs));
+
+$mink-segmented-height: calc(var(--#{$prefix}-control-height) - var(--#{$prefix}-padding-xxs));
+
+$mink-segmented-height-lg: calc(var(--#{$prefix}-control-height-lg) - var(--#{$prefix}-padding-xxs));

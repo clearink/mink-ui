@@ -1,0 +1,117 @@
+[
+  {
+    "name": "items",
+    "type": "CollapseItemType[]",
+    "zh-CN": "折叠面板内容",
+    "en-US": "Collapse panel items"
+  },
+  {
+    "name": "expandedNames",
+    "type": "Name | Name[]",
+    "zh-CN": "展开面板名称（受控）",
+    "en-US": "Expanded panel names (controlled)"
+  },
+  {
+    "name": "defaultExpandedNames",
+    "type": "Name | Name[]",
+    "default": "[]",
+    "zh-CN": "默认展开面板名称",
+    "en-US": "Default expanded panel names"
+  },
+  {
+    "name": "accordion",
+    "type": "boolean",
+    "default": "false",
+    "zh-CN": "是否为手风琴模式",
+    "en-US": "Whether to enable accordion mode"
+  },
+  {
+    "name": "bordered",
+    "type": "boolean",
+    "default": "true",
+    "zh-CN": "是否显示边框",
+    "en-US": "Whether to show border"
+  },
+  {
+    "name": "collapsible",
+    "type": "'header' | 'icon' | 'title' | 'disabled'",
+    "default": "'header'",
+    "zh-CN": "展开触发区域",
+    "en-US": "Trigger area for expanding"
+  },
+  {
+    "name": "expandIcon",
+    "type": "ReactNode | ((params: { expanded: boolean; name: Name }) => ReactNode)",
+    "zh-CN": "自定义展开图标",
+    "en-US": "Custom expand icon"
+  },
+  {
+    "name": "expandIconPlacement",
+    "type": "'start' | 'end'",
+    "default": "'start'",
+    "zh-CN": "展开图标位置",
+    "en-US": "Expand icon placement"
+  },
+  {
+    "name": "ghost",
+    "type": "boolean",
+    "default": "false",
+    "zh-CN": "是否为幽灵模式，无背景色",
+    "en-US": "Whether to enable ghost mode, no background"
+  },
+  {
+    "name": "keepMounted",
+    "type": "boolean",
+    "default": "false",
+    "zh-CN": "收起时是否保留元素",
+    "en-US": "Whether to keep mounted when collapsed"
+  },
+  {
+    "name": "size",
+    "type": "'small' | 'middle' | 'large'",
+    "zh-CN": "折叠面板尺寸",
+    "en-US": "Collapse panel size"
+  },
+  {
+    "name": "onChange",
+    "type": "(expandedName: Name, expandedNames: Name[]) => void",
+    "zh-CN": "展开项变化回调",
+    "en-US": "Callback when expanded items change"
+  },
+  {
+    "name": "children",
+    "type": "ReactNode",
+    "zh-CN": "折叠面板内容",
+    "en-US": "Content of the collapse"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  },
+  {
+    "name": "classNames",
+    "type": "Record<'root' | 'item' | 'header' | 'icon' | 'title' | 'extra' | 'content', string>",
+    "zh-CN": "语义化类名",
+    "en-US": "Semantic class names"
+  },
+  {
+    "name": "styles",
+    "type": "Record<'root' | 'item' | 'header' | 'icon' | 'title' | 'extra' | 'content', React.CSSProperties>",
+    "zh-CN": "语义化样式",
+    "en-US": "Semantic styles"
+  }
+]

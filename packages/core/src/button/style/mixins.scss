@@ -1,11 +1,13 @@
 @use 'sass:math';
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
 
 @mixin btn-base() {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: var(--#{$prefix}-font-weight-regular);
+  font-weight: var(--#{$ns}-font-weight-regular);
   white-space: nowrap;
   text-align: center;
   background-image: none;
@@ -19,7 +21,7 @@
   > span {
     display: inline-block;
   }
-  > .#{$prefix-icon} {
+  > #{$icon-ns} {
     line-height: 1;
   }
 
@@ -36,14 +38,4 @@
       pointer-events: none;
     }
   }
-}
-
-@mixin btn-size($height, $padding, $font) {
-  height: $height;
-  padding: $padding;
-  font-size: $font;
-}
-
-@mixin btn-radius($radius) {
-  border-radius: $radius;
 }

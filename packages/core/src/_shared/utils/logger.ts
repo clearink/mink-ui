@@ -1,19 +1,31 @@
-import { noop } from '@mink-ui/shared'
+export const logger = {
+  info: (component: string, message: string, ...args: any[]) => {
+    console.info(
+      `%c[Mink UI - ${component}] %cInfo:%c ${message}`,
+      'color: #1890ff; font-weight: bold;', // component样式
+      'color: #52c41a; font-weight: bold;', // info标签样式
+      'color: inherit;', // 消息样式
+      ...args,
+    )
+  },
 
-// 日志记录 仅提示一次
-const cache = new Set<string>()
+  error: (component: string, message: string, ...args: any[]) => {
+    console.error(
+      `%c[Mink UI - ${component}] %cError:%c ${message}`,
+      'color: #1890ff; font-weight: bold;',
+      'color: #ff4d4f; font-weight: bold;',
+      'color: inherit;',
+      ...args,
+    )
+  },
 
-export const logger
- = process.env.NODE_ENV === 'production'
-   ? noop
-   : (condition: boolean, ...message: string[]) => {
-       if (!condition) return
-
-       const key = JSON.stringify(message)
-       if (cache.has(key)) return
-
-       cache.size > 10000 && cache.clear()
-       cache.add(key)
-
-       console.error(...message)
-     }
+  warn: (component: string, message: string, ...args: any[]) => {
+    console.warn(
+      `%c[Mink UI - ${component}] %cWarning:%c ${message}`,
+      'color: #1890ff; font-weight: bold;',
+      'color: #faad14; font-weight: bold;',
+      'color: inherit;',
+      ...args,
+    )
+  },
+}

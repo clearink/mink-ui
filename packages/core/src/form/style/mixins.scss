@@ -1,5 +1,7 @@
+@use '../../styles/helpers.scss' as *;
+
 @mixin form-item-tip() {
   overflow: hidden;
-  color: var(--#{$prefix}-color-text-secondary);
-  font-size: var(--#{$prefix}-font-size);
+  color: var(--#{$ns}-color-text-secondary);
+  font-size: var(--#{$ns}-font-size);
 }

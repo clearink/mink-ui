@@ -8,7 +8,7 @@ export function omit<T extends Record<string, any>, K extends keyof T>(
 
   const set = new Set(excluded)
 
-  for (let i = 0, len = keys.length; i < len; i++) {
+  for (let len = keys.length, i = 0; i < len; i++) {
     const key = keys[i]
 
     if (!set.has(key)) target[key] = source[key]

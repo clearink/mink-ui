@@ -1,0 +1,8 @@
+// 重置浏览器样式
+@forward './normalize/index.scss';
+
+// 全局动效
+@forward './animations/index.scss';
+
+// 主题变量
+@forward './theme/index.scss';

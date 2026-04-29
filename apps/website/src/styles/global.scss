@@ -1,0 +1,73 @@
+@use 'prismjs/themes/prism.css';
+@use '@mink-ui/core/styles/components.scss';
+
+html,
+body,
+#root {
+  height: 100%;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--mink-color-fill) transparent;
+}
+
+.better-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mink-color-fill) transparent;
+  scrollbar-gutter: stable;
+}
+
+/** x-collapse */
+
+.x-collapse-enter-from,
+.x-collapse-exit-to {
+  opacity: 0;
+}
+
+.x-collapse-enter-active,
+.x-collapse-exit-active {
+  transition:
+    opacity 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+}
+
+.x-collapse-exit-done {
+  display: none;
+}
+
+/** x-slide-top */
+
+.x-slide-top-enter-from,
+.x-slide-top-exit-to {
+  opacity: 0;
+  transform: translate3d(0, -5px, 0);
+}
+
+.x-slide-top-enter-active,
+.x-slide-top-exit-active {
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}
+
+.x-slide-top-exit-done {
+  display: none;
+}
+
+/** x-slide-left */
+
+.x-slide-left-enter-from,
+.x-slide-left-exit-to {
+  opacity: 0;
+  transform: translate3d(-10px, 0, 0);
+}
+
+.x-slide-left-enter-active,
+.x-slide-left-exit-active {
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}
+
+.x-slide-left-exit-done {
+  display: none;
+}
