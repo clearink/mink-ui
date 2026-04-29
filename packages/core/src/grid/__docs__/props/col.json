@@ -1,0 +1,98 @@
+[
+  {
+    "name": "ref",
+    "type": "Ref<HTMLDivElement>",
+    "zh-CN": "外部引用",
+    "en-US": "External ref"
+  },
+  {
+    "name": "span",
+    "type": "number",
+    "zh-CN": "占位格数，0 代表不占位",
+    "en-US": "Number of grid columns to span, 0 means hidden"
+  },
+  {
+    "name": "offset",
+    "type": "number",
+    "zh-CN": "偏移格数",
+    "en-US": "Number of grid columns to offset"
+  },
+  {
+    "name": "order",
+    "type": "number",
+    "zh-CN": "排序值",
+    "en-US": "Order value"
+  },
+  {
+    "name": "pull",
+    "type": "number",
+    "zh-CN": "向左移动格数",
+    "en-US": "Number of grid columns to pull left"
+  },
+  {
+    "name": "push",
+    "type": "number",
+    "zh-CN": "向右移动格数",
+    "en-US": "Number of grid columns to push right"
+  },
+  {
+    "name": "flex",
+    "type": "'auto' | 'none' | string | number",
+    "zh-CN": "flex 布局配置",
+    "en-US": "Flex layout config"
+  },
+  {
+    "name": "xs",
+    "type": "ColLayout | number",
+    "zh-CN": "<576px 响应式配置",
+    "en-US": "<576px responsive config"
+  },
+  {
+    "name": "sm",
+    "type": "ColLayout | number",
+    "zh-CN": "≥576px 响应式配置",
+    "en-US": "≥576px responsive config"
+  },
+  {
+    "name": "md",
+    "type": "ColLayout | number",
+    "zh-CN": "≥768px 响应式配置",
+    "en-US": "≥768px responsive config"
+  },
+  {
+    "name": "lg",
+    "type": "ColLayout | number",
+    "zh-CN": "≥992px 响应式配置",
+    "en-US": "≥992px responsive config"
+  },
+  {
+    "name": "xl",
+    "type": "ColLayout | number",
+    "zh-CN": "≥1200px 响应式配置",
+    "en-US": "≥1200px responsive config"
+  },
+  {
+    "name": "xxl",
+    "type": "ColLayout | number",
+    "zh-CN": "≥1600px 响应式配置",
+    "en-US": "≥1600px responsive config"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  }
+]

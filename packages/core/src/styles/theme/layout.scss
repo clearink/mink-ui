@@ -1,0 +1,129 @@
+@use '../constants/index.scss' as *;
+
+@mixin mink-unit() {
+  --#{$ns}-unit-0: 0px;
+  --#{$ns}-unit-1: 4px;
+  --#{$ns}-unit-1_5: 6px;
+  --#{$ns}-unit-2: 8px;
+  --#{$ns}-unit-3: 12px;
+  --#{$ns}-unit-3_5: 14px;
+  --#{$ns}-unit-4: 16px;
+  --#{$ns}-unit-5: 20px;
+  --#{$ns}-unit-6: 24px;
+  --#{$ns}-unit-7: 28px;
+  --#{$ns}-unit-8: 32px;
+  --#{$ns}-unit-9: 36px;
+  --#{$ns}-unit-10: 40px;
+  --#{$ns}-unit-11: 44px;
+  --#{$ns}-unit-12: 48px;
+  --#{$ns}-unit-13: 52px;
+  --#{$ns}-unit-14: 56px;
+  --#{$ns}-unit-15: 60px;
+  --#{$ns}-unit-16: 64px;
+  --#{$ns}-unit-17: 68px;
+  --#{$ns}-unit-18: 72px;
+  --#{$ns}-unit-24: 96px;
+  --#{$ns}-unit-32: 128px;
+  --#{$ns}-unit-64: 256px;
+  --#{$ns}-unit-96: 384px;
+}
+
+@mixin mink-margin() {
+  --#{$ns}-margin-xxs: 4px;
+  --#{$ns}-margin-xs: 8px;
+  --#{$ns}-margin-sm: 12px;
+  --#{$ns}-margin: 16px;
+  --#{$ns}-margin-md: 20px;
+  --#{$ns}-margin-lg: 24px;
+  --#{$ns}-margin-xl: 32px;
+  --#{$ns}-margin-xxl: 48px;
+}
+
+@mixin mink-padding() {
+  --#{$ns}-padding-xxs: 4px;
+  --#{$ns}-padding-xs: 8px;
+  --#{$ns}-padding-sm: 12px;
+  --#{$ns}-padding: 16px;
+  --#{$ns}-padding-md: 20px;
+  --#{$ns}-padding-lg: 24px;
+  --#{$ns}-padding-xl: 32px;
+}
+
+@mixin mink-radius() {
+  --#{$ns}-border-radius-xs: 2px;
+  --#{$ns}-border-radius-sm: 2px;
+  --#{$ns}-border-radius: 4px;
+  --#{$ns}-border-radius-lg: 6px;
+  --#{$ns}-border-radius-round: 16px;
+  --#{$ns}-border-radius-circle: 50%;
+}
+
+@mixin mink-size() {
+  --#{$ns}-size-xxs: 4px;
+  --#{$ns}-size-xs: 8px;
+  --#{$ns}-size-sm: 12px;
+  --#{$ns}-size: 16px;
+  --#{$ns}-size-ms: 16px;
+  --#{$ns}-size-md: 20px;
+  --#{$ns}-size-lg: 24px;
+  --#{$ns}-size-xl: 32px;
+  --#{$ns}-size-xxl: 48px;
+}
+
+@mixin mink-height() {
+  --#{$ns}-height-xs: 16px;
+  --#{$ns}-height-sm: 24px;
+  --#{$ns}-height: 32px;
+  --#{$ns}-height-lg: 40px;
+}
+
+@mixin mink-line() {
+  --#{$ns}-line-width: 1px;
+  --#{$ns}-line-type: solid;
+}
+
+@mixin mink-typography() {
+  --#{$ns}-font-family:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --#{$ns}-font-family-code: 'SFMono-Regular', consolas, 'Liberation Mono', menlo, courier, monospace;
+  --#{$ns}-font-size-sm: 12px;
+  --#{$ns}-font-size: 14px;
+  --#{$ns}-font-size-lg: 16px;
+  --#{$ns}-font-size-xl: 16px;
+  --#{$ns}-line-height-sm: 20px;
+  --#{$ns}-line-height: 22px;
+  --#{$ns}-line-height-lg: 24px;
+  --#{$ns}-line-height-xl: 24px;
+  --#{$ns}-font-weight: 400;
+  --#{$ns}-font-weight-strong: 600;
+  --#{$ns}-font-size-heading-1: 38px;
+  --#{$ns}-font-size-heading-2: 30px;
+  --#{$ns}-font-size-heading-3: 24px;
+  --#{$ns}-font-size-heading-4: 20px;
+  --#{$ns}-font-size-heading-5: 16px;
+  --#{$ns}-line-height-heading-1: 46px;
+  --#{$ns}-line-height-heading-2: 38px;
+  --#{$ns}-line-height-heading-3: 32px;
+  --#{$ns}-line-height-heading-4: 28px;
+  --#{$ns}-line-height-heading-5: 24px;
+  --#{$ns}-font-size-icon: 12px;
+}
+
+@mixin mink-motion() {
+  --#{$ns}-motion-ease-out-circ: cubic-bezier(0.08, 0.82, 0.17, 1);
+  --#{$ns}-motion-ease-in-out-circ: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  --#{$ns}-motion-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --#{$ns}-motion-ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --#{$ns}-motion-ease-out-back: cubic-bezier(0.12, 0.4, 0.29, 1.46);
+  --#{$ns}-motion-ease-in-back: cubic-bezier(0.71, -0.46, 0.88, 0.6);
+  --#{$ns}-motion-ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  --#{$ns}-motion-ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --#{$ns}-motion-duration-1: 0.1s;
+  --#{$ns}-motion-duration-1_5: 0.15s;
+  --#{$ns}-motion-duration-2: 0.2s;
+  --#{$ns}-motion-duration-2_5: 0.25s;
+  --#{$ns}-motion-duration-3: 0.3s;
+  --#{$ns}-motion-duration-4: 0.4s;
+  --#{$ns}-motion-duration-5: 0.5s;
+}

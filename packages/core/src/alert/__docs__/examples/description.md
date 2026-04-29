@@ -11,14 +11,14 @@ import { Alert, Space } from '@mink-ui/core'
 
 function App() {
   return (
-    <Space direction="vertical">
+    <Space orientation="vertical">
       {['info', 'success', 'warning', 'error'].map(type => (
         <Alert
           key={type}
-          message={`${type} Text`}
-          description="Description text"
-          type={type}
           showIcon
+          description="Description text"
+          message={`${type} Text`}
+          type={type}
         />
       ))}
     </Space>

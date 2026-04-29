@@ -1,0 +1,38 @@
+.code_example {
+  overflow: hidden;
+  border: 1px solid var(--mink-color-border);
+  border-radius: var(--mink-unit-1);
+  margin-bottom: var(--mink-unit-6);
+}
+
+.example_preview {
+  padding: var(--mink-unit-10) var(--mink-unit-6) var(--mink-unit-6);
+  min-height: 100px;
+  overflow: auto;
+}
+
+.example_name {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.example_desc {
+  padding: var(--mink-unit-4) var(--mink-unit-6);
+}
+
+.example_toolbar {
+  border-top: 1px dashed var(--mink-color-border);
+  padding: var(--mink-unit-4);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .collapse_icon {
+    cursor: pointer;
+    transition: transform 300ms ease-in-out;
+    &.is-collapse {
+      transform: rotateX(180deg);
+    }
+  }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "label",
+    "type": "ReactNode",
+    "zh-CN": "选项文本",
+    "en-US": "Option label"
+  },
+  {
+    "name": "value",
+    "type": "string | number",
+    "zh-CN": "选项值",
+    "en-US": "Option value"
+  },
+  {
+    "name": "title",
+    "type": "string",
+    "zh-CN": "html title 属性",
+    "en-US": "HTML title attribute"
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "zh-CN": "是否禁用",
+    "en-US": "Whether the option is disabled"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "classNames",
+    "type": "Record<'root' | 'label', string>",
+    "zh-CN": "语义化类名",
+    "en-US": "Semantic class names"
+  },
+  {
+    "name": "styles",
+    "type": "Record<'root' | 'label', React.CSSProperties>",
+    "zh-CN": "语义化样式",
+    "en-US": "Semantic styles"
+  }
+]

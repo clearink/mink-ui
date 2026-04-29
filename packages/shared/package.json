@@ -1,5 +1,6 @@
 {
   "name": "@mink-ui/shared",
+  "type": "module",
   "version": "0.0.3",
   "description": "mink-ui shared utils",
   "author": "clearink",
@@ -14,7 +15,242 @@
     "shared",
     "utils"
   ],
-  "sideEffects": [],
+  "sideEffects": [
+    "dist/**"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    },
+    "./array/array-equal": {
+      "types": "./src/array/array-equal.ts",
+      "import": "./src/array/array-equal.ts",
+      "require": "./src/array/array-equal.ts"
+    },
+    "./array/at-index": {
+      "types": "./src/array/at-index.ts",
+      "import": "./src/array/at-index.ts",
+      "require": "./src/array/at-index.ts"
+    },
+    "./array/chunk": {
+      "types": "./src/array/chunk.ts",
+      "import": "./src/array/chunk.ts",
+      "require": "./src/array/chunk.ts"
+    },
+    "./array/push-item": {
+      "types": "./src/array/push-item.ts",
+      "import": "./src/array/push-item.ts",
+      "require": "./src/array/push-item.ts"
+    },
+    "./array/remove-item": {
+      "types": "./src/array/remove-item.ts",
+      "import": "./src/array/remove-item.ts",
+      "require": "./src/array/remove-item.ts"
+    },
+    "./array/swap-index": {
+      "types": "./src/array/swap-index.ts",
+      "import": "./src/array/swap-index.ts",
+      "require": "./src/array/swap-index.ts"
+    },
+    "./array/to-array": {
+      "types": "./src/array/to-array.ts",
+      "import": "./src/array/to-array.ts",
+      "require": "./src/array/to-array.ts"
+    },
+    "./dom/global": {
+      "types": "./src/dom/global.ts",
+      "import": "./src/dom/global.ts",
+      "require": "./src/dom/global.ts"
+    },
+    "./dom/is-browser": {
+      "types": "./src/dom/is-browser.ts",
+      "import": "./src/dom/is-browser.ts",
+      "require": "./src/dom/is-browser.ts"
+    },
+    "./dom/is-element": {
+      "types": "./src/dom/is-element.ts",
+      "import": "./src/dom/is-element.ts",
+      "require": "./src/dom/is-element.ts"
+    },
+    "./dom/is-mobile": {
+      "types": "./src/dom/is-mobile.ts",
+      "import": "./src/dom/is-mobile.ts",
+      "require": "./src/dom/is-mobile.ts"
+    },
+    "./dom/listener": {
+      "types": "./src/dom/listener.ts",
+      "import": "./src/dom/listener.ts",
+      "require": "./src/dom/listener.ts"
+    },
+    "./dom/raf": {
+      "types": "./src/dom/raf.ts",
+      "import": "./src/dom/raf.ts",
+      "require": "./src/dom/raf.ts"
+    },
+    "./dom/rect": {
+      "types": "./src/dom/rect.ts",
+      "import": "./src/dom/rect.ts",
+      "require": "./src/dom/rect.ts"
+    },
+    "./dom/reflow": {
+      "types": "./src/dom/reflow.ts",
+      "import": "./src/dom/reflow.ts",
+      "require": "./src/dom/reflow.ts"
+    },
+    "./dom/shadow": {
+      "types": "./src/dom/shadow.ts",
+      "import": "./src/dom/shadow.ts",
+      "require": "./src/dom/shadow.ts"
+    },
+    "./dom/timer": {
+      "types": "./src/dom/timer.ts",
+      "import": "./src/dom/timer.ts",
+      "require": "./src/dom/timer.ts"
+    },
+    "./function/batch": {
+      "types": "./src/function/batch.ts",
+      "import": "./src/function/batch.ts",
+      "require": "./src/function/batch.ts"
+    },
+    "./function/execute": {
+      "types": "./src/function/execute.ts",
+      "import": "./src/function/execute.ts",
+      "require": "./src/function/execute.ts"
+    },
+    "./function/fallback": {
+      "types": "./src/function/fallback.ts",
+      "import": "./src/function/fallback.ts",
+      "require": "./src/function/fallback.ts"
+    },
+    "./function/noop": {
+      "types": "./src/function/noop.ts",
+      "import": "./src/function/noop.ts",
+      "require": "./src/function/noop.ts"
+    },
+    "./interface": {
+      "types": "./src/interface.ts",
+      "import": "./src/interface.ts",
+      "require": "./src/interface.ts"
+    },
+    "./is/is-array": {
+      "types": "./src/is/is-array.ts",
+      "import": "./src/is/is-array.ts",
+      "require": "./src/is/is-array.ts"
+    },
+    "./is/is-boolean": {
+      "types": "./src/is/is-boolean.ts",
+      "import": "./src/is/is-boolean.ts",
+      "require": "./src/is/is-boolean.ts"
+    },
+    "./is/is-date": {
+      "types": "./src/is/is-date.ts",
+      "import": "./src/is/is-date.ts",
+      "require": "./src/is/is-date.ts"
+    },
+    "./is/is-function": {
+      "types": "./src/is/is-function.ts",
+      "import": "./src/is/is-function.ts",
+      "require": "./src/is/is-function.ts"
+    },
+    "./is/is-null": {
+      "types": "./src/is/is-null.ts",
+      "import": "./src/is/is-null.ts",
+      "require": "./src/is/is-null.ts"
+    },
+    "./is/is-nullish": {
+      "types": "./src/is/is-nullish.ts",
+      "import": "./src/is/is-nullish.ts",
+      "require": "./src/is/is-nullish.ts"
+    },
+    "./is/is-number": {
+      "types": "./src/is/is-number.ts",
+      "import": "./src/is/is-number.ts",
+      "require": "./src/is/is-number.ts"
+    },
+    "./is/is-object": {
+      "types": "./src/is/is-object.ts",
+      "import": "./src/is/is-object.ts",
+      "require": "./src/is/is-object.ts"
+    },
+    "./is/is-promise": {
+      "types": "./src/is/is-promise.ts",
+      "import": "./src/is/is-promise.ts",
+      "require": "./src/is/is-promise.ts"
+    },
+    "./is/is-pure-object": {
+      "types": "./src/is/is-pure-object.ts",
+      "import": "./src/is/is-pure-object.ts",
+      "require": "./src/is/is-pure-object.ts"
+    },
+    "./is/is-string": {
+      "types": "./src/is/is-string.ts",
+      "import": "./src/is/is-string.ts",
+      "require": "./src/is/is-string.ts"
+    },
+    "./is/is-symbol": {
+      "types": "./src/is/is-symbol.ts",
+      "import": "./src/is/is-symbol.ts",
+      "require": "./src/is/is-symbol.ts"
+    },
+    "./is/is-undefined": {
+      "types": "./src/is/is-undefined.ts",
+      "import": "./src/is/is-undefined.ts",
+      "require": "./src/is/is-undefined.ts"
+    },
+    "./number/clamp": {
+      "types": "./src/number/clamp.ts",
+      "import": "./src/number/clamp.ts",
+      "require": "./src/number/clamp.ts"
+    },
+    "./object/has-own": {
+      "types": "./src/object/has-own.ts",
+      "import": "./src/object/has-own.ts",
+      "require": "./src/object/has-own.ts"
+    },
+    "./object/omit": {
+      "types": "./src/object/omit.ts",
+      "import": "./src/object/omit.ts",
+      "require": "./src/object/omit.ts"
+    },
+    "./object/pick": {
+      "types": "./src/object/pick.ts",
+      "import": "./src/object/pick.ts",
+      "require": "./src/object/pick.ts"
+    },
+    "./object/raw-type": {
+      "types": "./src/object/raw-type.ts",
+      "import": "./src/object/raw-type.ts",
+      "require": "./src/object/raw-type.ts"
+    },
+    "./object/shallow-equal": {
+      "types": "./src/object/shallow-equal.ts",
+      "import": "./src/object/shallow-equal.ts",
+      "require": "./src/object/shallow-equal.ts"
+    },
+    "./object/shallow-merge": {
+      "types": "./src/object/shallow-merge.ts",
+      "import": "./src/object/shallow-merge.ts",
+      "require": "./src/object/shallow-merge.ts"
+    },
+    "./object/shallow-unequal": {
+      "types": "./src/object/shallow-unequal.ts",
+      "import": "./src/object/shallow-unequal.ts",
+      "require": "./src/object/shallow-unequal.ts"
+    },
+    "./string/camel-case": {
+      "types": "./src/string/camel-case.ts",
+      "import": "./src/string/camel-case.ts",
+      "require": "./src/string/camel-case.ts"
+    },
+    "./string/capitalize": {
+      "types": "./src/string/capitalize.ts",
+      "import": "./src/string/capitalize.ts",
+      "require": "./src/string/capitalize.ts"
+    }
+  },
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "types": "./src/index.ts",
@@ -30,18 +266,22 @@
     "types": "./esm/index.d.ts"
   },
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "build": "mink-cli build:shared",
-    "lint:ts": "tsc --noEmit"
+    "prepublishOnly": "tsc -b & mink build:shared",
+    "sub": "mink sub:shared",
+    "dts": "mink dts:shared",
+    "build": "mink build:shared",
+    "lint": "eslint src",
+    "lint:ts": "tsc -b"
   },
   "peerDependencies": {
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   },
   "dependencies": {
-    "@babel/runtime": "catalog:"
+    "@babel/runtime": "catalog:",
+    "classnames": "catalog:"
   },
   "devDependencies": {
-    "@mink-ui/scripts": "workspace:^"
+    "@internal/cli": "workspace:*"
   }
 }

@@ -1,0 +1,15 @@
+// 预设样式与主题变量
+@forward './builtin.scss';
+// dependencies
+@forward '../touch-effect/style/index.scss';
+// components
+@forward '../alert/style/index.scss';
+@forward '../badge/style/index.scss';
+@forward '../button/style/index.scss';
+@forward '../collapse/style//index.scss';
+@forward '../divider/style/index.scss';
+@forward '../form/style/index.scss';
+@forward '../grid/style/index.scss';
+@forward '../segmented/style/index.scss';
+@forward '../space/style/index.scss';
+@forward '../tooltip/style/index.scss';

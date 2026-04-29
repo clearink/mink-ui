@@ -1,3 +1,3 @@
-export function isNull(obj: any): obj is undefined {
+export function isNull(obj: any): obj is null {
   return obj === null
 }

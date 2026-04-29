@@ -16,7 +16,7 @@ export default function App() {
         <div key={variant} style={{ marginBottom: 16 }}>
           <Space>
             {['danger', 'info', 'primary', 'success', 'warning'].map(theme => (
-              <Button key={theme} variant={variant} theme={theme} disabled>
+              <Button key={theme} disabled theme={theme} variant={variant}>
                 {theme}
               </Button>
             ))}

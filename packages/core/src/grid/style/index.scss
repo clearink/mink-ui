@@ -1,0 +1,95 @@
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
+
+$ns-row: #{$ns}-row;
+$ns-col: #{$ns}-col;
+
+.#{$ns-row} {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-width: 0;
+
+  &::before,
+  &::after {
+    display: flex;
+  }
+
+  &--wrap {
+    flex-wrap: wrap;
+  }
+
+  &--justify {
+    &-start {
+      justify-content: flex-start;
+    }
+
+    &-end {
+      justify-content: flex-end;
+    }
+
+    &-center {
+      justify-content: center;
+    }
+
+    &-space-around {
+      justify-content: space-around;
+    }
+
+    &-space-between {
+      justify-content: space-between;
+    }
+
+    &-space-evenly {
+      justify-content: space-evenly;
+    }
+  }
+
+  &--align {
+    &-top {
+      align-items: flex-start;
+    }
+
+    &-middle {
+      align-items: center;
+    }
+
+    &-bottom {
+      align-items: flex-end;
+    }
+
+    &-stretch {
+      align-items: stretch;
+    }
+  }
+}
+
+.#{$ns-col} {
+  position: relative;
+  max-width: 100%;
+  min-height: 1px;
+}
+
+// 默认为 xs (应该是 max-width: 575px)
+@include generateGrid(null, $ns-col);
+
+@include media(sm) {
+  @include generateGrid(sm, $ns-col);
+}
+
+@include media(md) {
+  @include generateGrid(md, $ns-col);
+}
+
+@include media(lg) {
+  @include generateGrid(lg, $ns-col);
+}
+
+@include media(xl) {
+  @include generateGrid(xl, $ns-col);
+}
+
+@include media(xxl) {
+  @include generateGrid(xxl, $ns-col);
+}

@@ -1,45 +1,44 @@
-// 引入 css 基础配置文件
-@import '../../style/base.scss';
-@import './tokens.scss';
-@import './mixins.scss';
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
 
-$comp: #{$prefix}-tooltip;
+$ns-tooltip: #{$ns}-tooltip;
 
-.#{$comp}-wrapper {
+.#{$ns-tooltip}-wrapper {
   position: absolute;
 }
 
-.#{$comp} {
+.#{$ns-tooltip} {
   @include reset-component();
 
   width: max-content;
   min-width: 1em;
   max-width: $mink-tooltip-max-width;
   padding: $mink-tooltip-px $mink-tooltip-py;
-  color: var(--#{$prefix}-color-text-light-solid);
-  background-color: var(--#{$prefix}-color-bg-spot-light);
-  border-radius: var(--#{$prefix}-border-radius);
-  box-shadow: var(--#{$prefix}-box-shadow-secondary);
+  color: var(--#{$ns}-color-text-light-solid);
+  background-color: var(--#{$ns}-color-bg-spot-light);
+  border-radius: var(--#{$ns}-border-radius);
+  box-shadow: var(--#{$ns}-box-shadow-secondary);
   transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
-}
 
-.#{$comp}__arrow {
-  position: absolute;
-  // TODO: 暗色模式下颜色会抖动, 暂时屏蔽
-  // z-index: -1;
-  width: $mink-tooltip-arrow-size;
-  height: $mink-tooltip-arrow-size;
-  box-shadow: var(--#{$prefix}-box-shadow-secondary);
-  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
-  pointer-events: none;
+  &__arrow {
+    position: absolute;
+    // TODO: 暗色模式下颜色会抖动, 暂时屏蔽
+    // z-index: -1;
+    width: $mink-tooltip-arrow-size;
+    height: $mink-tooltip-arrow-size;
+    box-shadow: var(--#{$ns}-box-shadow-secondary);
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+    pointer-events: none;
 
-  &::before {
-    display: block;
-    width: 50%;
-    height: 50%;
-    background-color: var(--#{$prefix}-color-bg-spot-light);
-    border-bottom-right-radius: 2px;
-    transform: translate3d(50%, 50%, 0) rotate(45deg);
-    content: '';
+    &::before {
+      display: block;
+      width: 50%;
+      height: 50%;
+      background-color: var(--#{$ns}-color-bg-spot-light);
+      border-bottom-right-radius: 2px;
+      transform: translate3d(50%, 50%, 0) rotate(45deg);
+      content: '';
+    }
   }
 }

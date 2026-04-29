@@ -1,13 +1,14 @@
 {
   "name": "@mink-ui/core",
+  "type": "module",
   "version": "0.0.14",
-  "description": "mink-ui core components",
+  "description": "mink-ui react components",
   "author": "clearink",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/clearink/mink-ui.git",
-    "directory": "packages/components"
+    "directory": "packages/core"
   },
   "keywords": [
     "mink-ui",
@@ -15,18 +16,12 @@
     "components"
   ],
   "sideEffects": [
-    "dist/*",
-    "esm/**/style/*",
-    "lib/**/style/*",
-    "*.scss"
+    "dist/*"
   ],
   "main": "./src/index.ts",
   "module": "./src/index.ts",
-  "unpkg": "./dist/index.min.js",
-  "jsdelivr": "./dist/index.min.js",
   "types": "./src/index.ts",
   "files": [
-    "dist",
     "esm",
     "lib"
   ],
@@ -35,28 +30,33 @@
     "registry": "https://registry.npmjs.org",
     "main": "./lib/index.js",
     "module": "./esm/index.mjs",
-    "unpkg": "./dist/index.min.js",
     "types": "./esm/index.d.ts"
   },
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "build": "mink-cli build:core",
-    "lint:ts": "tsc --noEmit"
+    "prepublishOnly": "tsc -b & mink build:core",
+    "sub": "mink sub:core",
+    "build": "mink build:core",
+    "lint": "eslint src",
+    "lint:ts": "tsc -b"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   },
   "dependencies": {
     "@babel/runtime": "catalog:",
-    "@mink-ui/icons": "workspace:^",
-    "@mink-ui/shared": "workspace:^",
-    "classnames": "2.5.1",
-    "react-fast-compare": "3.2.0",
-    "react-is": "18.3.1"
+    "@mink-ui/icons": "workspace:*",
+    "@mink-ui/shared": "workspace:*",
+    "classnames": "catalog:",
+    "react-fast-compare": "catalog:",
+    "react-is": "catalog:"
   },
   "devDependencies": {
-    "@mink-ui/scripts": "workspace:^",
-    "@types/react-is": "18.3.0"
+    "@internal/cli": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/react-is": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   }
 }

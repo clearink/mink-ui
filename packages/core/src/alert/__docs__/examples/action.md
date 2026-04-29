@@ -15,12 +15,12 @@ function App() {
       {['info', 'success', 'warning', 'error'].map(type => (
         <Alert
           key={type}
+          style={{ marginBottom: 8 }}
+          closable
+          showIcon
+          action={<Button size="small" variant="filled">action</Button>}
           message={`${type} Text`}
           type={type}
-          showIcon
-          closable
-          action={<Button size="small" variant="filled">action</Button>}
-          style={{ marginBottom: 8 }}
         />
       ))}
     </div>

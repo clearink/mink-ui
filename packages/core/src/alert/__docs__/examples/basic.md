@@ -13,7 +13,7 @@ import { Alert } from '@mink-ui/core'
 
 function App() {
   return (
-    <Alert message="Success Text" type="info" showIcon />
+    <Alert showIcon message="Success Text" type="info" />
   )
 }
 

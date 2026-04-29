@@ -1,7 +1,0 @@
-export * from './has-own'
-export * from './omit'
-export * from './pick'
-export * from './raw-type'
-export * from './shallow-equal'
-export * from './shallow-merge'
-export * from './shallow-unequal'

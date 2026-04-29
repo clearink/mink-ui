@@ -1,0 +1,21 @@
+$ns: 'mink';
+
+$icon-ns: #{$ns}icon;
+
+$breakpoint-sm: 576px;
+
+$breakpoint-md: 768px;
+
+$breakpoint-lg: 992px;
+
+$breakpoint-xl: 1200px;
+
+$breakpoint-xxl: 1600px;
+
+$map-break-point: (
+  sm: $breakpoint-sm,
+  md: $breakpoint-md,
+  lg: $breakpoint-lg,
+  xl: $breakpoint-xl,
+  xxl: $breakpoint-xxl,
+);

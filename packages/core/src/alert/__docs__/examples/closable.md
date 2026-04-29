@@ -15,11 +15,11 @@ function App() {
       {['info', 'success', 'warning', 'error'].map(type => (
         <Alert
           key={type}
+          style={{ marginBottom: 8 }}
+          closable
+          showIcon
           message={`${type} Text`}
           type={type}
-          showIcon
-          closable
-          style={{ marginBottom: 8 }}
         />
       ))}
     </div>

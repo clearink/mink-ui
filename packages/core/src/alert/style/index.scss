@@ -1,16 +1,16 @@
-// 引入 css 基础配置文件
-@import '../../style/base.scss';
-@import './tokens.scss';
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
 
-$comp: #{$prefix}-alert;
+$ns-alert: #{$ns}-alert;
 
-.#{$comp} {
+.#{$ns-alert} {
   @include reset-component();
 
   display: flex;
   align-items: center;
-  padding: var(--#{$prefix}-unit-2) var(--#{$prefix}-unit-3);
-  border-radius: var(--#{$prefix}-border-radius);
+  padding: var(--#{$ns}-unit-2) var(--#{$ns}-unit-3);
+  border-radius: var(--#{$ns}-border-radius);
   word-break: break-word;
 
   &__content {
@@ -19,48 +19,48 @@ $comp: #{$prefix}-alert;
   }
 
   &__icon {
-    margin-inline-end: var(--#{$prefix}-unit-2);
+    margin-inline-end: var(--#{$ns}-unit-2);
     line-height: 0;
   }
 
   &__message {
-    color: var(--#{$prefix}-color-text-heading);
+    color: var(--#{$ns}-color-text-heading);
   }
 
-  &.#{$comp}--has-description {
+  &.#{$ns-alert}--has-description {
     align-items: flex-start;
-    padding: var(--#{$prefix}-unit-5) var(--#{$prefix}-unit-6);
+    padding: var(--#{$ns}-unit-5) var(--#{$ns}-unit-6);
 
-    .#{$comp}__icon {
-      margin-inline-end: var(--#{$prefix}-unit-3);
-      font-size: var(--#{$prefix}-unit-7);
+    .#{$ns-alert}__icon {
+      margin-inline-end: var(--#{$ns}-unit-3);
+      font-size: var(--#{$ns}-unit-7);
     }
 
-    .#{$comp}__message {
+    .#{$ns-alert}__message {
       display: block;
-      margin-bottom: var(--#{$prefix}-unit-2);
-      font-size: var(--#{$prefix}-font-size-lg);
+      margin-bottom: var(--#{$ns}-unit-2);
+      font-size: var(--#{$ns}-font-size-lg);
     }
   }
 
   &__close-btn {
-    height: var(--#{$prefix}-font-size-icon);
+    height: var(--#{$ns}-font-size-icon);
     padding: 0;
     overflow: hidden;
-    font-size: var(--#{$prefix}-font-size-icon);
-    line-height: var(--#{$prefix}-font-size-icon);
+    font-size: var(--#{$ns}-font-size-icon);
+    line-height: var(--#{$ns}-font-size-icon);
     background-color: transparent;
     border: none;
     outline: none;
     cursor: pointer;
-    margin-inline-start: var(--#{$prefix}-unit-2);
+    margin-inline-start: var(--#{$ns}-unit-2);
 
-    .#{$prefix}-icon.icon-close {
-      color: var(--#{$prefix}-color-icon);
-      transition: color var(--#{$prefix}-motion-duration-2);
+    .#{$icon-ns}.icon-close {
+      color: var(--#{$ns}-color-icon);
+      transition: color var(--#{$ns}-motion-duration-2);
 
       &:hover {
-        color: var(--#{$prefix}-color-icon-hover);
+        color: var(--#{$ns}-color-icon-hover);
       }
     }
   }
@@ -72,57 +72,55 @@ $comp: #{$prefix}-alert;
   }
 
   &--info {
-    background-color: var(--#{$prefix}-color-info-bg);
-    box-shadow: inset 0 0 0 1px var(--#{$prefix}-color-info);
-    .#{$comp}__icon {
-      color: var(--#{$prefix}-color-info);
+    background-color: var(--#{$ns}-color-info-bg);
+    box-shadow: inset 0 0 0 1px var(--#{$ns}-color-info);
+    .#{$ns-alert}__icon {
+      color: var(--#{$ns}-color-info);
     }
   }
   &--warning {
-    background-color: var(--#{$prefix}-color-warning-bg);
-    box-shadow: inset 0 0 0 1px var(--#{$prefix}-color-warning);
-    .#{$comp}__icon {
-      color: var(--#{$prefix}-color-warning);
+    background-color: var(--#{$ns}-color-warning-bg);
+    box-shadow: inset 0 0 0 1px var(--#{$ns}-color-warning);
+    .#{$ns-alert}__icon {
+      color: var(--#{$ns}-color-warning);
     }
   }
   &--error {
-    background-color: var(--#{$prefix}-color-error-bg);
-    box-shadow: inset 0 0 0 1px var(--#{$prefix}-color-error);
-    .#{$comp}__icon {
-      color: var(--#{$prefix}-color-error);
+    background-color: var(--#{$ns}-color-error-bg);
+    box-shadow: inset 0 0 0 1px var(--#{$ns}-color-error);
+    .#{$ns-alert}__icon {
+      color: var(--#{$ns}-color-error);
     }
   }
   &--success {
-    background-color: var(--#{$prefix}-color-success-bg);
-    box-shadow: inset 0 0 0 1px var(--#{$prefix}-color-success);
-    .#{$comp}__icon {
-      color: var(--#{$prefix}-color-success);
+    background-color: var(--#{$ns}-color-success-bg);
+    box-shadow: inset 0 0 0 1px var(--#{$ns}-color-success);
+    .#{$ns-alert}__icon {
+      color: var(--#{$ns}-color-success);
     }
   }
 
-  &-motion {
-    &-exit-active {
-      overflow: hidden;
-      user-select: none;
-      transition:
-        opacity var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
-        height var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
-        padding-top var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
-        padding-bottom var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
-        margin-top var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out),
-        margin-bottom var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out);
-    }
+  &-motion-exit-active {
+    overflow: hidden;
+    user-select: none;
+    transition:
+      opacity var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
+      height var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
+      padding-top var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
+      padding-bottom var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
+      margin-top var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
+      margin-bottom var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
+  }
 
-    &-exit-to {
-      opacity: 0;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
-    }
+  &-motion-exit-to {
+    opacity: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
 
-    &-exit-done {
-      display: none !important;
-    }
+  &-motion-exit-done {
+    display: none !important;
   }
 }

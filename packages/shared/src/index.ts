@@ -1,11 +1,11 @@
+export * from './array/array-equal'
 export * from './array/at-index'
-export * from './array/at-index'
-export * from './array/is-array-equal'
+export * from './array/chunk'
 export * from './array/push-item'
 export * from './array/remove-item'
+export * from './array/swap-index'
 export * from './array/to-array'
-
-export * from './dom/classnames'
+// dom
 export * from './dom/global'
 export * from './dom/is-browser'
 export * from './dom/is-element'
@@ -13,18 +13,16 @@ export * from './dom/listener'
 export * from './dom/raf'
 export * from './dom/rect'
 export * from './dom/reflow'
-export * from './dom/resize-observer'
 export * from './dom/shadow'
 export * from './dom/timer'
-
+// function
 export * from './function/batch'
-export * from './function/coalesce'
 export * from './function/execute'
 export * from './function/fallback'
 export * from './function/noop'
-
+// interface
 export * from './interface'
-
+// is
 export * from './is/is-array'
 export * from './is/is-boolean'
 export * from './is/is-date'
@@ -38,9 +36,9 @@ export * from './is/is-pure-object'
 export * from './is/is-string'
 export * from './is/is-symbol'
 export * from './is/is-undefined'
-
+// number
 export * from './number/clamp'
-
+// object
 export * from './object/has-own'
 export * from './object/omit'
 export * from './object/pick'
@@ -48,6 +46,6 @@ export * from './object/raw-type'
 export * from './object/shallow-equal'
 export * from './object/shallow-merge'
 export * from './object/shallow-unequal'
-
+// string
 export * from './string/camel-case'
 export * from './string/capitalize'

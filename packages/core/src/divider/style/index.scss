@@ -1,94 +1,103 @@
-// 引入 css 基础配置文件
-@import '../../style/base.scss';
-@import './tokens.scss';
-@import './mixins.scss';
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
 
-$comp: #{$prefix}-divider;
+$ns-divider: #{$ns}-divider;
 
-.#{$comp} {
+.#{$ns-divider} {
   @include reset-component();
 
   border-top: $mink-divider-border;
-}
 
-.#{$comp}__inner-text {
-  display: inline-block;
-  padding: $mink-divider-margin-inner-text;
-}
+  &--vertical {
+    position: relative;
+    top: -0.06em;
+    display: inline-block;
+    height: 0.9em;
+    margin: $mink-divider-margin-vertical;
+    vertical-align: middle;
+    border-top: none;
+    border-left: $mink-divider-border;
+  }
 
-.#{$comp}--horizontal {
-  display: flex;
-  clear: both;
-  width: 100%;
-  min-width: 100%;
-  margin: $mink-divider-margin-horizontal;
+  &--horizontal {
+    display: flex;
+    clear: both;
+    width: 100%;
+    min-width: 100%;
+    margin: $mink-divider-margin-middle;
 
-  &.#{$comp}--with-text {
-    // 设定了文字
+    &.#{$ns-divider}--size-small {
+      margin: $mink-divider-margin-small;
+    }
+
+    &.#{$ns-divider}--size-large {
+      margin: $mink-divider-margin-large;
+    }
+  }
+
+  &--with-text {
+    @include divider-percent(50%);
+
     margin: $mink-divider-margin-with-text;
     color: $mink-divider-color-text;
     font-weight: 500;
     font-size: 16px;
     white-space: nowrap;
     text-align: center;
-    border-top: none;
+    border-top: 0;
     display: flex;
     align-items: center;
+
     &::before,
     &::after {
       content: '';
+
       border-top: $mink-divider-border;
     }
 
-    &.#{$comp}-plain {
+    &.#{$ns-divider}--plain {
       font-weight: 400;
       font-size: 14px;
     }
 
-    &.#{$comp}--dashed {
+    &.#{$ns-divider}--variant-dashed {
       &::before,
       &::after {
         border-top-style: dashed;
       }
     }
+    &.#{$ns-divider}--variant-dotted {
+      &::before,
+      &::after {
+        border-top-style: dotted;
+      }
+    }
   }
-}
 
-.#{$comp}--dashed {
-  border-top-style: dashed;
-}
-
-.#{$comp}--align-left {
-  @include divider-percent(5%);
-
-  &.#{$comp}--custom-margin {
-    @include divider-percent(0%);
+  &--plain {
+    font-weight: 400;
+    font-size: 14px;
   }
-}
 
-.#{$comp}--align-center {
-  @include divider-percent(50%);
-}
-
-.#{$comp}--align-right {
-  @include divider-percent(95%);
-
-  &.#{$comp}--custom-margin {
-    @include divider-percent(100%);
+  &--variant-dashed {
+    border-top-style: dashed;
   }
-}
 
-.#{$comp}--vertical {
-  position: relative;
-  top: -0.06em;
-  display: inline-block;
-  height: 0.9em;
-  margin: $mink-divider-margin-vertical;
-  vertical-align: middle;
-  border-top: none;
-  border-left: $mink-divider-border;
+  &--variant-dotted {
+    border-top-style: dotted;
+  }
 
-  &.#{$comp}--dashed {
-    border-left-style: dashed;
+  &--align-left {
+    @include divider-percent(5%);
+  }
+
+  &--align-right {
+    @include divider-percent(95%);
+  }
+
+  &__content {
+    display: inline-block;
+    padding: $mink-divider-margin-content;
   }
 }

@@ -1,0 +1,54 @@
+[
+  {
+    "name": "ref",
+    "type": "Ref<HTMLDivElement>",
+    "zh-CN": "外部引用",
+    "en-US": "External ref"
+  },
+  {
+    "name": "align",
+    "enum": true,
+    "type": ["top", "middle", "bottom", "stretch"],
+    "zh-CN": "垂直对齐方式，支持响应式配置",
+    "en-US": "Vertical alignment, supports responsive config"
+  },
+  {
+    "name": "justify",
+    "enum": true,
+    "type": ["start", "center", "end", "space-around", "space-between", "space-evenly"],
+    "zh-CN": "水平对齐方式，支持响应式配置",
+    "en-US": "Horizontal alignment, supports responsive config"
+  },
+  {
+    "name": "gutter",
+    "type": "[GridGutter, GridGutter] | GridGutter",
+    "defaultValue": "0",
+    "zh-CN": "间距，数组形式为 [水平, 垂直]，支持响应式配置",
+    "en-US": "Gutter, array form is [horizontal, vertical], supports responsive config"
+  },
+  {
+    "name": "wrap",
+    "type": "boolean",
+    "defaultValue": "true",
+    "zh-CN": "是否换行",
+    "en-US": "Whether to wrap"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  }
+]

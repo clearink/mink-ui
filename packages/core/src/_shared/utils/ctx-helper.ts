@@ -1,15 +1,19 @@
-import { createContext, useContext } from 'react'
+import type { Context } from 'react'
 
-import { betterDisplayName } from './better-display-name'
+import { createContext, use } from 'react'
 
-export function ctxHelper<R>(init: R, ctxName?: string) {
-  const Context = createContext(init)
+import { defineName } from './define-name'
 
-  betterDisplayName(Context, ctxName)
+/**
+ * @description context 使用优化函数
+ */
+export function ctxHelper<R>(displayName: string, defaultValue: R) {
+  const Context: any = createContext(defaultValue)
 
-  return {
-    Consumer: Context.Consumer,
-    Provider: Context.Provider,
-    useState: () => useContext(Context),
-  }
+  // eslint-disable-next-line react/component-hook-factories
+  Context.use = () => use(Context)
+
+  defineName(Context, displayName)
+
+  return Context as { use: () => R } & Context<R>
 }

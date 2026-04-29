@@ -1,3 +1,5 @@
+@use '../../styles/helpers.scss' as *;
+
 @mixin divider-percent($left: 50%) {
   &::before {
     width: $left;

@@ -1,0 +1,52 @@
+.props_table {
+  width: 100%;
+  overflow: auto;
+  margin-bottom: var(--mink-unit-6);
+  border: 1px solid var(--mink-color-border);
+  border-radius: var(--mink-unit-1);
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: var(--mink-unit-2) var(--mink-unit-3);
+    text-align: left;
+    border-bottom: 1px solid var(--mink-color-border);
+    max-width: 300px;
+    word-break: break-word;
+  }
+
+  th {
+    color: var(--mink-color-text-secondary);
+    font-weight: 500;
+    background: var(--mink-color-fill-quaternary);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  td {
+    color: var(--mink-color-text);
+  }
+
+  .prop_name {
+    color: var(--mink-color-text);
+    font-weight: 600;
+    font-family: var(--mink-font-family-code);
+  }
+
+  .prop_type {
+    color: var(--mink-color-text-secondary);
+    font-family: var(--mink-font-family-code);
+    font-size: 13px;
+  }
+
+  .prop_default {
+    font-family: var(--mink-font-family-code);
+  }
+}

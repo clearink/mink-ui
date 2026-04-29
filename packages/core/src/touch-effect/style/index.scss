@@ -1,22 +1,20 @@
-// 引入 css 基础配置文件
-@import '../../style/base.scss';
+@use '../../styles/helpers.scss' as *;
 
-$comp: #{$prefix}-touch-effect;
+$ns-touch-effect: #{$ns}-touch-effect;
 
-.#{$comp}-wave {
-  --wave-color: var(--#{$prefix}-color-primary);
+.#{$ns-touch-effect} {
+  @include reset-component();
 
   position: absolute;
   top: 0;
   left: 0;
-  box-sizing: border-box;
   border-radius: inherit;
-  box-shadow: 0 0 0 0 var(--wave-color);
   opacity: 0.25;
-  animation: #{$prefix}-wave 2s var(--#{$prefix}-motion-ease-out-circ);
   pointer-events: none;
 
-  @keyframes #{$prefix}-wave {
+  animation: #{$ns}-wave 2s var(--#{$ns}-motion-ease-out-circ);
+
+  @keyframes #{$ns}-wave {
     0% {
       box-shadow: 0 0 0 0 var(--wave-color);
     }

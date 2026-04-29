@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    /* 输出 */
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "noEmit": false
+  }
+}

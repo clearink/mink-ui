@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    /* 输出 */
+    "declarationDir": "esm"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests__", "**/__docs__"]
+}

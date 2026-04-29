@@ -1,0 +1,75 @@
+[
+  {
+    "name": "options",
+    "type": "SegmentedOption[]",
+    "zh-CN": "选项数据",
+    "en-US": "Options data"
+  },
+  {
+    "name": "value",
+    "type": "SegmentedValue",
+    "zh-CN": "当前选中的值",
+    "en-US": "Currently selected value"
+  },
+  {
+    "name": "defaultValue",
+    "type": "SegmentedValue",
+    "zh-CN": "默认选中的值",
+    "en-US": "Default selected value"
+  },
+  {
+    "name": "onChange",
+    "type": "(value: SegmentedValue) => void",
+    "zh-CN": "选项变化时的回调函数",
+    "en-US": "Callback when selection changes"
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "default": "false",
+    "zh-CN": "是否禁用",
+    "en-US": "Whether disabled"
+  },
+  {
+    "name": "size",
+    "type": "'small' | 'middle' | 'large'",
+    "zh-CN": "控制尺寸",
+    "en-US": "Control size"
+  },
+  {
+    "name": "vertical",
+    "type": "boolean",
+    "zh-CN": "是否垂直方向",
+    "en-US": "Whether vertical direction"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  },
+  {
+    "name": "classNames",
+    "type": "Record<'root' | 'item' | 'thumb', string>",
+    "zh-CN": "语义化类名",
+    "en-US": "Semantic class names"
+  },
+  {
+    "name": "styles",
+    "type": "Record<'root' | 'item' | 'thumb', React.CSSProperties>",
+    "zh-CN": "语义化样式",
+    "en-US": "Semantic styles"
+  }
+]

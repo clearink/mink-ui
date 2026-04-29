@@ -1,10 +1,10 @@
 ## zh-CN
 
-基础用法
+最简单的用法，鼠标悬停即可显示 Tooltip。
 
 ## en-US
 
-基础用法
+The simplest usage. Tooltip shows on hover.
 
 ```tsx
 import { Tooltip } from '@mink-ui/core'

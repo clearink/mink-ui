@@ -11,7 +11,7 @@ import { Button, Space } from '@mink-ui/core'
 
 export default function App() {
   return (
-    <Space style={{ width: '100%' }} direction="vertical">
+    <Space orientation="vertical">
       <Button block variant="filled">
         Primary
       </Button>

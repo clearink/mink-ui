@@ -1,6 +1,7 @@
 {
   "name": "@mink-ui/icons",
-  "version": "0.0.8",
+  "type": "module",
+  "version": "0.0.1",
   "description": "mink-ui icons",
   "author": "clearink",
   "license": "MIT",
@@ -17,39 +18,4216 @@
   "sideEffects": [
     "dist/*"
   ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    },
+    "./AccountBookFilled": {
+      "types": "./src/icons/AccountBookFilled.tsx",
+      "import": "./src/icons/AccountBookFilled.tsx",
+      "require": "./src/icons/AccountBookFilled.tsx"
+    },
+    "./AccountBookOutlined": {
+      "types": "./src/icons/AccountBookOutlined.tsx",
+      "import": "./src/icons/AccountBookOutlined.tsx",
+      "require": "./src/icons/AccountBookOutlined.tsx"
+    },
+    "./AccountBookTwotone": {
+      "types": "./src/icons/AccountBookTwotone.tsx",
+      "import": "./src/icons/AccountBookTwotone.tsx",
+      "require": "./src/icons/AccountBookTwotone.tsx"
+    },
+    "./AimOutlined": {
+      "types": "./src/icons/AimOutlined.tsx",
+      "import": "./src/icons/AimOutlined.tsx",
+      "require": "./src/icons/AimOutlined.tsx"
+    },
+    "./AlertFilled": {
+      "types": "./src/icons/AlertFilled.tsx",
+      "import": "./src/icons/AlertFilled.tsx",
+      "require": "./src/icons/AlertFilled.tsx"
+    },
+    "./AlertOutlined": {
+      "types": "./src/icons/AlertOutlined.tsx",
+      "import": "./src/icons/AlertOutlined.tsx",
+      "require": "./src/icons/AlertOutlined.tsx"
+    },
+    "./AlertTwotone": {
+      "types": "./src/icons/AlertTwotone.tsx",
+      "import": "./src/icons/AlertTwotone.tsx",
+      "require": "./src/icons/AlertTwotone.tsx"
+    },
+    "./AlibabaOutlined": {
+      "types": "./src/icons/AlibabaOutlined.tsx",
+      "import": "./src/icons/AlibabaOutlined.tsx",
+      "require": "./src/icons/AlibabaOutlined.tsx"
+    },
+    "./AlignCenterOutlined": {
+      "types": "./src/icons/AlignCenterOutlined.tsx",
+      "import": "./src/icons/AlignCenterOutlined.tsx",
+      "require": "./src/icons/AlignCenterOutlined.tsx"
+    },
+    "./AlignLeftOutlined": {
+      "types": "./src/icons/AlignLeftOutlined.tsx",
+      "import": "./src/icons/AlignLeftOutlined.tsx",
+      "require": "./src/icons/AlignLeftOutlined.tsx"
+    },
+    "./AlignRightOutlined": {
+      "types": "./src/icons/AlignRightOutlined.tsx",
+      "import": "./src/icons/AlignRightOutlined.tsx",
+      "require": "./src/icons/AlignRightOutlined.tsx"
+    },
+    "./AlipayCircleFilled": {
+      "types": "./src/icons/AlipayCircleFilled.tsx",
+      "import": "./src/icons/AlipayCircleFilled.tsx",
+      "require": "./src/icons/AlipayCircleFilled.tsx"
+    },
+    "./AlipayCircleOutlined": {
+      "types": "./src/icons/AlipayCircleOutlined.tsx",
+      "import": "./src/icons/AlipayCircleOutlined.tsx",
+      "require": "./src/icons/AlipayCircleOutlined.tsx"
+    },
+    "./AlipayOutlined": {
+      "types": "./src/icons/AlipayOutlined.tsx",
+      "import": "./src/icons/AlipayOutlined.tsx",
+      "require": "./src/icons/AlipayOutlined.tsx"
+    },
+    "./AlipaySquareFilled": {
+      "types": "./src/icons/AlipaySquareFilled.tsx",
+      "import": "./src/icons/AlipaySquareFilled.tsx",
+      "require": "./src/icons/AlipaySquareFilled.tsx"
+    },
+    "./AliwangwangFilled": {
+      "types": "./src/icons/AliwangwangFilled.tsx",
+      "import": "./src/icons/AliwangwangFilled.tsx",
+      "require": "./src/icons/AliwangwangFilled.tsx"
+    },
+    "./AliwangwangOutlined": {
+      "types": "./src/icons/AliwangwangOutlined.tsx",
+      "import": "./src/icons/AliwangwangOutlined.tsx",
+      "require": "./src/icons/AliwangwangOutlined.tsx"
+    },
+    "./AliyunOutlined": {
+      "types": "./src/icons/AliyunOutlined.tsx",
+      "import": "./src/icons/AliyunOutlined.tsx",
+      "require": "./src/icons/AliyunOutlined.tsx"
+    },
+    "./AmazonCircleFilled": {
+      "types": "./src/icons/AmazonCircleFilled.tsx",
+      "import": "./src/icons/AmazonCircleFilled.tsx",
+      "require": "./src/icons/AmazonCircleFilled.tsx"
+    },
+    "./AmazonOutlined": {
+      "types": "./src/icons/AmazonOutlined.tsx",
+      "import": "./src/icons/AmazonOutlined.tsx",
+      "require": "./src/icons/AmazonOutlined.tsx"
+    },
+    "./AmazonSquareFilled": {
+      "types": "./src/icons/AmazonSquareFilled.tsx",
+      "import": "./src/icons/AmazonSquareFilled.tsx",
+      "require": "./src/icons/AmazonSquareFilled.tsx"
+    },
+    "./AndroidFilled": {
+      "types": "./src/icons/AndroidFilled.tsx",
+      "import": "./src/icons/AndroidFilled.tsx",
+      "require": "./src/icons/AndroidFilled.tsx"
+    },
+    "./AndroidOutlined": {
+      "types": "./src/icons/AndroidOutlined.tsx",
+      "import": "./src/icons/AndroidOutlined.tsx",
+      "require": "./src/icons/AndroidOutlined.tsx"
+    },
+    "./AntCloudOutlined": {
+      "types": "./src/icons/AntCloudOutlined.tsx",
+      "import": "./src/icons/AntCloudOutlined.tsx",
+      "require": "./src/icons/AntCloudOutlined.tsx"
+    },
+    "./AntDesignOutlined": {
+      "types": "./src/icons/AntDesignOutlined.tsx",
+      "import": "./src/icons/AntDesignOutlined.tsx",
+      "require": "./src/icons/AntDesignOutlined.tsx"
+    },
+    "./ApartmentOutlined": {
+      "types": "./src/icons/ApartmentOutlined.tsx",
+      "import": "./src/icons/ApartmentOutlined.tsx",
+      "require": "./src/icons/ApartmentOutlined.tsx"
+    },
+    "./ApiFilled": {
+      "types": "./src/icons/ApiFilled.tsx",
+      "import": "./src/icons/ApiFilled.tsx",
+      "require": "./src/icons/ApiFilled.tsx"
+    },
+    "./ApiOutlined": {
+      "types": "./src/icons/ApiOutlined.tsx",
+      "import": "./src/icons/ApiOutlined.tsx",
+      "require": "./src/icons/ApiOutlined.tsx"
+    },
+    "./ApiTwotone": {
+      "types": "./src/icons/ApiTwotone.tsx",
+      "import": "./src/icons/ApiTwotone.tsx",
+      "require": "./src/icons/ApiTwotone.tsx"
+    },
+    "./AppleFilled": {
+      "types": "./src/icons/AppleFilled.tsx",
+      "import": "./src/icons/AppleFilled.tsx",
+      "require": "./src/icons/AppleFilled.tsx"
+    },
+    "./AppleOutlined": {
+      "types": "./src/icons/AppleOutlined.tsx",
+      "import": "./src/icons/AppleOutlined.tsx",
+      "require": "./src/icons/AppleOutlined.tsx"
+    },
+    "./AppstoreAddOutlined": {
+      "types": "./src/icons/AppstoreAddOutlined.tsx",
+      "import": "./src/icons/AppstoreAddOutlined.tsx",
+      "require": "./src/icons/AppstoreAddOutlined.tsx"
+    },
+    "./AppstoreFilled": {
+      "types": "./src/icons/AppstoreFilled.tsx",
+      "import": "./src/icons/AppstoreFilled.tsx",
+      "require": "./src/icons/AppstoreFilled.tsx"
+    },
+    "./AppstoreOutlined": {
+      "types": "./src/icons/AppstoreOutlined.tsx",
+      "import": "./src/icons/AppstoreOutlined.tsx",
+      "require": "./src/icons/AppstoreOutlined.tsx"
+    },
+    "./AppstoreTwotone": {
+      "types": "./src/icons/AppstoreTwotone.tsx",
+      "import": "./src/icons/AppstoreTwotone.tsx",
+      "require": "./src/icons/AppstoreTwotone.tsx"
+    },
+    "./AreaChartOutlined": {
+      "types": "./src/icons/AreaChartOutlined.tsx",
+      "import": "./src/icons/AreaChartOutlined.tsx",
+      "require": "./src/icons/AreaChartOutlined.tsx"
+    },
+    "./ArrowDownOutlined": {
+      "types": "./src/icons/ArrowDownOutlined.tsx",
+      "import": "./src/icons/ArrowDownOutlined.tsx",
+      "require": "./src/icons/ArrowDownOutlined.tsx"
+    },
+    "./ArrowLeftOutlined": {
+      "types": "./src/icons/ArrowLeftOutlined.tsx",
+      "import": "./src/icons/ArrowLeftOutlined.tsx",
+      "require": "./src/icons/ArrowLeftOutlined.tsx"
+    },
+    "./ArrowRightOutlined": {
+      "types": "./src/icons/ArrowRightOutlined.tsx",
+      "import": "./src/icons/ArrowRightOutlined.tsx",
+      "require": "./src/icons/ArrowRightOutlined.tsx"
+    },
+    "./ArrowsAltOutlined": {
+      "types": "./src/icons/ArrowsAltOutlined.tsx",
+      "import": "./src/icons/ArrowsAltOutlined.tsx",
+      "require": "./src/icons/ArrowsAltOutlined.tsx"
+    },
+    "./ArrowUpOutlined": {
+      "types": "./src/icons/ArrowUpOutlined.tsx",
+      "import": "./src/icons/ArrowUpOutlined.tsx",
+      "require": "./src/icons/ArrowUpOutlined.tsx"
+    },
+    "./AudioFilled": {
+      "types": "./src/icons/AudioFilled.tsx",
+      "import": "./src/icons/AudioFilled.tsx",
+      "require": "./src/icons/AudioFilled.tsx"
+    },
+    "./AudioMutedOutlined": {
+      "types": "./src/icons/AudioMutedOutlined.tsx",
+      "import": "./src/icons/AudioMutedOutlined.tsx",
+      "require": "./src/icons/AudioMutedOutlined.tsx"
+    },
+    "./AudioOutlined": {
+      "types": "./src/icons/AudioOutlined.tsx",
+      "import": "./src/icons/AudioOutlined.tsx",
+      "require": "./src/icons/AudioOutlined.tsx"
+    },
+    "./AudioTwotone": {
+      "types": "./src/icons/AudioTwotone.tsx",
+      "import": "./src/icons/AudioTwotone.tsx",
+      "require": "./src/icons/AudioTwotone.tsx"
+    },
+    "./AuditOutlined": {
+      "types": "./src/icons/AuditOutlined.tsx",
+      "import": "./src/icons/AuditOutlined.tsx",
+      "require": "./src/icons/AuditOutlined.tsx"
+    },
+    "./BackwardFilled": {
+      "types": "./src/icons/BackwardFilled.tsx",
+      "import": "./src/icons/BackwardFilled.tsx",
+      "require": "./src/icons/BackwardFilled.tsx"
+    },
+    "./BackwardOutlined": {
+      "types": "./src/icons/BackwardOutlined.tsx",
+      "import": "./src/icons/BackwardOutlined.tsx",
+      "require": "./src/icons/BackwardOutlined.tsx"
+    },
+    "./BaiduOutlined": {
+      "types": "./src/icons/BaiduOutlined.tsx",
+      "import": "./src/icons/BaiduOutlined.tsx",
+      "require": "./src/icons/BaiduOutlined.tsx"
+    },
+    "./BankFilled": {
+      "types": "./src/icons/BankFilled.tsx",
+      "import": "./src/icons/BankFilled.tsx",
+      "require": "./src/icons/BankFilled.tsx"
+    },
+    "./BankOutlined": {
+      "types": "./src/icons/BankOutlined.tsx",
+      "import": "./src/icons/BankOutlined.tsx",
+      "require": "./src/icons/BankOutlined.tsx"
+    },
+    "./BankTwotone": {
+      "types": "./src/icons/BankTwotone.tsx",
+      "import": "./src/icons/BankTwotone.tsx",
+      "require": "./src/icons/BankTwotone.tsx"
+    },
+    "./BarChartOutlined": {
+      "types": "./src/icons/BarChartOutlined.tsx",
+      "import": "./src/icons/BarChartOutlined.tsx",
+      "require": "./src/icons/BarChartOutlined.tsx"
+    },
+    "./BarcodeOutlined": {
+      "types": "./src/icons/BarcodeOutlined.tsx",
+      "import": "./src/icons/BarcodeOutlined.tsx",
+      "require": "./src/icons/BarcodeOutlined.tsx"
+    },
+    "./BarsOutlined": {
+      "types": "./src/icons/BarsOutlined.tsx",
+      "import": "./src/icons/BarsOutlined.tsx",
+      "require": "./src/icons/BarsOutlined.tsx"
+    },
+    "./BehanceCircleFilled": {
+      "types": "./src/icons/BehanceCircleFilled.tsx",
+      "import": "./src/icons/BehanceCircleFilled.tsx",
+      "require": "./src/icons/BehanceCircleFilled.tsx"
+    },
+    "./BehanceOutlined": {
+      "types": "./src/icons/BehanceOutlined.tsx",
+      "import": "./src/icons/BehanceOutlined.tsx",
+      "require": "./src/icons/BehanceOutlined.tsx"
+    },
+    "./BehanceSquareFilled": {
+      "types": "./src/icons/BehanceSquareFilled.tsx",
+      "import": "./src/icons/BehanceSquareFilled.tsx",
+      "require": "./src/icons/BehanceSquareFilled.tsx"
+    },
+    "./BehanceSquareOutlined": {
+      "types": "./src/icons/BehanceSquareOutlined.tsx",
+      "import": "./src/icons/BehanceSquareOutlined.tsx",
+      "require": "./src/icons/BehanceSquareOutlined.tsx"
+    },
+    "./BellFilled": {
+      "types": "./src/icons/BellFilled.tsx",
+      "import": "./src/icons/BellFilled.tsx",
+      "require": "./src/icons/BellFilled.tsx"
+    },
+    "./BellOutlined": {
+      "types": "./src/icons/BellOutlined.tsx",
+      "import": "./src/icons/BellOutlined.tsx",
+      "require": "./src/icons/BellOutlined.tsx"
+    },
+    "./BellTwotone": {
+      "types": "./src/icons/BellTwotone.tsx",
+      "import": "./src/icons/BellTwotone.tsx",
+      "require": "./src/icons/BellTwotone.tsx"
+    },
+    "./BgColorsOutlined": {
+      "types": "./src/icons/BgColorsOutlined.tsx",
+      "import": "./src/icons/BgColorsOutlined.tsx",
+      "require": "./src/icons/BgColorsOutlined.tsx"
+    },
+    "./BilibiliFilled": {
+      "types": "./src/icons/BilibiliFilled.tsx",
+      "import": "./src/icons/BilibiliFilled.tsx",
+      "require": "./src/icons/BilibiliFilled.tsx"
+    },
+    "./BilibiliOutlined": {
+      "types": "./src/icons/BilibiliOutlined.tsx",
+      "import": "./src/icons/BilibiliOutlined.tsx",
+      "require": "./src/icons/BilibiliOutlined.tsx"
+    },
+    "./BlockOutlined": {
+      "types": "./src/icons/BlockOutlined.tsx",
+      "import": "./src/icons/BlockOutlined.tsx",
+      "require": "./src/icons/BlockOutlined.tsx"
+    },
+    "./BoldOutlined": {
+      "types": "./src/icons/BoldOutlined.tsx",
+      "import": "./src/icons/BoldOutlined.tsx",
+      "require": "./src/icons/BoldOutlined.tsx"
+    },
+    "./BookFilled": {
+      "types": "./src/icons/BookFilled.tsx",
+      "import": "./src/icons/BookFilled.tsx",
+      "require": "./src/icons/BookFilled.tsx"
+    },
+    "./BookOutlined": {
+      "types": "./src/icons/BookOutlined.tsx",
+      "import": "./src/icons/BookOutlined.tsx",
+      "require": "./src/icons/BookOutlined.tsx"
+    },
+    "./BookTwotone": {
+      "types": "./src/icons/BookTwotone.tsx",
+      "import": "./src/icons/BookTwotone.tsx",
+      "require": "./src/icons/BookTwotone.tsx"
+    },
+    "./BorderBottomOutlined": {
+      "types": "./src/icons/BorderBottomOutlined.tsx",
+      "import": "./src/icons/BorderBottomOutlined.tsx",
+      "require": "./src/icons/BorderBottomOutlined.tsx"
+    },
+    "./BorderHorizontalOutlined": {
+      "types": "./src/icons/BorderHorizontalOutlined.tsx",
+      "import": "./src/icons/BorderHorizontalOutlined.tsx",
+      "require": "./src/icons/BorderHorizontalOutlined.tsx"
+    },
+    "./BorderInnerOutlined": {
+      "types": "./src/icons/BorderInnerOutlined.tsx",
+      "import": "./src/icons/BorderInnerOutlined.tsx",
+      "require": "./src/icons/BorderInnerOutlined.tsx"
+    },
+    "./BorderLeftOutlined": {
+      "types": "./src/icons/BorderLeftOutlined.tsx",
+      "import": "./src/icons/BorderLeftOutlined.tsx",
+      "require": "./src/icons/BorderLeftOutlined.tsx"
+    },
+    "./BorderlessTableOutlined": {
+      "types": "./src/icons/BorderlessTableOutlined.tsx",
+      "import": "./src/icons/BorderlessTableOutlined.tsx",
+      "require": "./src/icons/BorderlessTableOutlined.tsx"
+    },
+    "./BorderOuterOutlined": {
+      "types": "./src/icons/BorderOuterOutlined.tsx",
+      "import": "./src/icons/BorderOuterOutlined.tsx",
+      "require": "./src/icons/BorderOuterOutlined.tsx"
+    },
+    "./BorderOutlined": {
+      "types": "./src/icons/BorderOutlined.tsx",
+      "import": "./src/icons/BorderOutlined.tsx",
+      "require": "./src/icons/BorderOutlined.tsx"
+    },
+    "./BorderRightOutlined": {
+      "types": "./src/icons/BorderRightOutlined.tsx",
+      "import": "./src/icons/BorderRightOutlined.tsx",
+      "require": "./src/icons/BorderRightOutlined.tsx"
+    },
+    "./BorderTopOutlined": {
+      "types": "./src/icons/BorderTopOutlined.tsx",
+      "import": "./src/icons/BorderTopOutlined.tsx",
+      "require": "./src/icons/BorderTopOutlined.tsx"
+    },
+    "./BorderVerticleOutlined": {
+      "types": "./src/icons/BorderVerticleOutlined.tsx",
+      "import": "./src/icons/BorderVerticleOutlined.tsx",
+      "require": "./src/icons/BorderVerticleOutlined.tsx"
+    },
+    "./BoxPlotFilled": {
+      "types": "./src/icons/BoxPlotFilled.tsx",
+      "import": "./src/icons/BoxPlotFilled.tsx",
+      "require": "./src/icons/BoxPlotFilled.tsx"
+    },
+    "./BoxPlotOutlined": {
+      "types": "./src/icons/BoxPlotOutlined.tsx",
+      "import": "./src/icons/BoxPlotOutlined.tsx",
+      "require": "./src/icons/BoxPlotOutlined.tsx"
+    },
+    "./BoxPlotTwotone": {
+      "types": "./src/icons/BoxPlotTwotone.tsx",
+      "import": "./src/icons/BoxPlotTwotone.tsx",
+      "require": "./src/icons/BoxPlotTwotone.tsx"
+    },
+    "./BranchesOutlined": {
+      "types": "./src/icons/BranchesOutlined.tsx",
+      "import": "./src/icons/BranchesOutlined.tsx",
+      "require": "./src/icons/BranchesOutlined.tsx"
+    },
+    "./BugFilled": {
+      "types": "./src/icons/BugFilled.tsx",
+      "import": "./src/icons/BugFilled.tsx",
+      "require": "./src/icons/BugFilled.tsx"
+    },
+    "./BugOutlined": {
+      "types": "./src/icons/BugOutlined.tsx",
+      "import": "./src/icons/BugOutlined.tsx",
+      "require": "./src/icons/BugOutlined.tsx"
+    },
+    "./BugTwotone": {
+      "types": "./src/icons/BugTwotone.tsx",
+      "import": "./src/icons/BugTwotone.tsx",
+      "require": "./src/icons/BugTwotone.tsx"
+    },
+    "./BuildFilled": {
+      "types": "./src/icons/BuildFilled.tsx",
+      "import": "./src/icons/BuildFilled.tsx",
+      "require": "./src/icons/BuildFilled.tsx"
+    },
+    "./BuildOutlined": {
+      "types": "./src/icons/BuildOutlined.tsx",
+      "import": "./src/icons/BuildOutlined.tsx",
+      "require": "./src/icons/BuildOutlined.tsx"
+    },
+    "./BuildTwotone": {
+      "types": "./src/icons/BuildTwotone.tsx",
+      "import": "./src/icons/BuildTwotone.tsx",
+      "require": "./src/icons/BuildTwotone.tsx"
+    },
+    "./BulbFilled": {
+      "types": "./src/icons/BulbFilled.tsx",
+      "import": "./src/icons/BulbFilled.tsx",
+      "require": "./src/icons/BulbFilled.tsx"
+    },
+    "./BulbOutlined": {
+      "types": "./src/icons/BulbOutlined.tsx",
+      "import": "./src/icons/BulbOutlined.tsx",
+      "require": "./src/icons/BulbOutlined.tsx"
+    },
+    "./BulbTwotone": {
+      "types": "./src/icons/BulbTwotone.tsx",
+      "import": "./src/icons/BulbTwotone.tsx",
+      "require": "./src/icons/BulbTwotone.tsx"
+    },
+    "./CalculatorFilled": {
+      "types": "./src/icons/CalculatorFilled.tsx",
+      "import": "./src/icons/CalculatorFilled.tsx",
+      "require": "./src/icons/CalculatorFilled.tsx"
+    },
+    "./CalculatorOutlined": {
+      "types": "./src/icons/CalculatorOutlined.tsx",
+      "import": "./src/icons/CalculatorOutlined.tsx",
+      "require": "./src/icons/CalculatorOutlined.tsx"
+    },
+    "./CalculatorTwotone": {
+      "types": "./src/icons/CalculatorTwotone.tsx",
+      "import": "./src/icons/CalculatorTwotone.tsx",
+      "require": "./src/icons/CalculatorTwotone.tsx"
+    },
+    "./CalendarFilled": {
+      "types": "./src/icons/CalendarFilled.tsx",
+      "import": "./src/icons/CalendarFilled.tsx",
+      "require": "./src/icons/CalendarFilled.tsx"
+    },
+    "./CalendarOutlined": {
+      "types": "./src/icons/CalendarOutlined.tsx",
+      "import": "./src/icons/CalendarOutlined.tsx",
+      "require": "./src/icons/CalendarOutlined.tsx"
+    },
+    "./CalendarTwotone": {
+      "types": "./src/icons/CalendarTwotone.tsx",
+      "import": "./src/icons/CalendarTwotone.tsx",
+      "require": "./src/icons/CalendarTwotone.tsx"
+    },
+    "./CameraFilled": {
+      "types": "./src/icons/CameraFilled.tsx",
+      "import": "./src/icons/CameraFilled.tsx",
+      "require": "./src/icons/CameraFilled.tsx"
+    },
+    "./CameraOutlined": {
+      "types": "./src/icons/CameraOutlined.tsx",
+      "import": "./src/icons/CameraOutlined.tsx",
+      "require": "./src/icons/CameraOutlined.tsx"
+    },
+    "./CameraTwotone": {
+      "types": "./src/icons/CameraTwotone.tsx",
+      "import": "./src/icons/CameraTwotone.tsx",
+      "require": "./src/icons/CameraTwotone.tsx"
+    },
+    "./CaretDownFilled": {
+      "types": "./src/icons/CaretDownFilled.tsx",
+      "import": "./src/icons/CaretDownFilled.tsx",
+      "require": "./src/icons/CaretDownFilled.tsx"
+    },
+    "./CaretDownOutlined": {
+      "types": "./src/icons/CaretDownOutlined.tsx",
+      "import": "./src/icons/CaretDownOutlined.tsx",
+      "require": "./src/icons/CaretDownOutlined.tsx"
+    },
+    "./CaretLeftFilled": {
+      "types": "./src/icons/CaretLeftFilled.tsx",
+      "import": "./src/icons/CaretLeftFilled.tsx",
+      "require": "./src/icons/CaretLeftFilled.tsx"
+    },
+    "./CaretLeftOutlined": {
+      "types": "./src/icons/CaretLeftOutlined.tsx",
+      "import": "./src/icons/CaretLeftOutlined.tsx",
+      "require": "./src/icons/CaretLeftOutlined.tsx"
+    },
+    "./CaretRightFilled": {
+      "types": "./src/icons/CaretRightFilled.tsx",
+      "import": "./src/icons/CaretRightFilled.tsx",
+      "require": "./src/icons/CaretRightFilled.tsx"
+    },
+    "./CaretRightOutlined": {
+      "types": "./src/icons/CaretRightOutlined.tsx",
+      "import": "./src/icons/CaretRightOutlined.tsx",
+      "require": "./src/icons/CaretRightOutlined.tsx"
+    },
+    "./CaretUpFilled": {
+      "types": "./src/icons/CaretUpFilled.tsx",
+      "import": "./src/icons/CaretUpFilled.tsx",
+      "require": "./src/icons/CaretUpFilled.tsx"
+    },
+    "./CaretUpOutlined": {
+      "types": "./src/icons/CaretUpOutlined.tsx",
+      "import": "./src/icons/CaretUpOutlined.tsx",
+      "require": "./src/icons/CaretUpOutlined.tsx"
+    },
+    "./CarFilled": {
+      "types": "./src/icons/CarFilled.tsx",
+      "import": "./src/icons/CarFilled.tsx",
+      "require": "./src/icons/CarFilled.tsx"
+    },
+    "./CarOutlined": {
+      "types": "./src/icons/CarOutlined.tsx",
+      "import": "./src/icons/CarOutlined.tsx",
+      "require": "./src/icons/CarOutlined.tsx"
+    },
+    "./CarryOutFilled": {
+      "types": "./src/icons/CarryOutFilled.tsx",
+      "import": "./src/icons/CarryOutFilled.tsx",
+      "require": "./src/icons/CarryOutFilled.tsx"
+    },
+    "./CarryOutOutlined": {
+      "types": "./src/icons/CarryOutOutlined.tsx",
+      "import": "./src/icons/CarryOutOutlined.tsx",
+      "require": "./src/icons/CarryOutOutlined.tsx"
+    },
+    "./CarryOutTwotone": {
+      "types": "./src/icons/CarryOutTwotone.tsx",
+      "import": "./src/icons/CarryOutTwotone.tsx",
+      "require": "./src/icons/CarryOutTwotone.tsx"
+    },
+    "./CarTwotone": {
+      "types": "./src/icons/CarTwotone.tsx",
+      "import": "./src/icons/CarTwotone.tsx",
+      "require": "./src/icons/CarTwotone.tsx"
+    },
+    "./CheckCircleFilled": {
+      "types": "./src/icons/CheckCircleFilled.tsx",
+      "import": "./src/icons/CheckCircleFilled.tsx",
+      "require": "./src/icons/CheckCircleFilled.tsx"
+    },
+    "./CheckCircleOutlined": {
+      "types": "./src/icons/CheckCircleOutlined.tsx",
+      "import": "./src/icons/CheckCircleOutlined.tsx",
+      "require": "./src/icons/CheckCircleOutlined.tsx"
+    },
+    "./CheckCircleTwotone": {
+      "types": "./src/icons/CheckCircleTwotone.tsx",
+      "import": "./src/icons/CheckCircleTwotone.tsx",
+      "require": "./src/icons/CheckCircleTwotone.tsx"
+    },
+    "./CheckOutlined": {
+      "types": "./src/icons/CheckOutlined.tsx",
+      "import": "./src/icons/CheckOutlined.tsx",
+      "require": "./src/icons/CheckOutlined.tsx"
+    },
+    "./CheckSquareFilled": {
+      "types": "./src/icons/CheckSquareFilled.tsx",
+      "import": "./src/icons/CheckSquareFilled.tsx",
+      "require": "./src/icons/CheckSquareFilled.tsx"
+    },
+    "./CheckSquareOutlined": {
+      "types": "./src/icons/CheckSquareOutlined.tsx",
+      "import": "./src/icons/CheckSquareOutlined.tsx",
+      "require": "./src/icons/CheckSquareOutlined.tsx"
+    },
+    "./CheckSquareTwotone": {
+      "types": "./src/icons/CheckSquareTwotone.tsx",
+      "import": "./src/icons/CheckSquareTwotone.tsx",
+      "require": "./src/icons/CheckSquareTwotone.tsx"
+    },
+    "./ChromeFilled": {
+      "types": "./src/icons/ChromeFilled.tsx",
+      "import": "./src/icons/ChromeFilled.tsx",
+      "require": "./src/icons/ChromeFilled.tsx"
+    },
+    "./ChromeOutlined": {
+      "types": "./src/icons/ChromeOutlined.tsx",
+      "import": "./src/icons/ChromeOutlined.tsx",
+      "require": "./src/icons/ChromeOutlined.tsx"
+    },
+    "./CiCircleFilled": {
+      "types": "./src/icons/CiCircleFilled.tsx",
+      "import": "./src/icons/CiCircleFilled.tsx",
+      "require": "./src/icons/CiCircleFilled.tsx"
+    },
+    "./CiCircleOutlined": {
+      "types": "./src/icons/CiCircleOutlined.tsx",
+      "import": "./src/icons/CiCircleOutlined.tsx",
+      "require": "./src/icons/CiCircleOutlined.tsx"
+    },
+    "./CiCircleTwotone": {
+      "types": "./src/icons/CiCircleTwotone.tsx",
+      "import": "./src/icons/CiCircleTwotone.tsx",
+      "require": "./src/icons/CiCircleTwotone.tsx"
+    },
+    "./CiOutlined": {
+      "types": "./src/icons/CiOutlined.tsx",
+      "import": "./src/icons/CiOutlined.tsx",
+      "require": "./src/icons/CiOutlined.tsx"
+    },
+    "./CiTwotone": {
+      "types": "./src/icons/CiTwotone.tsx",
+      "import": "./src/icons/CiTwotone.tsx",
+      "require": "./src/icons/CiTwotone.tsx"
+    },
+    "./ClearOutlined": {
+      "types": "./src/icons/ClearOutlined.tsx",
+      "import": "./src/icons/ClearOutlined.tsx",
+      "require": "./src/icons/ClearOutlined.tsx"
+    },
+    "./ClockCircleFilled": {
+      "types": "./src/icons/ClockCircleFilled.tsx",
+      "import": "./src/icons/ClockCircleFilled.tsx",
+      "require": "./src/icons/ClockCircleFilled.tsx"
+    },
+    "./ClockCircleOutlined": {
+      "types": "./src/icons/ClockCircleOutlined.tsx",
+      "import": "./src/icons/ClockCircleOutlined.tsx",
+      "require": "./src/icons/ClockCircleOutlined.tsx"
+    },
+    "./ClockCircleTwotone": {
+      "types": "./src/icons/ClockCircleTwotone.tsx",
+      "import": "./src/icons/ClockCircleTwotone.tsx",
+      "require": "./src/icons/ClockCircleTwotone.tsx"
+    },
+    "./CloseCircleFilled": {
+      "types": "./src/icons/CloseCircleFilled.tsx",
+      "import": "./src/icons/CloseCircleFilled.tsx",
+      "require": "./src/icons/CloseCircleFilled.tsx"
+    },
+    "./CloseCircleOutlined": {
+      "types": "./src/icons/CloseCircleOutlined.tsx",
+      "import": "./src/icons/CloseCircleOutlined.tsx",
+      "require": "./src/icons/CloseCircleOutlined.tsx"
+    },
+    "./CloseCircleTwotone": {
+      "types": "./src/icons/CloseCircleTwotone.tsx",
+      "import": "./src/icons/CloseCircleTwotone.tsx",
+      "require": "./src/icons/CloseCircleTwotone.tsx"
+    },
+    "./CloseOutlined": {
+      "types": "./src/icons/CloseOutlined.tsx",
+      "import": "./src/icons/CloseOutlined.tsx",
+      "require": "./src/icons/CloseOutlined.tsx"
+    },
+    "./CloseSquareFilled": {
+      "types": "./src/icons/CloseSquareFilled.tsx",
+      "import": "./src/icons/CloseSquareFilled.tsx",
+      "require": "./src/icons/CloseSquareFilled.tsx"
+    },
+    "./CloseSquareOutlined": {
+      "types": "./src/icons/CloseSquareOutlined.tsx",
+      "import": "./src/icons/CloseSquareOutlined.tsx",
+      "require": "./src/icons/CloseSquareOutlined.tsx"
+    },
+    "./CloseSquareTwotone": {
+      "types": "./src/icons/CloseSquareTwotone.tsx",
+      "import": "./src/icons/CloseSquareTwotone.tsx",
+      "require": "./src/icons/CloseSquareTwotone.tsx"
+    },
+    "./CloudDownloadOutlined": {
+      "types": "./src/icons/CloudDownloadOutlined.tsx",
+      "import": "./src/icons/CloudDownloadOutlined.tsx",
+      "require": "./src/icons/CloudDownloadOutlined.tsx"
+    },
+    "./CloudFilled": {
+      "types": "./src/icons/CloudFilled.tsx",
+      "import": "./src/icons/CloudFilled.tsx",
+      "require": "./src/icons/CloudFilled.tsx"
+    },
+    "./CloudOutlined": {
+      "types": "./src/icons/CloudOutlined.tsx",
+      "import": "./src/icons/CloudOutlined.tsx",
+      "require": "./src/icons/CloudOutlined.tsx"
+    },
+    "./CloudServerOutlined": {
+      "types": "./src/icons/CloudServerOutlined.tsx",
+      "import": "./src/icons/CloudServerOutlined.tsx",
+      "require": "./src/icons/CloudServerOutlined.tsx"
+    },
+    "./CloudSyncOutlined": {
+      "types": "./src/icons/CloudSyncOutlined.tsx",
+      "import": "./src/icons/CloudSyncOutlined.tsx",
+      "require": "./src/icons/CloudSyncOutlined.tsx"
+    },
+    "./CloudTwotone": {
+      "types": "./src/icons/CloudTwotone.tsx",
+      "import": "./src/icons/CloudTwotone.tsx",
+      "require": "./src/icons/CloudTwotone.tsx"
+    },
+    "./CloudUploadOutlined": {
+      "types": "./src/icons/CloudUploadOutlined.tsx",
+      "import": "./src/icons/CloudUploadOutlined.tsx",
+      "require": "./src/icons/CloudUploadOutlined.tsx"
+    },
+    "./ClusterOutlined": {
+      "types": "./src/icons/ClusterOutlined.tsx",
+      "import": "./src/icons/ClusterOutlined.tsx",
+      "require": "./src/icons/ClusterOutlined.tsx"
+    },
+    "./CodeFilled": {
+      "types": "./src/icons/CodeFilled.tsx",
+      "import": "./src/icons/CodeFilled.tsx",
+      "require": "./src/icons/CodeFilled.tsx"
+    },
+    "./CodeOutlined": {
+      "types": "./src/icons/CodeOutlined.tsx",
+      "import": "./src/icons/CodeOutlined.tsx",
+      "require": "./src/icons/CodeOutlined.tsx"
+    },
+    "./CodepenCircleFilled": {
+      "types": "./src/icons/CodepenCircleFilled.tsx",
+      "import": "./src/icons/CodepenCircleFilled.tsx",
+      "require": "./src/icons/CodepenCircleFilled.tsx"
+    },
+    "./CodepenCircleOutlined": {
+      "types": "./src/icons/CodepenCircleOutlined.tsx",
+      "import": "./src/icons/CodepenCircleOutlined.tsx",
+      "require": "./src/icons/CodepenCircleOutlined.tsx"
+    },
+    "./CodepenOutlined": {
+      "types": "./src/icons/CodepenOutlined.tsx",
+      "import": "./src/icons/CodepenOutlined.tsx",
+      "require": "./src/icons/CodepenOutlined.tsx"
+    },
+    "./CodepenSquareFilled": {
+      "types": "./src/icons/CodepenSquareFilled.tsx",
+      "import": "./src/icons/CodepenSquareFilled.tsx",
+      "require": "./src/icons/CodepenSquareFilled.tsx"
+    },
+    "./CodeSandboxCircleFilled": {
+      "types": "./src/icons/CodeSandboxCircleFilled.tsx",
+      "import": "./src/icons/CodeSandboxCircleFilled.tsx",
+      "require": "./src/icons/CodeSandboxCircleFilled.tsx"
+    },
+    "./CodeSandboxOutlined": {
+      "types": "./src/icons/CodeSandboxOutlined.tsx",
+      "import": "./src/icons/CodeSandboxOutlined.tsx",
+      "require": "./src/icons/CodeSandboxOutlined.tsx"
+    },
+    "./CodeSandboxSquareFilled": {
+      "types": "./src/icons/CodeSandboxSquareFilled.tsx",
+      "import": "./src/icons/CodeSandboxSquareFilled.tsx",
+      "require": "./src/icons/CodeSandboxSquareFilled.tsx"
+    },
+    "./CodeTwotone": {
+      "types": "./src/icons/CodeTwotone.tsx",
+      "import": "./src/icons/CodeTwotone.tsx",
+      "require": "./src/icons/CodeTwotone.tsx"
+    },
+    "./CoffeeOutlined": {
+      "types": "./src/icons/CoffeeOutlined.tsx",
+      "import": "./src/icons/CoffeeOutlined.tsx",
+      "require": "./src/icons/CoffeeOutlined.tsx"
+    },
+    "./ColumnHeightOutlined": {
+      "types": "./src/icons/ColumnHeightOutlined.tsx",
+      "import": "./src/icons/ColumnHeightOutlined.tsx",
+      "require": "./src/icons/ColumnHeightOutlined.tsx"
+    },
+    "./ColumnWidthOutlined": {
+      "types": "./src/icons/ColumnWidthOutlined.tsx",
+      "import": "./src/icons/ColumnWidthOutlined.tsx",
+      "require": "./src/icons/ColumnWidthOutlined.tsx"
+    },
+    "./CommentOutlined": {
+      "types": "./src/icons/CommentOutlined.tsx",
+      "import": "./src/icons/CommentOutlined.tsx",
+      "require": "./src/icons/CommentOutlined.tsx"
+    },
+    "./CompassFilled": {
+      "types": "./src/icons/CompassFilled.tsx",
+      "import": "./src/icons/CompassFilled.tsx",
+      "require": "./src/icons/CompassFilled.tsx"
+    },
+    "./CompassOutlined": {
+      "types": "./src/icons/CompassOutlined.tsx",
+      "import": "./src/icons/CompassOutlined.tsx",
+      "require": "./src/icons/CompassOutlined.tsx"
+    },
+    "./CompassTwotone": {
+      "types": "./src/icons/CompassTwotone.tsx",
+      "import": "./src/icons/CompassTwotone.tsx",
+      "require": "./src/icons/CompassTwotone.tsx"
+    },
+    "./CompressOutlined": {
+      "types": "./src/icons/CompressOutlined.tsx",
+      "import": "./src/icons/CompressOutlined.tsx",
+      "require": "./src/icons/CompressOutlined.tsx"
+    },
+    "./ConsoleSqlOutlined": {
+      "types": "./src/icons/ConsoleSqlOutlined.tsx",
+      "import": "./src/icons/ConsoleSqlOutlined.tsx",
+      "require": "./src/icons/ConsoleSqlOutlined.tsx"
+    },
+    "./ContactsFilled": {
+      "types": "./src/icons/ContactsFilled.tsx",
+      "import": "./src/icons/ContactsFilled.tsx",
+      "require": "./src/icons/ContactsFilled.tsx"
+    },
+    "./ContactsOutlined": {
+      "types": "./src/icons/ContactsOutlined.tsx",
+      "import": "./src/icons/ContactsOutlined.tsx",
+      "require": "./src/icons/ContactsOutlined.tsx"
+    },
+    "./ContactsTwotone": {
+      "types": "./src/icons/ContactsTwotone.tsx",
+      "import": "./src/icons/ContactsTwotone.tsx",
+      "require": "./src/icons/ContactsTwotone.tsx"
+    },
+    "./ContainerFilled": {
+      "types": "./src/icons/ContainerFilled.tsx",
+      "import": "./src/icons/ContainerFilled.tsx",
+      "require": "./src/icons/ContainerFilled.tsx"
+    },
+    "./ContainerOutlined": {
+      "types": "./src/icons/ContainerOutlined.tsx",
+      "import": "./src/icons/ContainerOutlined.tsx",
+      "require": "./src/icons/ContainerOutlined.tsx"
+    },
+    "./ContainerTwotone": {
+      "types": "./src/icons/ContainerTwotone.tsx",
+      "import": "./src/icons/ContainerTwotone.tsx",
+      "require": "./src/icons/ContainerTwotone.tsx"
+    },
+    "./ControlFilled": {
+      "types": "./src/icons/ControlFilled.tsx",
+      "import": "./src/icons/ControlFilled.tsx",
+      "require": "./src/icons/ControlFilled.tsx"
+    },
+    "./ControlOutlined": {
+      "types": "./src/icons/ControlOutlined.tsx",
+      "import": "./src/icons/ControlOutlined.tsx",
+      "require": "./src/icons/ControlOutlined.tsx"
+    },
+    "./ControlTwotone": {
+      "types": "./src/icons/ControlTwotone.tsx",
+      "import": "./src/icons/ControlTwotone.tsx",
+      "require": "./src/icons/ControlTwotone.tsx"
+    },
+    "./CopyFilled": {
+      "types": "./src/icons/CopyFilled.tsx",
+      "import": "./src/icons/CopyFilled.tsx",
+      "require": "./src/icons/CopyFilled.tsx"
+    },
+    "./CopyOutlined": {
+      "types": "./src/icons/CopyOutlined.tsx",
+      "import": "./src/icons/CopyOutlined.tsx",
+      "require": "./src/icons/CopyOutlined.tsx"
+    },
+    "./CopyrightCircleFilled": {
+      "types": "./src/icons/CopyrightCircleFilled.tsx",
+      "import": "./src/icons/CopyrightCircleFilled.tsx",
+      "require": "./src/icons/CopyrightCircleFilled.tsx"
+    },
+    "./CopyrightCircleOutlined": {
+      "types": "./src/icons/CopyrightCircleOutlined.tsx",
+      "import": "./src/icons/CopyrightCircleOutlined.tsx",
+      "require": "./src/icons/CopyrightCircleOutlined.tsx"
+    },
+    "./CopyrightCircleTwotone": {
+      "types": "./src/icons/CopyrightCircleTwotone.tsx",
+      "import": "./src/icons/CopyrightCircleTwotone.tsx",
+      "require": "./src/icons/CopyrightCircleTwotone.tsx"
+    },
+    "./CopyrightOutlined": {
+      "types": "./src/icons/CopyrightOutlined.tsx",
+      "import": "./src/icons/CopyrightOutlined.tsx",
+      "require": "./src/icons/CopyrightOutlined.tsx"
+    },
+    "./CopyrightTwotone": {
+      "types": "./src/icons/CopyrightTwotone.tsx",
+      "import": "./src/icons/CopyrightTwotone.tsx",
+      "require": "./src/icons/CopyrightTwotone.tsx"
+    },
+    "./CopyTwotone": {
+      "types": "./src/icons/CopyTwotone.tsx",
+      "import": "./src/icons/CopyTwotone.tsx",
+      "require": "./src/icons/CopyTwotone.tsx"
+    },
+    "./CreditCardFilled": {
+      "types": "./src/icons/CreditCardFilled.tsx",
+      "import": "./src/icons/CreditCardFilled.tsx",
+      "require": "./src/icons/CreditCardFilled.tsx"
+    },
+    "./CreditCardOutlined": {
+      "types": "./src/icons/CreditCardOutlined.tsx",
+      "import": "./src/icons/CreditCardOutlined.tsx",
+      "require": "./src/icons/CreditCardOutlined.tsx"
+    },
+    "./CreditCardTwotone": {
+      "types": "./src/icons/CreditCardTwotone.tsx",
+      "import": "./src/icons/CreditCardTwotone.tsx",
+      "require": "./src/icons/CreditCardTwotone.tsx"
+    },
+    "./CrownFilled": {
+      "types": "./src/icons/CrownFilled.tsx",
+      "import": "./src/icons/CrownFilled.tsx",
+      "require": "./src/icons/CrownFilled.tsx"
+    },
+    "./CrownOutlined": {
+      "types": "./src/icons/CrownOutlined.tsx",
+      "import": "./src/icons/CrownOutlined.tsx",
+      "require": "./src/icons/CrownOutlined.tsx"
+    },
+    "./CrownTwotone": {
+      "types": "./src/icons/CrownTwotone.tsx",
+      "import": "./src/icons/CrownTwotone.tsx",
+      "require": "./src/icons/CrownTwotone.tsx"
+    },
+    "./CustomerServiceFilled": {
+      "types": "./src/icons/CustomerServiceFilled.tsx",
+      "import": "./src/icons/CustomerServiceFilled.tsx",
+      "require": "./src/icons/CustomerServiceFilled.tsx"
+    },
+    "./CustomerServiceOutlined": {
+      "types": "./src/icons/CustomerServiceOutlined.tsx",
+      "import": "./src/icons/CustomerServiceOutlined.tsx",
+      "require": "./src/icons/CustomerServiceOutlined.tsx"
+    },
+    "./CustomerServiceTwotone": {
+      "types": "./src/icons/CustomerServiceTwotone.tsx",
+      "import": "./src/icons/CustomerServiceTwotone.tsx",
+      "require": "./src/icons/CustomerServiceTwotone.tsx"
+    },
+    "./DashboardFilled": {
+      "types": "./src/icons/DashboardFilled.tsx",
+      "import": "./src/icons/DashboardFilled.tsx",
+      "require": "./src/icons/DashboardFilled.tsx"
+    },
+    "./DashboardOutlined": {
+      "types": "./src/icons/DashboardOutlined.tsx",
+      "import": "./src/icons/DashboardOutlined.tsx",
+      "require": "./src/icons/DashboardOutlined.tsx"
+    },
+    "./DashboardTwotone": {
+      "types": "./src/icons/DashboardTwotone.tsx",
+      "import": "./src/icons/DashboardTwotone.tsx",
+      "require": "./src/icons/DashboardTwotone.tsx"
+    },
+    "./DashOutlined": {
+      "types": "./src/icons/DashOutlined.tsx",
+      "import": "./src/icons/DashOutlined.tsx",
+      "require": "./src/icons/DashOutlined.tsx"
+    },
+    "./DatabaseFilled": {
+      "types": "./src/icons/DatabaseFilled.tsx",
+      "import": "./src/icons/DatabaseFilled.tsx",
+      "require": "./src/icons/DatabaseFilled.tsx"
+    },
+    "./DatabaseOutlined": {
+      "types": "./src/icons/DatabaseOutlined.tsx",
+      "import": "./src/icons/DatabaseOutlined.tsx",
+      "require": "./src/icons/DatabaseOutlined.tsx"
+    },
+    "./DatabaseTwotone": {
+      "types": "./src/icons/DatabaseTwotone.tsx",
+      "import": "./src/icons/DatabaseTwotone.tsx",
+      "require": "./src/icons/DatabaseTwotone.tsx"
+    },
+    "./DeleteColumnOutlined": {
+      "types": "./src/icons/DeleteColumnOutlined.tsx",
+      "import": "./src/icons/DeleteColumnOutlined.tsx",
+      "require": "./src/icons/DeleteColumnOutlined.tsx"
+    },
+    "./DeleteFilled": {
+      "types": "./src/icons/DeleteFilled.tsx",
+      "import": "./src/icons/DeleteFilled.tsx",
+      "require": "./src/icons/DeleteFilled.tsx"
+    },
+    "./DeleteOutlined": {
+      "types": "./src/icons/DeleteOutlined.tsx",
+      "import": "./src/icons/DeleteOutlined.tsx",
+      "require": "./src/icons/DeleteOutlined.tsx"
+    },
+    "./DeleteRowOutlined": {
+      "types": "./src/icons/DeleteRowOutlined.tsx",
+      "import": "./src/icons/DeleteRowOutlined.tsx",
+      "require": "./src/icons/DeleteRowOutlined.tsx"
+    },
+    "./DeleteTwotone": {
+      "types": "./src/icons/DeleteTwotone.tsx",
+      "import": "./src/icons/DeleteTwotone.tsx",
+      "require": "./src/icons/DeleteTwotone.tsx"
+    },
+    "./DeliveredProcedureOutlined": {
+      "types": "./src/icons/DeliveredProcedureOutlined.tsx",
+      "import": "./src/icons/DeliveredProcedureOutlined.tsx",
+      "require": "./src/icons/DeliveredProcedureOutlined.tsx"
+    },
+    "./DeploymentUnitOutlined": {
+      "types": "./src/icons/DeploymentUnitOutlined.tsx",
+      "import": "./src/icons/DeploymentUnitOutlined.tsx",
+      "require": "./src/icons/DeploymentUnitOutlined.tsx"
+    },
+    "./DesktopOutlined": {
+      "types": "./src/icons/DesktopOutlined.tsx",
+      "import": "./src/icons/DesktopOutlined.tsx",
+      "require": "./src/icons/DesktopOutlined.tsx"
+    },
+    "./DiffFilled": {
+      "types": "./src/icons/DiffFilled.tsx",
+      "import": "./src/icons/DiffFilled.tsx",
+      "require": "./src/icons/DiffFilled.tsx"
+    },
+    "./DiffOutlined": {
+      "types": "./src/icons/DiffOutlined.tsx",
+      "import": "./src/icons/DiffOutlined.tsx",
+      "require": "./src/icons/DiffOutlined.tsx"
+    },
+    "./DiffTwotone": {
+      "types": "./src/icons/DiffTwotone.tsx",
+      "import": "./src/icons/DiffTwotone.tsx",
+      "require": "./src/icons/DiffTwotone.tsx"
+    },
+    "./DingdingOutlined": {
+      "types": "./src/icons/DingdingOutlined.tsx",
+      "import": "./src/icons/DingdingOutlined.tsx",
+      "require": "./src/icons/DingdingOutlined.tsx"
+    },
+    "./DingtalkCircleFilled": {
+      "types": "./src/icons/DingtalkCircleFilled.tsx",
+      "import": "./src/icons/DingtalkCircleFilled.tsx",
+      "require": "./src/icons/DingtalkCircleFilled.tsx"
+    },
+    "./DingtalkOutlined": {
+      "types": "./src/icons/DingtalkOutlined.tsx",
+      "import": "./src/icons/DingtalkOutlined.tsx",
+      "require": "./src/icons/DingtalkOutlined.tsx"
+    },
+    "./DingtalkSquareFilled": {
+      "types": "./src/icons/DingtalkSquareFilled.tsx",
+      "import": "./src/icons/DingtalkSquareFilled.tsx",
+      "require": "./src/icons/DingtalkSquareFilled.tsx"
+    },
+    "./DisconnectOutlined": {
+      "types": "./src/icons/DisconnectOutlined.tsx",
+      "import": "./src/icons/DisconnectOutlined.tsx",
+      "require": "./src/icons/DisconnectOutlined.tsx"
+    },
+    "./DiscordFilled": {
+      "types": "./src/icons/DiscordFilled.tsx",
+      "import": "./src/icons/DiscordFilled.tsx",
+      "require": "./src/icons/DiscordFilled.tsx"
+    },
+    "./DiscordOutlined": {
+      "types": "./src/icons/DiscordOutlined.tsx",
+      "import": "./src/icons/DiscordOutlined.tsx",
+      "require": "./src/icons/DiscordOutlined.tsx"
+    },
+    "./DislikeFilled": {
+      "types": "./src/icons/DislikeFilled.tsx",
+      "import": "./src/icons/DislikeFilled.tsx",
+      "require": "./src/icons/DislikeFilled.tsx"
+    },
+    "./DislikeOutlined": {
+      "types": "./src/icons/DislikeOutlined.tsx",
+      "import": "./src/icons/DislikeOutlined.tsx",
+      "require": "./src/icons/DislikeOutlined.tsx"
+    },
+    "./DislikeTwotone": {
+      "types": "./src/icons/DislikeTwotone.tsx",
+      "import": "./src/icons/DislikeTwotone.tsx",
+      "require": "./src/icons/DislikeTwotone.tsx"
+    },
+    "./DockerOutlined": {
+      "types": "./src/icons/DockerOutlined.tsx",
+      "import": "./src/icons/DockerOutlined.tsx",
+      "require": "./src/icons/DockerOutlined.tsx"
+    },
+    "./DollarCircleFilled": {
+      "types": "./src/icons/DollarCircleFilled.tsx",
+      "import": "./src/icons/DollarCircleFilled.tsx",
+      "require": "./src/icons/DollarCircleFilled.tsx"
+    },
+    "./DollarCircleOutlined": {
+      "types": "./src/icons/DollarCircleOutlined.tsx",
+      "import": "./src/icons/DollarCircleOutlined.tsx",
+      "require": "./src/icons/DollarCircleOutlined.tsx"
+    },
+    "./DollarCircleTwotone": {
+      "types": "./src/icons/DollarCircleTwotone.tsx",
+      "import": "./src/icons/DollarCircleTwotone.tsx",
+      "require": "./src/icons/DollarCircleTwotone.tsx"
+    },
+    "./DollarOutlined": {
+      "types": "./src/icons/DollarOutlined.tsx",
+      "import": "./src/icons/DollarOutlined.tsx",
+      "require": "./src/icons/DollarOutlined.tsx"
+    },
+    "./DollarTwotone": {
+      "types": "./src/icons/DollarTwotone.tsx",
+      "import": "./src/icons/DollarTwotone.tsx",
+      "require": "./src/icons/DollarTwotone.tsx"
+    },
+    "./DotChartOutlined": {
+      "types": "./src/icons/DotChartOutlined.tsx",
+      "import": "./src/icons/DotChartOutlined.tsx",
+      "require": "./src/icons/DotChartOutlined.tsx"
+    },
+    "./DotNetOutlined": {
+      "types": "./src/icons/DotNetOutlined.tsx",
+      "import": "./src/icons/DotNetOutlined.tsx",
+      "require": "./src/icons/DotNetOutlined.tsx"
+    },
+    "./DoubleLeftOutlined": {
+      "types": "./src/icons/DoubleLeftOutlined.tsx",
+      "import": "./src/icons/DoubleLeftOutlined.tsx",
+      "require": "./src/icons/DoubleLeftOutlined.tsx"
+    },
+    "./DoubleRightOutlined": {
+      "types": "./src/icons/DoubleRightOutlined.tsx",
+      "import": "./src/icons/DoubleRightOutlined.tsx",
+      "require": "./src/icons/DoubleRightOutlined.tsx"
+    },
+    "./DownCircleFilled": {
+      "types": "./src/icons/DownCircleFilled.tsx",
+      "import": "./src/icons/DownCircleFilled.tsx",
+      "require": "./src/icons/DownCircleFilled.tsx"
+    },
+    "./DownCircleOutlined": {
+      "types": "./src/icons/DownCircleOutlined.tsx",
+      "import": "./src/icons/DownCircleOutlined.tsx",
+      "require": "./src/icons/DownCircleOutlined.tsx"
+    },
+    "./DownCircleTwotone": {
+      "types": "./src/icons/DownCircleTwotone.tsx",
+      "import": "./src/icons/DownCircleTwotone.tsx",
+      "require": "./src/icons/DownCircleTwotone.tsx"
+    },
+    "./DownloadOutlined": {
+      "types": "./src/icons/DownloadOutlined.tsx",
+      "import": "./src/icons/DownloadOutlined.tsx",
+      "require": "./src/icons/DownloadOutlined.tsx"
+    },
+    "./DownOutlined": {
+      "types": "./src/icons/DownOutlined.tsx",
+      "import": "./src/icons/DownOutlined.tsx",
+      "require": "./src/icons/DownOutlined.tsx"
+    },
+    "./DownSquareFilled": {
+      "types": "./src/icons/DownSquareFilled.tsx",
+      "import": "./src/icons/DownSquareFilled.tsx",
+      "require": "./src/icons/DownSquareFilled.tsx"
+    },
+    "./DownSquareOutlined": {
+      "types": "./src/icons/DownSquareOutlined.tsx",
+      "import": "./src/icons/DownSquareOutlined.tsx",
+      "require": "./src/icons/DownSquareOutlined.tsx"
+    },
+    "./DownSquareTwotone": {
+      "types": "./src/icons/DownSquareTwotone.tsx",
+      "import": "./src/icons/DownSquareTwotone.tsx",
+      "require": "./src/icons/DownSquareTwotone.tsx"
+    },
+    "./DragOutlined": {
+      "types": "./src/icons/DragOutlined.tsx",
+      "import": "./src/icons/DragOutlined.tsx",
+      "require": "./src/icons/DragOutlined.tsx"
+    },
+    "./DribbbleCircleFilled": {
+      "types": "./src/icons/DribbbleCircleFilled.tsx",
+      "import": "./src/icons/DribbbleCircleFilled.tsx",
+      "require": "./src/icons/DribbbleCircleFilled.tsx"
+    },
+    "./DribbbleOutlined": {
+      "types": "./src/icons/DribbbleOutlined.tsx",
+      "import": "./src/icons/DribbbleOutlined.tsx",
+      "require": "./src/icons/DribbbleOutlined.tsx"
+    },
+    "./DribbbleSquareFilled": {
+      "types": "./src/icons/DribbbleSquareFilled.tsx",
+      "import": "./src/icons/DribbbleSquareFilled.tsx",
+      "require": "./src/icons/DribbbleSquareFilled.tsx"
+    },
+    "./DribbbleSquareOutlined": {
+      "types": "./src/icons/DribbbleSquareOutlined.tsx",
+      "import": "./src/icons/DribbbleSquareOutlined.tsx",
+      "require": "./src/icons/DribbbleSquareOutlined.tsx"
+    },
+    "./DropboxCircleFilled": {
+      "types": "./src/icons/DropboxCircleFilled.tsx",
+      "import": "./src/icons/DropboxCircleFilled.tsx",
+      "require": "./src/icons/DropboxCircleFilled.tsx"
+    },
+    "./DropboxOutlined": {
+      "types": "./src/icons/DropboxOutlined.tsx",
+      "import": "./src/icons/DropboxOutlined.tsx",
+      "require": "./src/icons/DropboxOutlined.tsx"
+    },
+    "./DropboxSquareFilled": {
+      "types": "./src/icons/DropboxSquareFilled.tsx",
+      "import": "./src/icons/DropboxSquareFilled.tsx",
+      "require": "./src/icons/DropboxSquareFilled.tsx"
+    },
+    "./EditFilled": {
+      "types": "./src/icons/EditFilled.tsx",
+      "import": "./src/icons/EditFilled.tsx",
+      "require": "./src/icons/EditFilled.tsx"
+    },
+    "./EditOutlined": {
+      "types": "./src/icons/EditOutlined.tsx",
+      "import": "./src/icons/EditOutlined.tsx",
+      "require": "./src/icons/EditOutlined.tsx"
+    },
+    "./EditTwotone": {
+      "types": "./src/icons/EditTwotone.tsx",
+      "import": "./src/icons/EditTwotone.tsx",
+      "require": "./src/icons/EditTwotone.tsx"
+    },
+    "./EllipsisOutlined": {
+      "types": "./src/icons/EllipsisOutlined.tsx",
+      "import": "./src/icons/EllipsisOutlined.tsx",
+      "require": "./src/icons/EllipsisOutlined.tsx"
+    },
+    "./EnterOutlined": {
+      "types": "./src/icons/EnterOutlined.tsx",
+      "import": "./src/icons/EnterOutlined.tsx",
+      "require": "./src/icons/EnterOutlined.tsx"
+    },
+    "./EnvironmentFilled": {
+      "types": "./src/icons/EnvironmentFilled.tsx",
+      "import": "./src/icons/EnvironmentFilled.tsx",
+      "require": "./src/icons/EnvironmentFilled.tsx"
+    },
+    "./EnvironmentOutlined": {
+      "types": "./src/icons/EnvironmentOutlined.tsx",
+      "import": "./src/icons/EnvironmentOutlined.tsx",
+      "require": "./src/icons/EnvironmentOutlined.tsx"
+    },
+    "./EnvironmentTwotone": {
+      "types": "./src/icons/EnvironmentTwotone.tsx",
+      "import": "./src/icons/EnvironmentTwotone.tsx",
+      "require": "./src/icons/EnvironmentTwotone.tsx"
+    },
+    "./EuroCircleFilled": {
+      "types": "./src/icons/EuroCircleFilled.tsx",
+      "import": "./src/icons/EuroCircleFilled.tsx",
+      "require": "./src/icons/EuroCircleFilled.tsx"
+    },
+    "./EuroCircleOutlined": {
+      "types": "./src/icons/EuroCircleOutlined.tsx",
+      "import": "./src/icons/EuroCircleOutlined.tsx",
+      "require": "./src/icons/EuroCircleOutlined.tsx"
+    },
+    "./EuroCircleTwotone": {
+      "types": "./src/icons/EuroCircleTwotone.tsx",
+      "import": "./src/icons/EuroCircleTwotone.tsx",
+      "require": "./src/icons/EuroCircleTwotone.tsx"
+    },
+    "./EuroOutlined": {
+      "types": "./src/icons/EuroOutlined.tsx",
+      "import": "./src/icons/EuroOutlined.tsx",
+      "require": "./src/icons/EuroOutlined.tsx"
+    },
+    "./EuroTwotone": {
+      "types": "./src/icons/EuroTwotone.tsx",
+      "import": "./src/icons/EuroTwotone.tsx",
+      "require": "./src/icons/EuroTwotone.tsx"
+    },
+    "./ExceptionOutlined": {
+      "types": "./src/icons/ExceptionOutlined.tsx",
+      "import": "./src/icons/ExceptionOutlined.tsx",
+      "require": "./src/icons/ExceptionOutlined.tsx"
+    },
+    "./ExclamationCircleFilled": {
+      "types": "./src/icons/ExclamationCircleFilled.tsx",
+      "import": "./src/icons/ExclamationCircleFilled.tsx",
+      "require": "./src/icons/ExclamationCircleFilled.tsx"
+    },
+    "./ExclamationCircleOutlined": {
+      "types": "./src/icons/ExclamationCircleOutlined.tsx",
+      "import": "./src/icons/ExclamationCircleOutlined.tsx",
+      "require": "./src/icons/ExclamationCircleOutlined.tsx"
+    },
+    "./ExclamationCircleTwotone": {
+      "types": "./src/icons/ExclamationCircleTwotone.tsx",
+      "import": "./src/icons/ExclamationCircleTwotone.tsx",
+      "require": "./src/icons/ExclamationCircleTwotone.tsx"
+    },
+    "./ExclamationOutlined": {
+      "types": "./src/icons/ExclamationOutlined.tsx",
+      "import": "./src/icons/ExclamationOutlined.tsx",
+      "require": "./src/icons/ExclamationOutlined.tsx"
+    },
+    "./ExpandAltOutlined": {
+      "types": "./src/icons/ExpandAltOutlined.tsx",
+      "import": "./src/icons/ExpandAltOutlined.tsx",
+      "require": "./src/icons/ExpandAltOutlined.tsx"
+    },
+    "./ExpandOutlined": {
+      "types": "./src/icons/ExpandOutlined.tsx",
+      "import": "./src/icons/ExpandOutlined.tsx",
+      "require": "./src/icons/ExpandOutlined.tsx"
+    },
+    "./ExperimentFilled": {
+      "types": "./src/icons/ExperimentFilled.tsx",
+      "import": "./src/icons/ExperimentFilled.tsx",
+      "require": "./src/icons/ExperimentFilled.tsx"
+    },
+    "./ExperimentOutlined": {
+      "types": "./src/icons/ExperimentOutlined.tsx",
+      "import": "./src/icons/ExperimentOutlined.tsx",
+      "require": "./src/icons/ExperimentOutlined.tsx"
+    },
+    "./ExperimentTwotone": {
+      "types": "./src/icons/ExperimentTwotone.tsx",
+      "import": "./src/icons/ExperimentTwotone.tsx",
+      "require": "./src/icons/ExperimentTwotone.tsx"
+    },
+    "./ExportOutlined": {
+      "types": "./src/icons/ExportOutlined.tsx",
+      "import": "./src/icons/ExportOutlined.tsx",
+      "require": "./src/icons/ExportOutlined.tsx"
+    },
+    "./EyeFilled": {
+      "types": "./src/icons/EyeFilled.tsx",
+      "import": "./src/icons/EyeFilled.tsx",
+      "require": "./src/icons/EyeFilled.tsx"
+    },
+    "./EyeInvisibleFilled": {
+      "types": "./src/icons/EyeInvisibleFilled.tsx",
+      "import": "./src/icons/EyeInvisibleFilled.tsx",
+      "require": "./src/icons/EyeInvisibleFilled.tsx"
+    },
+    "./EyeInvisibleOutlined": {
+      "types": "./src/icons/EyeInvisibleOutlined.tsx",
+      "import": "./src/icons/EyeInvisibleOutlined.tsx",
+      "require": "./src/icons/EyeInvisibleOutlined.tsx"
+    },
+    "./EyeInvisibleTwotone": {
+      "types": "./src/icons/EyeInvisibleTwotone.tsx",
+      "import": "./src/icons/EyeInvisibleTwotone.tsx",
+      "require": "./src/icons/EyeInvisibleTwotone.tsx"
+    },
+    "./EyeOutlined": {
+      "types": "./src/icons/EyeOutlined.tsx",
+      "import": "./src/icons/EyeOutlined.tsx",
+      "require": "./src/icons/EyeOutlined.tsx"
+    },
+    "./EyeTwotone": {
+      "types": "./src/icons/EyeTwotone.tsx",
+      "import": "./src/icons/EyeTwotone.tsx",
+      "require": "./src/icons/EyeTwotone.tsx"
+    },
+    "./FacebookFilled": {
+      "types": "./src/icons/FacebookFilled.tsx",
+      "import": "./src/icons/FacebookFilled.tsx",
+      "require": "./src/icons/FacebookFilled.tsx"
+    },
+    "./FacebookOutlined": {
+      "types": "./src/icons/FacebookOutlined.tsx",
+      "import": "./src/icons/FacebookOutlined.tsx",
+      "require": "./src/icons/FacebookOutlined.tsx"
+    },
+    "./FallOutlined": {
+      "types": "./src/icons/FallOutlined.tsx",
+      "import": "./src/icons/FallOutlined.tsx",
+      "require": "./src/icons/FallOutlined.tsx"
+    },
+    "./FastBackwardFilled": {
+      "types": "./src/icons/FastBackwardFilled.tsx",
+      "import": "./src/icons/FastBackwardFilled.tsx",
+      "require": "./src/icons/FastBackwardFilled.tsx"
+    },
+    "./FastBackwardOutlined": {
+      "types": "./src/icons/FastBackwardOutlined.tsx",
+      "import": "./src/icons/FastBackwardOutlined.tsx",
+      "require": "./src/icons/FastBackwardOutlined.tsx"
+    },
+    "./FastForwardFilled": {
+      "types": "./src/icons/FastForwardFilled.tsx",
+      "import": "./src/icons/FastForwardFilled.tsx",
+      "require": "./src/icons/FastForwardFilled.tsx"
+    },
+    "./FastForwardOutlined": {
+      "types": "./src/icons/FastForwardOutlined.tsx",
+      "import": "./src/icons/FastForwardOutlined.tsx",
+      "require": "./src/icons/FastForwardOutlined.tsx"
+    },
+    "./FieldBinaryOutlined": {
+      "types": "./src/icons/FieldBinaryOutlined.tsx",
+      "import": "./src/icons/FieldBinaryOutlined.tsx",
+      "require": "./src/icons/FieldBinaryOutlined.tsx"
+    },
+    "./FieldNumberOutlined": {
+      "types": "./src/icons/FieldNumberOutlined.tsx",
+      "import": "./src/icons/FieldNumberOutlined.tsx",
+      "require": "./src/icons/FieldNumberOutlined.tsx"
+    },
+    "./FieldStringOutlined": {
+      "types": "./src/icons/FieldStringOutlined.tsx",
+      "import": "./src/icons/FieldStringOutlined.tsx",
+      "require": "./src/icons/FieldStringOutlined.tsx"
+    },
+    "./FieldTimeOutlined": {
+      "types": "./src/icons/FieldTimeOutlined.tsx",
+      "import": "./src/icons/FieldTimeOutlined.tsx",
+      "require": "./src/icons/FieldTimeOutlined.tsx"
+    },
+    "./FileAddFilled": {
+      "types": "./src/icons/FileAddFilled.tsx",
+      "import": "./src/icons/FileAddFilled.tsx",
+      "require": "./src/icons/FileAddFilled.tsx"
+    },
+    "./FileAddOutlined": {
+      "types": "./src/icons/FileAddOutlined.tsx",
+      "import": "./src/icons/FileAddOutlined.tsx",
+      "require": "./src/icons/FileAddOutlined.tsx"
+    },
+    "./FileAddTwotone": {
+      "types": "./src/icons/FileAddTwotone.tsx",
+      "import": "./src/icons/FileAddTwotone.tsx",
+      "require": "./src/icons/FileAddTwotone.tsx"
+    },
+    "./FileDoneOutlined": {
+      "types": "./src/icons/FileDoneOutlined.tsx",
+      "import": "./src/icons/FileDoneOutlined.tsx",
+      "require": "./src/icons/FileDoneOutlined.tsx"
+    },
+    "./FileExcelFilled": {
+      "types": "./src/icons/FileExcelFilled.tsx",
+      "import": "./src/icons/FileExcelFilled.tsx",
+      "require": "./src/icons/FileExcelFilled.tsx"
+    },
+    "./FileExcelOutlined": {
+      "types": "./src/icons/FileExcelOutlined.tsx",
+      "import": "./src/icons/FileExcelOutlined.tsx",
+      "require": "./src/icons/FileExcelOutlined.tsx"
+    },
+    "./FileExcelTwotone": {
+      "types": "./src/icons/FileExcelTwotone.tsx",
+      "import": "./src/icons/FileExcelTwotone.tsx",
+      "require": "./src/icons/FileExcelTwotone.tsx"
+    },
+    "./FileExclamationFilled": {
+      "types": "./src/icons/FileExclamationFilled.tsx",
+      "import": "./src/icons/FileExclamationFilled.tsx",
+      "require": "./src/icons/FileExclamationFilled.tsx"
+    },
+    "./FileExclamationOutlined": {
+      "types": "./src/icons/FileExclamationOutlined.tsx",
+      "import": "./src/icons/FileExclamationOutlined.tsx",
+      "require": "./src/icons/FileExclamationOutlined.tsx"
+    },
+    "./FileExclamationTwotone": {
+      "types": "./src/icons/FileExclamationTwotone.tsx",
+      "import": "./src/icons/FileExclamationTwotone.tsx",
+      "require": "./src/icons/FileExclamationTwotone.tsx"
+    },
+    "./FileFilled": {
+      "types": "./src/icons/FileFilled.tsx",
+      "import": "./src/icons/FileFilled.tsx",
+      "require": "./src/icons/FileFilled.tsx"
+    },
+    "./FileGifOutlined": {
+      "types": "./src/icons/FileGifOutlined.tsx",
+      "import": "./src/icons/FileGifOutlined.tsx",
+      "require": "./src/icons/FileGifOutlined.tsx"
+    },
+    "./FileImageFilled": {
+      "types": "./src/icons/FileImageFilled.tsx",
+      "import": "./src/icons/FileImageFilled.tsx",
+      "require": "./src/icons/FileImageFilled.tsx"
+    },
+    "./FileImageOutlined": {
+      "types": "./src/icons/FileImageOutlined.tsx",
+      "import": "./src/icons/FileImageOutlined.tsx",
+      "require": "./src/icons/FileImageOutlined.tsx"
+    },
+    "./FileImageTwotone": {
+      "types": "./src/icons/FileImageTwotone.tsx",
+      "import": "./src/icons/FileImageTwotone.tsx",
+      "require": "./src/icons/FileImageTwotone.tsx"
+    },
+    "./FileJpgOutlined": {
+      "types": "./src/icons/FileJpgOutlined.tsx",
+      "import": "./src/icons/FileJpgOutlined.tsx",
+      "require": "./src/icons/FileJpgOutlined.tsx"
+    },
+    "./FileMarkdownFilled": {
+      "types": "./src/icons/FileMarkdownFilled.tsx",
+      "import": "./src/icons/FileMarkdownFilled.tsx",
+      "require": "./src/icons/FileMarkdownFilled.tsx"
+    },
+    "./FileMarkdownOutlined": {
+      "types": "./src/icons/FileMarkdownOutlined.tsx",
+      "import": "./src/icons/FileMarkdownOutlined.tsx",
+      "require": "./src/icons/FileMarkdownOutlined.tsx"
+    },
+    "./FileMarkdownTwotone": {
+      "types": "./src/icons/FileMarkdownTwotone.tsx",
+      "import": "./src/icons/FileMarkdownTwotone.tsx",
+      "require": "./src/icons/FileMarkdownTwotone.tsx"
+    },
+    "./FileOutlined": {
+      "types": "./src/icons/FileOutlined.tsx",
+      "import": "./src/icons/FileOutlined.tsx",
+      "require": "./src/icons/FileOutlined.tsx"
+    },
+    "./FilePdfFilled": {
+      "types": "./src/icons/FilePdfFilled.tsx",
+      "import": "./src/icons/FilePdfFilled.tsx",
+      "require": "./src/icons/FilePdfFilled.tsx"
+    },
+    "./FilePdfOutlined": {
+      "types": "./src/icons/FilePdfOutlined.tsx",
+      "import": "./src/icons/FilePdfOutlined.tsx",
+      "require": "./src/icons/FilePdfOutlined.tsx"
+    },
+    "./FilePdfTwotone": {
+      "types": "./src/icons/FilePdfTwotone.tsx",
+      "import": "./src/icons/FilePdfTwotone.tsx",
+      "require": "./src/icons/FilePdfTwotone.tsx"
+    },
+    "./FilePptFilled": {
+      "types": "./src/icons/FilePptFilled.tsx",
+      "import": "./src/icons/FilePptFilled.tsx",
+      "require": "./src/icons/FilePptFilled.tsx"
+    },
+    "./FilePptOutlined": {
+      "types": "./src/icons/FilePptOutlined.tsx",
+      "import": "./src/icons/FilePptOutlined.tsx",
+      "require": "./src/icons/FilePptOutlined.tsx"
+    },
+    "./FilePptTwotone": {
+      "types": "./src/icons/FilePptTwotone.tsx",
+      "import": "./src/icons/FilePptTwotone.tsx",
+      "require": "./src/icons/FilePptTwotone.tsx"
+    },
+    "./FileProtectOutlined": {
+      "types": "./src/icons/FileProtectOutlined.tsx",
+      "import": "./src/icons/FileProtectOutlined.tsx",
+      "require": "./src/icons/FileProtectOutlined.tsx"
+    },
+    "./FileSearchOutlined": {
+      "types": "./src/icons/FileSearchOutlined.tsx",
+      "import": "./src/icons/FileSearchOutlined.tsx",
+      "require": "./src/icons/FileSearchOutlined.tsx"
+    },
+    "./FileSyncOutlined": {
+      "types": "./src/icons/FileSyncOutlined.tsx",
+      "import": "./src/icons/FileSyncOutlined.tsx",
+      "require": "./src/icons/FileSyncOutlined.tsx"
+    },
+    "./FileTextFilled": {
+      "types": "./src/icons/FileTextFilled.tsx",
+      "import": "./src/icons/FileTextFilled.tsx",
+      "require": "./src/icons/FileTextFilled.tsx"
+    },
+    "./FileTextOutlined": {
+      "types": "./src/icons/FileTextOutlined.tsx",
+      "import": "./src/icons/FileTextOutlined.tsx",
+      "require": "./src/icons/FileTextOutlined.tsx"
+    },
+    "./FileTextTwotone": {
+      "types": "./src/icons/FileTextTwotone.tsx",
+      "import": "./src/icons/FileTextTwotone.tsx",
+      "require": "./src/icons/FileTextTwotone.tsx"
+    },
+    "./FileTwotone": {
+      "types": "./src/icons/FileTwotone.tsx",
+      "import": "./src/icons/FileTwotone.tsx",
+      "require": "./src/icons/FileTwotone.tsx"
+    },
+    "./FileUnknownFilled": {
+      "types": "./src/icons/FileUnknownFilled.tsx",
+      "import": "./src/icons/FileUnknownFilled.tsx",
+      "require": "./src/icons/FileUnknownFilled.tsx"
+    },
+    "./FileUnknownOutlined": {
+      "types": "./src/icons/FileUnknownOutlined.tsx",
+      "import": "./src/icons/FileUnknownOutlined.tsx",
+      "require": "./src/icons/FileUnknownOutlined.tsx"
+    },
+    "./FileUnknownTwotone": {
+      "types": "./src/icons/FileUnknownTwotone.tsx",
+      "import": "./src/icons/FileUnknownTwotone.tsx",
+      "require": "./src/icons/FileUnknownTwotone.tsx"
+    },
+    "./FileWordFilled": {
+      "types": "./src/icons/FileWordFilled.tsx",
+      "import": "./src/icons/FileWordFilled.tsx",
+      "require": "./src/icons/FileWordFilled.tsx"
+    },
+    "./FileWordOutlined": {
+      "types": "./src/icons/FileWordOutlined.tsx",
+      "import": "./src/icons/FileWordOutlined.tsx",
+      "require": "./src/icons/FileWordOutlined.tsx"
+    },
+    "./FileWordTwotone": {
+      "types": "./src/icons/FileWordTwotone.tsx",
+      "import": "./src/icons/FileWordTwotone.tsx",
+      "require": "./src/icons/FileWordTwotone.tsx"
+    },
+    "./FileZipFilled": {
+      "types": "./src/icons/FileZipFilled.tsx",
+      "import": "./src/icons/FileZipFilled.tsx",
+      "require": "./src/icons/FileZipFilled.tsx"
+    },
+    "./FileZipOutlined": {
+      "types": "./src/icons/FileZipOutlined.tsx",
+      "import": "./src/icons/FileZipOutlined.tsx",
+      "require": "./src/icons/FileZipOutlined.tsx"
+    },
+    "./FileZipTwotone": {
+      "types": "./src/icons/FileZipTwotone.tsx",
+      "import": "./src/icons/FileZipTwotone.tsx",
+      "require": "./src/icons/FileZipTwotone.tsx"
+    },
+    "./FilterFilled": {
+      "types": "./src/icons/FilterFilled.tsx",
+      "import": "./src/icons/FilterFilled.tsx",
+      "require": "./src/icons/FilterFilled.tsx"
+    },
+    "./FilterOutlined": {
+      "types": "./src/icons/FilterOutlined.tsx",
+      "import": "./src/icons/FilterOutlined.tsx",
+      "require": "./src/icons/FilterOutlined.tsx"
+    },
+    "./FilterTwotone": {
+      "types": "./src/icons/FilterTwotone.tsx",
+      "import": "./src/icons/FilterTwotone.tsx",
+      "require": "./src/icons/FilterTwotone.tsx"
+    },
+    "./FireFilled": {
+      "types": "./src/icons/FireFilled.tsx",
+      "import": "./src/icons/FireFilled.tsx",
+      "require": "./src/icons/FireFilled.tsx"
+    },
+    "./FireOutlined": {
+      "types": "./src/icons/FireOutlined.tsx",
+      "import": "./src/icons/FireOutlined.tsx",
+      "require": "./src/icons/FireOutlined.tsx"
+    },
+    "./FireTwotone": {
+      "types": "./src/icons/FireTwotone.tsx",
+      "import": "./src/icons/FireTwotone.tsx",
+      "require": "./src/icons/FireTwotone.tsx"
+    },
+    "./FlagFilled": {
+      "types": "./src/icons/FlagFilled.tsx",
+      "import": "./src/icons/FlagFilled.tsx",
+      "require": "./src/icons/FlagFilled.tsx"
+    },
+    "./FlagOutlined": {
+      "types": "./src/icons/FlagOutlined.tsx",
+      "import": "./src/icons/FlagOutlined.tsx",
+      "require": "./src/icons/FlagOutlined.tsx"
+    },
+    "./FlagTwotone": {
+      "types": "./src/icons/FlagTwotone.tsx",
+      "import": "./src/icons/FlagTwotone.tsx",
+      "require": "./src/icons/FlagTwotone.tsx"
+    },
+    "./FolderAddFilled": {
+      "types": "./src/icons/FolderAddFilled.tsx",
+      "import": "./src/icons/FolderAddFilled.tsx",
+      "require": "./src/icons/FolderAddFilled.tsx"
+    },
+    "./FolderAddOutlined": {
+      "types": "./src/icons/FolderAddOutlined.tsx",
+      "import": "./src/icons/FolderAddOutlined.tsx",
+      "require": "./src/icons/FolderAddOutlined.tsx"
+    },
+    "./FolderAddTwotone": {
+      "types": "./src/icons/FolderAddTwotone.tsx",
+      "import": "./src/icons/FolderAddTwotone.tsx",
+      "require": "./src/icons/FolderAddTwotone.tsx"
+    },
+    "./FolderFilled": {
+      "types": "./src/icons/FolderFilled.tsx",
+      "import": "./src/icons/FolderFilled.tsx",
+      "require": "./src/icons/FolderFilled.tsx"
+    },
+    "./FolderOpenFilled": {
+      "types": "./src/icons/FolderOpenFilled.tsx",
+      "import": "./src/icons/FolderOpenFilled.tsx",
+      "require": "./src/icons/FolderOpenFilled.tsx"
+    },
+    "./FolderOpenOutlined": {
+      "types": "./src/icons/FolderOpenOutlined.tsx",
+      "import": "./src/icons/FolderOpenOutlined.tsx",
+      "require": "./src/icons/FolderOpenOutlined.tsx"
+    },
+    "./FolderOpenTwotone": {
+      "types": "./src/icons/FolderOpenTwotone.tsx",
+      "import": "./src/icons/FolderOpenTwotone.tsx",
+      "require": "./src/icons/FolderOpenTwotone.tsx"
+    },
+    "./FolderOutlined": {
+      "types": "./src/icons/FolderOutlined.tsx",
+      "import": "./src/icons/FolderOutlined.tsx",
+      "require": "./src/icons/FolderOutlined.tsx"
+    },
+    "./FolderTwotone": {
+      "types": "./src/icons/FolderTwotone.tsx",
+      "import": "./src/icons/FolderTwotone.tsx",
+      "require": "./src/icons/FolderTwotone.tsx"
+    },
+    "./FolderViewOutlined": {
+      "types": "./src/icons/FolderViewOutlined.tsx",
+      "import": "./src/icons/FolderViewOutlined.tsx",
+      "require": "./src/icons/FolderViewOutlined.tsx"
+    },
+    "./FontColorsOutlined": {
+      "types": "./src/icons/FontColorsOutlined.tsx",
+      "import": "./src/icons/FontColorsOutlined.tsx",
+      "require": "./src/icons/FontColorsOutlined.tsx"
+    },
+    "./FontSizeOutlined": {
+      "types": "./src/icons/FontSizeOutlined.tsx",
+      "import": "./src/icons/FontSizeOutlined.tsx",
+      "require": "./src/icons/FontSizeOutlined.tsx"
+    },
+    "./ForkOutlined": {
+      "types": "./src/icons/ForkOutlined.tsx",
+      "import": "./src/icons/ForkOutlined.tsx",
+      "require": "./src/icons/ForkOutlined.tsx"
+    },
+    "./FormatPainterFilled": {
+      "types": "./src/icons/FormatPainterFilled.tsx",
+      "import": "./src/icons/FormatPainterFilled.tsx",
+      "require": "./src/icons/FormatPainterFilled.tsx"
+    },
+    "./FormatPainterOutlined": {
+      "types": "./src/icons/FormatPainterOutlined.tsx",
+      "import": "./src/icons/FormatPainterOutlined.tsx",
+      "require": "./src/icons/FormatPainterOutlined.tsx"
+    },
+    "./FormOutlined": {
+      "types": "./src/icons/FormOutlined.tsx",
+      "import": "./src/icons/FormOutlined.tsx",
+      "require": "./src/icons/FormOutlined.tsx"
+    },
+    "./ForwardFilled": {
+      "types": "./src/icons/ForwardFilled.tsx",
+      "import": "./src/icons/ForwardFilled.tsx",
+      "require": "./src/icons/ForwardFilled.tsx"
+    },
+    "./ForwardOutlined": {
+      "types": "./src/icons/ForwardOutlined.tsx",
+      "import": "./src/icons/ForwardOutlined.tsx",
+      "require": "./src/icons/ForwardOutlined.tsx"
+    },
+    "./FrownFilled": {
+      "types": "./src/icons/FrownFilled.tsx",
+      "import": "./src/icons/FrownFilled.tsx",
+      "require": "./src/icons/FrownFilled.tsx"
+    },
+    "./FrownOutlined": {
+      "types": "./src/icons/FrownOutlined.tsx",
+      "import": "./src/icons/FrownOutlined.tsx",
+      "require": "./src/icons/FrownOutlined.tsx"
+    },
+    "./FrownTwotone": {
+      "types": "./src/icons/FrownTwotone.tsx",
+      "import": "./src/icons/FrownTwotone.tsx",
+      "require": "./src/icons/FrownTwotone.tsx"
+    },
+    "./FullscreenExitOutlined": {
+      "types": "./src/icons/FullscreenExitOutlined.tsx",
+      "import": "./src/icons/FullscreenExitOutlined.tsx",
+      "require": "./src/icons/FullscreenExitOutlined.tsx"
+    },
+    "./FullscreenOutlined": {
+      "types": "./src/icons/FullscreenOutlined.tsx",
+      "import": "./src/icons/FullscreenOutlined.tsx",
+      "require": "./src/icons/FullscreenOutlined.tsx"
+    },
+    "./FunctionOutlined": {
+      "types": "./src/icons/FunctionOutlined.tsx",
+      "import": "./src/icons/FunctionOutlined.tsx",
+      "require": "./src/icons/FunctionOutlined.tsx"
+    },
+    "./FundFilled": {
+      "types": "./src/icons/FundFilled.tsx",
+      "import": "./src/icons/FundFilled.tsx",
+      "require": "./src/icons/FundFilled.tsx"
+    },
+    "./FundOutlined": {
+      "types": "./src/icons/FundOutlined.tsx",
+      "import": "./src/icons/FundOutlined.tsx",
+      "require": "./src/icons/FundOutlined.tsx"
+    },
+    "./FundProjectionScreenOutlined": {
+      "types": "./src/icons/FundProjectionScreenOutlined.tsx",
+      "import": "./src/icons/FundProjectionScreenOutlined.tsx",
+      "require": "./src/icons/FundProjectionScreenOutlined.tsx"
+    },
+    "./FundTwotone": {
+      "types": "./src/icons/FundTwotone.tsx",
+      "import": "./src/icons/FundTwotone.tsx",
+      "require": "./src/icons/FundTwotone.tsx"
+    },
+    "./FundViewOutlined": {
+      "types": "./src/icons/FundViewOutlined.tsx",
+      "import": "./src/icons/FundViewOutlined.tsx",
+      "require": "./src/icons/FundViewOutlined.tsx"
+    },
+    "./FunnelPlotFilled": {
+      "types": "./src/icons/FunnelPlotFilled.tsx",
+      "import": "./src/icons/FunnelPlotFilled.tsx",
+      "require": "./src/icons/FunnelPlotFilled.tsx"
+    },
+    "./FunnelPlotOutlined": {
+      "types": "./src/icons/FunnelPlotOutlined.tsx",
+      "import": "./src/icons/FunnelPlotOutlined.tsx",
+      "require": "./src/icons/FunnelPlotOutlined.tsx"
+    },
+    "./FunnelPlotTwotone": {
+      "types": "./src/icons/FunnelPlotTwotone.tsx",
+      "import": "./src/icons/FunnelPlotTwotone.tsx",
+      "require": "./src/icons/FunnelPlotTwotone.tsx"
+    },
+    "./GatewayOutlined": {
+      "types": "./src/icons/GatewayOutlined.tsx",
+      "import": "./src/icons/GatewayOutlined.tsx",
+      "require": "./src/icons/GatewayOutlined.tsx"
+    },
+    "./GifOutlined": {
+      "types": "./src/icons/GifOutlined.tsx",
+      "import": "./src/icons/GifOutlined.tsx",
+      "require": "./src/icons/GifOutlined.tsx"
+    },
+    "./GiftFilled": {
+      "types": "./src/icons/GiftFilled.tsx",
+      "import": "./src/icons/GiftFilled.tsx",
+      "require": "./src/icons/GiftFilled.tsx"
+    },
+    "./GiftOutlined": {
+      "types": "./src/icons/GiftOutlined.tsx",
+      "import": "./src/icons/GiftOutlined.tsx",
+      "require": "./src/icons/GiftOutlined.tsx"
+    },
+    "./GiftTwotone": {
+      "types": "./src/icons/GiftTwotone.tsx",
+      "import": "./src/icons/GiftTwotone.tsx",
+      "require": "./src/icons/GiftTwotone.tsx"
+    },
+    "./GithubFilled": {
+      "types": "./src/icons/GithubFilled.tsx",
+      "import": "./src/icons/GithubFilled.tsx",
+      "require": "./src/icons/GithubFilled.tsx"
+    },
+    "./GithubOutlined": {
+      "types": "./src/icons/GithubOutlined.tsx",
+      "import": "./src/icons/GithubOutlined.tsx",
+      "require": "./src/icons/GithubOutlined.tsx"
+    },
+    "./GitlabFilled": {
+      "types": "./src/icons/GitlabFilled.tsx",
+      "import": "./src/icons/GitlabFilled.tsx",
+      "require": "./src/icons/GitlabFilled.tsx"
+    },
+    "./GitlabOutlined": {
+      "types": "./src/icons/GitlabOutlined.tsx",
+      "import": "./src/icons/GitlabOutlined.tsx",
+      "require": "./src/icons/GitlabOutlined.tsx"
+    },
+    "./GlobalOutlined": {
+      "types": "./src/icons/GlobalOutlined.tsx",
+      "import": "./src/icons/GlobalOutlined.tsx",
+      "require": "./src/icons/GlobalOutlined.tsx"
+    },
+    "./GoldenFilled": {
+      "types": "./src/icons/GoldenFilled.tsx",
+      "import": "./src/icons/GoldenFilled.tsx",
+      "require": "./src/icons/GoldenFilled.tsx"
+    },
+    "./GoldFilled": {
+      "types": "./src/icons/GoldFilled.tsx",
+      "import": "./src/icons/GoldFilled.tsx",
+      "require": "./src/icons/GoldFilled.tsx"
+    },
+    "./GoldOutlined": {
+      "types": "./src/icons/GoldOutlined.tsx",
+      "import": "./src/icons/GoldOutlined.tsx",
+      "require": "./src/icons/GoldOutlined.tsx"
+    },
+    "./GoldTwotone": {
+      "types": "./src/icons/GoldTwotone.tsx",
+      "import": "./src/icons/GoldTwotone.tsx",
+      "require": "./src/icons/GoldTwotone.tsx"
+    },
+    "./GoogleCircleFilled": {
+      "types": "./src/icons/GoogleCircleFilled.tsx",
+      "import": "./src/icons/GoogleCircleFilled.tsx",
+      "require": "./src/icons/GoogleCircleFilled.tsx"
+    },
+    "./GoogleOutlined": {
+      "types": "./src/icons/GoogleOutlined.tsx",
+      "import": "./src/icons/GoogleOutlined.tsx",
+      "require": "./src/icons/GoogleOutlined.tsx"
+    },
+    "./GooglePlusCircleFilled": {
+      "types": "./src/icons/GooglePlusCircleFilled.tsx",
+      "import": "./src/icons/GooglePlusCircleFilled.tsx",
+      "require": "./src/icons/GooglePlusCircleFilled.tsx"
+    },
+    "./GooglePlusOutlined": {
+      "types": "./src/icons/GooglePlusOutlined.tsx",
+      "import": "./src/icons/GooglePlusOutlined.tsx",
+      "require": "./src/icons/GooglePlusOutlined.tsx"
+    },
+    "./GooglePlusSquareFilled": {
+      "types": "./src/icons/GooglePlusSquareFilled.tsx",
+      "import": "./src/icons/GooglePlusSquareFilled.tsx",
+      "require": "./src/icons/GooglePlusSquareFilled.tsx"
+    },
+    "./GoogleSquareFilled": {
+      "types": "./src/icons/GoogleSquareFilled.tsx",
+      "import": "./src/icons/GoogleSquareFilled.tsx",
+      "require": "./src/icons/GoogleSquareFilled.tsx"
+    },
+    "./GroupOutlined": {
+      "types": "./src/icons/GroupOutlined.tsx",
+      "import": "./src/icons/GroupOutlined.tsx",
+      "require": "./src/icons/GroupOutlined.tsx"
+    },
+    "./HarmonyOSOutlined": {
+      "types": "./src/icons/HarmonyOSOutlined.tsx",
+      "import": "./src/icons/HarmonyOSOutlined.tsx",
+      "require": "./src/icons/HarmonyOSOutlined.tsx"
+    },
+    "./HddFilled": {
+      "types": "./src/icons/HddFilled.tsx",
+      "import": "./src/icons/HddFilled.tsx",
+      "require": "./src/icons/HddFilled.tsx"
+    },
+    "./HddOutlined": {
+      "types": "./src/icons/HddOutlined.tsx",
+      "import": "./src/icons/HddOutlined.tsx",
+      "require": "./src/icons/HddOutlined.tsx"
+    },
+    "./HddTwotone": {
+      "types": "./src/icons/HddTwotone.tsx",
+      "import": "./src/icons/HddTwotone.tsx",
+      "require": "./src/icons/HddTwotone.tsx"
+    },
+    "./HeartFilled": {
+      "types": "./src/icons/HeartFilled.tsx",
+      "import": "./src/icons/HeartFilled.tsx",
+      "require": "./src/icons/HeartFilled.tsx"
+    },
+    "./HeartOutlined": {
+      "types": "./src/icons/HeartOutlined.tsx",
+      "import": "./src/icons/HeartOutlined.tsx",
+      "require": "./src/icons/HeartOutlined.tsx"
+    },
+    "./HeartTwotone": {
+      "types": "./src/icons/HeartTwotone.tsx",
+      "import": "./src/icons/HeartTwotone.tsx",
+      "require": "./src/icons/HeartTwotone.tsx"
+    },
+    "./HeatMapOutlined": {
+      "types": "./src/icons/HeatMapOutlined.tsx",
+      "import": "./src/icons/HeatMapOutlined.tsx",
+      "require": "./src/icons/HeatMapOutlined.tsx"
+    },
+    "./HighlightFilled": {
+      "types": "./src/icons/HighlightFilled.tsx",
+      "import": "./src/icons/HighlightFilled.tsx",
+      "require": "./src/icons/HighlightFilled.tsx"
+    },
+    "./HighlightOutlined": {
+      "types": "./src/icons/HighlightOutlined.tsx",
+      "import": "./src/icons/HighlightOutlined.tsx",
+      "require": "./src/icons/HighlightOutlined.tsx"
+    },
+    "./HighlightTwotone": {
+      "types": "./src/icons/HighlightTwotone.tsx",
+      "import": "./src/icons/HighlightTwotone.tsx",
+      "require": "./src/icons/HighlightTwotone.tsx"
+    },
+    "./HistoryOutlined": {
+      "types": "./src/icons/HistoryOutlined.tsx",
+      "import": "./src/icons/HistoryOutlined.tsx",
+      "require": "./src/icons/HistoryOutlined.tsx"
+    },
+    "./HolderOutlined": {
+      "types": "./src/icons/HolderOutlined.tsx",
+      "import": "./src/icons/HolderOutlined.tsx",
+      "require": "./src/icons/HolderOutlined.tsx"
+    },
+    "./HomeFilled": {
+      "types": "./src/icons/HomeFilled.tsx",
+      "import": "./src/icons/HomeFilled.tsx",
+      "require": "./src/icons/HomeFilled.tsx"
+    },
+    "./HomeOutlined": {
+      "types": "./src/icons/HomeOutlined.tsx",
+      "import": "./src/icons/HomeOutlined.tsx",
+      "require": "./src/icons/HomeOutlined.tsx"
+    },
+    "./HomeTwotone": {
+      "types": "./src/icons/HomeTwotone.tsx",
+      "import": "./src/icons/HomeTwotone.tsx",
+      "require": "./src/icons/HomeTwotone.tsx"
+    },
+    "./HourglassFilled": {
+      "types": "./src/icons/HourglassFilled.tsx",
+      "import": "./src/icons/HourglassFilled.tsx",
+      "require": "./src/icons/HourglassFilled.tsx"
+    },
+    "./HourglassOutlined": {
+      "types": "./src/icons/HourglassOutlined.tsx",
+      "import": "./src/icons/HourglassOutlined.tsx",
+      "require": "./src/icons/HourglassOutlined.tsx"
+    },
+    "./HourglassTwotone": {
+      "types": "./src/icons/HourglassTwotone.tsx",
+      "import": "./src/icons/HourglassTwotone.tsx",
+      "require": "./src/icons/HourglassTwotone.tsx"
+    },
+    "./Html5Filled": {
+      "types": "./src/icons/Html5Filled.tsx",
+      "import": "./src/icons/Html5Filled.tsx",
+      "require": "./src/icons/Html5Filled.tsx"
+    },
+    "./Html5Outlined": {
+      "types": "./src/icons/Html5Outlined.tsx",
+      "import": "./src/icons/Html5Outlined.tsx",
+      "require": "./src/icons/Html5Outlined.tsx"
+    },
+    "./Html5Twotone": {
+      "types": "./src/icons/Html5Twotone.tsx",
+      "import": "./src/icons/Html5Twotone.tsx",
+      "require": "./src/icons/Html5Twotone.tsx"
+    },
+    "./IconConfigContext": {
+      "types": "./src/shared/_shared.context.ts",
+      "import": "./src/shared/_shared.context.ts",
+      "require": "./src/shared/_shared.context.ts"
+    },
+    "./IconFont": {
+      "types": "./src/shared/icon-font.tsx",
+      "import": "./src/shared/icon-font.tsx",
+      "require": "./src/shared/icon-font.tsx"
+    },
+    "./IdcardFilled": {
+      "types": "./src/icons/IdcardFilled.tsx",
+      "import": "./src/icons/IdcardFilled.tsx",
+      "require": "./src/icons/IdcardFilled.tsx"
+    },
+    "./IdcardOutlined": {
+      "types": "./src/icons/IdcardOutlined.tsx",
+      "import": "./src/icons/IdcardOutlined.tsx",
+      "require": "./src/icons/IdcardOutlined.tsx"
+    },
+    "./IdcardTwotone": {
+      "types": "./src/icons/IdcardTwotone.tsx",
+      "import": "./src/icons/IdcardTwotone.tsx",
+      "require": "./src/icons/IdcardTwotone.tsx"
+    },
+    "./IeCircleFilled": {
+      "types": "./src/icons/IeCircleFilled.tsx",
+      "import": "./src/icons/IeCircleFilled.tsx",
+      "require": "./src/icons/IeCircleFilled.tsx"
+    },
+    "./IeOutlined": {
+      "types": "./src/icons/IeOutlined.tsx",
+      "import": "./src/icons/IeOutlined.tsx",
+      "require": "./src/icons/IeOutlined.tsx"
+    },
+    "./IeSquareFilled": {
+      "types": "./src/icons/IeSquareFilled.tsx",
+      "import": "./src/icons/IeSquareFilled.tsx",
+      "require": "./src/icons/IeSquareFilled.tsx"
+    },
+    "./ImportOutlined": {
+      "types": "./src/icons/ImportOutlined.tsx",
+      "import": "./src/icons/ImportOutlined.tsx",
+      "require": "./src/icons/ImportOutlined.tsx"
+    },
+    "./InboxOutlined": {
+      "types": "./src/icons/InboxOutlined.tsx",
+      "import": "./src/icons/InboxOutlined.tsx",
+      "require": "./src/icons/InboxOutlined.tsx"
+    },
+    "./InfoCircleFilled": {
+      "types": "./src/icons/InfoCircleFilled.tsx",
+      "import": "./src/icons/InfoCircleFilled.tsx",
+      "require": "./src/icons/InfoCircleFilled.tsx"
+    },
+    "./InfoCircleOutlined": {
+      "types": "./src/icons/InfoCircleOutlined.tsx",
+      "import": "./src/icons/InfoCircleOutlined.tsx",
+      "require": "./src/icons/InfoCircleOutlined.tsx"
+    },
+    "./InfoCircleTwotone": {
+      "types": "./src/icons/InfoCircleTwotone.tsx",
+      "import": "./src/icons/InfoCircleTwotone.tsx",
+      "require": "./src/icons/InfoCircleTwotone.tsx"
+    },
+    "./InfoOutlined": {
+      "types": "./src/icons/InfoOutlined.tsx",
+      "import": "./src/icons/InfoOutlined.tsx",
+      "require": "./src/icons/InfoOutlined.tsx"
+    },
+    "./InsertRowAboveOutlined": {
+      "types": "./src/icons/InsertRowAboveOutlined.tsx",
+      "import": "./src/icons/InsertRowAboveOutlined.tsx",
+      "require": "./src/icons/InsertRowAboveOutlined.tsx"
+    },
+    "./InsertRowBelowOutlined": {
+      "types": "./src/icons/InsertRowBelowOutlined.tsx",
+      "import": "./src/icons/InsertRowBelowOutlined.tsx",
+      "require": "./src/icons/InsertRowBelowOutlined.tsx"
+    },
+    "./InsertRowLeftOutlined": {
+      "types": "./src/icons/InsertRowLeftOutlined.tsx",
+      "import": "./src/icons/InsertRowLeftOutlined.tsx",
+      "require": "./src/icons/InsertRowLeftOutlined.tsx"
+    },
+    "./InsertRowRightOutlined": {
+      "types": "./src/icons/InsertRowRightOutlined.tsx",
+      "import": "./src/icons/InsertRowRightOutlined.tsx",
+      "require": "./src/icons/InsertRowRightOutlined.tsx"
+    },
+    "./InstagramFilled": {
+      "types": "./src/icons/InstagramFilled.tsx",
+      "import": "./src/icons/InstagramFilled.tsx",
+      "require": "./src/icons/InstagramFilled.tsx"
+    },
+    "./InstagramOutlined": {
+      "types": "./src/icons/InstagramOutlined.tsx",
+      "import": "./src/icons/InstagramOutlined.tsx",
+      "require": "./src/icons/InstagramOutlined.tsx"
+    },
+    "./InsuranceFilled": {
+      "types": "./src/icons/InsuranceFilled.tsx",
+      "import": "./src/icons/InsuranceFilled.tsx",
+      "require": "./src/icons/InsuranceFilled.tsx"
+    },
+    "./InsuranceOutlined": {
+      "types": "./src/icons/InsuranceOutlined.tsx",
+      "import": "./src/icons/InsuranceOutlined.tsx",
+      "require": "./src/icons/InsuranceOutlined.tsx"
+    },
+    "./InsuranceTwotone": {
+      "types": "./src/icons/InsuranceTwotone.tsx",
+      "import": "./src/icons/InsuranceTwotone.tsx",
+      "require": "./src/icons/InsuranceTwotone.tsx"
+    },
+    "./InteractionFilled": {
+      "types": "./src/icons/InteractionFilled.tsx",
+      "import": "./src/icons/InteractionFilled.tsx",
+      "require": "./src/icons/InteractionFilled.tsx"
+    },
+    "./InteractionOutlined": {
+      "types": "./src/icons/InteractionOutlined.tsx",
+      "import": "./src/icons/InteractionOutlined.tsx",
+      "require": "./src/icons/InteractionOutlined.tsx"
+    },
+    "./InteractionTwotone": {
+      "types": "./src/icons/InteractionTwotone.tsx",
+      "import": "./src/icons/InteractionTwotone.tsx",
+      "require": "./src/icons/InteractionTwotone.tsx"
+    },
+    "./IssuesCloseOutlined": {
+      "types": "./src/icons/IssuesCloseOutlined.tsx",
+      "import": "./src/icons/IssuesCloseOutlined.tsx",
+      "require": "./src/icons/IssuesCloseOutlined.tsx"
+    },
+    "./ItalicOutlined": {
+      "types": "./src/icons/ItalicOutlined.tsx",
+      "import": "./src/icons/ItalicOutlined.tsx",
+      "require": "./src/icons/ItalicOutlined.tsx"
+    },
+    "./JavaOutlined": {
+      "types": "./src/icons/JavaOutlined.tsx",
+      "import": "./src/icons/JavaOutlined.tsx",
+      "require": "./src/icons/JavaOutlined.tsx"
+    },
+    "./JavaScriptOutlined": {
+      "types": "./src/icons/JavaScriptOutlined.tsx",
+      "import": "./src/icons/JavaScriptOutlined.tsx",
+      "require": "./src/icons/JavaScriptOutlined.tsx"
+    },
+    "./KeyOutlined": {
+      "types": "./src/icons/KeyOutlined.tsx",
+      "import": "./src/icons/KeyOutlined.tsx",
+      "require": "./src/icons/KeyOutlined.tsx"
+    },
+    "./KubernetesOutlined": {
+      "types": "./src/icons/KubernetesOutlined.tsx",
+      "import": "./src/icons/KubernetesOutlined.tsx",
+      "require": "./src/icons/KubernetesOutlined.tsx"
+    },
+    "./LaptopOutlined": {
+      "types": "./src/icons/LaptopOutlined.tsx",
+      "import": "./src/icons/LaptopOutlined.tsx",
+      "require": "./src/icons/LaptopOutlined.tsx"
+    },
+    "./LayoutFilled": {
+      "types": "./src/icons/LayoutFilled.tsx",
+      "import": "./src/icons/LayoutFilled.tsx",
+      "require": "./src/icons/LayoutFilled.tsx"
+    },
+    "./LayoutOutlined": {
+      "types": "./src/icons/LayoutOutlined.tsx",
+      "import": "./src/icons/LayoutOutlined.tsx",
+      "require": "./src/icons/LayoutOutlined.tsx"
+    },
+    "./LayoutTwotone": {
+      "types": "./src/icons/LayoutTwotone.tsx",
+      "import": "./src/icons/LayoutTwotone.tsx",
+      "require": "./src/icons/LayoutTwotone.tsx"
+    },
+    "./LeftCircleFilled": {
+      "types": "./src/icons/LeftCircleFilled.tsx",
+      "import": "./src/icons/LeftCircleFilled.tsx",
+      "require": "./src/icons/LeftCircleFilled.tsx"
+    },
+    "./LeftCircleOutlined": {
+      "types": "./src/icons/LeftCircleOutlined.tsx",
+      "import": "./src/icons/LeftCircleOutlined.tsx",
+      "require": "./src/icons/LeftCircleOutlined.tsx"
+    },
+    "./LeftCircleTwotone": {
+      "types": "./src/icons/LeftCircleTwotone.tsx",
+      "import": "./src/icons/LeftCircleTwotone.tsx",
+      "require": "./src/icons/LeftCircleTwotone.tsx"
+    },
+    "./LeftOutlined": {
+      "types": "./src/icons/LeftOutlined.tsx",
+      "import": "./src/icons/LeftOutlined.tsx",
+      "require": "./src/icons/LeftOutlined.tsx"
+    },
+    "./LeftSquareFilled": {
+      "types": "./src/icons/LeftSquareFilled.tsx",
+      "import": "./src/icons/LeftSquareFilled.tsx",
+      "require": "./src/icons/LeftSquareFilled.tsx"
+    },
+    "./LeftSquareOutlined": {
+      "types": "./src/icons/LeftSquareOutlined.tsx",
+      "import": "./src/icons/LeftSquareOutlined.tsx",
+      "require": "./src/icons/LeftSquareOutlined.tsx"
+    },
+    "./LeftSquareTwotone": {
+      "types": "./src/icons/LeftSquareTwotone.tsx",
+      "import": "./src/icons/LeftSquareTwotone.tsx",
+      "require": "./src/icons/LeftSquareTwotone.tsx"
+    },
+    "./LikeFilled": {
+      "types": "./src/icons/LikeFilled.tsx",
+      "import": "./src/icons/LikeFilled.tsx",
+      "require": "./src/icons/LikeFilled.tsx"
+    },
+    "./LikeOutlined": {
+      "types": "./src/icons/LikeOutlined.tsx",
+      "import": "./src/icons/LikeOutlined.tsx",
+      "require": "./src/icons/LikeOutlined.tsx"
+    },
+    "./LikeTwotone": {
+      "types": "./src/icons/LikeTwotone.tsx",
+      "import": "./src/icons/LikeTwotone.tsx",
+      "require": "./src/icons/LikeTwotone.tsx"
+    },
+    "./LineChartOutlined": {
+      "types": "./src/icons/LineChartOutlined.tsx",
+      "import": "./src/icons/LineChartOutlined.tsx",
+      "require": "./src/icons/LineChartOutlined.tsx"
+    },
+    "./LineHeightOutlined": {
+      "types": "./src/icons/LineHeightOutlined.tsx",
+      "import": "./src/icons/LineHeightOutlined.tsx",
+      "require": "./src/icons/LineHeightOutlined.tsx"
+    },
+    "./LineOutlined": {
+      "types": "./src/icons/LineOutlined.tsx",
+      "import": "./src/icons/LineOutlined.tsx",
+      "require": "./src/icons/LineOutlined.tsx"
+    },
+    "./LinkedinFilled": {
+      "types": "./src/icons/LinkedinFilled.tsx",
+      "import": "./src/icons/LinkedinFilled.tsx",
+      "require": "./src/icons/LinkedinFilled.tsx"
+    },
+    "./LinkedinOutlined": {
+      "types": "./src/icons/LinkedinOutlined.tsx",
+      "import": "./src/icons/LinkedinOutlined.tsx",
+      "require": "./src/icons/LinkedinOutlined.tsx"
+    },
+    "./LinkOutlined": {
+      "types": "./src/icons/LinkOutlined.tsx",
+      "import": "./src/icons/LinkOutlined.tsx",
+      "require": "./src/icons/LinkOutlined.tsx"
+    },
+    "./LinuxOutlined": {
+      "types": "./src/icons/LinuxOutlined.tsx",
+      "import": "./src/icons/LinuxOutlined.tsx",
+      "require": "./src/icons/LinuxOutlined.tsx"
+    },
+    "./Loading3QuartersOutlined": {
+      "types": "./src/icons/Loading3QuartersOutlined.tsx",
+      "import": "./src/icons/Loading3QuartersOutlined.tsx",
+      "require": "./src/icons/Loading3QuartersOutlined.tsx"
+    },
+    "./LoadingOutlined": {
+      "types": "./src/icons/LoadingOutlined.tsx",
+      "import": "./src/icons/LoadingOutlined.tsx",
+      "require": "./src/icons/LoadingOutlined.tsx"
+    },
+    "./LockFilled": {
+      "types": "./src/icons/LockFilled.tsx",
+      "import": "./src/icons/LockFilled.tsx",
+      "require": "./src/icons/LockFilled.tsx"
+    },
+    "./LockOutlined": {
+      "types": "./src/icons/LockOutlined.tsx",
+      "import": "./src/icons/LockOutlined.tsx",
+      "require": "./src/icons/LockOutlined.tsx"
+    },
+    "./LockTwotone": {
+      "types": "./src/icons/LockTwotone.tsx",
+      "import": "./src/icons/LockTwotone.tsx",
+      "require": "./src/icons/LockTwotone.tsx"
+    },
+    "./LoginOutlined": {
+      "types": "./src/icons/LoginOutlined.tsx",
+      "import": "./src/icons/LoginOutlined.tsx",
+      "require": "./src/icons/LoginOutlined.tsx"
+    },
+    "./LogoutOutlined": {
+      "types": "./src/icons/LogoutOutlined.tsx",
+      "import": "./src/icons/LogoutOutlined.tsx",
+      "require": "./src/icons/LogoutOutlined.tsx"
+    },
+    "./MacCommandFilled": {
+      "types": "./src/icons/MacCommandFilled.tsx",
+      "import": "./src/icons/MacCommandFilled.tsx",
+      "require": "./src/icons/MacCommandFilled.tsx"
+    },
+    "./MacCommandOutlined": {
+      "types": "./src/icons/MacCommandOutlined.tsx",
+      "import": "./src/icons/MacCommandOutlined.tsx",
+      "require": "./src/icons/MacCommandOutlined.tsx"
+    },
+    "./MailFilled": {
+      "types": "./src/icons/MailFilled.tsx",
+      "import": "./src/icons/MailFilled.tsx",
+      "require": "./src/icons/MailFilled.tsx"
+    },
+    "./MailOutlined": {
+      "types": "./src/icons/MailOutlined.tsx",
+      "import": "./src/icons/MailOutlined.tsx",
+      "require": "./src/icons/MailOutlined.tsx"
+    },
+    "./MailTwotone": {
+      "types": "./src/icons/MailTwotone.tsx",
+      "import": "./src/icons/MailTwotone.tsx",
+      "require": "./src/icons/MailTwotone.tsx"
+    },
+    "./ManOutlined": {
+      "types": "./src/icons/ManOutlined.tsx",
+      "import": "./src/icons/ManOutlined.tsx",
+      "require": "./src/icons/ManOutlined.tsx"
+    },
+    "./MedicineBoxFilled": {
+      "types": "./src/icons/MedicineBoxFilled.tsx",
+      "import": "./src/icons/MedicineBoxFilled.tsx",
+      "require": "./src/icons/MedicineBoxFilled.tsx"
+    },
+    "./MedicineBoxOutlined": {
+      "types": "./src/icons/MedicineBoxOutlined.tsx",
+      "import": "./src/icons/MedicineBoxOutlined.tsx",
+      "require": "./src/icons/MedicineBoxOutlined.tsx"
+    },
+    "./MedicineBoxTwotone": {
+      "types": "./src/icons/MedicineBoxTwotone.tsx",
+      "import": "./src/icons/MedicineBoxTwotone.tsx",
+      "require": "./src/icons/MedicineBoxTwotone.tsx"
+    },
+    "./MediumCircleFilled": {
+      "types": "./src/icons/MediumCircleFilled.tsx",
+      "import": "./src/icons/MediumCircleFilled.tsx",
+      "require": "./src/icons/MediumCircleFilled.tsx"
+    },
+    "./MediumOutlined": {
+      "types": "./src/icons/MediumOutlined.tsx",
+      "import": "./src/icons/MediumOutlined.tsx",
+      "require": "./src/icons/MediumOutlined.tsx"
+    },
+    "./MediumSquareFilled": {
+      "types": "./src/icons/MediumSquareFilled.tsx",
+      "import": "./src/icons/MediumSquareFilled.tsx",
+      "require": "./src/icons/MediumSquareFilled.tsx"
+    },
+    "./MediumWorkmarkOutlined": {
+      "types": "./src/icons/MediumWorkmarkOutlined.tsx",
+      "import": "./src/icons/MediumWorkmarkOutlined.tsx",
+      "require": "./src/icons/MediumWorkmarkOutlined.tsx"
+    },
+    "./MehFilled": {
+      "types": "./src/icons/MehFilled.tsx",
+      "import": "./src/icons/MehFilled.tsx",
+      "require": "./src/icons/MehFilled.tsx"
+    },
+    "./MehOutlined": {
+      "types": "./src/icons/MehOutlined.tsx",
+      "import": "./src/icons/MehOutlined.tsx",
+      "require": "./src/icons/MehOutlined.tsx"
+    },
+    "./MehTwotone": {
+      "types": "./src/icons/MehTwotone.tsx",
+      "import": "./src/icons/MehTwotone.tsx",
+      "require": "./src/icons/MehTwotone.tsx"
+    },
+    "./MenuFoldOutlined": {
+      "types": "./src/icons/MenuFoldOutlined.tsx",
+      "import": "./src/icons/MenuFoldOutlined.tsx",
+      "require": "./src/icons/MenuFoldOutlined.tsx"
+    },
+    "./MenuOutlined": {
+      "types": "./src/icons/MenuOutlined.tsx",
+      "import": "./src/icons/MenuOutlined.tsx",
+      "require": "./src/icons/MenuOutlined.tsx"
+    },
+    "./MenuUnfoldOutlined": {
+      "types": "./src/icons/MenuUnfoldOutlined.tsx",
+      "import": "./src/icons/MenuUnfoldOutlined.tsx",
+      "require": "./src/icons/MenuUnfoldOutlined.tsx"
+    },
+    "./MergeCellsOutlined": {
+      "types": "./src/icons/MergeCellsOutlined.tsx",
+      "import": "./src/icons/MergeCellsOutlined.tsx",
+      "require": "./src/icons/MergeCellsOutlined.tsx"
+    },
+    "./MergeFilled": {
+      "types": "./src/icons/MergeFilled.tsx",
+      "import": "./src/icons/MergeFilled.tsx",
+      "require": "./src/icons/MergeFilled.tsx"
+    },
+    "./MergeOutlined": {
+      "types": "./src/icons/MergeOutlined.tsx",
+      "import": "./src/icons/MergeOutlined.tsx",
+      "require": "./src/icons/MergeOutlined.tsx"
+    },
+    "./MessageFilled": {
+      "types": "./src/icons/MessageFilled.tsx",
+      "import": "./src/icons/MessageFilled.tsx",
+      "require": "./src/icons/MessageFilled.tsx"
+    },
+    "./MessageOutlined": {
+      "types": "./src/icons/MessageOutlined.tsx",
+      "import": "./src/icons/MessageOutlined.tsx",
+      "require": "./src/icons/MessageOutlined.tsx"
+    },
+    "./MessageTwotone": {
+      "types": "./src/icons/MessageTwotone.tsx",
+      "import": "./src/icons/MessageTwotone.tsx",
+      "require": "./src/icons/MessageTwotone.tsx"
+    },
+    "./MinusCircleFilled": {
+      "types": "./src/icons/MinusCircleFilled.tsx",
+      "import": "./src/icons/MinusCircleFilled.tsx",
+      "require": "./src/icons/MinusCircleFilled.tsx"
+    },
+    "./MinusCircleOutlined": {
+      "types": "./src/icons/MinusCircleOutlined.tsx",
+      "import": "./src/icons/MinusCircleOutlined.tsx",
+      "require": "./src/icons/MinusCircleOutlined.tsx"
+    },
+    "./MinusCircleTwotone": {
+      "types": "./src/icons/MinusCircleTwotone.tsx",
+      "import": "./src/icons/MinusCircleTwotone.tsx",
+      "require": "./src/icons/MinusCircleTwotone.tsx"
+    },
+    "./MinusOutlined": {
+      "types": "./src/icons/MinusOutlined.tsx",
+      "import": "./src/icons/MinusOutlined.tsx",
+      "require": "./src/icons/MinusOutlined.tsx"
+    },
+    "./MinusSquareFilled": {
+      "types": "./src/icons/MinusSquareFilled.tsx",
+      "import": "./src/icons/MinusSquareFilled.tsx",
+      "require": "./src/icons/MinusSquareFilled.tsx"
+    },
+    "./MinusSquareOutlined": {
+      "types": "./src/icons/MinusSquareOutlined.tsx",
+      "import": "./src/icons/MinusSquareOutlined.tsx",
+      "require": "./src/icons/MinusSquareOutlined.tsx"
+    },
+    "./MinusSquareTwotone": {
+      "types": "./src/icons/MinusSquareTwotone.tsx",
+      "import": "./src/icons/MinusSquareTwotone.tsx",
+      "require": "./src/icons/MinusSquareTwotone.tsx"
+    },
+    "./MobileFilled": {
+      "types": "./src/icons/MobileFilled.tsx",
+      "import": "./src/icons/MobileFilled.tsx",
+      "require": "./src/icons/MobileFilled.tsx"
+    },
+    "./MobileOutlined": {
+      "types": "./src/icons/MobileOutlined.tsx",
+      "import": "./src/icons/MobileOutlined.tsx",
+      "require": "./src/icons/MobileOutlined.tsx"
+    },
+    "./MobileTwotone": {
+      "types": "./src/icons/MobileTwotone.tsx",
+      "import": "./src/icons/MobileTwotone.tsx",
+      "require": "./src/icons/MobileTwotone.tsx"
+    },
+    "./MoneyCollectFilled": {
+      "types": "./src/icons/MoneyCollectFilled.tsx",
+      "import": "./src/icons/MoneyCollectFilled.tsx",
+      "require": "./src/icons/MoneyCollectFilled.tsx"
+    },
+    "./MoneyCollectOutlined": {
+      "types": "./src/icons/MoneyCollectOutlined.tsx",
+      "import": "./src/icons/MoneyCollectOutlined.tsx",
+      "require": "./src/icons/MoneyCollectOutlined.tsx"
+    },
+    "./MoneyCollectTwotone": {
+      "types": "./src/icons/MoneyCollectTwotone.tsx",
+      "import": "./src/icons/MoneyCollectTwotone.tsx",
+      "require": "./src/icons/MoneyCollectTwotone.tsx"
+    },
+    "./MonitorOutlined": {
+      "types": "./src/icons/MonitorOutlined.tsx",
+      "import": "./src/icons/MonitorOutlined.tsx",
+      "require": "./src/icons/MonitorOutlined.tsx"
+    },
+    "./MoonFilled": {
+      "types": "./src/icons/MoonFilled.tsx",
+      "import": "./src/icons/MoonFilled.tsx",
+      "require": "./src/icons/MoonFilled.tsx"
+    },
+    "./MoonOutlined": {
+      "types": "./src/icons/MoonOutlined.tsx",
+      "import": "./src/icons/MoonOutlined.tsx",
+      "require": "./src/icons/MoonOutlined.tsx"
+    },
+    "./MoreOutlined": {
+      "types": "./src/icons/MoreOutlined.tsx",
+      "import": "./src/icons/MoreOutlined.tsx",
+      "require": "./src/icons/MoreOutlined.tsx"
+    },
+    "./MutedFilled": {
+      "types": "./src/icons/MutedFilled.tsx",
+      "import": "./src/icons/MutedFilled.tsx",
+      "require": "./src/icons/MutedFilled.tsx"
+    },
+    "./MutedOutlined": {
+      "types": "./src/icons/MutedOutlined.tsx",
+      "import": "./src/icons/MutedOutlined.tsx",
+      "require": "./src/icons/MutedOutlined.tsx"
+    },
+    "./NodeCollapseOutlined": {
+      "types": "./src/icons/NodeCollapseOutlined.tsx",
+      "import": "./src/icons/NodeCollapseOutlined.tsx",
+      "require": "./src/icons/NodeCollapseOutlined.tsx"
+    },
+    "./NodeExpandOutlined": {
+      "types": "./src/icons/NodeExpandOutlined.tsx",
+      "import": "./src/icons/NodeExpandOutlined.tsx",
+      "require": "./src/icons/NodeExpandOutlined.tsx"
+    },
+    "./NodeIndexOutlined": {
+      "types": "./src/icons/NodeIndexOutlined.tsx",
+      "import": "./src/icons/NodeIndexOutlined.tsx",
+      "require": "./src/icons/NodeIndexOutlined.tsx"
+    },
+    "./NotificationFilled": {
+      "types": "./src/icons/NotificationFilled.tsx",
+      "import": "./src/icons/NotificationFilled.tsx",
+      "require": "./src/icons/NotificationFilled.tsx"
+    },
+    "./NotificationOutlined": {
+      "types": "./src/icons/NotificationOutlined.tsx",
+      "import": "./src/icons/NotificationOutlined.tsx",
+      "require": "./src/icons/NotificationOutlined.tsx"
+    },
+    "./NotificationTwotone": {
+      "types": "./src/icons/NotificationTwotone.tsx",
+      "import": "./src/icons/NotificationTwotone.tsx",
+      "require": "./src/icons/NotificationTwotone.tsx"
+    },
+    "./NumberOutlined": {
+      "types": "./src/icons/NumberOutlined.tsx",
+      "import": "./src/icons/NumberOutlined.tsx",
+      "require": "./src/icons/NumberOutlined.tsx"
+    },
+    "./OneToOneOutlined": {
+      "types": "./src/icons/OneToOneOutlined.tsx",
+      "import": "./src/icons/OneToOneOutlined.tsx",
+      "require": "./src/icons/OneToOneOutlined.tsx"
+    },
+    "./OpenAIFilled": {
+      "types": "./src/icons/OpenAIFilled.tsx",
+      "import": "./src/icons/OpenAIFilled.tsx",
+      "require": "./src/icons/OpenAIFilled.tsx"
+    },
+    "./OpenAIOutlined": {
+      "types": "./src/icons/OpenAIOutlined.tsx",
+      "import": "./src/icons/OpenAIOutlined.tsx",
+      "require": "./src/icons/OpenAIOutlined.tsx"
+    },
+    "./OrderedListOutlined": {
+      "types": "./src/icons/OrderedListOutlined.tsx",
+      "import": "./src/icons/OrderedListOutlined.tsx",
+      "require": "./src/icons/OrderedListOutlined.tsx"
+    },
+    "./PaperClipOutlined": {
+      "types": "./src/icons/PaperClipOutlined.tsx",
+      "import": "./src/icons/PaperClipOutlined.tsx",
+      "require": "./src/icons/PaperClipOutlined.tsx"
+    },
+    "./PartitionOutlined": {
+      "types": "./src/icons/PartitionOutlined.tsx",
+      "import": "./src/icons/PartitionOutlined.tsx",
+      "require": "./src/icons/PartitionOutlined.tsx"
+    },
+    "./PauseCircleFilled": {
+      "types": "./src/icons/PauseCircleFilled.tsx",
+      "import": "./src/icons/PauseCircleFilled.tsx",
+      "require": "./src/icons/PauseCircleFilled.tsx"
+    },
+    "./PauseCircleOutlined": {
+      "types": "./src/icons/PauseCircleOutlined.tsx",
+      "import": "./src/icons/PauseCircleOutlined.tsx",
+      "require": "./src/icons/PauseCircleOutlined.tsx"
+    },
+    "./PauseCircleTwotone": {
+      "types": "./src/icons/PauseCircleTwotone.tsx",
+      "import": "./src/icons/PauseCircleTwotone.tsx",
+      "require": "./src/icons/PauseCircleTwotone.tsx"
+    },
+    "./PauseOutlined": {
+      "types": "./src/icons/PauseOutlined.tsx",
+      "import": "./src/icons/PauseOutlined.tsx",
+      "require": "./src/icons/PauseOutlined.tsx"
+    },
+    "./PayCircleFilled": {
+      "types": "./src/icons/PayCircleFilled.tsx",
+      "import": "./src/icons/PayCircleFilled.tsx",
+      "require": "./src/icons/PayCircleFilled.tsx"
+    },
+    "./PayCircleOutlined": {
+      "types": "./src/icons/PayCircleOutlined.tsx",
+      "import": "./src/icons/PayCircleOutlined.tsx",
+      "require": "./src/icons/PayCircleOutlined.tsx"
+    },
+    "./PercentageOutlined": {
+      "types": "./src/icons/PercentageOutlined.tsx",
+      "import": "./src/icons/PercentageOutlined.tsx",
+      "require": "./src/icons/PercentageOutlined.tsx"
+    },
+    "./PhoneFilled": {
+      "types": "./src/icons/PhoneFilled.tsx",
+      "import": "./src/icons/PhoneFilled.tsx",
+      "require": "./src/icons/PhoneFilled.tsx"
+    },
+    "./PhoneOutlined": {
+      "types": "./src/icons/PhoneOutlined.tsx",
+      "import": "./src/icons/PhoneOutlined.tsx",
+      "require": "./src/icons/PhoneOutlined.tsx"
+    },
+    "./PhoneTwotone": {
+      "types": "./src/icons/PhoneTwotone.tsx",
+      "import": "./src/icons/PhoneTwotone.tsx",
+      "require": "./src/icons/PhoneTwotone.tsx"
+    },
+    "./PicCenterOutlined": {
+      "types": "./src/icons/PicCenterOutlined.tsx",
+      "import": "./src/icons/PicCenterOutlined.tsx",
+      "require": "./src/icons/PicCenterOutlined.tsx"
+    },
+    "./PicLeftOutlined": {
+      "types": "./src/icons/PicLeftOutlined.tsx",
+      "import": "./src/icons/PicLeftOutlined.tsx",
+      "require": "./src/icons/PicLeftOutlined.tsx"
+    },
+    "./PicRightOutlined": {
+      "types": "./src/icons/PicRightOutlined.tsx",
+      "import": "./src/icons/PicRightOutlined.tsx",
+      "require": "./src/icons/PicRightOutlined.tsx"
+    },
+    "./PictureFilled": {
+      "types": "./src/icons/PictureFilled.tsx",
+      "import": "./src/icons/PictureFilled.tsx",
+      "require": "./src/icons/PictureFilled.tsx"
+    },
+    "./PictureOutlined": {
+      "types": "./src/icons/PictureOutlined.tsx",
+      "import": "./src/icons/PictureOutlined.tsx",
+      "require": "./src/icons/PictureOutlined.tsx"
+    },
+    "./PictureTwotone": {
+      "types": "./src/icons/PictureTwotone.tsx",
+      "import": "./src/icons/PictureTwotone.tsx",
+      "require": "./src/icons/PictureTwotone.tsx"
+    },
+    "./PieChartFilled": {
+      "types": "./src/icons/PieChartFilled.tsx",
+      "import": "./src/icons/PieChartFilled.tsx",
+      "require": "./src/icons/PieChartFilled.tsx"
+    },
+    "./PieChartOutlined": {
+      "types": "./src/icons/PieChartOutlined.tsx",
+      "import": "./src/icons/PieChartOutlined.tsx",
+      "require": "./src/icons/PieChartOutlined.tsx"
+    },
+    "./PieChartTwotone": {
+      "types": "./src/icons/PieChartTwotone.tsx",
+      "import": "./src/icons/PieChartTwotone.tsx",
+      "require": "./src/icons/PieChartTwotone.tsx"
+    },
+    "./PinterestFilled": {
+      "types": "./src/icons/PinterestFilled.tsx",
+      "import": "./src/icons/PinterestFilled.tsx",
+      "require": "./src/icons/PinterestFilled.tsx"
+    },
+    "./PinterestOutlined": {
+      "types": "./src/icons/PinterestOutlined.tsx",
+      "import": "./src/icons/PinterestOutlined.tsx",
+      "require": "./src/icons/PinterestOutlined.tsx"
+    },
+    "./PlayCircleFilled": {
+      "types": "./src/icons/PlayCircleFilled.tsx",
+      "import": "./src/icons/PlayCircleFilled.tsx",
+      "require": "./src/icons/PlayCircleFilled.tsx"
+    },
+    "./PlayCircleOutlined": {
+      "types": "./src/icons/PlayCircleOutlined.tsx",
+      "import": "./src/icons/PlayCircleOutlined.tsx",
+      "require": "./src/icons/PlayCircleOutlined.tsx"
+    },
+    "./PlayCircleTwotone": {
+      "types": "./src/icons/PlayCircleTwotone.tsx",
+      "import": "./src/icons/PlayCircleTwotone.tsx",
+      "require": "./src/icons/PlayCircleTwotone.tsx"
+    },
+    "./PlaySquareFilled": {
+      "types": "./src/icons/PlaySquareFilled.tsx",
+      "import": "./src/icons/PlaySquareFilled.tsx",
+      "require": "./src/icons/PlaySquareFilled.tsx"
+    },
+    "./PlaySquareOutlined": {
+      "types": "./src/icons/PlaySquareOutlined.tsx",
+      "import": "./src/icons/PlaySquareOutlined.tsx",
+      "require": "./src/icons/PlaySquareOutlined.tsx"
+    },
+    "./PlaySquareTwotone": {
+      "types": "./src/icons/PlaySquareTwotone.tsx",
+      "import": "./src/icons/PlaySquareTwotone.tsx",
+      "require": "./src/icons/PlaySquareTwotone.tsx"
+    },
+    "./PlusCircleFilled": {
+      "types": "./src/icons/PlusCircleFilled.tsx",
+      "import": "./src/icons/PlusCircleFilled.tsx",
+      "require": "./src/icons/PlusCircleFilled.tsx"
+    },
+    "./PlusCircleOutlined": {
+      "types": "./src/icons/PlusCircleOutlined.tsx",
+      "import": "./src/icons/PlusCircleOutlined.tsx",
+      "require": "./src/icons/PlusCircleOutlined.tsx"
+    },
+    "./PlusCircleTwotone": {
+      "types": "./src/icons/PlusCircleTwotone.tsx",
+      "import": "./src/icons/PlusCircleTwotone.tsx",
+      "require": "./src/icons/PlusCircleTwotone.tsx"
+    },
+    "./PlusOutlined": {
+      "types": "./src/icons/PlusOutlined.tsx",
+      "import": "./src/icons/PlusOutlined.tsx",
+      "require": "./src/icons/PlusOutlined.tsx"
+    },
+    "./PlusSquareFilled": {
+      "types": "./src/icons/PlusSquareFilled.tsx",
+      "import": "./src/icons/PlusSquareFilled.tsx",
+      "require": "./src/icons/PlusSquareFilled.tsx"
+    },
+    "./PlusSquareOutlined": {
+      "types": "./src/icons/PlusSquareOutlined.tsx",
+      "import": "./src/icons/PlusSquareOutlined.tsx",
+      "require": "./src/icons/PlusSquareOutlined.tsx"
+    },
+    "./PlusSquareTwotone": {
+      "types": "./src/icons/PlusSquareTwotone.tsx",
+      "import": "./src/icons/PlusSquareTwotone.tsx",
+      "require": "./src/icons/PlusSquareTwotone.tsx"
+    },
+    "./PoundCircleFilled": {
+      "types": "./src/icons/PoundCircleFilled.tsx",
+      "import": "./src/icons/PoundCircleFilled.tsx",
+      "require": "./src/icons/PoundCircleFilled.tsx"
+    },
+    "./PoundCircleOutlined": {
+      "types": "./src/icons/PoundCircleOutlined.tsx",
+      "import": "./src/icons/PoundCircleOutlined.tsx",
+      "require": "./src/icons/PoundCircleOutlined.tsx"
+    },
+    "./PoundCircleTwotone": {
+      "types": "./src/icons/PoundCircleTwotone.tsx",
+      "import": "./src/icons/PoundCircleTwotone.tsx",
+      "require": "./src/icons/PoundCircleTwotone.tsx"
+    },
+    "./PoundOutlined": {
+      "types": "./src/icons/PoundOutlined.tsx",
+      "import": "./src/icons/PoundOutlined.tsx",
+      "require": "./src/icons/PoundOutlined.tsx"
+    },
+    "./PoweroffOutlined": {
+      "types": "./src/icons/PoweroffOutlined.tsx",
+      "import": "./src/icons/PoweroffOutlined.tsx",
+      "require": "./src/icons/PoweroffOutlined.tsx"
+    },
+    "./PrinterFilled": {
+      "types": "./src/icons/PrinterFilled.tsx",
+      "import": "./src/icons/PrinterFilled.tsx",
+      "require": "./src/icons/PrinterFilled.tsx"
+    },
+    "./PrinterOutlined": {
+      "types": "./src/icons/PrinterOutlined.tsx",
+      "import": "./src/icons/PrinterOutlined.tsx",
+      "require": "./src/icons/PrinterOutlined.tsx"
+    },
+    "./PrinterTwotone": {
+      "types": "./src/icons/PrinterTwotone.tsx",
+      "import": "./src/icons/PrinterTwotone.tsx",
+      "require": "./src/icons/PrinterTwotone.tsx"
+    },
+    "./ProductFilled": {
+      "types": "./src/icons/ProductFilled.tsx",
+      "import": "./src/icons/ProductFilled.tsx",
+      "require": "./src/icons/ProductFilled.tsx"
+    },
+    "./ProductOutlined": {
+      "types": "./src/icons/ProductOutlined.tsx",
+      "import": "./src/icons/ProductOutlined.tsx",
+      "require": "./src/icons/ProductOutlined.tsx"
+    },
+    "./ProfileFilled": {
+      "types": "./src/icons/ProfileFilled.tsx",
+      "import": "./src/icons/ProfileFilled.tsx",
+      "require": "./src/icons/ProfileFilled.tsx"
+    },
+    "./ProfileOutlined": {
+      "types": "./src/icons/ProfileOutlined.tsx",
+      "import": "./src/icons/ProfileOutlined.tsx",
+      "require": "./src/icons/ProfileOutlined.tsx"
+    },
+    "./ProfileTwotone": {
+      "types": "./src/icons/ProfileTwotone.tsx",
+      "import": "./src/icons/ProfileTwotone.tsx",
+      "require": "./src/icons/ProfileTwotone.tsx"
+    },
+    "./ProjectFilled": {
+      "types": "./src/icons/ProjectFilled.tsx",
+      "import": "./src/icons/ProjectFilled.tsx",
+      "require": "./src/icons/ProjectFilled.tsx"
+    },
+    "./ProjectOutlined": {
+      "types": "./src/icons/ProjectOutlined.tsx",
+      "import": "./src/icons/ProjectOutlined.tsx",
+      "require": "./src/icons/ProjectOutlined.tsx"
+    },
+    "./ProjectTwotone": {
+      "types": "./src/icons/ProjectTwotone.tsx",
+      "import": "./src/icons/ProjectTwotone.tsx",
+      "require": "./src/icons/ProjectTwotone.tsx"
+    },
+    "./PropertySafetyFilled": {
+      "types": "./src/icons/PropertySafetyFilled.tsx",
+      "import": "./src/icons/PropertySafetyFilled.tsx",
+      "require": "./src/icons/PropertySafetyFilled.tsx"
+    },
+    "./PropertySafetyOutlined": {
+      "types": "./src/icons/PropertySafetyOutlined.tsx",
+      "import": "./src/icons/PropertySafetyOutlined.tsx",
+      "require": "./src/icons/PropertySafetyOutlined.tsx"
+    },
+    "./PropertySafetyTwotone": {
+      "types": "./src/icons/PropertySafetyTwotone.tsx",
+      "import": "./src/icons/PropertySafetyTwotone.tsx",
+      "require": "./src/icons/PropertySafetyTwotone.tsx"
+    },
+    "./PullRequestOutlined": {
+      "types": "./src/icons/PullRequestOutlined.tsx",
+      "import": "./src/icons/PullRequestOutlined.tsx",
+      "require": "./src/icons/PullRequestOutlined.tsx"
+    },
+    "./PushpinFilled": {
+      "types": "./src/icons/PushpinFilled.tsx",
+      "import": "./src/icons/PushpinFilled.tsx",
+      "require": "./src/icons/PushpinFilled.tsx"
+    },
+    "./PushpinOutlined": {
+      "types": "./src/icons/PushpinOutlined.tsx",
+      "import": "./src/icons/PushpinOutlined.tsx",
+      "require": "./src/icons/PushpinOutlined.tsx"
+    },
+    "./PushpinTwotone": {
+      "types": "./src/icons/PushpinTwotone.tsx",
+      "import": "./src/icons/PushpinTwotone.tsx",
+      "require": "./src/icons/PushpinTwotone.tsx"
+    },
+    "./PythonOutlined": {
+      "types": "./src/icons/PythonOutlined.tsx",
+      "import": "./src/icons/PythonOutlined.tsx",
+      "require": "./src/icons/PythonOutlined.tsx"
+    },
+    "./QqCircleFilled": {
+      "types": "./src/icons/QqCircleFilled.tsx",
+      "import": "./src/icons/QqCircleFilled.tsx",
+      "require": "./src/icons/QqCircleFilled.tsx"
+    },
+    "./QqOutlined": {
+      "types": "./src/icons/QqOutlined.tsx",
+      "import": "./src/icons/QqOutlined.tsx",
+      "require": "./src/icons/QqOutlined.tsx"
+    },
+    "./QqSquareFilled": {
+      "types": "./src/icons/QqSquareFilled.tsx",
+      "import": "./src/icons/QqSquareFilled.tsx",
+      "require": "./src/icons/QqSquareFilled.tsx"
+    },
+    "./QrcodeOutlined": {
+      "types": "./src/icons/QrcodeOutlined.tsx",
+      "import": "./src/icons/QrcodeOutlined.tsx",
+      "require": "./src/icons/QrcodeOutlined.tsx"
+    },
+    "./QuestionCircleFilled": {
+      "types": "./src/icons/QuestionCircleFilled.tsx",
+      "import": "./src/icons/QuestionCircleFilled.tsx",
+      "require": "./src/icons/QuestionCircleFilled.tsx"
+    },
+    "./QuestionCircleOutlined": {
+      "types": "./src/icons/QuestionCircleOutlined.tsx",
+      "import": "./src/icons/QuestionCircleOutlined.tsx",
+      "require": "./src/icons/QuestionCircleOutlined.tsx"
+    },
+    "./QuestionCircleTwotone": {
+      "types": "./src/icons/QuestionCircleTwotone.tsx",
+      "import": "./src/icons/QuestionCircleTwotone.tsx",
+      "require": "./src/icons/QuestionCircleTwotone.tsx"
+    },
+    "./QuestionOutlined": {
+      "types": "./src/icons/QuestionOutlined.tsx",
+      "import": "./src/icons/QuestionOutlined.tsx",
+      "require": "./src/icons/QuestionOutlined.tsx"
+    },
+    "./RadarChartOutlined": {
+      "types": "./src/icons/RadarChartOutlined.tsx",
+      "import": "./src/icons/RadarChartOutlined.tsx",
+      "require": "./src/icons/RadarChartOutlined.tsx"
+    },
+    "./RadiusBottomleftOutlined": {
+      "types": "./src/icons/RadiusBottomleftOutlined.tsx",
+      "import": "./src/icons/RadiusBottomleftOutlined.tsx",
+      "require": "./src/icons/RadiusBottomleftOutlined.tsx"
+    },
+    "./RadiusBottomrightOutlined": {
+      "types": "./src/icons/RadiusBottomrightOutlined.tsx",
+      "import": "./src/icons/RadiusBottomrightOutlined.tsx",
+      "require": "./src/icons/RadiusBottomrightOutlined.tsx"
+    },
+    "./RadiusSettingOutlined": {
+      "types": "./src/icons/RadiusSettingOutlined.tsx",
+      "import": "./src/icons/RadiusSettingOutlined.tsx",
+      "require": "./src/icons/RadiusSettingOutlined.tsx"
+    },
+    "./RadiusUpleftOutlined": {
+      "types": "./src/icons/RadiusUpleftOutlined.tsx",
+      "import": "./src/icons/RadiusUpleftOutlined.tsx",
+      "require": "./src/icons/RadiusUpleftOutlined.tsx"
+    },
+    "./RadiusUprightOutlined": {
+      "types": "./src/icons/RadiusUprightOutlined.tsx",
+      "import": "./src/icons/RadiusUprightOutlined.tsx",
+      "require": "./src/icons/RadiusUprightOutlined.tsx"
+    },
+    "./ReadFilled": {
+      "types": "./src/icons/ReadFilled.tsx",
+      "import": "./src/icons/ReadFilled.tsx",
+      "require": "./src/icons/ReadFilled.tsx"
+    },
+    "./ReadOutlined": {
+      "types": "./src/icons/ReadOutlined.tsx",
+      "import": "./src/icons/ReadOutlined.tsx",
+      "require": "./src/icons/ReadOutlined.tsx"
+    },
+    "./ReconciliationFilled": {
+      "types": "./src/icons/ReconciliationFilled.tsx",
+      "import": "./src/icons/ReconciliationFilled.tsx",
+      "require": "./src/icons/ReconciliationFilled.tsx"
+    },
+    "./ReconciliationOutlined": {
+      "types": "./src/icons/ReconciliationOutlined.tsx",
+      "import": "./src/icons/ReconciliationOutlined.tsx",
+      "require": "./src/icons/ReconciliationOutlined.tsx"
+    },
+    "./ReconciliationTwotone": {
+      "types": "./src/icons/ReconciliationTwotone.tsx",
+      "import": "./src/icons/ReconciliationTwotone.tsx",
+      "require": "./src/icons/ReconciliationTwotone.tsx"
+    },
+    "./RedditCircleFilled": {
+      "types": "./src/icons/RedditCircleFilled.tsx",
+      "import": "./src/icons/RedditCircleFilled.tsx",
+      "require": "./src/icons/RedditCircleFilled.tsx"
+    },
+    "./RedditOutlined": {
+      "types": "./src/icons/RedditOutlined.tsx",
+      "import": "./src/icons/RedditOutlined.tsx",
+      "require": "./src/icons/RedditOutlined.tsx"
+    },
+    "./RedditSquareFilled": {
+      "types": "./src/icons/RedditSquareFilled.tsx",
+      "import": "./src/icons/RedditSquareFilled.tsx",
+      "require": "./src/icons/RedditSquareFilled.tsx"
+    },
+    "./RedEnvelopeFilled": {
+      "types": "./src/icons/RedEnvelopeFilled.tsx",
+      "import": "./src/icons/RedEnvelopeFilled.tsx",
+      "require": "./src/icons/RedEnvelopeFilled.tsx"
+    },
+    "./RedEnvelopeOutlined": {
+      "types": "./src/icons/RedEnvelopeOutlined.tsx",
+      "import": "./src/icons/RedEnvelopeOutlined.tsx",
+      "require": "./src/icons/RedEnvelopeOutlined.tsx"
+    },
+    "./RedEnvelopeTwotone": {
+      "types": "./src/icons/RedEnvelopeTwotone.tsx",
+      "import": "./src/icons/RedEnvelopeTwotone.tsx",
+      "require": "./src/icons/RedEnvelopeTwotone.tsx"
+    },
+    "./RedoOutlined": {
+      "types": "./src/icons/RedoOutlined.tsx",
+      "import": "./src/icons/RedoOutlined.tsx",
+      "require": "./src/icons/RedoOutlined.tsx"
+    },
+    "./ReloadOutlined": {
+      "types": "./src/icons/ReloadOutlined.tsx",
+      "import": "./src/icons/ReloadOutlined.tsx",
+      "require": "./src/icons/ReloadOutlined.tsx"
+    },
+    "./RestFilled": {
+      "types": "./src/icons/RestFilled.tsx",
+      "import": "./src/icons/RestFilled.tsx",
+      "require": "./src/icons/RestFilled.tsx"
+    },
+    "./RestOutlined": {
+      "types": "./src/icons/RestOutlined.tsx",
+      "import": "./src/icons/RestOutlined.tsx",
+      "require": "./src/icons/RestOutlined.tsx"
+    },
+    "./RestTwotone": {
+      "types": "./src/icons/RestTwotone.tsx",
+      "import": "./src/icons/RestTwotone.tsx",
+      "require": "./src/icons/RestTwotone.tsx"
+    },
+    "./RetweetOutlined": {
+      "types": "./src/icons/RetweetOutlined.tsx",
+      "import": "./src/icons/RetweetOutlined.tsx",
+      "require": "./src/icons/RetweetOutlined.tsx"
+    },
+    "./RightCircleFilled": {
+      "types": "./src/icons/RightCircleFilled.tsx",
+      "import": "./src/icons/RightCircleFilled.tsx",
+      "require": "./src/icons/RightCircleFilled.tsx"
+    },
+    "./RightCircleOutlined": {
+      "types": "./src/icons/RightCircleOutlined.tsx",
+      "import": "./src/icons/RightCircleOutlined.tsx",
+      "require": "./src/icons/RightCircleOutlined.tsx"
+    },
+    "./RightCircleTwotone": {
+      "types": "./src/icons/RightCircleTwotone.tsx",
+      "import": "./src/icons/RightCircleTwotone.tsx",
+      "require": "./src/icons/RightCircleTwotone.tsx"
+    },
+    "./RightOutlined": {
+      "types": "./src/icons/RightOutlined.tsx",
+      "import": "./src/icons/RightOutlined.tsx",
+      "require": "./src/icons/RightOutlined.tsx"
+    },
+    "./RightSquareFilled": {
+      "types": "./src/icons/RightSquareFilled.tsx",
+      "import": "./src/icons/RightSquareFilled.tsx",
+      "require": "./src/icons/RightSquareFilled.tsx"
+    },
+    "./RightSquareOutlined": {
+      "types": "./src/icons/RightSquareOutlined.tsx",
+      "import": "./src/icons/RightSquareOutlined.tsx",
+      "require": "./src/icons/RightSquareOutlined.tsx"
+    },
+    "./RightSquareTwotone": {
+      "types": "./src/icons/RightSquareTwotone.tsx",
+      "import": "./src/icons/RightSquareTwotone.tsx",
+      "require": "./src/icons/RightSquareTwotone.tsx"
+    },
+    "./RiseOutlined": {
+      "types": "./src/icons/RiseOutlined.tsx",
+      "import": "./src/icons/RiseOutlined.tsx",
+      "require": "./src/icons/RiseOutlined.tsx"
+    },
+    "./RobotFilled": {
+      "types": "./src/icons/RobotFilled.tsx",
+      "import": "./src/icons/RobotFilled.tsx",
+      "require": "./src/icons/RobotFilled.tsx"
+    },
+    "./RobotOutlined": {
+      "types": "./src/icons/RobotOutlined.tsx",
+      "import": "./src/icons/RobotOutlined.tsx",
+      "require": "./src/icons/RobotOutlined.tsx"
+    },
+    "./RocketFilled": {
+      "types": "./src/icons/RocketFilled.tsx",
+      "import": "./src/icons/RocketFilled.tsx",
+      "require": "./src/icons/RocketFilled.tsx"
+    },
+    "./RocketOutlined": {
+      "types": "./src/icons/RocketOutlined.tsx",
+      "import": "./src/icons/RocketOutlined.tsx",
+      "require": "./src/icons/RocketOutlined.tsx"
+    },
+    "./RocketTwotone": {
+      "types": "./src/icons/RocketTwotone.tsx",
+      "import": "./src/icons/RocketTwotone.tsx",
+      "require": "./src/icons/RocketTwotone.tsx"
+    },
+    "./RollbackOutlined": {
+      "types": "./src/icons/RollbackOutlined.tsx",
+      "import": "./src/icons/RollbackOutlined.tsx",
+      "require": "./src/icons/RollbackOutlined.tsx"
+    },
+    "./RotateLeftOutlined": {
+      "types": "./src/icons/RotateLeftOutlined.tsx",
+      "import": "./src/icons/RotateLeftOutlined.tsx",
+      "require": "./src/icons/RotateLeftOutlined.tsx"
+    },
+    "./RotateRightOutlined": {
+      "types": "./src/icons/RotateRightOutlined.tsx",
+      "import": "./src/icons/RotateRightOutlined.tsx",
+      "require": "./src/icons/RotateRightOutlined.tsx"
+    },
+    "./RubyOutlined": {
+      "types": "./src/icons/RubyOutlined.tsx",
+      "import": "./src/icons/RubyOutlined.tsx",
+      "require": "./src/icons/RubyOutlined.tsx"
+    },
+    "./SafetyCertificateFilled": {
+      "types": "./src/icons/SafetyCertificateFilled.tsx",
+      "import": "./src/icons/SafetyCertificateFilled.tsx",
+      "require": "./src/icons/SafetyCertificateFilled.tsx"
+    },
+    "./SafetyCertificateOutlined": {
+      "types": "./src/icons/SafetyCertificateOutlined.tsx",
+      "import": "./src/icons/SafetyCertificateOutlined.tsx",
+      "require": "./src/icons/SafetyCertificateOutlined.tsx"
+    },
+    "./SafetyCertificateTwotone": {
+      "types": "./src/icons/SafetyCertificateTwotone.tsx",
+      "import": "./src/icons/SafetyCertificateTwotone.tsx",
+      "require": "./src/icons/SafetyCertificateTwotone.tsx"
+    },
+    "./SafetyOutlined": {
+      "types": "./src/icons/SafetyOutlined.tsx",
+      "import": "./src/icons/SafetyOutlined.tsx",
+      "require": "./src/icons/SafetyOutlined.tsx"
+    },
+    "./SaveFilled": {
+      "types": "./src/icons/SaveFilled.tsx",
+      "import": "./src/icons/SaveFilled.tsx",
+      "require": "./src/icons/SaveFilled.tsx"
+    },
+    "./SaveOutlined": {
+      "types": "./src/icons/SaveOutlined.tsx",
+      "import": "./src/icons/SaveOutlined.tsx",
+      "require": "./src/icons/SaveOutlined.tsx"
+    },
+    "./SaveTwotone": {
+      "types": "./src/icons/SaveTwotone.tsx",
+      "import": "./src/icons/SaveTwotone.tsx",
+      "require": "./src/icons/SaveTwotone.tsx"
+    },
+    "./ScanOutlined": {
+      "types": "./src/icons/ScanOutlined.tsx",
+      "import": "./src/icons/ScanOutlined.tsx",
+      "require": "./src/icons/ScanOutlined.tsx"
+    },
+    "./ScheduleFilled": {
+      "types": "./src/icons/ScheduleFilled.tsx",
+      "import": "./src/icons/ScheduleFilled.tsx",
+      "require": "./src/icons/ScheduleFilled.tsx"
+    },
+    "./ScheduleOutlined": {
+      "types": "./src/icons/ScheduleOutlined.tsx",
+      "import": "./src/icons/ScheduleOutlined.tsx",
+      "require": "./src/icons/ScheduleOutlined.tsx"
+    },
+    "./ScheduleTwotone": {
+      "types": "./src/icons/ScheduleTwotone.tsx",
+      "import": "./src/icons/ScheduleTwotone.tsx",
+      "require": "./src/icons/ScheduleTwotone.tsx"
+    },
+    "./ScissorOutlined": {
+      "types": "./src/icons/ScissorOutlined.tsx",
+      "import": "./src/icons/ScissorOutlined.tsx",
+      "require": "./src/icons/ScissorOutlined.tsx"
+    },
+    "./SearchOutlined": {
+      "types": "./src/icons/SearchOutlined.tsx",
+      "import": "./src/icons/SearchOutlined.tsx",
+      "require": "./src/icons/SearchOutlined.tsx"
+    },
+    "./SecurityScanFilled": {
+      "types": "./src/icons/SecurityScanFilled.tsx",
+      "import": "./src/icons/SecurityScanFilled.tsx",
+      "require": "./src/icons/SecurityScanFilled.tsx"
+    },
+    "./SecurityScanOutlined": {
+      "types": "./src/icons/SecurityScanOutlined.tsx",
+      "import": "./src/icons/SecurityScanOutlined.tsx",
+      "require": "./src/icons/SecurityScanOutlined.tsx"
+    },
+    "./SecurityScanTwotone": {
+      "types": "./src/icons/SecurityScanTwotone.tsx",
+      "import": "./src/icons/SecurityScanTwotone.tsx",
+      "require": "./src/icons/SecurityScanTwotone.tsx"
+    },
+    "./SelectOutlined": {
+      "types": "./src/icons/SelectOutlined.tsx",
+      "import": "./src/icons/SelectOutlined.tsx",
+      "require": "./src/icons/SelectOutlined.tsx"
+    },
+    "./SendOutlined": {
+      "types": "./src/icons/SendOutlined.tsx",
+      "import": "./src/icons/SendOutlined.tsx",
+      "require": "./src/icons/SendOutlined.tsx"
+    },
+    "./SettingFilled": {
+      "types": "./src/icons/SettingFilled.tsx",
+      "import": "./src/icons/SettingFilled.tsx",
+      "require": "./src/icons/SettingFilled.tsx"
+    },
+    "./SettingOutlined": {
+      "types": "./src/icons/SettingOutlined.tsx",
+      "import": "./src/icons/SettingOutlined.tsx",
+      "require": "./src/icons/SettingOutlined.tsx"
+    },
+    "./SettingTwotone": {
+      "types": "./src/icons/SettingTwotone.tsx",
+      "import": "./src/icons/SettingTwotone.tsx",
+      "require": "./src/icons/SettingTwotone.tsx"
+    },
+    "./ShakeOutlined": {
+      "types": "./src/icons/ShakeOutlined.tsx",
+      "import": "./src/icons/ShakeOutlined.tsx",
+      "require": "./src/icons/ShakeOutlined.tsx"
+    },
+    "./ShareAltOutlined": {
+      "types": "./src/icons/ShareAltOutlined.tsx",
+      "import": "./src/icons/ShareAltOutlined.tsx",
+      "require": "./src/icons/ShareAltOutlined.tsx"
+    },
+    "./ShopFilled": {
+      "types": "./src/icons/ShopFilled.tsx",
+      "import": "./src/icons/ShopFilled.tsx",
+      "require": "./src/icons/ShopFilled.tsx"
+    },
+    "./ShopOutlined": {
+      "types": "./src/icons/ShopOutlined.tsx",
+      "import": "./src/icons/ShopOutlined.tsx",
+      "require": "./src/icons/ShopOutlined.tsx"
+    },
+    "./ShoppingCartOutlined": {
+      "types": "./src/icons/ShoppingCartOutlined.tsx",
+      "import": "./src/icons/ShoppingCartOutlined.tsx",
+      "require": "./src/icons/ShoppingCartOutlined.tsx"
+    },
+    "./ShoppingFilled": {
+      "types": "./src/icons/ShoppingFilled.tsx",
+      "import": "./src/icons/ShoppingFilled.tsx",
+      "require": "./src/icons/ShoppingFilled.tsx"
+    },
+    "./ShoppingOutlined": {
+      "types": "./src/icons/ShoppingOutlined.tsx",
+      "import": "./src/icons/ShoppingOutlined.tsx",
+      "require": "./src/icons/ShoppingOutlined.tsx"
+    },
+    "./ShoppingTwotone": {
+      "types": "./src/icons/ShoppingTwotone.tsx",
+      "import": "./src/icons/ShoppingTwotone.tsx",
+      "require": "./src/icons/ShoppingTwotone.tsx"
+    },
+    "./ShopTwotone": {
+      "types": "./src/icons/ShopTwotone.tsx",
+      "import": "./src/icons/ShopTwotone.tsx",
+      "require": "./src/icons/ShopTwotone.tsx"
+    },
+    "./ShrinkOutlined": {
+      "types": "./src/icons/ShrinkOutlined.tsx",
+      "import": "./src/icons/ShrinkOutlined.tsx",
+      "require": "./src/icons/ShrinkOutlined.tsx"
+    },
+    "./SignalFilled": {
+      "types": "./src/icons/SignalFilled.tsx",
+      "import": "./src/icons/SignalFilled.tsx",
+      "require": "./src/icons/SignalFilled.tsx"
+    },
+    "./SignatureFilled": {
+      "types": "./src/icons/SignatureFilled.tsx",
+      "import": "./src/icons/SignatureFilled.tsx",
+      "require": "./src/icons/SignatureFilled.tsx"
+    },
+    "./SignatureOutlined": {
+      "types": "./src/icons/SignatureOutlined.tsx",
+      "import": "./src/icons/SignatureOutlined.tsx",
+      "require": "./src/icons/SignatureOutlined.tsx"
+    },
+    "./SisternodeOutlined": {
+      "types": "./src/icons/SisternodeOutlined.tsx",
+      "import": "./src/icons/SisternodeOutlined.tsx",
+      "require": "./src/icons/SisternodeOutlined.tsx"
+    },
+    "./SketchCircleFilled": {
+      "types": "./src/icons/SketchCircleFilled.tsx",
+      "import": "./src/icons/SketchCircleFilled.tsx",
+      "require": "./src/icons/SketchCircleFilled.tsx"
+    },
+    "./SketchOutlined": {
+      "types": "./src/icons/SketchOutlined.tsx",
+      "import": "./src/icons/SketchOutlined.tsx",
+      "require": "./src/icons/SketchOutlined.tsx"
+    },
+    "./SketchSquareFilled": {
+      "types": "./src/icons/SketchSquareFilled.tsx",
+      "import": "./src/icons/SketchSquareFilled.tsx",
+      "require": "./src/icons/SketchSquareFilled.tsx"
+    },
+    "./SkinFilled": {
+      "types": "./src/icons/SkinFilled.tsx",
+      "import": "./src/icons/SkinFilled.tsx",
+      "require": "./src/icons/SkinFilled.tsx"
+    },
+    "./SkinOutlined": {
+      "types": "./src/icons/SkinOutlined.tsx",
+      "import": "./src/icons/SkinOutlined.tsx",
+      "require": "./src/icons/SkinOutlined.tsx"
+    },
+    "./SkinTwotone": {
+      "types": "./src/icons/SkinTwotone.tsx",
+      "import": "./src/icons/SkinTwotone.tsx",
+      "require": "./src/icons/SkinTwotone.tsx"
+    },
+    "./SkypeFilled": {
+      "types": "./src/icons/SkypeFilled.tsx",
+      "import": "./src/icons/SkypeFilled.tsx",
+      "require": "./src/icons/SkypeFilled.tsx"
+    },
+    "./SkypeOutlined": {
+      "types": "./src/icons/SkypeOutlined.tsx",
+      "import": "./src/icons/SkypeOutlined.tsx",
+      "require": "./src/icons/SkypeOutlined.tsx"
+    },
+    "./SlackCircleFilled": {
+      "types": "./src/icons/SlackCircleFilled.tsx",
+      "import": "./src/icons/SlackCircleFilled.tsx",
+      "require": "./src/icons/SlackCircleFilled.tsx"
+    },
+    "./SlackOutlined": {
+      "types": "./src/icons/SlackOutlined.tsx",
+      "import": "./src/icons/SlackOutlined.tsx",
+      "require": "./src/icons/SlackOutlined.tsx"
+    },
+    "./SlackSquareFilled": {
+      "types": "./src/icons/SlackSquareFilled.tsx",
+      "import": "./src/icons/SlackSquareFilled.tsx",
+      "require": "./src/icons/SlackSquareFilled.tsx"
+    },
+    "./SlackSquareOutlined": {
+      "types": "./src/icons/SlackSquareOutlined.tsx",
+      "import": "./src/icons/SlackSquareOutlined.tsx",
+      "require": "./src/icons/SlackSquareOutlined.tsx"
+    },
+    "./SlidersFilled": {
+      "types": "./src/icons/SlidersFilled.tsx",
+      "import": "./src/icons/SlidersFilled.tsx",
+      "require": "./src/icons/SlidersFilled.tsx"
+    },
+    "./SlidersOutlined": {
+      "types": "./src/icons/SlidersOutlined.tsx",
+      "import": "./src/icons/SlidersOutlined.tsx",
+      "require": "./src/icons/SlidersOutlined.tsx"
+    },
+    "./SlidersTwotone": {
+      "types": "./src/icons/SlidersTwotone.tsx",
+      "import": "./src/icons/SlidersTwotone.tsx",
+      "require": "./src/icons/SlidersTwotone.tsx"
+    },
+    "./SmallDashOutlined": {
+      "types": "./src/icons/SmallDashOutlined.tsx",
+      "import": "./src/icons/SmallDashOutlined.tsx",
+      "require": "./src/icons/SmallDashOutlined.tsx"
+    },
+    "./SmileFilled": {
+      "types": "./src/icons/SmileFilled.tsx",
+      "import": "./src/icons/SmileFilled.tsx",
+      "require": "./src/icons/SmileFilled.tsx"
+    },
+    "./SmileOutlined": {
+      "types": "./src/icons/SmileOutlined.tsx",
+      "import": "./src/icons/SmileOutlined.tsx",
+      "require": "./src/icons/SmileOutlined.tsx"
+    },
+    "./SmileTwotone": {
+      "types": "./src/icons/SmileTwotone.tsx",
+      "import": "./src/icons/SmileTwotone.tsx",
+      "require": "./src/icons/SmileTwotone.tsx"
+    },
+    "./SnippetsFilled": {
+      "types": "./src/icons/SnippetsFilled.tsx",
+      "import": "./src/icons/SnippetsFilled.tsx",
+      "require": "./src/icons/SnippetsFilled.tsx"
+    },
+    "./SnippetsOutlined": {
+      "types": "./src/icons/SnippetsOutlined.tsx",
+      "import": "./src/icons/SnippetsOutlined.tsx",
+      "require": "./src/icons/SnippetsOutlined.tsx"
+    },
+    "./SnippetsTwotone": {
+      "types": "./src/icons/SnippetsTwotone.tsx",
+      "import": "./src/icons/SnippetsTwotone.tsx",
+      "require": "./src/icons/SnippetsTwotone.tsx"
+    },
+    "./SolutionOutlined": {
+      "types": "./src/icons/SolutionOutlined.tsx",
+      "import": "./src/icons/SolutionOutlined.tsx",
+      "require": "./src/icons/SolutionOutlined.tsx"
+    },
+    "./SortAscendingOutlined": {
+      "types": "./src/icons/SortAscendingOutlined.tsx",
+      "import": "./src/icons/SortAscendingOutlined.tsx",
+      "require": "./src/icons/SortAscendingOutlined.tsx"
+    },
+    "./SortDescendingOutlined": {
+      "types": "./src/icons/SortDescendingOutlined.tsx",
+      "import": "./src/icons/SortDescendingOutlined.tsx",
+      "require": "./src/icons/SortDescendingOutlined.tsx"
+    },
+    "./SoundFilled": {
+      "types": "./src/icons/SoundFilled.tsx",
+      "import": "./src/icons/SoundFilled.tsx",
+      "require": "./src/icons/SoundFilled.tsx"
+    },
+    "./SoundOutlined": {
+      "types": "./src/icons/SoundOutlined.tsx",
+      "import": "./src/icons/SoundOutlined.tsx",
+      "require": "./src/icons/SoundOutlined.tsx"
+    },
+    "./SoundTwotone": {
+      "types": "./src/icons/SoundTwotone.tsx",
+      "import": "./src/icons/SoundTwotone.tsx",
+      "require": "./src/icons/SoundTwotone.tsx"
+    },
+    "./SplitCellsOutlined": {
+      "types": "./src/icons/SplitCellsOutlined.tsx",
+      "import": "./src/icons/SplitCellsOutlined.tsx",
+      "require": "./src/icons/SplitCellsOutlined.tsx"
+    },
+    "./SpotifyFilled": {
+      "types": "./src/icons/SpotifyFilled.tsx",
+      "import": "./src/icons/SpotifyFilled.tsx",
+      "require": "./src/icons/SpotifyFilled.tsx"
+    },
+    "./SpotifyOutlined": {
+      "types": "./src/icons/SpotifyOutlined.tsx",
+      "import": "./src/icons/SpotifyOutlined.tsx",
+      "require": "./src/icons/SpotifyOutlined.tsx"
+    },
+    "./StarFilled": {
+      "types": "./src/icons/StarFilled.tsx",
+      "import": "./src/icons/StarFilled.tsx",
+      "require": "./src/icons/StarFilled.tsx"
+    },
+    "./StarOutlined": {
+      "types": "./src/icons/StarOutlined.tsx",
+      "import": "./src/icons/StarOutlined.tsx",
+      "require": "./src/icons/StarOutlined.tsx"
+    },
+    "./StarTwotone": {
+      "types": "./src/icons/StarTwotone.tsx",
+      "import": "./src/icons/StarTwotone.tsx",
+      "require": "./src/icons/StarTwotone.tsx"
+    },
+    "./StepBackwardFilled": {
+      "types": "./src/icons/StepBackwardFilled.tsx",
+      "import": "./src/icons/StepBackwardFilled.tsx",
+      "require": "./src/icons/StepBackwardFilled.tsx"
+    },
+    "./StepBackwardOutlined": {
+      "types": "./src/icons/StepBackwardOutlined.tsx",
+      "import": "./src/icons/StepBackwardOutlined.tsx",
+      "require": "./src/icons/StepBackwardOutlined.tsx"
+    },
+    "./StepForwardFilled": {
+      "types": "./src/icons/StepForwardFilled.tsx",
+      "import": "./src/icons/StepForwardFilled.tsx",
+      "require": "./src/icons/StepForwardFilled.tsx"
+    },
+    "./StepForwardOutlined": {
+      "types": "./src/icons/StepForwardOutlined.tsx",
+      "import": "./src/icons/StepForwardOutlined.tsx",
+      "require": "./src/icons/StepForwardOutlined.tsx"
+    },
+    "./StockOutlined": {
+      "types": "./src/icons/StockOutlined.tsx",
+      "import": "./src/icons/StockOutlined.tsx",
+      "require": "./src/icons/StockOutlined.tsx"
+    },
+    "./StopFilled": {
+      "types": "./src/icons/StopFilled.tsx",
+      "import": "./src/icons/StopFilled.tsx",
+      "require": "./src/icons/StopFilled.tsx"
+    },
+    "./StopOutlined": {
+      "types": "./src/icons/StopOutlined.tsx",
+      "import": "./src/icons/StopOutlined.tsx",
+      "require": "./src/icons/StopOutlined.tsx"
+    },
+    "./StopTwotone": {
+      "types": "./src/icons/StopTwotone.tsx",
+      "import": "./src/icons/StopTwotone.tsx",
+      "require": "./src/icons/StopTwotone.tsx"
+    },
+    "./StrikethroughOutlined": {
+      "types": "./src/icons/StrikethroughOutlined.tsx",
+      "import": "./src/icons/StrikethroughOutlined.tsx",
+      "require": "./src/icons/StrikethroughOutlined.tsx"
+    },
+    "./SubnodeOutlined": {
+      "types": "./src/icons/SubnodeOutlined.tsx",
+      "import": "./src/icons/SubnodeOutlined.tsx",
+      "require": "./src/icons/SubnodeOutlined.tsx"
+    },
+    "./SunFilled": {
+      "types": "./src/icons/SunFilled.tsx",
+      "import": "./src/icons/SunFilled.tsx",
+      "require": "./src/icons/SunFilled.tsx"
+    },
+    "./SunOutlined": {
+      "types": "./src/icons/SunOutlined.tsx",
+      "import": "./src/icons/SunOutlined.tsx",
+      "require": "./src/icons/SunOutlined.tsx"
+    },
+    "./SwapLeftOutlined": {
+      "types": "./src/icons/SwapLeftOutlined.tsx",
+      "import": "./src/icons/SwapLeftOutlined.tsx",
+      "require": "./src/icons/SwapLeftOutlined.tsx"
+    },
+    "./SwapOutlined": {
+      "types": "./src/icons/SwapOutlined.tsx",
+      "import": "./src/icons/SwapOutlined.tsx",
+      "require": "./src/icons/SwapOutlined.tsx"
+    },
+    "./SwapRightOutlined": {
+      "types": "./src/icons/SwapRightOutlined.tsx",
+      "import": "./src/icons/SwapRightOutlined.tsx",
+      "require": "./src/icons/SwapRightOutlined.tsx"
+    },
+    "./SwitcherFilled": {
+      "types": "./src/icons/SwitcherFilled.tsx",
+      "import": "./src/icons/SwitcherFilled.tsx",
+      "require": "./src/icons/SwitcherFilled.tsx"
+    },
+    "./SwitcherOutlined": {
+      "types": "./src/icons/SwitcherOutlined.tsx",
+      "import": "./src/icons/SwitcherOutlined.tsx",
+      "require": "./src/icons/SwitcherOutlined.tsx"
+    },
+    "./SwitcherTwotone": {
+      "types": "./src/icons/SwitcherTwotone.tsx",
+      "import": "./src/icons/SwitcherTwotone.tsx",
+      "require": "./src/icons/SwitcherTwotone.tsx"
+    },
+    "./SyncOutlined": {
+      "types": "./src/icons/SyncOutlined.tsx",
+      "import": "./src/icons/SyncOutlined.tsx",
+      "require": "./src/icons/SyncOutlined.tsx"
+    },
+    "./TableOutlined": {
+      "types": "./src/icons/TableOutlined.tsx",
+      "import": "./src/icons/TableOutlined.tsx",
+      "require": "./src/icons/TableOutlined.tsx"
+    },
+    "./TabletFilled": {
+      "types": "./src/icons/TabletFilled.tsx",
+      "import": "./src/icons/TabletFilled.tsx",
+      "require": "./src/icons/TabletFilled.tsx"
+    },
+    "./TabletOutlined": {
+      "types": "./src/icons/TabletOutlined.tsx",
+      "import": "./src/icons/TabletOutlined.tsx",
+      "require": "./src/icons/TabletOutlined.tsx"
+    },
+    "./TabletTwotone": {
+      "types": "./src/icons/TabletTwotone.tsx",
+      "import": "./src/icons/TabletTwotone.tsx",
+      "require": "./src/icons/TabletTwotone.tsx"
+    },
+    "./TagFilled": {
+      "types": "./src/icons/TagFilled.tsx",
+      "import": "./src/icons/TagFilled.tsx",
+      "require": "./src/icons/TagFilled.tsx"
+    },
+    "./TagOutlined": {
+      "types": "./src/icons/TagOutlined.tsx",
+      "import": "./src/icons/TagOutlined.tsx",
+      "require": "./src/icons/TagOutlined.tsx"
+    },
+    "./TagsFilled": {
+      "types": "./src/icons/TagsFilled.tsx",
+      "import": "./src/icons/TagsFilled.tsx",
+      "require": "./src/icons/TagsFilled.tsx"
+    },
+    "./TagsOutlined": {
+      "types": "./src/icons/TagsOutlined.tsx",
+      "import": "./src/icons/TagsOutlined.tsx",
+      "require": "./src/icons/TagsOutlined.tsx"
+    },
+    "./TagsTwotone": {
+      "types": "./src/icons/TagsTwotone.tsx",
+      "import": "./src/icons/TagsTwotone.tsx",
+      "require": "./src/icons/TagsTwotone.tsx"
+    },
+    "./TagTwotone": {
+      "types": "./src/icons/TagTwotone.tsx",
+      "import": "./src/icons/TagTwotone.tsx",
+      "require": "./src/icons/TagTwotone.tsx"
+    },
+    "./TaobaoCircleFilled": {
+      "types": "./src/icons/TaobaoCircleFilled.tsx",
+      "import": "./src/icons/TaobaoCircleFilled.tsx",
+      "require": "./src/icons/TaobaoCircleFilled.tsx"
+    },
+    "./TaobaoCircleOutlined": {
+      "types": "./src/icons/TaobaoCircleOutlined.tsx",
+      "import": "./src/icons/TaobaoCircleOutlined.tsx",
+      "require": "./src/icons/TaobaoCircleOutlined.tsx"
+    },
+    "./TaobaoOutlined": {
+      "types": "./src/icons/TaobaoOutlined.tsx",
+      "import": "./src/icons/TaobaoOutlined.tsx",
+      "require": "./src/icons/TaobaoOutlined.tsx"
+    },
+    "./TaobaoSquareFilled": {
+      "types": "./src/icons/TaobaoSquareFilled.tsx",
+      "import": "./src/icons/TaobaoSquareFilled.tsx",
+      "require": "./src/icons/TaobaoSquareFilled.tsx"
+    },
+    "./TeamOutlined": {
+      "types": "./src/icons/TeamOutlined.tsx",
+      "import": "./src/icons/TeamOutlined.tsx",
+      "require": "./src/icons/TeamOutlined.tsx"
+    },
+    "./ThunderboltFilled": {
+      "types": "./src/icons/ThunderboltFilled.tsx",
+      "import": "./src/icons/ThunderboltFilled.tsx",
+      "require": "./src/icons/ThunderboltFilled.tsx"
+    },
+    "./ThunderboltOutlined": {
+      "types": "./src/icons/ThunderboltOutlined.tsx",
+      "import": "./src/icons/ThunderboltOutlined.tsx",
+      "require": "./src/icons/ThunderboltOutlined.tsx"
+    },
+    "./ThunderboltTwotone": {
+      "types": "./src/icons/ThunderboltTwotone.tsx",
+      "import": "./src/icons/ThunderboltTwotone.tsx",
+      "require": "./src/icons/ThunderboltTwotone.tsx"
+    },
+    "./TikTokFilled": {
+      "types": "./src/icons/TikTokFilled.tsx",
+      "import": "./src/icons/TikTokFilled.tsx",
+      "require": "./src/icons/TikTokFilled.tsx"
+    },
+    "./TikTokOutlined": {
+      "types": "./src/icons/TikTokOutlined.tsx",
+      "import": "./src/icons/TikTokOutlined.tsx",
+      "require": "./src/icons/TikTokOutlined.tsx"
+    },
+    "./ToolFilled": {
+      "types": "./src/icons/ToolFilled.tsx",
+      "import": "./src/icons/ToolFilled.tsx",
+      "require": "./src/icons/ToolFilled.tsx"
+    },
+    "./ToolOutlined": {
+      "types": "./src/icons/ToolOutlined.tsx",
+      "import": "./src/icons/ToolOutlined.tsx",
+      "require": "./src/icons/ToolOutlined.tsx"
+    },
+    "./ToolTwotone": {
+      "types": "./src/icons/ToolTwotone.tsx",
+      "import": "./src/icons/ToolTwotone.tsx",
+      "require": "./src/icons/ToolTwotone.tsx"
+    },
+    "./ToTopOutlined": {
+      "types": "./src/icons/ToTopOutlined.tsx",
+      "import": "./src/icons/ToTopOutlined.tsx",
+      "require": "./src/icons/ToTopOutlined.tsx"
+    },
+    "./TrademarkCircleFilled": {
+      "types": "./src/icons/TrademarkCircleFilled.tsx",
+      "import": "./src/icons/TrademarkCircleFilled.tsx",
+      "require": "./src/icons/TrademarkCircleFilled.tsx"
+    },
+    "./TrademarkCircleOutlined": {
+      "types": "./src/icons/TrademarkCircleOutlined.tsx",
+      "import": "./src/icons/TrademarkCircleOutlined.tsx",
+      "require": "./src/icons/TrademarkCircleOutlined.tsx"
+    },
+    "./TrademarkCircleTwotone": {
+      "types": "./src/icons/TrademarkCircleTwotone.tsx",
+      "import": "./src/icons/TrademarkCircleTwotone.tsx",
+      "require": "./src/icons/TrademarkCircleTwotone.tsx"
+    },
+    "./TrademarkOutlined": {
+      "types": "./src/icons/TrademarkOutlined.tsx",
+      "import": "./src/icons/TrademarkOutlined.tsx",
+      "require": "./src/icons/TrademarkOutlined.tsx"
+    },
+    "./TransactionOutlined": {
+      "types": "./src/icons/TransactionOutlined.tsx",
+      "import": "./src/icons/TransactionOutlined.tsx",
+      "require": "./src/icons/TransactionOutlined.tsx"
+    },
+    "./TranslationOutlined": {
+      "types": "./src/icons/TranslationOutlined.tsx",
+      "import": "./src/icons/TranslationOutlined.tsx",
+      "require": "./src/icons/TranslationOutlined.tsx"
+    },
+    "./TrophyFilled": {
+      "types": "./src/icons/TrophyFilled.tsx",
+      "import": "./src/icons/TrophyFilled.tsx",
+      "require": "./src/icons/TrophyFilled.tsx"
+    },
+    "./TrophyOutlined": {
+      "types": "./src/icons/TrophyOutlined.tsx",
+      "import": "./src/icons/TrophyOutlined.tsx",
+      "require": "./src/icons/TrophyOutlined.tsx"
+    },
+    "./TrophyTwotone": {
+      "types": "./src/icons/TrophyTwotone.tsx",
+      "import": "./src/icons/TrophyTwotone.tsx",
+      "require": "./src/icons/TrophyTwotone.tsx"
+    },
+    "./TruckFilled": {
+      "types": "./src/icons/TruckFilled.tsx",
+      "import": "./src/icons/TruckFilled.tsx",
+      "require": "./src/icons/TruckFilled.tsx"
+    },
+    "./TruckOutlined": {
+      "types": "./src/icons/TruckOutlined.tsx",
+      "import": "./src/icons/TruckOutlined.tsx",
+      "require": "./src/icons/TruckOutlined.tsx"
+    },
+    "./TwitchFilled": {
+      "types": "./src/icons/TwitchFilled.tsx",
+      "import": "./src/icons/TwitchFilled.tsx",
+      "require": "./src/icons/TwitchFilled.tsx"
+    },
+    "./TwitchOutlined": {
+      "types": "./src/icons/TwitchOutlined.tsx",
+      "import": "./src/icons/TwitchOutlined.tsx",
+      "require": "./src/icons/TwitchOutlined.tsx"
+    },
+    "./TwitterCircleFilled": {
+      "types": "./src/icons/TwitterCircleFilled.tsx",
+      "import": "./src/icons/TwitterCircleFilled.tsx",
+      "require": "./src/icons/TwitterCircleFilled.tsx"
+    },
+    "./TwitterOutlined": {
+      "types": "./src/icons/TwitterOutlined.tsx",
+      "import": "./src/icons/TwitterOutlined.tsx",
+      "require": "./src/icons/TwitterOutlined.tsx"
+    },
+    "./TwitterSquareFilled": {
+      "types": "./src/icons/TwitterSquareFilled.tsx",
+      "import": "./src/icons/TwitterSquareFilled.tsx",
+      "require": "./src/icons/TwitterSquareFilled.tsx"
+    },
+    "./UnderlineOutlined": {
+      "types": "./src/icons/UnderlineOutlined.tsx",
+      "import": "./src/icons/UnderlineOutlined.tsx",
+      "require": "./src/icons/UnderlineOutlined.tsx"
+    },
+    "./UndoOutlined": {
+      "types": "./src/icons/UndoOutlined.tsx",
+      "import": "./src/icons/UndoOutlined.tsx",
+      "require": "./src/icons/UndoOutlined.tsx"
+    },
+    "./UngroupOutlined": {
+      "types": "./src/icons/UngroupOutlined.tsx",
+      "import": "./src/icons/UngroupOutlined.tsx",
+      "require": "./src/icons/UngroupOutlined.tsx"
+    },
+    "./UnlockFilled": {
+      "types": "./src/icons/UnlockFilled.tsx",
+      "import": "./src/icons/UnlockFilled.tsx",
+      "require": "./src/icons/UnlockFilled.tsx"
+    },
+    "./UnlockOutlined": {
+      "types": "./src/icons/UnlockOutlined.tsx",
+      "import": "./src/icons/UnlockOutlined.tsx",
+      "require": "./src/icons/UnlockOutlined.tsx"
+    },
+    "./UnlockTwotone": {
+      "types": "./src/icons/UnlockTwotone.tsx",
+      "import": "./src/icons/UnlockTwotone.tsx",
+      "require": "./src/icons/UnlockTwotone.tsx"
+    },
+    "./UnorderedListOutlined": {
+      "types": "./src/icons/UnorderedListOutlined.tsx",
+      "import": "./src/icons/UnorderedListOutlined.tsx",
+      "require": "./src/icons/UnorderedListOutlined.tsx"
+    },
+    "./UpCircleFilled": {
+      "types": "./src/icons/UpCircleFilled.tsx",
+      "import": "./src/icons/UpCircleFilled.tsx",
+      "require": "./src/icons/UpCircleFilled.tsx"
+    },
+    "./UpCircleOutlined": {
+      "types": "./src/icons/UpCircleOutlined.tsx",
+      "import": "./src/icons/UpCircleOutlined.tsx",
+      "require": "./src/icons/UpCircleOutlined.tsx"
+    },
+    "./UpCircleTwotone": {
+      "types": "./src/icons/UpCircleTwotone.tsx",
+      "import": "./src/icons/UpCircleTwotone.tsx",
+      "require": "./src/icons/UpCircleTwotone.tsx"
+    },
+    "./UploadOutlined": {
+      "types": "./src/icons/UploadOutlined.tsx",
+      "import": "./src/icons/UploadOutlined.tsx",
+      "require": "./src/icons/UploadOutlined.tsx"
+    },
+    "./UpOutlined": {
+      "types": "./src/icons/UpOutlined.tsx",
+      "import": "./src/icons/UpOutlined.tsx",
+      "require": "./src/icons/UpOutlined.tsx"
+    },
+    "./UpSquareFilled": {
+      "types": "./src/icons/UpSquareFilled.tsx",
+      "import": "./src/icons/UpSquareFilled.tsx",
+      "require": "./src/icons/UpSquareFilled.tsx"
+    },
+    "./UpSquareOutlined": {
+      "types": "./src/icons/UpSquareOutlined.tsx",
+      "import": "./src/icons/UpSquareOutlined.tsx",
+      "require": "./src/icons/UpSquareOutlined.tsx"
+    },
+    "./UpSquareTwotone": {
+      "types": "./src/icons/UpSquareTwotone.tsx",
+      "import": "./src/icons/UpSquareTwotone.tsx",
+      "require": "./src/icons/UpSquareTwotone.tsx"
+    },
+    "./UsbFilled": {
+      "types": "./src/icons/UsbFilled.tsx",
+      "import": "./src/icons/UsbFilled.tsx",
+      "require": "./src/icons/UsbFilled.tsx"
+    },
+    "./UsbOutlined": {
+      "types": "./src/icons/UsbOutlined.tsx",
+      "import": "./src/icons/UsbOutlined.tsx",
+      "require": "./src/icons/UsbOutlined.tsx"
+    },
+    "./UsbTwotone": {
+      "types": "./src/icons/UsbTwotone.tsx",
+      "import": "./src/icons/UsbTwotone.tsx",
+      "require": "./src/icons/UsbTwotone.tsx"
+    },
+    "./UserAddOutlined": {
+      "types": "./src/icons/UserAddOutlined.tsx",
+      "import": "./src/icons/UserAddOutlined.tsx",
+      "require": "./src/icons/UserAddOutlined.tsx"
+    },
+    "./UserDeleteOutlined": {
+      "types": "./src/icons/UserDeleteOutlined.tsx",
+      "import": "./src/icons/UserDeleteOutlined.tsx",
+      "require": "./src/icons/UserDeleteOutlined.tsx"
+    },
+    "./UsergroupAddOutlined": {
+      "types": "./src/icons/UsergroupAddOutlined.tsx",
+      "import": "./src/icons/UsergroupAddOutlined.tsx",
+      "require": "./src/icons/UsergroupAddOutlined.tsx"
+    },
+    "./UsergroupDeleteOutlined": {
+      "types": "./src/icons/UsergroupDeleteOutlined.tsx",
+      "import": "./src/icons/UsergroupDeleteOutlined.tsx",
+      "require": "./src/icons/UsergroupDeleteOutlined.tsx"
+    },
+    "./UserOutlined": {
+      "types": "./src/icons/UserOutlined.tsx",
+      "import": "./src/icons/UserOutlined.tsx",
+      "require": "./src/icons/UserOutlined.tsx"
+    },
+    "./UserSwitchOutlined": {
+      "types": "./src/icons/UserSwitchOutlined.tsx",
+      "import": "./src/icons/UserSwitchOutlined.tsx",
+      "require": "./src/icons/UserSwitchOutlined.tsx"
+    },
+    "./VerifiedOutlined": {
+      "types": "./src/icons/VerifiedOutlined.tsx",
+      "import": "./src/icons/VerifiedOutlined.tsx",
+      "require": "./src/icons/VerifiedOutlined.tsx"
+    },
+    "./VerticalAlignBottomOutlined": {
+      "types": "./src/icons/VerticalAlignBottomOutlined.tsx",
+      "import": "./src/icons/VerticalAlignBottomOutlined.tsx",
+      "require": "./src/icons/VerticalAlignBottomOutlined.tsx"
+    },
+    "./VerticalAlignMiddleOutlined": {
+      "types": "./src/icons/VerticalAlignMiddleOutlined.tsx",
+      "import": "./src/icons/VerticalAlignMiddleOutlined.tsx",
+      "require": "./src/icons/VerticalAlignMiddleOutlined.tsx"
+    },
+    "./VerticalAlignTopOutlined": {
+      "types": "./src/icons/VerticalAlignTopOutlined.tsx",
+      "import": "./src/icons/VerticalAlignTopOutlined.tsx",
+      "require": "./src/icons/VerticalAlignTopOutlined.tsx"
+    },
+    "./VerticalLeftOutlined": {
+      "types": "./src/icons/VerticalLeftOutlined.tsx",
+      "import": "./src/icons/VerticalLeftOutlined.tsx",
+      "require": "./src/icons/VerticalLeftOutlined.tsx"
+    },
+    "./VerticalRightOutlined": {
+      "types": "./src/icons/VerticalRightOutlined.tsx",
+      "import": "./src/icons/VerticalRightOutlined.tsx",
+      "require": "./src/icons/VerticalRightOutlined.tsx"
+    },
+    "./VideoCameraAddOutlined": {
+      "types": "./src/icons/VideoCameraAddOutlined.tsx",
+      "import": "./src/icons/VideoCameraAddOutlined.tsx",
+      "require": "./src/icons/VideoCameraAddOutlined.tsx"
+    },
+    "./VideoCameraFilled": {
+      "types": "./src/icons/VideoCameraFilled.tsx",
+      "import": "./src/icons/VideoCameraFilled.tsx",
+      "require": "./src/icons/VideoCameraFilled.tsx"
+    },
+    "./VideoCameraOutlined": {
+      "types": "./src/icons/VideoCameraOutlined.tsx",
+      "import": "./src/icons/VideoCameraOutlined.tsx",
+      "require": "./src/icons/VideoCameraOutlined.tsx"
+    },
+    "./VideoCameraTwotone": {
+      "types": "./src/icons/VideoCameraTwotone.tsx",
+      "import": "./src/icons/VideoCameraTwotone.tsx",
+      "require": "./src/icons/VideoCameraTwotone.tsx"
+    },
+    "./WalletFilled": {
+      "types": "./src/icons/WalletFilled.tsx",
+      "import": "./src/icons/WalletFilled.tsx",
+      "require": "./src/icons/WalletFilled.tsx"
+    },
+    "./WalletOutlined": {
+      "types": "./src/icons/WalletOutlined.tsx",
+      "import": "./src/icons/WalletOutlined.tsx",
+      "require": "./src/icons/WalletOutlined.tsx"
+    },
+    "./WalletTwotone": {
+      "types": "./src/icons/WalletTwotone.tsx",
+      "import": "./src/icons/WalletTwotone.tsx",
+      "require": "./src/icons/WalletTwotone.tsx"
+    },
+    "./WarningFilled": {
+      "types": "./src/icons/WarningFilled.tsx",
+      "import": "./src/icons/WarningFilled.tsx",
+      "require": "./src/icons/WarningFilled.tsx"
+    },
+    "./WarningOutlined": {
+      "types": "./src/icons/WarningOutlined.tsx",
+      "import": "./src/icons/WarningOutlined.tsx",
+      "require": "./src/icons/WarningOutlined.tsx"
+    },
+    "./WarningTwotone": {
+      "types": "./src/icons/WarningTwotone.tsx",
+      "import": "./src/icons/WarningTwotone.tsx",
+      "require": "./src/icons/WarningTwotone.tsx"
+    },
+    "./WechatFilled": {
+      "types": "./src/icons/WechatFilled.tsx",
+      "import": "./src/icons/WechatFilled.tsx",
+      "require": "./src/icons/WechatFilled.tsx"
+    },
+    "./WechatOutlined": {
+      "types": "./src/icons/WechatOutlined.tsx",
+      "import": "./src/icons/WechatOutlined.tsx",
+      "require": "./src/icons/WechatOutlined.tsx"
+    },
+    "./WechatWorkFilled": {
+      "types": "./src/icons/WechatWorkFilled.tsx",
+      "import": "./src/icons/WechatWorkFilled.tsx",
+      "require": "./src/icons/WechatWorkFilled.tsx"
+    },
+    "./WechatWorkOutlined": {
+      "types": "./src/icons/WechatWorkOutlined.tsx",
+      "import": "./src/icons/WechatWorkOutlined.tsx",
+      "require": "./src/icons/WechatWorkOutlined.tsx"
+    },
+    "./WeiboCircleFilled": {
+      "types": "./src/icons/WeiboCircleFilled.tsx",
+      "import": "./src/icons/WeiboCircleFilled.tsx",
+      "require": "./src/icons/WeiboCircleFilled.tsx"
+    },
+    "./WeiboCircleOutlined": {
+      "types": "./src/icons/WeiboCircleOutlined.tsx",
+      "import": "./src/icons/WeiboCircleOutlined.tsx",
+      "require": "./src/icons/WeiboCircleOutlined.tsx"
+    },
+    "./WeiboOutlined": {
+      "types": "./src/icons/WeiboOutlined.tsx",
+      "import": "./src/icons/WeiboOutlined.tsx",
+      "require": "./src/icons/WeiboOutlined.tsx"
+    },
+    "./WeiboSquareFilled": {
+      "types": "./src/icons/WeiboSquareFilled.tsx",
+      "import": "./src/icons/WeiboSquareFilled.tsx",
+      "require": "./src/icons/WeiboSquareFilled.tsx"
+    },
+    "./WeiboSquareOutlined": {
+      "types": "./src/icons/WeiboSquareOutlined.tsx",
+      "import": "./src/icons/WeiboSquareOutlined.tsx",
+      "require": "./src/icons/WeiboSquareOutlined.tsx"
+    },
+    "./WhatsAppOutlined": {
+      "types": "./src/icons/WhatsAppOutlined.tsx",
+      "import": "./src/icons/WhatsAppOutlined.tsx",
+      "require": "./src/icons/WhatsAppOutlined.tsx"
+    },
+    "./WifiOutlined": {
+      "types": "./src/icons/WifiOutlined.tsx",
+      "import": "./src/icons/WifiOutlined.tsx",
+      "require": "./src/icons/WifiOutlined.tsx"
+    },
+    "./WindowsFilled": {
+      "types": "./src/icons/WindowsFilled.tsx",
+      "import": "./src/icons/WindowsFilled.tsx",
+      "require": "./src/icons/WindowsFilled.tsx"
+    },
+    "./WindowsOutlined": {
+      "types": "./src/icons/WindowsOutlined.tsx",
+      "import": "./src/icons/WindowsOutlined.tsx",
+      "require": "./src/icons/WindowsOutlined.tsx"
+    },
+    "./WomanOutlined": {
+      "types": "./src/icons/WomanOutlined.tsx",
+      "import": "./src/icons/WomanOutlined.tsx",
+      "require": "./src/icons/WomanOutlined.tsx"
+    },
+    "./XFilled": {
+      "types": "./src/icons/XFilled.tsx",
+      "import": "./src/icons/XFilled.tsx",
+      "require": "./src/icons/XFilled.tsx"
+    },
+    "./XOutlined": {
+      "types": "./src/icons/XOutlined.tsx",
+      "import": "./src/icons/XOutlined.tsx",
+      "require": "./src/icons/XOutlined.tsx"
+    },
+    "./YahooFilled": {
+      "types": "./src/icons/YahooFilled.tsx",
+      "import": "./src/icons/YahooFilled.tsx",
+      "require": "./src/icons/YahooFilled.tsx"
+    },
+    "./YahooOutlined": {
+      "types": "./src/icons/YahooOutlined.tsx",
+      "import": "./src/icons/YahooOutlined.tsx",
+      "require": "./src/icons/YahooOutlined.tsx"
+    },
+    "./YoutubeFilled": {
+      "types": "./src/icons/YoutubeFilled.tsx",
+      "import": "./src/icons/YoutubeFilled.tsx",
+      "require": "./src/icons/YoutubeFilled.tsx"
+    },
+    "./YoutubeOutlined": {
+      "types": "./src/icons/YoutubeOutlined.tsx",
+      "import": "./src/icons/YoutubeOutlined.tsx",
+      "require": "./src/icons/YoutubeOutlined.tsx"
+    },
+    "./YuqueFilled": {
+      "types": "./src/icons/YuqueFilled.tsx",
+      "import": "./src/icons/YuqueFilled.tsx",
+      "require": "./src/icons/YuqueFilled.tsx"
+    },
+    "./YuqueOutlined": {
+      "types": "./src/icons/YuqueOutlined.tsx",
+      "import": "./src/icons/YuqueOutlined.tsx",
+      "require": "./src/icons/YuqueOutlined.tsx"
+    },
+    "./ZhihuCircleFilled": {
+      "types": "./src/icons/ZhihuCircleFilled.tsx",
+      "import": "./src/icons/ZhihuCircleFilled.tsx",
+      "require": "./src/icons/ZhihuCircleFilled.tsx"
+    },
+    "./ZhihuOutlined": {
+      "types": "./src/icons/ZhihuOutlined.tsx",
+      "import": "./src/icons/ZhihuOutlined.tsx",
+      "require": "./src/icons/ZhihuOutlined.tsx"
+    },
+    "./ZhihuSquareFilled": {
+      "types": "./src/icons/ZhihuSquareFilled.tsx",
+      "import": "./src/icons/ZhihuSquareFilled.tsx",
+      "require": "./src/icons/ZhihuSquareFilled.tsx"
+    },
+    "./ZoomInOutlined": {
+      "types": "./src/icons/ZoomInOutlined.tsx",
+      "import": "./src/icons/ZoomInOutlined.tsx",
+      "require": "./src/icons/ZoomInOutlined.tsx"
+    },
+    "./ZoomOutOutlined": {
+      "types": "./src/icons/ZoomOutOutlined.tsx",
+      "import": "./src/icons/ZoomOutOutlined.tsx",
+      "require": "./src/icons/ZoomOutOutlined.tsx"
+    }
+  },
   "main": "./src/index.ts",
   "module": "./src/index.ts",
-  "unpkg": "./dist/index.min.js",
-  "jsdelivr": "./dist/index.min.js",
   "types": "./src/index.ts",
   "files": [
-    "dist",
     "esm",
     "lib"
   ],
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org",
+    "registry": "https://registry.npmjs.org/",
     "main": "./lib/index.js",
     "module": "./esm/index.mjs",
-    "unpkg": "./dist/index.min.js",
     "types": "./esm/index.d.ts"
   },
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "build": "mink-cli build:icons",
-    "gen": "mink-cli gen:icons",
-    "lint:ts": "tsc --noEmit"
+    "prepublishOnly": "tsc -b & mink build:icons",
+    "sub": "mink sub:icons",
+    "gen": "mink gen:icons",
+    "dts": "mink dts:icons",
+    "build": "mink build:icons",
+    "lint": "eslint src",
+    "lint:ts": "tsc -b"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   },
   "dependencies": {
     "@babel/runtime": "catalog:",
-    "@mink-ui/shared": "workspace:^"
+    "@mink-ui/shared": "workspace:*",
+    "classnames": "catalog:"
   },
   "devDependencies": {
-    "@mink-ui/scripts": "workspace:^"
+    "@internal/cli": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   }
 }

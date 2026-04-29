@@ -7,8 +7,8 @@
 basic
 
 ```tsx
-import { Badge, Button, Space } from '@mink-ui/core'
 import { useState } from 'react'
+import { Badge, Button, Space } from '@mink-ui/core'
 
 export default function App() {
   const [count, setCount] = useState(12)
