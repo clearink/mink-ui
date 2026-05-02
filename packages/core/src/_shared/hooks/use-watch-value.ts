@@ -6,7 +6,7 @@ import { useInvoke } from './use-invoke'
 
 export interface WatchOptions<S> {
   compare: (current: S, previous: S) => boolean
-  listener: (current: S, previous: S) => void
+  listener: (current: S, previous: S) => any
 }
 
 function normalizeOptions<S>(options: WatchOptions<S> | WatchOptions<S>['listener']): WatchOptions<S> {
@@ -20,14 +20,14 @@ export function useWatchValue<S>(current: S, args: WatchOptions<S>['listener']):
 export function useWatchValue<S>(current: S, args: any): boolean {
   const { compare, listener } = normalizeOptions(args)
 
-  const [value, update] = useExactState(() => current)
+  const [previous, updater] = useExactState(() => current)
 
   return useInvoke(() => {
-    if (compare(current, value)) return false
+    if (compare(current, previous)) return false
 
-    listener(current, value)
+    listener(current, previous)
 
-    update(current)
+    updater(current)
 
     return true
   })

@@ -1,7 +1,7 @@
 import type { OmittedFormItemInputProps } from '../form-item-input.props'
 
 import { useImperativeHandle, useRef } from 'react'
-import { ownerComputedStyle } from '@mink-ui/shared/dom/global'
+import { ownerStyle } from '@mink-ui/shared/dom/global'
 import { isNullish } from '@mink-ui/shared/is/is-nullish'
 
 import { useEvent } from '../../../_shared/hooks/use-event'
@@ -28,7 +28,7 @@ export function useFormInputOffset(omitted: OmittedFormItemInputProps) {
 
     if (!item && !extra) return
 
-    const marginBottom = item ? ownerComputedStyle(item).marginBottom : '0'
+    const marginBottom = item ? ownerStyle(item).marginBottom : '0'
 
     const clientHeight = extra ? extra.clientHeight : 0
 

@@ -1,7 +1,7 @@
 import type { ExternalFieldName, ExternalFormInstance, InternalFormInstance } from '../_shared.props'
 
-import isEqual from 'react-fast-compare'
 import { use, useEffect, useMemo } from 'react'
+import { arrayEqual } from '@mink-ui/shared/array/array-equal'
 import { toArray } from '@mink-ui/shared/array/to-array'
 
 import { useComputed } from '../../../../hooks/use-computed'
@@ -18,11 +18,7 @@ export function useWatch<T>(name: ExternalFieldName, form?: ExternalFormInstance
 
   const internalHooks = useMemo(() => formInstance.getInternalHooks(HOOKS_SECRET), [formInstance])
 
-  const fieldName = useComputed({
-    deps: toArray(name),
-    compare: isEqual,
-    factory: () => toArray(name),
-  })
+  const fieldName = useComputed(() => toArray(name), toArray(name), arrayEqual)
 
   if (process.env.NODE_ENV !== 'production') {
     if (!formInstance) {

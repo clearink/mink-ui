@@ -1,87 +1,91 @@
-import type { ReactElement } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
-import type { GroupTransitionEntry } from '../_shared.props'
+import type { ManagedTransitionEntry, UniquedTransitionItem } from '../_shared.props'
 import type { CssTransitionInstance, CssTransitionProps } from '../css-transition.props'
 import type { GroupTransitionProps } from '../group-transition.props'
 
-import { Children, cloneElement, createElement } from 'react'
+import { cloneElement, createElement } from 'react'
 import { batch } from '@mink-ui/shared/function/batch'
 import { omit } from '@mink-ui/shared/object/omit'
 
+import { ENTRY_MARK } from '../_shared.constant'
 import CssTransition from '../css-transition'
-import { diff, isGroupTransitionEntry, union } from './children'
-import { normalizeCssTransitionChildren } from './helpers'
+import { diff, union } from './children'
+import { isManagedTransitionEntry, normalizeCssTransitionChildren } from './helpers'
 
-const excluded = ['key', 'onFinished', 'ref', 'children', 'when', 'unmountOnExit'] as const
+const excluded = ['key', 'onGroupExited', 'ref', 'children', 'when', 'unmountOnExit'] as const
 
-export class GroupTransitionControl {
-  private _entries: GroupTransitionEntry[] = []
+export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTransitionItem> {
+  private _entries: ManagedTransitionEntry[] = []
 
-  public instances = new Map<ReactElement['key'], CssTransitionInstance>()
+  public _instances = new Map<T['key'], CssTransitionInstance>()
 
-  public current: ReactElement[] = []
+  public current: T[] = []
 
-  constructor(private forceUpdate: VoidFn, public _props: GroupTransitionProps) {
-    this.current = _props.children
+  constructor(private forceUpdate: VoidFn, public _props: GroupTransitionProps<T>) {
+    this.current = _props.items
 
-    this._entries = []
-
-    Children.forEach(this.current, (child) => {
-      this._entries.push(this._createEntry(child, { when: true }))
-    })
+    this._entries = this.current.map(item => this._createEntry(item, { when: true }))
   }
 
   /**
    * @description 获取 css-transition 实例
    */
-  private _getInstance = (key: ReactElement['key']) => {
-    const instance = this.instances.get(key)
-
-    return {
-      ...instance,
-      isInLeaving: instance?.isExiting || instance?.isExited,
-    }
+  private _getInstance = (key: T['key']) => {
+    return this._instances.get(key)
   }
 
   /**
    * @description 创建 transition entry
    */
-  private _createEntry = (element: ReactElement, params: Partial<CssTransitionProps>) => {
-    const rawKey = element.key
-
+  private _createEntry = (item: T, params: Partial<CssTransitionProps>) => {
     const preset = omit(this._props as any, excluded) as CssTransitionProps
 
     const attrs = Object.assign(preset, params, {
-      key: rawKey,
+      __item: item,
+      key: `${item.key}`,
       unmountOnExit: true,
-      children: normalizeCssTransitionChildren(element),
+      children: normalizeCssTransitionChildren(this._props.children, item),
       ref: (instance: CssTransitionInstance) => {
-        if (!instance) this.instances.delete(rawKey)
-        else this.instances.set(rawKey, instance)
+        if (!instance) this._instances.delete(item.key)
+        else this._instances.set(item.key, instance)
       },
     })
 
-    return { key: rawKey, raw: element, node: createElement(CssTransition, attrs) }
+    return {
+      [ENTRY_MARK]: true,
+      key: item.key,
+      node: createElement(CssTransition, attrs),
+    }
   }
 
   /**
    * @description 更新 transition entry
    */
-  private _updateEntry = (entry: GroupTransitionEntry, params: Partial<CssTransitionProps>) => {
+  private _updateEntry = (entry: ManagedTransitionEntry, params: Partial<CssTransitionProps>) => {
     const preset = omit(this._props as any, excluded) as CssTransitionProps
 
     const attrs = Object.assign(preset, params, {
-      onEntered: batch(preset.onEntered, this.handleOnFinished),
-      onExited: batch(preset.onExited, this.handleOnFinished),
+      onExited: batch(preset.onExited, this.handleOnGroupFinished),
     }) as CssTransitionProps
 
-    return { key: entry.key, raw: entry.raw, node: cloneElement(entry.node, attrs) }
+    return {
+      [ENTRY_MARK]: true,
+      key: entry.key,
+      node: cloneElement(entry.node, attrs),
+    }
+  }
+
+  /**
+   * @description 更新 transition entry node
+   */
+  private _updateNode = (entry: ManagedTransitionEntry, params: Partial<CssTransitionProps>) => {
+    return this._updateEntry(entry, params).node
   }
 
   /**
    * @description 更新当前元素
    */
-  private _updateCurrent = (current: GroupTransitionControl['current']) => {
+  private _updateCurrent = (current: GroupTransitionControl<T>['current']) => {
     this.current = current
   }
 
@@ -89,9 +93,9 @@ export class GroupTransitionControl {
    * @description 更新 transition entries
    */
   private _updateEntries = (values: GroupTransitionControl['_entries']) => {
-    const map = new Map<ReactElement['key'], GroupTransitionEntry>()
+    const map = new Map<T['key'], ManagedTransitionEntry>()
 
-    values.forEach((item) => { map.set(item.node.key, item) })
+    values.forEach((item) => { map.set(item.key, item) })
 
     this._entries = Array.from(map.values())
 
@@ -101,44 +105,42 @@ export class GroupTransitionControl {
   /**
    * @description 更新内部属性
    */
-  public updateInternals = (props: GroupTransitionProps) => {
+  public updateInternals = (props: GroupTransitionProps<T>) => {
     this._props = props
   }
 
   /**
    * @description 结束时的回调
    */
-  public handleOnFinished = () => {
-    let isExitFinished = true
+  public handleOnGroupFinished = () => {
+    let isGroupExited = true
 
     const newEntries = this._entries.filter((item) => {
-      const instance = this.instances.get(item.key)
+      const instance = this._instances.get(item.key)
 
       if (!instance) return false
 
-      if (instance.isExiting) isExitFinished = false
+      if (instance.isExiting) isGroupExited = false
 
       return !instance.isExited
     })
 
-    isExitFinished && this._updateEntries(newEntries)
+    isGroupExited && this._updateEntries(newEntries)
 
-    isExitFinished && this._props.onFinished?.()
+    isGroupExited && this._props.onGroupExited?.()
   }
 
   /**
    * @description 运行过渡
    */
   public runGroupTransition = () => {
-    const { children } = this._props
+    const { items } = this._props
 
-    const [enters, exits] = diff(this.current, children)
+    const [enters, exits] = diff(this.current, items)
 
-    const allEntries = union(this._entries, enters, children)
-
-    const newEntries = allEntries.map((item) => {
-      if (!isGroupTransitionEntry(item)) {
-        return this._createEntry(item, { appear: true, when: true })
+    const newEntries = union(this._entries, items).map((item) => {
+      if (!isManagedTransitionEntry(item)) {
+        return this._createEntry(item as T, { appear: true, when: true })
       }
 
       const params = {} as CssTransitionProps
@@ -149,7 +151,7 @@ export class GroupTransitionControl {
       return this._updateEntry(item, params)
     })
 
-    this._updateCurrent(children)
+    this._updateCurrent(items)
 
     this._updateEntries(newEntries)
   }
@@ -157,23 +159,21 @@ export class GroupTransitionControl {
   /**
    * @description 渲染元素
    */
-  public renderEntries = (children: GroupTransitionProps['children']) => {
-    const map = new Map<ReactElement['key'], ReactElement>()
+  public renderEntries = () => {
+    const { items, children } = this._props
 
-    Children.forEach(children, (child): void => { map.set(child.key, child) })
+    const map = new Map(items.map(item => [item.key, item]))
 
-    return this._entries.map((item) => {
-      const child = map.get(item.key)
-      const instance = this._getInstance(item.key)
+    return this._entries.map((entry) => {
+      const instance = this._getInstance(entry.key)
+      const config = map.get(entry.key)
 
-      if (!child || instance.isInLeaving) return item.node
+      if (instance?.isExiting) return entry.node
+      if (!config || !map.has(entry.key)) return entry.node
 
-      if (item.key !== child.key) return item.node
+      const normalized = normalizeCssTransitionChildren(children, config)
 
-      if (child === item.raw) return item.node
-
-      // 尽可能同步最新的数据
-      return cloneElement(item.node, { children: normalizeCssTransitionChildren(child) })
+      return entry.node = this._updateNode(entry, { children: normalized })
     })
   }
 }

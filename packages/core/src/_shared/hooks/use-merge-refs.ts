@@ -1,14 +1,11 @@
 import type { Ref } from 'react'
+import type { MayBe } from '@mink-ui/shared/interface'
 
-import isEqual from 'react-fast-compare'
+import { arrayEqual } from '@mink-ui/shared/array/array-equal'
 
 import { mergeRefs } from '../utils/refs'
 import { useComputed } from './use-computed'
 
-export function useMergeRefs<T extends Ref<T>>(...refs: T[]) {
-  return useComputed({
-    deps: refs,
-    compare: isEqual,
-    factory: () => mergeRefs(...refs),
-  })
+export function useMergeRefs<E>(...refs: MayBe<Ref<E>>[]) {
+  return useComputed(() => mergeRefs<E>(...refs), refs, arrayEqual)
 }

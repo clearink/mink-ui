@@ -10,7 +10,7 @@ import { useScrollNumberProps } from './hooks/use-scroll-number-props'
 function ScrollNumber(props: ScrollNumberProps) {
   const {
     omitted,
-    refs,
+    ctrl,
     ns,
     cssNames,
     returnEmpty,
@@ -38,7 +38,7 @@ function ScrollNumber(props: ScrollNumberProps) {
     >
       {($motion, getters) => (
         <span
-          ref={mergeRefs($motion, refs.$wrapper)}
+          ref={mergeRefs($motion, ctrl.$wrapper)}
           className={cn(cssNames.root, getters.names())}
           style={getters.attrs()}
         >
@@ -46,8 +46,8 @@ function ScrollNumber(props: ScrollNumberProps) {
             <span
               key={natural}
               ref={(el) => {
-                if (el) refs.$items.set(natural, el)
-                else refs.$items.delete(natural)
+                if (el) ctrl.$items.set(natural, el)
+                else ctrl.$items.delete(natural)
               }}
             >
               {natural}

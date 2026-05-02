@@ -1,12 +1,9 @@
 import type { CSSProperties, ReactNode, Ref } from 'react'
-import type { SemanticsStyled } from '../../_shared/types'
-import type { GetSemanticsValues } from '../../_shared/types/styled'
-import type { SegmentedValue } from './_shared.props'
+import type { GetSemanticsValues, SemanticsStyled } from '../../_shared/types/styled'
+import type { SegmentedOption, SegmentedValue } from './_shared.props'
 import type { SegmentedProps } from './segmented.props'
 
-export interface SegmentedItemProps extends
-  SemanticsStyled<'root' | 'label'> {
-
+export interface SegmentedItemConfig {
   /**
    * @description 外部引用
    */
@@ -31,11 +28,24 @@ export interface SegmentedItemProps extends
    * @description 是否禁用
    */
   disabled?: boolean
+}
+
+export interface SegmentedItemProps extends
+  SemanticsStyled<'root' | 'label'> {
+  /**
+   * @description 培训项
+   */
+  config: SegmentedItemConfig
 
   /**
    * @description 是否选中
    */
-  checked?: boolean
+  checked: boolean
+
+  /**
+   * @description 是否禁用
+   */
+  disabled: boolean | undefined
 
   /**
    * @description 是否展示 thumb
@@ -43,22 +53,27 @@ export interface SegmentedItemProps extends
   isShowThumb?: boolean
 
   /**
-   * @description 根节点命名空间
+   * @description 外部命名空间
    */
-  rootNamespace: string
+  outerNamespace: string
 
   /**
-   * @description 根节点样式名称
+   * @description 外部样式类名
    */
-  rootCssNames: Omit<GetSemanticsValues<SegmentedProps, string>, 'item' | 'inner'>
+  outerCssNames: Omit<GetSemanticsValues<SegmentedProps, string>, 'item' | 'inner'>
 
   /**
-   * @description 根节点样式属性
+   * @description 外部样式属性
    */
-  rootCssAttrs: Omit<GetSemanticsValues<SegmentedProps, CSSProperties>, 'item' | 'inner'>
+  outerCssAttrs: Omit<GetSemanticsValues<SegmentedProps, CSSProperties>, 'item' | 'inner'>
 
   /**
    * @description 选中时回调
    */
-  onChange?: (value: SegmentedValue) => void
+  onChange: (value: SegmentedValue) => void
+
+  /**
+   * @description 收集 DOM 元素
+   */
+  onCollect: (el: HTMLElement | null, item: SegmentedOption) => void
 }

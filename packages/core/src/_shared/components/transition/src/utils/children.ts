@@ -1,33 +1,25 @@
-import type { ReactElement } from 'react'
-import type { GroupTransitionEntry } from '../_shared.props'
-import type { GroupTransitionProps } from '../group-transition.props'
+import type { ManagedTransitionEntry, UniquedTransitionItem } from '../_shared.props'
 import type { GroupTransitionControl } from './group-transition-control'
 
-import { Children } from 'react'
 import { fallback } from '@mink-ui/shared/function/fallback'
-import { hasOwn } from '@mink-ui/shared/object/has-own'
 
 /**
  * @description 获取进入和退出的元素
  */
-export function diff<T extends ReactElement>(prev: T[], next: T[]) {
-  const prevSet = new Set<T['key']>()
+export function diff<T extends UniquedTransitionItem>(prev: T[], next: T[]) {
+  const pset = new Set(prev.map(item => item.key))
 
-  const nextSet = new Set<T['key']>()
-
-  Children.forEach(prev, (child): void => { prevSet.add(child.key) })
-
-  Children.forEach(next, (child): void => { nextSet.add(child.key) })
+  const nset = new Set(next.map(item => item.key))
 
   const enters = new Set<T['key']>()
 
   const exits = new Set<T['key']>()
 
   // next 有 prev 没有
-  nextSet.forEach((key) => { if (!prevSet.has(key)) enters.add(key) })
+  nset.forEach((key) => { if (!pset.has(key)) enters.add(key) })
 
   // prev 有 next 没有
-  prevSet.forEach((key) => { if (!nextSet.has(key)) exits.add(key) })
+  pset.forEach((key) => { if (!nset.has(key)) exits.add(key) })
 
   return [enters, exits] as const
 }
@@ -35,19 +27,18 @@ export function diff<T extends ReactElement>(prev: T[], next: T[]) {
 // 并集且有序
 export function union(
   entries: GroupTransitionControl['_entries'],
-  enters: Set<ReactElement['key']>,
-  children: GroupTransitionProps['children'],
+  items: UniquedTransitionItem[],
 ) {
-  const orders = new Map<ReactElement['key'], number>()
+  const orders = new Map<UniquedTransitionItem['key'], number>()
 
-  const result: (GroupTransitionEntry | ReactElement)[] = []
+  const result: (ManagedTransitionEntry | UniquedTransitionItem)[] = []
 
   const map = new Map(entries.map(e => [e.key, e]))
 
-  Children.forEach(children, (el, index) => {
-    orders.set(el.key, index)
+  items.forEach((item, index) => {
+    orders.set(item.key, index)
 
-    result.push(map.get(el.key) || el)
+    result.push(map.get(item.key) || item)
   })
 
   let lastIndex = -1
@@ -60,8 +51,4 @@ export function union(
   })
 
   return result
-}
-
-export function isGroupTransitionEntry(item: GroupTransitionEntry | ReactElement): item is GroupTransitionEntry {
-  return hasOwn(item, 'key') && hasOwn(item, 'raw') && hasOwn(item, 'node')
 }

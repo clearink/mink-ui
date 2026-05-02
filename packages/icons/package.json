@@ -4207,11 +4207,10 @@
   },
   "scripts": {
     "prepublishOnly": "tsc -b & mink build:icons",
-    "sub": "mink sub:icons",
     "gen": "mink gen:icons",
-    "dts": "mink dts:icons",
+    "sub": "mink sub:icons",
     "build": "mink build:icons",
-    "lint": "eslint src",
+    "lint": "eslint src --fix --ignore-pattern \"**/*.md\"",
     "lint:ts": "tsc -b"
   },
   "peerDependencies": {

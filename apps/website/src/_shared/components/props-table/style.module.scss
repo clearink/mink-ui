@@ -5,6 +5,9 @@
   border: 1px solid var(--mink-color-border);
   border-radius: var(--mink-unit-1);
 
+  scrollbar-width: thin;
+  scrollbar-color: var(--mink-color-fill) transparent;
+
   table {
     width: 100%;
     border-collapse: collapse;

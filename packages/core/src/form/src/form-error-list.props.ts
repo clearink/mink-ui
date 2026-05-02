@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
-import type { SemanticsStyled } from '../../_shared/types'
+import type { SemanticsStyled } from '../../_shared/types/styled'
 import type { ValidateStatus } from './_shared.props'
 
-export interface FormErrorListProps extends Pick<SemanticsStyled<''>, 'className' | 'style'> {
+export interface FormErrorListProps extends Pick<SemanticsStyled<never>, 'className' | 'style'> {
   /**
    * @description 字段唯一 id
    */
@@ -32,5 +32,5 @@ export interface FormErrorListProps extends Pick<SemanticsStyled<''>, 'className
   /**
    * @description 动画结束回调
    */
-  onFinished?: VoidFn
+  onGroupExited?: VoidFn
 }

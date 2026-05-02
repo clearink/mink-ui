@@ -59,25 +59,26 @@ description: 创建 @mink-ui/core 下的 React 组件。当用户想要新建一
 
 ### 3. 生成源码文件
 
-**注意**：
+**注意**
 - 将 `Component` 替换为 PascalCase 格式的组件名称
 - 将 `component` 替换为 kebab-case 格式的组件名称
-- 根据组件语义选择合适的 HTML 元素（`div`、`button`、`span` 等）
 
 #### 3.1 `src/<component-name>.props.ts`
 
-Props 类型定义文件。参考 Button 组件的模式：
+**作用**
+- Props 类型定义文件。参考 Button 组件的模式。
+- 具体 PropName 自行推断。
 
 ```typescript
 import type { HasChildren, SemanticsStyled } from '../../_shared/types'
 
 export interface ComponentProps extends
   HasChildren,
-  SemanticsStyled<'root'> {
-  // TODO: 添加组件特定的 props
+  SemanticsStyled<'root', { picked: PickedComponentProps, omitted: OmittedComponentProps }> {
+
 }
 
-export type DefaultNames = ''
+export type DefaultNames = never
 
 export type PickedComponentProps = Pick<ComponentProps, DefaultNames>
 
@@ -94,22 +95,16 @@ export type OmittedComponentProps = Omit<ComponentProps, DefaultNames>
 export const defaultComponentProps: PickedComponentProps = {
   // TODO: 添加默认值
 }
-
-export const excludedComponentProps = [
-  // extends
-  'children',
-  'prefixCls',
-  'className',
-  'classNames',
-  'style',
-  'styles',
-  // props
-] as const
 ```
 
 #### 3.2 `src/<component-name>.tsx`
 
-主组件文件：
+**作用**
+- 组件的主要文件
+
+**注意**
+- 根据组件语义选择合适的 HTML 元素（`div`、`button`、`span` 等）
+
 
 ```typescript
 import type { ComponentProps } from './component.props'
@@ -121,17 +116,15 @@ function Component(props: ComponentProps) {
   const {
     picked,
     omitted,
+    ns,
     cssNames,
     cssAttrs,
-    restAttrs,
   } = useComponentProps(props)
 
-  const { ref, children } = omitted
+  const { children } = omitted
 
   return (
     <div
-      {...restAttrs}
-      ref={ref}
       className={cssNames.root}
       style={cssAttrs.root}
     >
@@ -147,31 +140,33 @@ export default Component
 
 #### 3.3 `src/hooks/use-component-props.ts`
 
-Props 处理 hook：
+**作用**
+- Props 处理 hook
+
+**注意**
+- picked 中的属性一定要与 defaultProps 保持一致。
 
 ```typescript
 import type { ComponentProps, OmittedComponentProps, PickedComponentProps } from '../component.props'
 
-import { omit } from '@mink-ui/shared/object/omit'
-
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
+import { defaultComponentProps as defaultProps } from '../component.props'
 import { useComponentClassNames } from './use-class-names'
-import { defaultComponentProps as defaultProps, excludedComponentProps } from '../component.props'
 
 export function useComponentProps(props: ComponentProps) {
   const globalConfig = useConfiguration('component')
 
   const {
-    // 解构 props，处理默认值
+    // 解构 props，通过 defaultProps 处理默认值
   } = props
 
   const omitted = props as OmittedComponentProps
   const picked: PickedComponentProps = {
-    // 添加需要 pick 的 props
+    // 与 defaultProps 属性保持一致
   }
 
-  const classNames = useComponentClassNames(picked, omitted)
+  const { ns, classNames } = useComponentClassNames(picked, omitted)
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -190,51 +185,49 @@ export function useComponentProps(props: ComponentProps) {
     { picked, omitted },
   )
 
-  const restAttrs = omit(props, excludedComponentProps)
-
   return {
     picked,
     omitted,
+    ns,
     cssNames,
     cssAttrs,
-    restAttrs,
   }
 }
 ```
 
 #### 3.4 `src/hooks/use-class-names.ts`
 
-ClassName 生成 hook：
+**作用**
+- ClassNames 生成 hook
 
 ```typescript
 import type { OmittedComponentProps, PickedComponentProps } from '../component.props'
 
 import { useNamespace } from '../../../_shared/hooks/use-settings/use-namespace'
 import { cn } from '../../../_shared/libs/cn'
-import { defaultComponentProps as defaultProps } from '../component.props'
 
-/**
- * @description 获取组件的 className
- */
 export function useComponentClassNames(picked: PickedComponentProps, omitted: OmittedComponentProps) {
   const ns = useNamespace('component', omitted.prefixCls)
 
   return {
-    root: cn(ns, {
-      // 根据条件添加 modifier classes
-    }),
+    ns,
+    classNames: {
+      root: cn(ns, {
+        // 根据条件添加 modifier classes
+      }),
+    },
   }
 }
 ```
 
 #### 3.5 `src/index.ts`
 
-导出文件：
+**作用**
+- 导出文件
 
 ```typescript
 import _Component from './component'
 
-// CompoundComponent
 const Component = Object.assign(_Component, {})
 
 /**
@@ -264,6 +257,8 @@ import './index.scss'
 
 ```scss
 @use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
 
 $ns-component: #{$ns}-component;
 
@@ -286,6 +281,7 @@ $ns-component: #{$ns}-component;
 
 ```scss
 @use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
 
 // TODO: 定义组件的 mixins
 ```
@@ -294,10 +290,10 @@ $ns-component: #{$ns}-component;
 
 #### 5.1 `__docs__/zh-CN.md`
 
-```markdown
+````markdown
 ---
 category: component
-path: component
+path: <component-name>
 title: Component
 subtitle: 组件中文名
 desc: 组件描述。
@@ -318,7 +314,7 @@ TODO: 描述使用场景。
 
 ### Component Props
 
-<props-table src="./props/component.json" />
+<props-table src="./props/<component-name>.json" />
 
 ## Semantic DOM
 
@@ -329,14 +325,14 @@ TODO: 描述组件的语义 DOM 结构。
 ### Q1
 
 xxx
-```
+````
 
 #### 5.2 `__docs__/en-US.md`
 
-```markdown
+````markdown
 ---
 category: component-en
-path: component-en
+path: <component-name>
 title: Component
 subtitle: Component Name
 desc: Component description.
@@ -357,7 +353,7 @@ TODO: Describe use cases.
 
 ### Component Props
 
-<props-table src="./props/component.json" />
+<props-table src="./props/<component-name>.json" />
 
 ## Semantic DOM
 
@@ -368,11 +364,12 @@ TODO: Describe use cases.
 ### Q1
 
 xxx
-```
+
+````
 
 #### 5.3 `__docs__/examples/basic.md`
 
-```markdown
+````markdown
 ## zh-CN
 
 基本用法描述。
@@ -386,15 +383,22 @@ import { Component } from '@mink-ui/core'
 
 export default function App() {
   return (
-    <Component/>
+    <Component />
   )
 }
 ```
-```
+
+````
 
 #### 5.4 `__docs__/props/<component-name>.json`
 
-```json
+**作用**
+- 组件属性文档，用于渲染 props-table 组件
+
+**注意**
+- 此文件必须原样复制下列内容，不得额外添加字段。
+
+````json
 [
   {
     "name": "children",
@@ -431,10 +435,11 @@ export default function App() {
     "type": "Record<'root', React.CSSProperties>",
     "zh-CN": "自定义样式",
     "en-US": "Custom style"
-  }
+  },
 ]
-```
+````
 ## 4. 文件生成后
 
 1. 列出所有创建的文件路径
 2. 确认生成的文件路径是否正确。
+3. 将生成的组件注册到 `src/index.ts` 中；将生成的样式注册到 `src/styles/components.scss` 中。

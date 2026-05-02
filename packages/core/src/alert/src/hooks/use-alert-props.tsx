@@ -45,9 +45,9 @@ export function useAlertProps(props: AlertProps) {
     ],
   )
 
-  const attrs = omit(props, excludedAlertProps)
+  const restAttrs = omit(props, excludedAlertProps)
 
-  const handleOnClose = () => {
+  const handleCloseOnClick = () => {
     onClose?.()
     setVisible(false)
   }
@@ -60,9 +60,9 @@ export function useAlertProps(props: AlertProps) {
     ns,
     cssNames,
     cssAttrs,
+    restAttrs,
     globalConfig,
     visible,
-    attrs,
-    handleOnClose,
+    handleCloseOnClick,
   }
 }

@@ -2,9 +2,11 @@ import type { ComponentType, FormEvent, FormHTMLAttributes, ReactNode, Ref } fro
 import type { AnyObj } from '@mink-ui/shared/interface'
 import type { ExternalFieldInfo, ExternalFormInstance, InternalFormInstance, InternalFormValidateErrorInfo, RuleLike } from './_shared.props'
 
+import { exhaustive } from '../../../utils/exhaustive'
+
 type FunctionalChildren<S> = (state: unknown, form: InternalFormInstance<S>) => ReactNode
 
-export interface InternalFormProps<S = any> extends Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'children'> {
+export interface InternalFormInjectedProps<S = any> {
   /**
    * @description 外部引用
    */
@@ -86,6 +88,10 @@ export interface InternalFormProps<S = any> extends Omit<FormHTMLAttributes<HTML
   onFieldsChange?: (changedFields: ExternalFieldInfo[], getFields: () => ExternalFieldInfo[]) => void
 }
 
+export interface InternalFormProps<S = any> extends
+  InternalFormInjectedProps<S>,
+  Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'children'> {}
+
 export type DefaultNames = 'preserve' | 'component' | 'validateTrigger'
 
 export type PickedInternalFormProps<S = any> = Pick<InternalFormProps<S>, DefaultNames>
@@ -106,9 +112,7 @@ export const defaultInternalFormProps: PickedInternalFormProps = {
   validateTrigger: 'onChange',
 }
 
-export const excludedInternalFormProps = [
-  // extends
-
+export const excludedInternalFormProps = exhaustive<DefaultNames | keyof InternalFormInjectedProps>()([
   // props
   'ref',
   'children',
@@ -118,6 +122,7 @@ export const excludedInternalFormProps = [
   'preserve',
   'component',
   'validateTrigger',
+  'validateMessages',
   'fields',
   'name',
   // events
@@ -126,4 +131,4 @@ export const excludedInternalFormProps = [
   'onReset',
   'onValuesChange',
   'onFieldsChange',
-] as const
+])

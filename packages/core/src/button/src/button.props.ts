@@ -1,8 +1,11 @@
 import type { ButtonHTMLAttributes, MouseEvent, ReactNode, Ref } from 'react'
-import type { CommonSize, HasChildren, SemanticsStyled } from '../../_shared/types'
+import type { HasChildren } from '../../_shared/types/has-children'
+import type { CommonSize } from '../../_shared/types/size'
+import type { SemanticsStyled } from '../../_shared/types/styled'
 
-export interface ButtonProps extends
-  ButtonHTMLAttributes<HTMLButtonElement>,
+import { exhaustive } from '../../_shared/utils/exhaustive'
+
+export interface ButtonInjectedProps extends
   HasChildren,
   SemanticsStyled<'root' | 'icon' | 'text', { picked: PickedButtonProps, omitted: OmittedButtonProps }> {
   /**
@@ -66,6 +69,8 @@ export interface ButtonProps extends
   onClick?: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
 }
 
+export interface ButtonProps extends ButtonInjectedProps, Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {}
+
 export type DefaultNames = 'shape' | 'size' | 'theme' | 'variant' | 'disabled'
 
 export type PickedButtonProps = Pick<ButtonProps, DefaultNames>
@@ -87,7 +92,7 @@ export const defaultButtonProps: Omit<PickedButtonProps, 'disabled'> = {
   variant: 'outlined',
 }
 
-export const excludedButtonProps = [
+export const excludedButtonProps = exhaustive<DefaultNames | keyof ButtonInjectedProps>()([
   // extends
   'children',
   'prefixCls',
@@ -108,4 +113,4 @@ export const excludedButtonProps = [
   'variant',
   // events
   'onClick',
-] as const
+])

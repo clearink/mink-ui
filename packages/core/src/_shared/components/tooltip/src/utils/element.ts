@@ -1,6 +1,6 @@
 import type { ElementCoords } from '../_shared.props'
 
-import { ownerComputedStyle } from '@mink-ui/shared/dom/global'
+import { ownerStyle } from '@mink-ui/shared/dom/global'
 import { getClientCoords } from '@mink-ui/shared/dom/rect'
 
 import { findNonStaticElement } from '../../../../utils/element'
@@ -8,7 +8,7 @@ import { findNonStaticElement } from '../../../../utils/element'
 const fixed = new Set(['auto', 'clip', 'hidden', 'scroll'])
 
 function scrollable(el: Element) {
-  const { overflow: o, overflowX: ox, overflowY: oy } = ownerComputedStyle(el)
+  const { overflow: o, overflowX: ox, overflowY: oy } = ownerStyle(el)
 
   return fixed.has(o) || fixed.has(ox) || fixed.has(oy)
 }

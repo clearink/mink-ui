@@ -15,7 +15,7 @@ import { useInvoke } from '../../../hooks/use-invoke'
 import { defineName } from '../../../utils/define-name'
 import { logger } from '../../../utils/logger'
 import { InternalFormInstanceContext, InternalFormListContext } from './_shared.context'
-import { List } from './form-field'
+import { GeneratedFormList } from './form-field'
 import { FormListControl } from './utils/list-control'
 import { _getId, getIn } from './utils/path'
 
@@ -25,13 +25,13 @@ function InternalFormList(props: InternalFormListProps) {
 
   const { children, name, rule, initialValue, isListField } = props
 
-  const listName = useComputed({
-    deps: [topListContext?.listName, toArray(name), isListField],
-    compare: isEqual,
-    factory: () => toArray(isListField === false ? null : topListContext?.listName).concat(toArray(name)),
-  })
+  const listName = useComputed(
+    () => toArray(isListField === false ? null : topListContext?.listName).concat(toArray(name)),
+    [topListContext?.listName, toArray(name), isListField],
+    isEqual,
+  )
 
-  const [listControl, listHelpers] = useConstant(() => FormListControl.inject())
+  const [listControl, listHelpers] = useConstant(() => FormListControl.expose())
 
   useInvoke(() => { listControl.updateInternals(props, formInstance, listName) })
 
@@ -54,7 +54,7 @@ function InternalFormList(props: InternalFormListProps) {
   }
 
   return (
-    <List
+    <GeneratedFormList
       initialValue={initialValue}
       isListField={isListField}
       listControl={listControl}
@@ -87,7 +87,7 @@ function InternalFormList(props: InternalFormListProps) {
           </InternalFormListContext>
         )
       }}
-    </List>
+    </GeneratedFormList>
   )
 }
 

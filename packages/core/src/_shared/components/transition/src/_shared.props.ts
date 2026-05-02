@@ -1,5 +1,7 @@
 import type { CSSProperties, ReactElement } from 'react'
-import type { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING } from './_shared.constant'
+import type { VoidFn } from '@mink-ui/shared/interface'
+import type { UniqueKey } from '../../../types/unique-key'
+import type { APPEAR, ENTER, ENTERED, ENTERING, ENTRY_MARK, EXIT, EXITED, EXITING } from './_shared.constant'
 
 export type TransitionState = typeof ENTERED | typeof ENTERING | typeof EXITED | typeof EXITING
 
@@ -22,27 +24,48 @@ export type CssTransitionTimeouts = number | Partial<Record<
 >>
 
 export interface CssTransitionGetters {
+  /**
+   * @description 获取 className
+   */
   names: () => string | undefined
+
+  /**
+   * @description 获取 style
+   */
   attrs: () => CSSProperties | undefined
 }
 
-/** -----------------------------| switch transition -----------------------------| */
-
-export interface SwitchTransitionEntry {
+export interface ManagedTransitionEntry {
   /**
-   * @description 唯一 id
+   * @private
+   * @description 是否为管理状态
    */
-  key: ReactElement['key']
+  [ENTRY_MARK]: boolean
 
   /**
-   * @description 原始元素
+   * @description 唯一标识
    */
-  raw: ReactElement<any>
+  key: UniqueKey | undefined
 
   /**
    * @description 过渡元素
    */
   node: ReactElement<any>
+
+  /**
+   * @description 供 SwitchTransition 使用的回调函数
+   */
+  callback?: VoidFn
 }
 
-export type GroupTransitionEntry = SwitchTransitionEntry
+export interface UniquedTransitionItem {
+  /**
+   * @description 唯一标识
+   */
+  key: UniqueKey | undefined
+
+  /**
+   * @description 额外属性
+   */
+  [extra: string]: unknown
+}

@@ -1,0 +1,7 @@
+@use '../../styles/helpers.scss' as *;
+
+// TODO: 定义组件的 design tokens
+$mink-notification-z-index: 9999;
+$mink-notification-z-px: 9999px;
+$mink-notification-item-width: var(--#{$ns}-unit-96);
+$mink-notification-item-clip: calc(var(--#{$ns}-unit-8) * -1);

@@ -1,4 +1,4 @@
-import type { CommonStatus } from '../../../_shared/types'
+import type { CommonStatus } from '../../../_shared/types/status'
 
 import CheckCircleFilled from '@mink-ui/icons/CheckCircleFilled'
 import CloseCircleFilled from '@mink-ui/icons/CloseCircleFilled'
@@ -31,3 +31,11 @@ export function mapStatusIcon(status: any) {
     default: return null
   }
 }
+
+/**
+ * @description 获取所有预先定义好的 status
+ */
+export const getBuiltinStatus = (() => {
+  const result = Object.values(STATUS_ENUM)
+  return (): CommonStatus[] => result
+})()

@@ -1,4 +1,4 @@
-import type { CommonSize } from '../../_shared/types'
+import type { CommonSize } from '../../_shared/types/size'
 import type { SPACE_ALIGN } from './_shared.constant'
 
 export type SpaceSize = number | CommonSize | undefined

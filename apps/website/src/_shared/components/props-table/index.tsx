@@ -1,7 +1,5 @@
 import type { CSSProperties } from 'react'
 
-import { cn } from '@mink-ui/core/_shared/libs/cn'
-
 import styles from './style.module.scss'
 
 interface PropColumn {
@@ -24,7 +22,7 @@ export default function PropsTable(props: PropsTableProps) {
   const { columns } = props
 
   return (
-    <div className={cn(styles.props_table, 'better-scroll')}>
+    <div className={styles.props_table}>
       <table>
         <thead>
           <tr>

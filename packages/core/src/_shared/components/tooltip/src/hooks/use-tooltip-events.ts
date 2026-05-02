@@ -2,8 +2,8 @@ import type { IsOpenChangeHandler } from '../_shared.props'
 import type { PickedInternalTooltipProps } from '../tooltip.props'
 import type { TooltipControl } from '../utils/tooltip-control'
 
-import isEqual from 'react-fast-compare'
 import { useEffect, useMemo } from 'react'
+import { arrayEqual } from '@mink-ui/shared/array/array-equal'
 import { toArray } from '@mink-ui/shared/array/to-array'
 import { ownerWindow } from '@mink-ui/shared/dom/global'
 import { makeEventListener } from '@mink-ui/shared/dom/listener'
@@ -18,11 +18,7 @@ export function useTooltipEvents(
   control: TooltipControl,
   isOpenChange: IsOpenChangeHandler,
 ) {
-  const actions = useComputed({
-    deps: toArray(trigger),
-    compare: isEqual,
-    factory: () => new Set(toArray(trigger)),
-  })
+  const actions = useComputed(() => new Set(toArray(trigger)), toArray(trigger), arrayEqual)
 
   const clickToHide = actions.has('click') || actions.has('contextMenu')
 

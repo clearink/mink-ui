@@ -1,6 +1,6 @@
 import { InternalFormInstanceContext, InternalFormListContext } from './_shared.context'
 import _Form from './form'
-import { Field } from './form-field'
+import { GeneratedFormField as Field } from './form-field'
 import List from './form-list'
 import FormProvider from './form-provider'
 import FormShared from './form-shared'
@@ -9,7 +9,6 @@ import { useWatch } from './hooks/use-watch'
 import { normalizeIsListField } from './utils/helpers'
 import { _getId } from './utils/path'
 
-// CompoundedForm
 const Form = Object.assign(_Form, {
   FormProvider,
   FormShared,
@@ -27,9 +26,9 @@ const Form = Object.assign(_Form, {
  * |---------------------------------------------------------|
  */
 
-export type { ExternalFieldInfo, ExternalFieldName, ExternalFormInstance, InternalMetaInfo, MetaChangeEvent } from './_shared.props'
+export type { ExternalFieldInfo, ExternalFieldName, ExternalFormInstance, InternalListField, InternalListHelpers, InternalMetaInfo, MetaChangeEvent } from './_shared.props'
 export type { GeneratedFormFieldProps as InternalFormFieldProps } from './form-field.props'
-export type { InternalFormListProps, InternalListField, InternalListHelpers } from './form-list.props'
+export type { InternalFormListProps } from './form-list.props'
 export type { InternalFormProps } from './form.props'
 
 export {

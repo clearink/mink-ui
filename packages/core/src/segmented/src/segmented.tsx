@@ -10,21 +10,20 @@ import SegmentedItem from './segmented-item'
 function Segmented(props: SegmentedProps) {
   const {
     omitted,
-    refs,
+    ctrl,
     ns,
     cssNames,
     cssAttrs,
-    restAttrs,
-    rootCssNames,
-    rootCssAttrs,
+    outerCssNames,
+    outerCssAttrs,
     normalizedOptions,
     currentValue,
     isShowThumb,
     returnEmpty,
+    handleOnChange,
     handleOnEnter,
     handleOnEntering,
     handleOnEntered,
-    handleOnChange,
   } = useSegmentedProps(props)
 
   const { disabled } = omitted
@@ -36,7 +35,7 @@ function Segmented(props: SegmentedProps) {
 
     return (
       <CssTransition
-        ref={refs.$instance}
+        ref={ctrl.$instance}
         classNames={`${ns}-motion`}
         appear
         when
@@ -47,7 +46,7 @@ function Segmented(props: SegmentedProps) {
       >
         {($motion, getters) => (
           <div
-            ref={mergeRefs($motion, refs.$thumb)}
+            ref={mergeRefs($motion, ctrl.$thumb)}
             className={cn(cssNames.thumb, getters.names())}
             style={{ ...cssAttrs.thumb, ...getters.attrs() }}
           />
@@ -59,30 +58,26 @@ function Segmented(props: SegmentedProps) {
   const renderSegmentedOptions = () => {
     return normalizedOptions.map(item => (
       <SegmentedItem
-        {...item}
         key={item.value}
-        ref={(el) => {
-          if (el) refs.$items.set(item.value, el)
-          else refs.$items.delete(item.value)
-        }}
         checked={currentValue === item.value}
+        config={item}
         disabled={disabled || item.disabled}
         isShowThumb={isShowThumb}
-        rootCssAttrs={rootCssAttrs}
-        rootCssNames={rootCssNames}
-        rootNamespace={ns}
+        outerCssAttrs={outerCssAttrs}
+        outerCssNames={outerCssNames}
+        outerNamespace={ns}
         onChange={handleOnChange}
+        onCollect={ctrl.collect}
       />
     ))
   }
 
   return (
     <div
-      {...restAttrs}
       className={cssNames.root}
       style={cssAttrs.root}
     >
-      <div ref={refs.$inner} className={cssNames.inner} style={cssAttrs.inner}>
+      <div ref={ctrl.$inner} className={cssNames.inner} style={cssAttrs.inner}>
         {renderSegmentedThumb()}
         {renderSegmentedOptions()}
       </div>

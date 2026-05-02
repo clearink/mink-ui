@@ -1,7 +1,6 @@
 import _Alert from './alert'
 import ErrorBoundary from './error-boundary'
 
-// CompoundAlert
 const Alert = Object.assign(_Alert, { ErrorBoundary })
 
 /**

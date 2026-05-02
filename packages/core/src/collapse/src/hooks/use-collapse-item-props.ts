@@ -14,8 +14,8 @@ export function useCollapseItemProps(props: CollapseItemProps) {
     accordion,
     collapsible,
     expanded,
-    rootCssNames,
-    rootCssAttrs,
+    outerCssNames,
+    outerCssAttrs,
     onChange,
   } = props
 
@@ -23,13 +23,13 @@ export function useCollapseItemProps(props: CollapseItemProps) {
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
-      rootCssNames,
+      outerCssNames,
       classNames,
       props.classNames,
       { root: props.className },
     ],
     [
-      rootCssAttrs,
+      outerCssAttrs,
       props.styles,
       { root: props.style },
     ],

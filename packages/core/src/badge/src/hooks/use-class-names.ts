@@ -1,5 +1,5 @@
 import type { OmittedBadgeProps, PickedBadgeProps } from '../badge.props'
-import type { OmittedScrollNumberProps } from '../scroll-number.props'
+import type { ScrollNumberProps } from '../scroll-number.props'
 
 import { useNamespace } from '../../../_shared/hooks/use-settings/use-namespace'
 import { cn } from '../../../_shared/libs/cn'
@@ -20,10 +20,10 @@ export function useBadgeClassNames(_picked: PickedBadgeProps, omitted: OmittedBa
   }
 }
 
-export function useScrollNumberClassNames(omitted: OmittedScrollNumberProps) {
-  const { rootNamespace: rootNs } = omitted
+export function useScrollNumberClassNames(omitted: ScrollNumberProps) {
+  const { outerNamespace: rns } = omitted
 
-  const ns = `${rootNs}-scroll-number`
+  const ns = `${rns}-scroll-number`
 
   return {
     ns,

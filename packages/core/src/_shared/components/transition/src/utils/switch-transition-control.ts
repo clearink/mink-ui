@@ -1,6 +1,5 @@
-import type { ReactElement } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
-import type { SwitchTransitionEntry } from '../_shared.props'
+import type { ManagedTransitionEntry, UniquedTransitionItem } from '../_shared.props'
 import type { CssTransitionInstance, CssTransitionProps } from '../css-transition.props'
 import type { SwitchTransitionProps } from '../switch-transition.props'
 
@@ -9,20 +8,21 @@ import { atIndex } from '@mink-ui/shared/array/at-index'
 import { batch } from '@mink-ui/shared/function/batch'
 import { omit } from '@mink-ui/shared/object/omit'
 
+import { ENTRY_MARK } from '../_shared.constant'
 import CssTransition from '../css-transition'
 import { normalizeCssTransitionChildren, runCounter } from './helpers'
 
 export const excluded = ['key', 'mode', 'ref', 'children', 'when', 'unmountOnExit'] as const
 
-export class SwitchTransitionControl {
-  private _entries: SwitchTransitionEntry[] = []
+export class SwitchTransitionControl<T extends UniquedTransitionItem = UniquedTransitionItem> {
+  private _entries: ManagedTransitionEntry[] = []
 
-  private _instances = new Map<ReactElement['key'], CssTransitionInstance>()
+  private _instances = new Map<T['key'], CssTransitionInstance>()
 
-  public current: ReactElement
+  public current: T
 
-  constructor(private forceUpdate: VoidFn, public _props: SwitchTransitionProps) {
-    this.current = _props.children
+  constructor(private forceUpdate: VoidFn, public _props: SwitchTransitionProps<T>) {
+    this.current = _props.current
 
     this._entries = [this._createEntry(this.current, { when: true }, undefined)]
   }
@@ -33,41 +33,44 @@ export class SwitchTransitionControl {
   private _getInstance = (index: number) => {
     const instance = this._instances.get(atIndex(this._entries, index).key)
 
+    if (!instance) return undefined
+
     return {
       ...instance,
-      isFinished: instance?.isEntered || instance?.isExited,
-      isInLeaving: instance?.isExiting || instance?.isExited,
+      isFinished: instance.isEntered || instance.isExited,
     }
   }
 
   /**
    * @description 创建 transition entry
    */
-  private _createEntry = (element: ReactElement<any>, params: Partial<CssTransitionProps>, callback: VoidFn | undefined) => {
-    const rawKey = element.key
-
+  private _createEntry = (item: T, params: Partial<CssTransitionProps>, callback: VoidFn | undefined) => {
     const preset = omit(this._props as any, excluded) as CssTransitionProps
 
     const attrs = Object.assign(preset, params, {
-      key: rawKey,
+      __item: item,
+      key: `${item.key}`,
       unmountOnExit: true,
-      children: normalizeCssTransitionChildren(element),
+      onEntered: batch(preset.onEntered, callback),
+      children: normalizeCssTransitionChildren(this._props.children, item),
       ref: (instance: CssTransitionInstance) => {
-        if (!instance) this._instances.delete(rawKey)
-        else this._instances.set(rawKey, instance)
+        if (!instance) this._instances.delete(item.key)
+        else this._instances.set(item.key, instance)
       },
     }) as CssTransitionProps
 
-    if (attrs.when && callback) attrs.onEntered = batch(attrs.onEntered, callback)
-    else if (callback) attrs.onExited = batch(attrs.onExited, callback)
-
-    return { key: rawKey, raw: element, node: createElement(CssTransition, attrs) }
+    return {
+      [ENTRY_MARK]: true,
+      key: item.key,
+      node: createElement(CssTransition, attrs),
+      callback,
+    }
   }
 
   /**
    * @description 更新 transition entry
    */
-  private _updateEntry = (entry: SwitchTransitionEntry, callback: VoidFn) => {
+  private _updateEntry = (entry: ManagedTransitionEntry, callback: VoidFn) => {
     const preset = omit(this._props as any, excluded) as CssTransitionProps
 
     const instance = this._instances.get(entry.key)
@@ -79,21 +82,41 @@ export class SwitchTransitionControl {
     if (attrs.when) attrs.onEntered = batch(attrs.onEntered, callback)
     else attrs.onExited = batch(attrs.onExited, callback)
 
-    return { key: entry.key, raw: entry.raw, node: cloneElement(entry.node, attrs) }
+    return {
+      [ENTRY_MARK]: true,
+      key: entry.key,
+      node: cloneElement(entry.node, attrs),
+      callback,
+    }
+  }
+
+  /**
+   * @description 同步 transition node 的最新数据
+   */
+  private _updateNode = (entry: ManagedTransitionEntry, params: Partial<CssTransitionProps>) => {
+    const preset = omit(this._props as any, excluded) as CssTransitionProps
+
+    const attrs = Object.assign(preset, params) as CssTransitionProps
+
+    // TODO: 这里的判断需要后续观察
+    if (entry.node.props.when) attrs.onEntered = batch(attrs.onEntered, entry.callback)
+    else attrs.onExited = batch(attrs.onExited, entry.callback)
+
+    return cloneElement(entry.node, attrs)
   }
 
   /**
    * @description 更新当前元素
    */
-  private _updateCurrent = (current: SwitchTransitionControl['current']) => {
+  private _updateCurrent = (current: SwitchTransitionControl<T>['current']) => {
     this.current = current
   }
 
   /**
    * @description 更新 transition entries
    */
-  private _updateEntries = (values: SwitchTransitionControl['_entries']) => {
-    const map = new Map<ReactElement['key'], SwitchTransitionEntry>()
+  private _updateEntries = (values: SwitchTransitionControl<T>['_entries']) => {
+    const map = new Map<T['key'], ManagedTransitionEntry>()
 
     values.forEach((item) => { map.set(item.key, item) })
 
@@ -105,7 +128,7 @@ export class SwitchTransitionControl {
   /**
    * @description 更新内部属性
    */
-  public updateInternals = (props: SwitchTransitionProps) => {
+  public updateInternals = (props: SwitchTransitionProps<T>) => {
     this._props = props
   }
 
@@ -114,7 +137,7 @@ export class SwitchTransitionControl {
    */
   public runOutInSwitch = () => {
     const onExited = () => {
-      this._updateCurrent(this._props.children)
+      this._updateCurrent(this._props.current)
 
       this._updateEntries([
         this._createEntry(this.current, { appear: true, when: true }, undefined),
@@ -132,7 +155,7 @@ export class SwitchTransitionControl {
    * @description 切换动画 in-out
    */
   public runInOutSwitch = () => {
-    this._updateCurrent(this._props.children)
+    this._updateCurrent(this._props.current)
 
     const onEntered = () => {
       const onExited = () => { this._updateEntries([atIndex(this._entries, -1)]) }
@@ -157,7 +180,7 @@ export class SwitchTransitionControl {
    * @description 切换动画 default
    */
   public runDefaultSwitch = () => {
-    this._updateCurrent(this._props.children)
+    this._updateCurrent(this._props.current)
 
     const handler = runCounter(2, () => {
       this._updateEntries(this._entries.filter(item => item.key === this.current.key))
@@ -177,18 +200,22 @@ export class SwitchTransitionControl {
   /**
    * @description 渲染元素
    */
-  public renderEntries = (child: SwitchTransitionProps['children']) => {
-    return this._entries.map((item, index) => {
+  public renderEntries = () => {
+    const { current: item, children } = this._props
+
+    const map = new Map([[item.key, item]])
+
+    return this._entries.map((entry, index) => {
       const instance = this._getInstance(index)
 
-      if (instance.isInLeaving) return item.node
+      const config = map.get(entry.key)
 
-      if (item.key !== child.key) return item.node
+      if (instance?.isExiting) return entry.node
+      if (!config || !map.has(entry.key)) return entry.node
 
-      if (child === item.raw) return item.node
+      const normalized = normalizeCssTransitionChildren(children, config)
 
-      // 尽可能同步最新的数据
-      return cloneElement(item.node, { children: normalizeCssTransitionChildren(child) })
+      return entry.node = this._updateNode(entry, { children: normalized })
     })
   }
 }

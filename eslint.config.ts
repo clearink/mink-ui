@@ -29,6 +29,7 @@ export default antfu(
         'react/no-children-for-each': 'off',
         'react/jsx-key-before-spread': 'off',
         'react/no-unnecessary-use-prefix': 'off',
+        'react/component-hook-factories': 'off',
         'react/exhaustive-deps': ['warn', { additionalHooks: 'useIsomorphicEffect' }],
         'react-dom/no-dangerously-set-innerhtml': 'off',
         'react-dom/no-flush-sync': 'off',

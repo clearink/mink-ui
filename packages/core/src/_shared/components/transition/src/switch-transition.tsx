@@ -1,14 +1,13 @@
+import type { UniquedTransitionItem } from './_shared.props'
 import type { SwitchTransitionProps } from './switch-transition.props'
 
 import { defineName } from '../../../utils/define-name'
 import { useSwitchTransitionProps } from './hooks/use-switch-transition-props'
 
-function SwitchTransition(props: SwitchTransitionProps) {
-  const { omitted, returnEmpty, renderEntries } = useSwitchTransitionProps(props)
+function SwitchTransition<T extends UniquedTransitionItem>(props: SwitchTransitionProps<T>) {
+  const { returnEmpty, renderEntries } = useSwitchTransitionProps<T>(props)
 
-  const { children } = omitted
-
-  return returnEmpty ? null : renderEntries(children)
+  return returnEmpty ? null : renderEntries()
 }
 
 defineName(SwitchTransition)

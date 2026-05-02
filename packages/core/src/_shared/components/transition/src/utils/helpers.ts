@@ -1,12 +1,11 @@
-import type { ReactElement, ReactNode, RefCallback } from 'react'
 import type { MayBe } from '@mink-ui/shared/interface'
-import type { CssTransitionGetters } from '../_shared.props'
+import type { ManagedTransitionEntry, UniquedTransitionItem } from '../_shared.props'
+import type { GroupTransitionProps } from '../group-transition.props'
 
-import { cloneElement, isValidElement } from 'react'
 import { pushItem } from '@mink-ui/shared/array/push-item'
+import { hasOwn } from '@mink-ui/shared/object/has-own'
 
-import { cn } from '../../../../libs/cn'
-import { mergeRefs } from '../../../../utils/refs'
+import { ENTRY_MARK } from '../_shared.constant'
 
 /**
  * @description 更新元素 classname
@@ -40,34 +39,39 @@ export function runCounter(counter: number, callback: (...args: any) => void) {
 }
 
 /**
- * @description 判断两个 ReactNode 是否相等
+ * @description 判断两个 item 是否相等
  */
-export function isNodeEqual(prev: ReactNode, next: ReactNode) {
-  if (prev === next) return true
-
-  if (!isValidElement(prev) || !isValidElement(next)) return false
-
+export function isItemEqual<T extends UniquedTransitionItem>(
+  prev: T,
+  next: T,
+) {
   return prev.key === next.key
 }
 
 /**
- * @description 判断两个 ReactNode[] 是否相等
+ * @description 判断两个 items 是否相等
  */
-export function isNodesEqual(prev: ReactNode[], next: ReactNode[]) {
+export function isItemsEqual<T extends UniquedTransitionItem>(prev: T[], next: T[]) {
   if (prev.length !== next.length) return false
 
-  return prev.every((el, i) => isNodeEqual(el, next[i]))
+  return prev.every((item, index) => isItemEqual(item, next[index]))
 }
 
 /**
  * @description 格式化 transition 子元素
  */
-export function normalizeCssTransitionChildren<E extends HTMLElement>(children: ReactElement<any>) {
-  return (ref: RefCallback<E>, getters: CssTransitionGetters) => {
-    return cloneElement(children, {
-      ref: mergeRefs(ref, children.props.ref || (children as any).ref),
-      className: cn(children.props.className, getters.names()),
-      style: { ...children.props.style, ...getters.attrs() },
-    })
-  }
+export function normalizeCssTransitionChildren<T extends UniquedTransitionItem>(
+  children: GroupTransitionProps<T>['children'],
+  item: T,
+) {
+  return (ref: any, getters: any) => children(ref, getters, item)
+}
+
+/**
+ * @description 判断是否为 ManagedTransitionEntry
+ */
+export function isManagedTransitionEntry(
+  item: UniquedTransitionItem | ManagedTransitionEntry,
+): item is ManagedTransitionEntry {
+  return hasOwn(item, ENTRY_MARK)
 }

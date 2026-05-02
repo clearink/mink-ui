@@ -249,6 +249,11 @@
       "types": "./src/string/capitalize.ts",
       "import": "./src/string/capitalize.ts",
       "require": "./src/string/capitalize.ts"
+    },
+    "./string/kebab-case": {
+      "types": "./src/string/kebab-case.ts",
+      "import": "./src/string/kebab-case.ts",
+      "require": "./src/string/kebab-case.ts"
     }
   },
   "main": "./src/index.ts",
@@ -268,9 +273,8 @@
   "scripts": {
     "prepublishOnly": "tsc -b & mink build:shared",
     "sub": "mink sub:shared",
-    "dts": "mink dts:shared",
     "build": "mink build:shared",
-    "lint": "eslint src",
+    "lint": "eslint src --fix --ignore-pattern \"**/*.md\"",
     "lint:ts": "tsc -b"
   },
   "peerDependencies": {

@@ -1,4 +1,4 @@
-export class ScrollNumberRefs {
+export class ScrollNumberControl {
   public $wrapper = { current: null as HTMLDivElement | null }
 
   public $items = new Map<string | null, HTMLSpanElement>()

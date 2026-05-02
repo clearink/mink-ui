@@ -1,7 +1,6 @@
 import _Badge from './badge'
 import Ribbon from './badge-ribbon'
 
-// CompoundBadge
 const Badge = Object.assign(_Badge, { Ribbon })
 
 /**

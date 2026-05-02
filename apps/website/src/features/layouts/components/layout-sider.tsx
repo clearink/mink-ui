@@ -14,21 +14,27 @@ function LayoutSider(props: LayoutSiderProps) {
   const groups = useSiderMenus(routes, category)
 
   return (
-    <SwitchTransition classNames="x-slide-left" mode="out-in">
-      <div key={category} className={cn(styles.layout_sider, className, 'better-scroll')}>
-        {groups.map(([group, menus], index) => (
-          <section key={group ?? `${index}`} className={styles.menu_group}>
-            {!isNullish(group) && <div className={styles.menu_title}>{group}</div>}
-            {menus.map(item => (
-              <NavLink key={item.href} className={({ isActive }) => cn(styles.menu_item, isActive && styles.is_active)} end to={item.href}>
-                <span>{item.title}</span>
-                {!isNullish(item.subtitle) && <span className={styles.item_subtitle}>{item.subtitle}</span>}
-                {!isNullish(item.tags) && <span className={styles.item_tags}>{item.tags}</span>}
-              </NavLink>
-            ))}
-          </section>
-        ))}
-      </div>
+    <SwitchTransition classNames="x-slide-left" current={{ key: `${category}` }} mode="out-in">
+      {($motion, getters) => (
+        <div
+          ref={$motion}
+          className={cn(styles.layout_sider, className, 'better-scroll', getters.names())}
+        >
+          {groups.map(([group, menus], index) => (
+            <section key={group ?? `${index}`} className={styles.menu_group}>
+              {!isNullish(group) && <div className={styles.menu_title}>{group}</div>}
+              {menus.map(item => (
+                <NavLink key={item.href} className={({ isActive }) => cn(styles.menu_item, isActive && styles.is_active)} end to={item.href}>
+                  <span>{item.title}</span>
+                  {!isNullish(item.subtitle) && <span className={styles.item_subtitle}>{item.subtitle}</span>}
+                  {!isNullish(item.tags) && <span className={styles.item_tags}>{item.tags}</span>}
+                </NavLink>
+              ))}
+            </section>
+          ))}
+        </div>
+      )}
+
     </SwitchTransition>
   )
 }

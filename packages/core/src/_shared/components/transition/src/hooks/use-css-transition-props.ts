@@ -24,6 +24,7 @@ import { useNormalizeMotions, useNormalizeTimeouts } from './use-normalize'
 
 export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitionProps<E>) {
   const {
+    __item,
     ref,
     when,
     type,
@@ -49,17 +50,18 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
 
   const [cssValues, setCssValues] = useExactState<undefined | CSSProperties>(undefined)
 
-  const returnEarly1 = useWatchValue(when, () => { setIsMounted(true) })
+  const getters = {
+    names: useEvent(() => cn(control.names)),
+    attrs: useEvent(() => cssValues),
+  }
 
-  const returnEarly2 = useWatchValue(`${unmountOnExit}-${mountOnEnter}`, () => {
+  const returnEarly1 = useWatchValue(!!when, () => { setIsMounted(true) })
+
+  const returnEarly2 = useWatchValue(`${!!unmountOnExit}-${!!mountOnEnter}`, () => {
     if (!isExited(control.state)) return
 
     setIsMounted(!(unmountOnExit || (mountOnEnter && !control.connected)))
   })
-
-  const cssNamesGetter = useEvent(() => cn(control.names))
-
-  const cssAttrsGetter = useEvent(() => cssValues)
 
   const runTransitionFinish = (el: E, phase: TransitionPhase) => {
     control.dispose()
@@ -67,7 +69,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
     setIsMounted(!unmountOnExit || !!when, () => {
       control.finish(el, phase, motions)
 
-      const attrs = isExit(phase) ? onExited?.(el) : onEntered?.(el, isAppear(phase))
+      const attrs = isExit(phase) ? onExited?.(el, __item) : onEntered?.(el, isAppear(phase), __item)
 
       setCssValues(attrs || undefined)
     })
@@ -78,7 +80,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
 
     if (!isRunning(control.state)) return
 
-    isExit(phase) ? onExitCancel?.(el) : onEnterCancel?.(el, isAppear(phase))
+    isExit(phase) ? onExitCancel?.(el, __item) : onEnterCancel?.(el, isAppear(phase), __item)
 
     control.cancel(phase)
   }
@@ -126,7 +128,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
   const runCssTransition = useEvent((el: E, phase: TransitionPhase) => {
     control.begin(el, phase, motions)
 
-    const attrs = isExit(phase) ? onExit?.(el) : onEnter?.(el, isAppear(phase))
+    const attrs = isExit(phase) ? onExit?.(el, __item) : onEnter?.(el, isAppear(phase), __item)
 
     flushSync(() => { setCssValues(attrs || undefined) })
 
@@ -135,11 +137,11 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
     const runFrameCleanup = nextFrame(() => {
       control.frame(el, phase, motions)
 
-      const attrs = isExit(phase) ? onExiting?.(el) : onEntering?.(el, isAppear(phase))
+      const attrs = isExit(phase) ? onExiting?.(el, __item) : onEntering?.(el, isAppear(phase), __item)
 
       setCssValues(attrs || undefined)
 
-      control.updateCleanup(runTransitionEvents(el, phase))
+      control.sync(runTransitionEvents(el, phase))
     })
 
     return () => {
@@ -161,7 +163,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
   useInsertionEffect(() => nextTick(() => {
     const { $element } = control
 
-    const phase = control.calculate(when)
+    const phase = control.compute(!!when)
 
     if (!$element || isUndefined(phase)) return
 
@@ -172,9 +174,8 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
 
   return {
     omitted: props,
-    isMounted,
-    getters: { names: cssNamesGetter, attrs: cssAttrsGetter },
+    control,
+    getters,
     returnEmpty: (returnEarly1 || returnEarly2) || !isMounted,
-    runConnect: control.connect,
   }
 }

@@ -1,7 +1,7 @@
 import type { MayBe } from '@mink-ui/shared/interface'
 import type { ContainerElement, GetContainerElement } from '../components/portal/src/_shared.props'
 
-import { ownerComputedStyle, ownerDocument } from '@mink-ui/shared/dom/global'
+import { ownerDocument, ownerStyle } from '@mink-ui/shared/dom/global'
 import { isBrowser } from '@mink-ui/shared/dom/is-browser'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 import { isNullish } from '@mink-ui/shared/is/is-nullish'
@@ -17,7 +17,7 @@ export function findNonStaticElement(element: Element) {
 
   // 层级超过 5000 的 应该不存在吧
   while (current && depth++ < 5000) {
-    const { position } = ownerComputedStyle(current)
+    const { position } = ownerStyle(current)
 
     if (position !== 'static') return current
 

@@ -108,8 +108,8 @@ function ImpureFormItem(props: FormItemProps) {
           className={cssNames.label}
           style={cssAttrs.label}
           itemId={itemId}
+          outerNamespace={ns}
           required={!!required}
-          rootNamespace={ns}
         />
       )}
 
@@ -120,7 +120,7 @@ function ImpureFormItem(props: FormItemProps) {
         style={cssAttrs.input}
         errors={errors}
         itemId={itemId}
-        rootNamespace={ns}
+        outerNamespace={ns}
         status={status}
         warnings={warnings}
         onGetFormItemElement={onGetFormItemElement}

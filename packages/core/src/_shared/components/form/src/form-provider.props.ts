@@ -1,5 +1,5 @@
 import type { AnyObj } from '@mink-ui/shared/interface'
-import type { HasChildren } from '../../../types'
+import type { HasChildren } from '../../../types/has-children'
 import type { ExternalFieldInfo, ExternalFormInstance } from './_shared.props'
 import type { InternalFormProps } from './form.props'
 

@@ -1,16 +1,16 @@
 import type { VoidFn } from '@mink-ui/shared/interface'
 import type { InternalFormProviderContextState, InternalFormSharedContextState } from '../_shared.context'
 import type {
-  DispatchAction,
   ExternalFieldInfo,
   ExternalFieldName,
+  FormDispatchAction,
+  FormScheduleFunction,
+  FormScheduleTasks,
   GetFieldsValueFunction,
   InternalFieldName,
   InternalFormInstance,
   InternalHooksReturn,
   IsFieldsTouchedFunction,
-  ScheduleFunction,
-  ScheduleTasks,
   WatchCallBack,
 } from '../_shared.props'
 import type { ScheduleCallback } from '../form-scheduler.props'
@@ -105,7 +105,10 @@ export class FormControl<S = any> {
     }
   }
 
-  public inject = (): InternalFormInstance<S> => {
+  /**
+   * @description 向外暴露方法
+   */
+  public expose = (): InternalFormInstance<S> => {
     const { $controls, $dispatch } = this
 
     return {
@@ -366,7 +369,7 @@ export class FormSchedulerControl<S = any> {
   /**
    * @description 任务队列
    */
-  public _tasks: ScheduleTasks = Object.create(null)
+  public _tasks: FormScheduleTasks = Object.create(null)
 
   /**
    * @description 记录路径是否已拷贝过
@@ -413,7 +416,7 @@ export class FormSchedulerControl<S = any> {
   /**
    * @description 任务调度
    */
-  public schedule: ScheduleFunction = (key, priority, factory) => {
+  public schedule: FormScheduleFunction = (key, priority, factory) => {
     if (this._tasks[key]) return
 
     this._tasks[key] = { priority, handler: () => { factory(this._tasks) } }
@@ -549,6 +552,7 @@ export class FormControlsControl {
   }
 
   /**
+   * @private
    * @description 获取 isFieldsValidating 所需要的 controls
    */
   private getIsControlsForFieldsValidating = (nameList: ExternalFieldName[] | undefined) => {
@@ -569,6 +573,7 @@ export class FormControlsControl {
   }
 
   /**
+   * @private
    * @description 获取字段是否 touched 的 controls
    */
   private getControlsForIsFieldsTouched = (nameList: ExternalFieldName[] | undefined) => {
@@ -830,6 +835,7 @@ export class FormInitialControl<S = any> {
   ) {}
 
   /**
+   * @private
    * @description 回退至首次的视图状态
    */
   private fallbackViewState = (control: FormFieldControl) => {
@@ -1102,6 +1108,7 @@ export class FormDispatchControl<S = any> {
   ) {}
 
   /**
+   * @private
    * @description 触发字段 dependencies 逻辑
    */
   private triggerDependencies = (controls: FormFieldControl[]) => {
@@ -1124,6 +1131,7 @@ export class FormDispatchControl<S = any> {
   }
 
   /**
+   * @private
    * @description 更新字段
    */
   private updateControl = (predicate: (control: FormFieldControl) => unknown, defaults?: FormFieldControl[]) => {
@@ -1138,6 +1146,7 @@ export class FormDispatchControl<S = any> {
   }
 
   /**
+   * @private
    * @description 调度更新
    */
   private scheduleUpdate = () => {
@@ -1172,7 +1181,7 @@ export class FormDispatchControl<S = any> {
   /**
    * @description 字段调度方法
    */
-  public dispatch = (action: DispatchAction) => {
+  public dispatch = (action: FormDispatchAction) => {
     const { $other, $state, $scheduler, $controls, $initial } = this
     const { _initial, _cleanup, _events } = $scheduler
 
@@ -1419,6 +1428,7 @@ export class FormDispatchControl<S = any> {
   }
 
   /**
+   * @private
    * @description 触发 onFieldsChange 回调 TODO: 待优化
    */
   private triggerOnFieldsChange = (controls: FormFieldControl[]) => {
@@ -1436,6 +1446,7 @@ export class FormDispatchControl<S = any> {
   }
 
   /**
+   * @private
    * @description 触发 onValuesChange 回调 (只有 fieldEvent 时才会触发)
    */
   private triggerOnValuesChange = (controls: FormFieldControl[], events: { values?: object }) => {
@@ -1502,6 +1513,7 @@ export class FormDispatchControl<S = any> {
   }
 
   /**
+   * @private
    * @description 触发 onFinish 回调
    */
   private triggerOnFinish = (values: S) => {
@@ -1517,6 +1529,7 @@ export class FormDispatchControl<S = any> {
   }
 
   /**
+   * @private
    * @description 触发 onFailed 回调
    */
   private triggerOnFailed = (error: FormValidateError<S>) => {

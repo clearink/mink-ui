@@ -46,6 +46,8 @@ export function useFormProps<S = any>(props: FormProps<S>) {
     requiredMark,
   }
 
+  const formInstance = useForm(form)
+
   const classNames = useFormClassNames(picked, omitted)
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
@@ -59,8 +61,6 @@ export function useFormProps<S = any>(props: FormProps<S>) {
       { root: omitted.style },
     ],
   )
-
-  const formInstance = useForm(form)
 
   const propsContextValue = useMemo<FormPropsContextState>(() => ({
     colon,

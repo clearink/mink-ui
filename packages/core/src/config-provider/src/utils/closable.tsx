@@ -1,6 +1,5 @@
 import type { MayBe } from '@mink-ui/shared/interface'
-import type { HasClosable } from '../../../_shared/types'
-import type { HasClosableWithIconRender } from '../../../_shared/types/closable'
+import type { HasClosable, HasClosableWithIconRender } from '../../../_shared/types/closable'
 
 import { cloneElement, isValidElement } from 'react'
 import CloseOutlined from '@mink-ui/icons/CloseOutlined'

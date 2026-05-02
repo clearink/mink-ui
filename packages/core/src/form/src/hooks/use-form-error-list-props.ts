@@ -10,7 +10,7 @@ import { ErrorListContext } from '../_shared.context'
 import { formatExplains } from '../utils/format'
 
 export function useFormErrorListProps(props: FormErrorListProps) {
-  const { rootNamespace: rootNs } = ErrorListContext.use()
+  const { outerNamespace: ins } = ErrorListContext.use()
 
   const {
     warnings: _warnings = [],
@@ -19,7 +19,7 @@ export function useFormErrorListProps(props: FormErrorListProps) {
     helpStatus,
   } = props
 
-  const ns = useNamespace(preset => `${rootNs || preset}__explain`)
+  const ns = useNamespace(preset => `${ins || `${preset}-form-item`}__explain`)
 
   const warnings = useDebounceValue(_warnings.length ? 20 : 0, _warnings)
 

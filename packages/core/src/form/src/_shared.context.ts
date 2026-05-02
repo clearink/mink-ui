@@ -84,7 +84,7 @@ export interface ErrorListContextState {
   /**
    * @description FormItem 语义化样式前缀
    */
-  rootNamespace?: string
+  outerNamespace?: string
 
   /**
    * @description 字段校验状态

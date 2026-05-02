@@ -40,8 +40,8 @@ function getTopOrBottomScreenCoords(
   main: VerticalMainAxis,
   cross: VerticalCrossAxis,
 ): GetScreenCoordsFunc {
-  return (props, popup, trigger) => {
-    const dy = (props.arrow ? _effect : 0) + _offset
+  return (picked, popup, trigger) => {
+    const dy = (picked.arrow ? _effect : 0) + _offset
 
     const top = main === 'top' ? trigger.t - popup._ch - dy : trigger.b + dy
 
@@ -71,8 +71,8 @@ function getLeftOrRightScreenCoords(
   main: HorizontalMainAxis,
   cross: HorizontalCrossAxis,
 ): GetScreenCoordsFunc {
-  return (props, popup, trigger) => {
-    const dx = (props.arrow ? _effect : 0) + _offset
+  return (picked, popup, trigger) => {
+    const dx = (picked.arrow ? _effect : 0) + _offset
 
     const left = main === 'left' ? trigger.l - popup._cw - dx : trigger.r + dx
 
@@ -111,9 +111,7 @@ function keepTopOrBottomArrowCenter(): keepArrowCenterFunc {
     return [screen._dx + sign * dx, dx] as const
   }
 
-  return (props, screen, trigger) => {
-    const { arrow } = props
-
+  return ({ arrow }, screen, trigger) => {
     if (!(isObject(arrow) && arrow.pointAtCenter)) return screen
 
     const [_dx, _da] = getDeltaCoords(screen, trigger)
@@ -133,9 +131,7 @@ function keepLeftOrRightArrowCenter(): keepArrowCenterFunc {
     return [screen._dy + sign * dy, dy] as const
   }
 
-  return (props, screen, trigger) => {
-    const { arrow } = props
-
+  return ({ arrow }, screen, trigger) => {
     if (!(isObject(arrow) && arrow.pointAtCenter)) return screen
 
     const [_dy, _da] = getDeltaCoords(screen, trigger)
@@ -193,9 +189,7 @@ function shiftTopOrBottomPopupCoords(): ShiftPopupCoordsFunc {
     return screen._dx
   }
 
-  return (props, screen, trigger) => {
-    const { shift } = props
-
+  return ({ shift }, screen, trigger) => {
     if (!shift || (isObject(shift) && shift.horizontal === false)) return screen
 
     const _dx = getDeltaCoords(screen, trigger)
@@ -217,9 +211,7 @@ function shiftLeftOrRightPopupCoords(): ShiftPopupCoordsFunc {
     return screen._dy
   }
 
-  return (props, screen, trigger) => {
-    const { shift } = props
-
+  return ({ shift }, screen, trigger) => {
     if (!shift || (isObject(shift) && shift.vertical === false)) return screen
 
     const _dy = getDeltaCoords(screen, trigger)
@@ -245,9 +237,7 @@ function flipTopOrBottomPopupCoords(): FlipPopupCoordsFunc {
     return [trigger.b + trigger.t - max, main === 'bottom' ? 'top' : 'bottom']
   }
 
-  return (props, screen, trigger) => {
-    const { flip } = props
-
+  return ({ flip }, screen, trigger) => {
     if (!flip || (isObject(flip) && flip.vertical === false)) return screen
 
     const [_dy, _main] = getDeltaCoords(screen, trigger)
@@ -271,9 +261,7 @@ function flipLeftOrRightPopupCoords(): FlipPopupCoordsFunc {
     return [trigger.r + trigger.l - max, main === 'left' ? 'right' : 'left']
   }
 
-  return (props, screen, trigger) => {
-    const { flip } = props
-
+  return ({ flip }, screen, trigger) => {
     if (!flip || (isObject(flip) && flip.horizontal === false)) return screen
 
     const [_dx, _main] = getDeltaCoords(screen, trigger)

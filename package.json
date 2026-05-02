@@ -17,15 +17,33 @@
     "commit": "git-cz",
     "prepare": "husky",
     "postinstall": "pnpm build:cli",
-    "dev": "pnpm --filter @apps/website dev",
-    "gen:icons": "pnpm --filter @mink-ui/icons gen",
-    "sub:core": "pnpm --filter @mink-ui/core sub",
-    "sub:icons": "pnpm --filter @mink-ui/icons sub",
-    "sub:shared": "pnpm --filter @mink-ui/shared sub",
-    "build:cli": "pnpm --filter @internal/cli build:all",
-    "build:website": "pnpm --filter @apps/website build",
+    "setup": "pnpm install && pnpm gen:icons && pnpm sub:all",
+
+    "dev": "pnpm -F @apps/website dev",
+
+    "sub:all": "pnpm sub:icons && pnpm sub:shared",
+    "lint:all": "pnpm core:lint && pnpm lint:icons && pnpm lint:shared",
+
+    "sub:core": "pnpm -F @mink-ui/core sub",
+    "lint:core": "pnpm -F @mink-ui/core lint",
+    "build:core": "pnpm -F @mink-ui/core build",
+
+    "gen:icons": "pnpm -F @mink-ui/icons gen",
+    "sub:icons": "pnpm -F @mink-ui/icons sub",
+    "build:icons": "pnpm -F @mink-ui/icons build",
+    "lint:icons": "pnpm -F @mink-ui/icons lint",
+
+    "sub:shared": "pnpm -F @mink-ui/shared sub",
+    "build:shared": "pnpm -F @mink-ui/shared build",
+    "lint:shared": "pnpm -F @mink-ui/shared lint",
+
+    "build:cli": "pnpm -F @internal/cli build:all",
+
+    "lint:website": "pnpm -F @apps/website lint",
+    "build:website": "pnpm -F @apps/website build",
+
     "ci:version": "pnpm changeset version",
-    "lint": "eslint --fix",
+
     "test": "vitest"
   },
   "devDependencies": {

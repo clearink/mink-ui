@@ -5,8 +5,8 @@ title: Segmented
 subtitle: 分段控制器
 desc: 用于在多个选项之间进行切换。
 group:
-  title: 数据展示
-  order: 3
+  title: 展示
+  order: 2
 ---
 
 ## 何时使用

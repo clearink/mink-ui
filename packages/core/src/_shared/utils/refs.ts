@@ -1,5 +1,5 @@
-import type { ReactElement, ReactNode, Ref } from 'react'
-import type { VoidFn } from '@mink-ui/shared/interface'
+import type { ReactElement, ReactNode, Ref, RefCallback } from 'react'
+import type { MayBe, VoidFn } from '@mink-ui/shared/interface'
 
 import { isFragment, isMemo } from 'react-is'
 import { Component, isValidElement } from 'react'
@@ -17,7 +17,7 @@ export function fillRef<T>(el: T, ref?: Ref<T>): void | VoidFn {
   return () => { ref.current = null }
 }
 
-export function mergeRefs<T>(...refs: (Ref<T> | undefined)[]) {
+export function mergeRefs<T>(...refs: (MayBe<Ref<T>>)[]): RefCallback<T> | undefined {
   const filtered = refs.filter(ref => !isNullish(ref))
 
   // 如果都是 nullish，则返回 undefined

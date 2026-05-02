@@ -10,7 +10,7 @@ import { useFormErrorListProps } from './hooks/use-form-error-list-props'
 function FormErrorList(props: FormErrorListProps) {
   const { omitted, ns, explains } = useFormErrorListProps(props)
 
-  const { className, style, help, itemId, onFinished } = omitted
+  const { className, style, help, itemId, onGroupExited } = omitted
 
   return (
     <div
@@ -22,17 +22,23 @@ function FormErrorList(props: FormErrorListProps) {
       <GroupTransition
         classNames={`${ns}-motion`}
         appear={isNullish(help)}
+        items={explains}
         onEnter={() => ({ height: 0 })}
         onEntering={el => ({ height: el.scrollHeight })}
         onExit={el => ({ height: el.getBoundingClientRect().height })}
         onExiting={() => ({ height: 0 })}
-        onFinished={onFinished}
+        onGroupExited={onGroupExited}
       >
-        {explains.map(item => (
-          <div key={item.key} className={`${ns}--${item.status}`}>
+        {($motion, getters, item) => (
+          <div
+            ref={$motion}
+            className={cn(`${ns}--${item.status}`, getters.names)}
+            style={getters.attrs()}
+          >
             {item.value}
           </div>
-        ))}
+        )}
+
       </GroupTransition>
     </div>
   )

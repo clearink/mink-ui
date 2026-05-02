@@ -1,4 +1,6 @@
-import TouchEffect from './touch-effect'
+import _TouchEffect from './touch-effect'
+
+const TouchEffect = Object.assign(_TouchEffect, {})
 
 /**
  * |---------------------------------------------------------|

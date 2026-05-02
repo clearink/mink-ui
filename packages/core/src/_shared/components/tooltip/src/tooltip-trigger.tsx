@@ -15,7 +15,7 @@ function TooltipTrigger(props: TooltipTriggerProps) {
 
   const $el = useRef<Element>(null)
 
-  const reference = useMergeRefs(children.props.ref, $el, ref)
+  const mergedRef = useMergeRefs(children.props.ref, $el, ref)
 
   useResizeObserver($el, onResize)
 
@@ -31,7 +31,7 @@ function TooltipTrigger(props: TooltipTriggerProps) {
     result[k] = batch(v, children.props[k])
 
     return result
-  }, { ref: reference } as AnyObj)
+  }, { ref: mergedRef } as AnyObj)
 
   return cloneElement(children, attrs)
 }

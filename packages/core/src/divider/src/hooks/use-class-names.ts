@@ -1,4 +1,4 @@
-import type { Orientation } from '../../../_shared/types'
+import type { Orientation } from '../../../_shared/types/orientation'
 import type { OmittedDividerProps, PickedDividerProps } from '../divider.props'
 
 import { isNullish } from '@mink-ui/shared/is/is-nullish'
@@ -9,10 +9,11 @@ import { cn } from '../../../_shared/libs/cn'
 export function useDividerClassNames(
   picked: PickedDividerProps,
   omitted: OmittedDividerProps,
-  orientation: Orientation,
+  others: { orientation: Orientation },
 ) {
   const { align, variant, size } = picked
   const { children, plain, prefixCls } = omitted
+  const { orientation } = others
 
   const ns = useNamespace('divider', prefixCls)
 

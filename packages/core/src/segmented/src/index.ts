@@ -1,4 +1,6 @@
-import Segmented from './segmented'
+import _Segmented from './segmented'
+
+const Segmented = Object.assign(_Segmented, {})
 
 /**
  * |---------------------------------------------------------|

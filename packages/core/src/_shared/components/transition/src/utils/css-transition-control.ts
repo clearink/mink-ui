@@ -2,7 +2,7 @@ import type { MayBe, VoidFn } from '@mink-ui/shared/interface'
 import type { TransitionMotions, TransitionPhase, TransitionState } from '../_shared.props'
 import type { CssTransitionProps } from '../css-transition.props'
 
-import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isEntered, isExit, isExited } from '../_shared.constant'
+import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isEntered, isExit, isExited, isExiting } from '../_shared.constant'
 import { removeClassNames, updateClassNames } from './helpers'
 
 export class CssTransitionControl<E extends HTMLElement> {
@@ -54,9 +54,9 @@ export class CssTransitionControl<E extends HTMLElement> {
   }
 
   /**
-   * @description 更新清理函数
+   * @description 同步清理函数
    */
-  updateCleanup = (cleanup: VoidFn) => {
+  sync = (cleanup: VoidFn) => {
     this._cleanup = cleanup
   }
 
@@ -74,7 +74,7 @@ export class CssTransitionControl<E extends HTMLElement> {
   /**
    * @description 计算状态
    */
-  calculate = (when: boolean | undefined) => {
+  compute = (when: boolean) => {
     const { _isInitial, state } = this
 
     if (_isInitial) this._isInitial = false

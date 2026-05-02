@@ -25,7 +25,7 @@ export function useNormalizeMotions<E extends HTMLElement>(props: CssTransitionP
     values[ENTER].from = isGenerated ? `${css}-enter-from` : css.enterFrom
     values[ENTER].active = isGenerated ? `${css}-enter-active` : css.enterActive
     values[ENTER].to = isGenerated ? `${css}-enter-to` : css.enterTo
-    values[ENTER].done = isGenerated ? `${css}-enter-done` : css.enterDone
+    values[ENTER].done = isGenerated ? '' : css.enterDone
 
     values[APPEAR].from = isGenerated ? values[ENTER].from : fallback(css.appearFrom, css.enterFrom)
     values[APPEAR].active = isGenerated ? values[ENTER].active : fallback(css.appearFrom, css.enterFrom)

@@ -1,5 +1,6 @@
 import { useLocation, useOutlet } from 'react-router-dom'
 import { SwitchTransition } from '@mink-ui/core/_shared/components/transition/src'
+import { cn } from '@mink-ui/core/_shared/libs/cn'
 
 import { HomeHeader } from '@/features/home'
 
@@ -21,10 +22,15 @@ export default function HomeLayout() {
   return (
     <div className={styles.home_layout}>
       <HomeHeader />
-      <SwitchTransition classNames="x-slide-top" mode="out-in">
-        <div key={motionId} className={styles.home_layout__main}>
-          {outlet}
-        </div>
+      <SwitchTransition classNames="x-slide-top" current={{ key: motionId }} mode="out-in">
+        {($motion, getters) => (
+          <div
+            ref={$motion}
+            className={cn(styles.home_layout__main, getters.names())}
+          >
+            {outlet}
+          </div>
+        )}
       </SwitchTransition>
     </div>
   )

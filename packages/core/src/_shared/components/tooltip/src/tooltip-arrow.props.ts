@@ -1,4 +1,4 @@
-import type { SemanticsStyled } from '../../../../_shared/types'
+import type { SemanticsStyled } from '../../../../_shared/types/styled'
 
 export interface TooltipArrowProps extends Pick<SemanticsStyled<''>, 'className' | 'style'> {
   /**

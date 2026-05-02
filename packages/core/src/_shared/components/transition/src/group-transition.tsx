@@ -1,14 +1,13 @@
+import type { UniquedTransitionItem } from './_shared.props'
 import type { GroupTransitionProps } from './group-transition.props'
 
 import { defineName } from '../../../utils/define-name'
 import { useGroupTransitionProps } from './hooks/use-group-transition-props'
 
-function GroupTransition(props: GroupTransitionProps) {
-  const { omitted, returnEmpty, renderEntries } = useGroupTransitionProps(props)
+function GroupTransition<T extends UniquedTransitionItem>(props: GroupTransitionProps<T>) {
+  const { returnEmpty, renderEntries } = useGroupTransitionProps<T>(props)
 
-  const { children } = omitted
-
-  return returnEmpty ? null : renderEntries(children)
+  return returnEmpty ? null : renderEntries()
 }
 
 defineName(GroupTransition)

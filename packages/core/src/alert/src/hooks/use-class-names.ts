@@ -19,12 +19,12 @@ export function useAlertClassNames(picked: PickedAlertProps, omitted: OmittedAle
         [`${ns}--${type}`]: type,
         [`${ns}--has-description`]: !isNullish(description),
       }),
-      icon: `${ns}__icon`,
+      statusIcon: `${ns}__status-icon`,
+      closeBtn: `${ns}__close-btn`,
       content: `${ns}__content`,
       message: `${ns}__message`,
       description: `${ns}__description`,
       action: `${ns}__action`,
-      closeBtn: `${ns}__close-btn`,
     },
   }
 }

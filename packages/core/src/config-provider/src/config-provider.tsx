@@ -4,21 +4,21 @@ import type { ConfigProviderProps } from './config-provider.props'
 import { useMemo } from 'react'
 import { IconConfigContext } from '@mink-ui/icons/IconConfigContext'
 import { isUndefined } from '@mink-ui/shared/is/is-undefined'
-import { pick } from '@mink-ui/shared/object/pick'
+import { omit } from '@mink-ui/shared/object/omit'
 import { shallowMerge } from '@mink-ui/shared/object/shallow-merge'
 
 import { useComputed } from '../../_shared/hooks/use-computed'
 import { defineName } from '../../_shared/utils/define-name'
 import { TouchEffectContext } from '../../touch-effect/src/_shared.context'
 import { DisabledContext, GlobalConfigContext, LayerLevelContext, SizeContext } from './_shared.context'
-import { includedGlobalConfigNames } from './config-provider.props'
+import { excludedConfigProviderProps } from './config-provider.props'
 import { shouldGlobalConfigUpdate } from './utils/helpers'
 
 function ConfigProvider(props: ConfigProviderProps) {
   const globalConfigContext = GlobalConfigContext.use()
 
   const globalConfig: GlobalConfig = shallowMerge(
-    pick(props, includedGlobalConfigNames),
+    omit(props, excludedConfigProviderProps),
     globalConfigContext,
     {
       size: SizeContext.use(),
@@ -28,16 +28,13 @@ function ConfigProvider(props: ConfigProviderProps) {
     },
   )
 
-  let element = props.children
   const { size, disabled, touchEffect, getLayerLevel, iconPrefixCls } = globalConfig
 
   const iconConfig = useMemo(() => ({ prefixCls: iconPrefixCls }), [iconPrefixCls])
 
-  const globalConfigContextValue = useComputed({
-    deps: globalConfig,
-    compare: shouldGlobalConfigUpdate,
-    factory: () => globalConfig,
-  })
+  const globalConfigContextValue = useComputed(() => globalConfig, globalConfig, shouldGlobalConfigUpdate)
+
+  let element = props.children
 
   if (!isUndefined(size)) {
     element = <SizeContext value={size}>{element}</SizeContext>

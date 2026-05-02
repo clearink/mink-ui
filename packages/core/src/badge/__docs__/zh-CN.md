@@ -5,8 +5,8 @@ title: Badge
 subtitle: 徽标
 desc: 用于展示状态标记或数字。
 group:
-  title: 数据展示
-  order: 3
+  title: 展示
+  order: 2
 ---
 
 ## 何时使用

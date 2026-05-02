@@ -16,7 +16,7 @@ import { useWatchValue } from '../../../_shared/hooks/use-watch-value'
 import { SizeContext } from '../../../config-provider/src/_shared.context'
 import { defaultSegmentedProps as defaultProps } from '../segmented.props'
 import { normalizeSegmentedOptions } from '../utils/format'
-import { SegmentedRefs } from '../utils/segmented-refs'
+import { SegmentedControl } from '../utils/segmented-control'
 import { useSegmentedClassNames } from './use-class-names'
 
 export function useSegmentedProps(props: SegmentedProps) {
@@ -24,7 +24,7 @@ export function useSegmentedProps(props: SegmentedProps) {
   const sizeContext = SizeContext.use()
 
   const {
-    options: _options,
+    options,
     value,
     defaultValue,
     onChange,
@@ -35,7 +35,7 @@ export function useSegmentedProps(props: SegmentedProps) {
   const omitted = props as OmittedSegmentedProps
   const picked: PickedSegmentedProps = { block, size }
 
-  const refs = useConstant(() => new SegmentedRefs())
+  const ctrl = useConstant(() => new SegmentedControl())
 
   const { ns, classNames } = useSegmentedClassNames(picked, omitted)
 
@@ -55,16 +55,16 @@ export function useSegmentedProps(props: SegmentedProps) {
     ],
   )
 
-  const normalizedOptions = useComputed({
-    deps: _options,
-    compare: arrayEqual,
-    factory: () => normalizeSegmentedOptions(_options),
-  })
+  const normalizedOptions = useComputed(
+    () => normalizeSegmentedOptions(options),
+    options,
+    arrayEqual,
+  )
 
   const [currentValue, handleOnChange] = useControlledState({
-    defaultValue: fallback(defaultValue, normalizedOptions[0]?.value),
-    onChange,
     value,
+    defaultValue: () => fallback(defaultValue, normalizedOptions[0]?.value)!,
+    onChange,
   })
 
   const [history, setHistory] = useExactState([null, currentValue])
@@ -76,14 +76,14 @@ export function useSegmentedProps(props: SegmentedProps) {
 
     setIsShowThumb(true)
 
-    refs.update(currentValue)
+    ctrl.update(currentValue)
   })
 
-  const rootCssNames = { ...omit(cssNames, ['root', 'inner', 'item']), root: cssNames.item }
-  const rootCssAttrs = { ...omit(cssAttrs, ['root', 'inner', 'item']), root: cssAttrs.item }
+  const outerCssNames = { ...omit(cssNames, ['root', 'inner', 'item']), root: cssNames.item }
+  const outerCssAttrs = { ...omit(cssAttrs, ['root', 'inner', 'item']), root: cssAttrs.item }
 
   const resolveTransform = (itemCoords: DOMRect) => {
-    const innerCoords = getClientCoords(refs.inner)
+    const innerCoords = getClientCoords(ctrl.inner)
 
     const delta = itemCoords.left - innerCoords.left
 
@@ -94,42 +94,41 @@ export function useSegmentedProps(props: SegmentedProps) {
   }
 
   const handleOnEnter = () => {
-    const from = refs.items.get(history[0])
+    const from = ctrl.items.get(history[0])
 
-    if (!from || !refs.inner) return
+    if (!from || !ctrl.inner) return
 
     return resolveTransform(getClientCoords(from))
   }
 
   const handleOnEntering = () => {
-    const target = refs.items.get(history[1])
+    const target = ctrl.items.get(history[1])
 
-    if (!target || !refs.inner) return
+    if (!target || !ctrl.inner) return
 
     return resolveTransform(getClientCoords(target))
   }
 
   const handleOnEntered = () => { setIsShowThumb(false) }
 
-  useEffect(() => () => { refs.dispose() }, [refs])
+  useEffect(() => () => { ctrl.destroy() }, [ctrl])
 
   return {
     picked,
     omitted,
-    refs,
+    ctrl,
     ns,
     cssNames,
     cssAttrs,
-    restAttrs: {},
-    rootCssNames,
-    rootCssAttrs,
+    outerCssNames,
+    outerCssAttrs,
     normalizedOptions,
     currentValue,
     isShowThumb,
     returnEmpty: returnEarly,
+    handleOnChange,
     handleOnEnter,
     handleOnEntering,
     handleOnEntered,
-    handleOnChange,
   }
 }

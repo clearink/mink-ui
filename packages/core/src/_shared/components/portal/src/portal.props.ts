@@ -1,6 +1,6 @@
 import type { Ref } from 'react'
 import type { MayBe } from '@mink-ui/shared/interface'
-import type { HasChildren } from '../../../types'
+import type { HasChildren } from '../../../types/has-children'
 import type { ContainerElement, GetContainerElement } from './_shared.props'
 
 export type PortalInstance = MayBe<ContainerElement>

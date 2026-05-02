@@ -1,4 +1,6 @@
-import type { CommonSize, HasChildren, SemanticsStyled } from '../../_shared/types'
+import type { HasChildren } from '../../_shared/types/has-children'
+import type { CommonSize } from '../../_shared/types/size'
+import type { SemanticsStyled } from '../../_shared/types/styled'
 
 export interface ButtonGroupProps extends HasChildren,
   SemanticsStyled<'root' | 'icon' | 'text'> {

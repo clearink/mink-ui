@@ -11,8 +11,8 @@ export interface CollapseItemType extends
     CollapseItemProps,
     | 'accordion'
     | 'expanded'
-    | 'rootCssNames'
-    | 'rootCssAttrs'
-    | 'rootNamespace'
+    | 'outerNamespace'
+    | 'outerCssNames'
+    | 'outerCssAttrs'
     | 'onChange'
   > {}

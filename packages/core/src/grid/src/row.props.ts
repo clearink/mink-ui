@@ -1,12 +1,14 @@
 import type { HTMLAttributes, Ref } from 'react'
 import type { Breakpoint } from '../../_shared/hooks/use-breakpoint/_shared.props'
-import type { HasChildren, SemanticsStyled } from '../../_shared/types'
+import type { HasChildren } from '../../_shared/types/has-children'
+import type { SemanticsStyled } from '../../_shared/types/styled'
 import type { GridAlign, GridGutter, GridJustify } from './_shared.props'
 
-export interface RowProps extends
+import { exhaustive } from '../../_shared/utils/exhaustive'
+
+export interface RowInjectedProps extends
   HasChildren,
-  HTMLAttributes<HTMLDivElement>,
-  Pick<SemanticsStyled<''>, 'prefixCls' | 'className' | 'style'> {
+  SemanticsStyled<'root'> {
   /**
    * @description 外部引用
    */
@@ -33,6 +35,8 @@ export interface RowProps extends
   wrap?: boolean
 }
 
+export interface RowProps extends HTMLAttributes<HTMLDivElement>, RowInjectedProps {}
+
 export type DefaultNames = 'gutter' | 'wrap'
 
 export type PickedRowProps = Pick<RowProps, DefaultNames>
@@ -52,17 +56,18 @@ export const defaultRowProps: PickedRowProps = {
   wrap: true,
 }
 
-export const excludedRowProps = [
+export const excludedRowProps = exhaustive<DefaultNames | keyof RowInjectedProps>()([
   // extends
   'children',
   'prefixCls',
   'className',
+  'classNames',
   'style',
+  'styles',
   // props
   'ref',
   'align',
   'justify',
   'gutter',
   'wrap',
-  // events
-] as const
+])

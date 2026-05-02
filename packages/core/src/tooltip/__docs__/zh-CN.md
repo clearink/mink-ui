@@ -5,8 +5,8 @@ title: Tooltip
 subtitle: 文字提示
 desc: 简单的文字提示气泡框。
 group:
-  title: 数据展示
-  order: 5
+  title: 展示
+  order: 2
 ---
 
 ## 何时使用

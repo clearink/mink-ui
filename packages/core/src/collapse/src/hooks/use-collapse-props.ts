@@ -18,9 +18,9 @@ export function useCollapseProps(props: CollapseProps) {
   const sizeContext = SizeContext.use()
 
   const {
-    expandedNames: _expandedNames,
     accordion,
-    defaultExpandedNames,
+    expandedNames: _names,
+    defaultExpandedNames: _default,
     onChange,
     size = sizeContext,
     bordered = defaultProps.bordered,
@@ -33,8 +33,9 @@ export function useCollapseProps(props: CollapseProps) {
   const picked = { bordered, collapsible, expandIcon, expandIconPlacement, size } as PickedCollapseProps
 
   const [expandedNames, setExpandedNames] = useControlledState({
-    defaultValue: () => normalizeExpandedNames(defaultExpandedNames, accordion),
-    value: isUndefined(_expandedNames) ? undefined : normalizeExpandedNames(_expandedNames, accordion),
+    value: isUndefined(_names) ? undefined : normalizeExpandedNames(_names, accordion),
+    defaultValue: () => normalizeExpandedNames(_default, accordion),
+    onChange: (names, name: ExpandedName) => { onChange?.(name, names) },
   })
 
   const { ns, classNames } = useCollapseClassNames(picked, omitted)
@@ -56,8 +57,8 @@ export function useCollapseProps(props: CollapseProps) {
     { picked, omitted },
   )
 
-  const rootCssNames = { ...omit(cssNames, ['root', 'item']), root: cssNames.item }
-  const rootCssAttrs = { ...omit(cssAttrs, ['root', 'item']), root: cssAttrs.item }
+  const outerCssNames = { ...omit(cssNames, ['root', 'item']), root: cssNames.item }
+  const outerCssAttrs = { ...omit(cssAttrs, ['root', 'item']), root: cssAttrs.item }
 
   const handleOnChange = useEvent((name: ExpandedName) => {
     let names = expandedNames.concat()
@@ -70,9 +71,7 @@ export function useCollapseProps(props: CollapseProps) {
     else if (isExpanded) names.splice(index, 1)
     else names.push(name)
 
-    setExpandedNames(names)
-
-    onChange?.(name, names)
+    setExpandedNames(names, name)
   })
 
   return {
@@ -81,9 +80,9 @@ export function useCollapseProps(props: CollapseProps) {
     ns,
     cssNames,
     cssAttrs,
-    rootCssNames,
-    rootCssAttrs,
     expandedNames,
+    outerCssNames,
+    outerCssAttrs,
     handleOnChange,
   }
 }

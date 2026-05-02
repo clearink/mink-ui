@@ -1,5 +1,5 @@
-import type { InternalFieldName, InternalFormInstance } from '../_shared.props'
-import type { InternalFormListProps, InternalListHelpers } from '../form-list.props'
+import type { InternalFieldName, InternalFormInstance, InternalListHelpers } from '../_shared.props'
+import type { InternalFormListProps } from '../form-list.props'
 
 import { swapIndex } from '@mink-ui/shared/array/swap-index'
 import { toArray } from '@mink-ui/shared/array/to-array'
@@ -37,9 +37,9 @@ export class FormListControl {
   public _name: InternalFieldName = []
 
   /**
-   * @description 注入 ListControl, helpers
+   * @description 向外暴露属性
    */
-  static inject = () => {
+  static expose = () => {
     const instance = new FormListControl()
 
     return [instance, instance.getHelpers()] as const

@@ -1,4 +1,4 @@
-import type { Orientation } from '../../../_shared/types'
+import type { Orientation } from '../../../_shared/types/orientation'
 
 import { hasOwn } from '@mink-ui/shared/object/has-own'
 

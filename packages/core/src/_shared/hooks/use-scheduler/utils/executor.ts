@@ -13,7 +13,7 @@ export class DeferredExecutor<T> {
   /**
    * @description
    */
-  private uniqueId = makeUniqueId('de-')
+  private _uniqueId = makeUniqueId('de-')
 
   /**
    * @description 当前标识
@@ -57,7 +57,7 @@ export class DeferredExecutor<T> {
       this.current = schedule(this.flush)
     }
 
-    const id = this.uniqueId()
+    const id = this._uniqueId()
 
     this._callbacks.set(id, fn)
 

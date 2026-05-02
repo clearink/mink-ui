@@ -5,8 +5,8 @@ title: Collapse
 subtitle: 折叠面板
 desc: 折叠展示内容区域。
 group:
-  title: 数据展示
-  order: 5
+  title: 展示
+  order: 2
 ---
 
 ## 何时使用

@@ -49,3 +49,4 @@ export * from './object/shallow-unequal'
 // string
 export * from './string/camel-case'
 export * from './string/capitalize'
+export * from './string/kebab-case'

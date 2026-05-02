@@ -26,9 +26,10 @@ export function useSegmentedClassNames(_picked: PickedSegmentedProps, omitted: O
 }
 
 export function useSegmentedItemClassNames(omitted: SegmentedItemProps) {
-  const { rootNamespace: rootNs, checked, disabled, isShowThumb } = omitted
+  const { outerNamespace: ins, checked, config, isShowThumb } = omitted
+  const { disabled } = config
 
-  const ns = useNamespace(preset => `${rootNs || preset}-item`)
+  const ns = useNamespace(preset => `${ins || `${preset}-segmented`}-item`)
 
   return {
     ns,

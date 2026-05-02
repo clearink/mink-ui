@@ -4,11 +4,11 @@ import { defineName } from '../../../utils/define-name'
 import { useCssTransitionProps } from './hooks/use-css-transition-props'
 
 function CssTransition<E extends HTMLElement>(props: CssTransitionProps<E>) {
-  const { omitted, returnEmpty, getters, runConnect } = useCssTransitionProps(props)
+  const { omitted, control, getters, returnEmpty } = useCssTransitionProps(props)
 
   const { children } = omitted
 
-  return returnEmpty ? null : children(runConnect, getters)
+  return returnEmpty ? null : children(control.connect, getters)
 }
 
 defineName(CssTransition)

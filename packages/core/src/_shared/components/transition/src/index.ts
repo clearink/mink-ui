@@ -10,6 +10,7 @@ import SwitchTransition from './switch-transition'
  * |---------------------------------------------------------|
  */
 
+export type { CssTransitionGetters } from './_shared.props'
 export type { CssTransitionProps } from './css-transition.props'
 export type { GroupTransitionProps } from './group-transition.props'
 export type { SwitchTransitionProps } from './switch-transition.props'

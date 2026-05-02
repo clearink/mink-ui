@@ -1,12 +1,18 @@
-import type { ReactElement } from 'react'
+import type { ReactNode, RefCallback } from 'react'
+import type { CssTransitionGetters, UniquedTransitionItem } from './_shared.props'
 import type { CssTransitionProps } from './css-transition.props'
 
-export interface SwitchTransitionProps extends
-  Omit<CssTransitionProps, 'children' | 'unmountOnExit' | 'when'> {
+export interface SwitchTransitionProps<T extends UniquedTransitionItem = UniquedTransitionItem> extends
+  Omit<CssTransitionProps, 'ref' | 'children' | 'unmountOnExit' | 'when'> {
+  /**
+   * @description 过渡元素项
+   */
+  current: T
+
   /**
    * @description 子元素
    */
-  children: ReactElement<HTMLElement>
+  children: ($ref: RefCallback<HTMLElement>, getters: CssTransitionGetters, item: T) => ReactNode
 
   /**
    * @description 过渡切换模式

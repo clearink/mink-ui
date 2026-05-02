@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { AnyObj, LiteralUnion } from '@mink-ui/shared/interface'
+import type { AnyObj, LiteralUnion, VoidFn } from '@mink-ui/shared/interface'
 import type { InternalFormListContextState } from './_shared.context'
 import type { ExternalFieldName, ExternalFormInstance, InternalFieldName, InternalMetaInfo, MetaChangeEvent, RuleLike } from './_shared.props'
 import type { FormListControl } from './utils/list-control'
@@ -100,7 +100,7 @@ export interface InternalFormFieldProps<V = any> {
   /**
    * @description 字段重置时的回调
    */
-  onReset?: () => void
+  onReset?: VoidFn
 }
 
 export interface GeneratedFormFieldProps<V = any> extends Omit<InternalFormFieldProps<V>, 'name' | 'isFormList' | 'isListField' | 'listControl'> {

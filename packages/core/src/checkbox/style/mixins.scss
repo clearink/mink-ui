@@ -1,0 +1,8 @@
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+
+@mixin checkbox-base() {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}

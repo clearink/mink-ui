@@ -41,13 +41,19 @@ export default function CommonLayout() {
         xxl={20}
       >
         <article className={styles.article}>
-          <SwitchTransition classNames="x-slide-top" mode="out-in">
-            <div
-              key={motionId}
-              className={styles.content}
-            >
-              {outlet}
-            </div>
+          <SwitchTransition
+            classNames="x-slide-top"
+            current={{ key: motionId }}
+            mode="out-in"
+          >
+            {($motion, getters) => (
+              <div
+                ref={$motion}
+                className={cn(styles.content, getters.names())}
+              >
+                {outlet}
+              </div>
+            )}
           </SwitchTransition>
         </article>
         <HomeFooter className={styles.footer} />

@@ -1,4 +1,4 @@
-import type { CommonSize } from '../../../_shared/types'
+import type { CommonSize } from '../../../_shared/types/size'
 
 import { hasOwn } from '@mink-ui/shared/object/has-own'
 

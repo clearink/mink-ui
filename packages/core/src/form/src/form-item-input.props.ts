@@ -3,7 +3,9 @@ import type { VoidFn } from '@mink-ui/shared/interface'
 import type { ColProps } from '../../grid/src'
 import type { ValidateStatus } from './_shared.props'
 
-export interface FormItemInputOwnProps {
+import { exhaustive } from '../../_shared/utils/exhaustive'
+
+export interface FormItemInputForwardedProps {
   /**
    * @description 额外信息
    */
@@ -20,7 +22,7 @@ export interface FormItemInputOwnProps {
   wrapperCol?: ColProps
 }
 
-export interface FormItemInputProps extends FormItemInputOwnProps {
+export interface FormItemInputInjectedProps {
   /**
    * @description
    */
@@ -34,7 +36,7 @@ export interface FormItemInputProps extends FormItemInputOwnProps {
   /**
    * @description 字段唯一 id
    */
-  itemId?: string
+  itemId: string | undefined
 
   /**
    * @description 校验状态
@@ -54,23 +56,25 @@ export interface FormItemInputProps extends FormItemInputOwnProps {
   /**
    * @description 类名
    */
-  className?: string
+  className: string | undefined
 
   /**
    * @description 样式
    */
-  style?: CSSProperties
+  style: CSSProperties | undefined
 
   /**
-   * @description 前缀
+   * @description 外部命名空间
    */
-  rootNamespace: string
+  outerNamespace: string
 
   /**
    * @description 获取 Form.Item 元素
    */
   onGetFormItemElement: () => HTMLDivElement | null
 }
+
+export interface FormItemInputProps extends FormItemInputForwardedProps, FormItemInputInjectedProps {}
 
 export type DefaultNames = 'wrapperCol'
 
@@ -86,9 +90,9 @@ export type OmittedFormItemInputProps = Omit<FormItemInputProps, DefaultNames>
  * |---------------------------------------------------------|
  */
 
-// keyof FormItemInputOwnProps
-export const includedFormItemInputProps = [
+export const includedFormItemInputProps = exhaustive<DefaultNames | keyof FormItemInputForwardedProps>()([
+  // props
   'extra',
   'help',
   'wrapperCol',
-] as const
+])

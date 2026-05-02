@@ -1,0 +1,94 @@
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
+
+$ns-checkbox: #{$ns}-checkbox;
+
+.#{$ns-checkbox} {
+  @include reset-component();
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover .#{$ns-checkbox}__inner {
+    border-color: var(--#{$ns}-color-primary);
+  }
+  &--checked {
+    .#{$ns-checkbox}__inner {
+      background-color: var(--#{$ns}-color-primary);
+      border-color: var(--#{$ns}-color-primary);
+
+      &::after {
+        transform: scale(1) rotate(45deg) translate(-50%, -50%);
+        transition: $mink-checkbox-arrow-transition-exit;
+      }
+    }
+
+    &:hover {
+      &.#{$ns-checkbox}__inner {
+        border-color: var(--#{$ns}-color-primary-hover);
+
+        // background-color: var(--#{$ns}-color-primary-active);
+      }
+    }
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+  }
+
+  &__input {
+    position: absolute;
+    z-index: -1;
+    width: 0;
+    height: 0;
+    margin: 0;
+    outline: none;
+    opacity: 0;
+
+    &:focus-visible + .#{$ns-checkbox}__inner {
+      outline-color: var(--#{$ns}-color-primary-active);
+      outline-offset: $mink-checkbox-outline-offset;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    box-sizing: border-box;
+    width: $mink-checkbox-inner-width;
+    height: $mink-checkbox-inner-height;
+    background-color: var(--#{$ns}-color-bg);
+    border: 1px solid var(--#{$ns}-color-border);
+    border-radius: var(--#{$ns}-border-radius-sm);
+    outline: transparent solid $mink-checkbox-outline-width;
+    transition: $mink-checkbox-inner-transition;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: calc($mink-checkbox-arrow-width / 2);
+      box-sizing: border-box;
+      width: $mink-checkbox-arrow-width;
+      height: $mink-checkbox-arrow-height;
+      border: 2px solid var(--#{$ns}-color-white);
+      border-top: 0;
+      border-left: 0;
+      transform: scale(0) rotate(45deg) translate(-50%, -50%);
+      transition: $mink-checkbox-arrow-transition-enter;
+    }
+  }
+
+  &__label {
+    padding: 0 8px;
+    color: var(--#{$ns}-color-text);
+  }
+}
+
+.#{$ns-checkbox}-group {
+  @include reset-component();
+}

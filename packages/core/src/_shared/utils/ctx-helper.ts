@@ -10,7 +10,6 @@ import { defineName } from './define-name'
 export function ctxHelper<R>(displayName: string, defaultValue: R) {
   const Context: any = createContext(defaultValue)
 
-  // eslint-disable-next-line react/component-hook-factories
   Context.use = () => use(Context)
 
   defineName(Context, displayName)

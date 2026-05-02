@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import type { AnyObj } from '@mink-ui/shared/interface'
-import type { CssAttrsItem, CssNamesItem } from '../../types'
+import type { CssAttrsItem, CssNamesItem } from '../../types/styled'
 
 import { isFunction } from '@mink-ui/shared/is/is-function'
 import { rawType } from '@mink-ui/shared/object/raw-type'
@@ -35,10 +35,8 @@ export function useCombinedSemantics<U extends AnyObj, T extends string = string
   cssAttrsList: (CssAttrsItem<T, U> | undefined)[],
   metaInfo = {} as U,
 ) {
-  const cssNames = useComputed({
-    deps: cssNamesList,
-    compare: shouldSemanticItemsUpdate,
-    factory: () => cssNamesList.reduce<Partial<Record<T, string>>>((result, item) => {
+  const cssNames = useComputed(
+    () => cssNamesList.reduce<Partial<Record<T, string>>>((result, item) => {
       item && Object.entries(item).forEach(([k, v]) => {
         const values = isFunction(v) ? v(metaInfo) : v
 
@@ -49,12 +47,12 @@ export function useCombinedSemantics<U extends AnyObj, T extends string = string
 
       return result
     }, {}),
-  })
+    cssNamesList,
+    shouldSemanticItemsUpdate,
+  )
 
-  const cssAttrs = useComputed({
-    deps: cssAttrsList,
-    compare: shouldSemanticItemsUpdate,
-    factory: () => cssAttrsList.reduce<Partial<Record<T, CSSProperties>>>((result, item) => {
+  const cssAttrs = useComputed(
+    () => cssAttrsList.reduce<Partial<Record<T, CSSProperties>>>((result, item) => {
       item && Object.entries(item).forEach(([k, v]) => {
         const values = isFunction(v) ? v(metaInfo) : v
 
@@ -65,7 +63,9 @@ export function useCombinedSemantics<U extends AnyObj, T extends string = string
 
       return result
     }, {}),
-  })
+    cssAttrsList,
+    shouldSemanticItemsUpdate,
+  )
 
   return [cssNames, cssAttrs] as const
 }

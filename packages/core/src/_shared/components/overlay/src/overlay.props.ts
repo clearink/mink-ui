@@ -1,4 +1,4 @@
-import type { SemanticsStyled } from '../../../types'
+import type { SemanticsStyled } from '../../../types/styled'
 import type { PortalProps } from '../../portal/src'
 import type { CssTransitionProps } from '../../transition/src'
 

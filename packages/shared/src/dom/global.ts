@@ -9,7 +9,7 @@ export function ownerWindow(node?: MayBe<Node>) {
   return root.defaultView || globalThis.window
 }
 
-export function ownerComputedStyle(node: Element) {
+export function ownerStyle(node: Element) {
   return ownerWindow(node).getComputedStyle(node, null)
 }
 

@@ -6,7 +6,7 @@ subtitle: 按钮
 desc: 按钮用于开始一个即时操作。
 group:
   title: 通用
-  order: 4
+  order: 0
 ---
 
 ## 何时使用

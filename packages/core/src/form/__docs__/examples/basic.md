@@ -31,6 +31,17 @@ export default function App() {
                 ]
               })
             }
+
+            if (value.length < 3) {
+              return Promise.reject({
+                issues: [
+                  {
+                    message: 'username length must be greater than 3'
+                  }
+                ]
+              })
+            }
+
             return Promise.resolve(value)
           }
         }}
@@ -50,6 +61,13 @@ export default function App() {
                     message: 'password is required',
                   },
                 ]
+              })
+            }
+            if (value.length < 6) {
+              return Promise.reject({
+                issues: [{
+                  message: 'password length must be greater than 6'
+                }]
               })
             }
             return Promise.resolve(value)

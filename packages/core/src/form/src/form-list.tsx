@@ -13,7 +13,7 @@ function FormList(props: FormListProps) {
 
   const ns = useNamespace('form', prefixCls)
 
-  const errorListContextValue = useMemo(() => ({ rootNamespace: ns, status: 'error' as const }), [ns])
+  const errorListContextValue = useMemo(() => ({ outerNamespace: ns, status: 'error' as const }), [ns])
 
   return (
     <InternalForm.List {...props}>

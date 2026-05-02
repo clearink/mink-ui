@@ -5,13 +5,13 @@ import { getClientCoords } from '@mink-ui/shared/dom/rect'
 import { useConstant } from '../../../_shared/hooks/use-constant'
 import { useExactState } from '../../../_shared/hooks/use-exact-state'
 import { useWatchValue } from '../../../_shared/hooks/use-watch-value'
-import { ScrollNumberRefs } from '../utils/scroll-number-refs'
+import { ScrollNumberControl } from '../utils/scroll-number-control'
 import { useScrollNumberClassNames } from './use-class-names'
 
 export function useScrollNumberProps(props: ScrollNumberProps) {
   const { char } = props
 
-  const refs = useConstant(() => new ScrollNumberRefs())
+  const ctrl = useConstant(() => new ScrollNumberControl())
 
   const [history, setHistory] = useExactState([null, char])
 
@@ -26,7 +26,7 @@ export function useScrollNumberProps(props: ScrollNumberProps) {
   })
 
   const resolveTransform = (el: HTMLElement, item: HTMLElement) => {
-    const wrapCoords = getClientCoords(refs.wrapper!)
+    const wrapCoords = getClientCoords(ctrl.wrapper!)
     const itemCoords = getClientCoords(item)
 
     const delta = wrapCoords.top - itemCoords.top
@@ -37,17 +37,17 @@ export function useScrollNumberProps(props: ScrollNumberProps) {
   }
 
   const handleOnEnter = (el: HTMLElement) => {
-    const from = refs.items.get(history[0])
+    const from = ctrl.items.get(history[0])
 
-    if (!from || !refs.wrapper) return
+    if (!from || !ctrl.wrapper) return
 
     return resolveTransform(el, from)
   }
 
   const handleOnEntering = (el: HTMLElement) => {
-    const target = refs.items.get(history[1])
+    const target = ctrl.items.get(history[1])
 
-    if (!target || !refs.wrapper) return
+    if (!target || !ctrl.wrapper) return
 
     return resolveTransform(el, target)
   }
@@ -56,7 +56,7 @@ export function useScrollNumberProps(props: ScrollNumberProps) {
 
   return {
     omitted: props,
-    refs,
+    ctrl,
     ns,
     cssNames: classNames,
     returnEmpty: returnEarly,

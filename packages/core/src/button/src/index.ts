@@ -1,7 +1,6 @@
 import _Button from './button'
 import ButtonGroup from './button-group'
 
-// CompoundButton
 const Button = Object.assign(_Button, { Group: ButtonGroup })
 
 /**

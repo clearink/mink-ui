@@ -8,6 +8,7 @@ function FormItemLabel(props: FormItemLabelProps) {
   const {
     picked,
     omitted,
+    ns,
     cssNames,
     cssAttrs,
     htmlTitle,
@@ -18,8 +19,7 @@ function FormItemLabel(props: FormItemLabelProps) {
   return (
     <Col {...labelCol} className={cssNames.root} style={cssAttrs.root}>
       <label
-        className={cssNames.content}
-        style={cssAttrs.content}
+        className={`${ns}-content`}
         htmlFor={htmlFor}
         title={htmlTitle}
       >

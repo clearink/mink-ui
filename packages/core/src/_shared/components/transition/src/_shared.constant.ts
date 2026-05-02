@@ -19,3 +19,8 @@ export const isExiting = (state: string) => state === EXITING
 export const isExited = (state: string) => state === EXITED
 
 export const isRunning = (state: string) => isEntering(state) || isExiting(state)
+
+/**
+ * @description 用来标识 ManagedTransitionEntry
+ */
+export const ENTRY_MARK = Symbol.for('_$mink-transition-entry$_')

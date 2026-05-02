@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import type { HasChildren } from '../../_shared/types'
+import type { HasChildren } from '../../_shared/types/has-children'
 
 export interface TouchEffectProps extends Required<HasChildren<ReactElement>> {
   /**
@@ -17,3 +17,7 @@ export interface TouchEffectProps extends Required<HasChildren<ReactElement>> {
    */
   selector?: string | ((container: HTMLElement) => HTMLElement | null)
 }
+
+export type DefaultNames = 'disabled'
+
+export type OmittedTouchEffectProps = Omit<TouchEffectProps, DefaultNames>

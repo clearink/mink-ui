@@ -5,12 +5,11 @@ import type {
   InternalListHelpers,
   InternalMetaInfo,
 } from '../../_shared/components/form/src'
-import type { SemanticsStyled } from '../../_shared/types'
+import type { SemanticsStyled } from '../../_shared/types/styled'
 
 export interface FormListProps extends Omit<InternalFormListProps, 'children'>, Pick<SemanticsStyled<''>, 'prefixCls'> {
   /**
    * @description 渲染函数
    */
   children: (fields: InternalListField[], helpers: InternalListHelpers, meta: Pick<InternalMetaInfo, 'warnings' | 'errors'>) => ReactNode
-
 }

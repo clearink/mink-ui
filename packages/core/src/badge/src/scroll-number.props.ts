@@ -5,9 +5,7 @@ export interface ScrollNumberProps {
   char: string
 
   /**
-   * @description Badge 类名前缀
+   * @description 外部命名空间
    */
-  rootNamespace: string
+  outerNamespace: string
 }
-
-export type OmittedScrollNumberProps = ScrollNumberProps

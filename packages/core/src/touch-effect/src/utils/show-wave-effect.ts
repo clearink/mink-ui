@@ -1,6 +1,6 @@
 import type { TouchEffectInfo } from '../_shared.props'
 
-import { ownerComputedStyle } from '@mink-ui/shared/dom/global'
+import { ownerStyle } from '@mink-ui/shared/dom/global'
 import { getClientCoords } from '@mink-ui/shared/dom/rect'
 import { makeTimeout } from '@mink-ui/shared/dom/timer'
 
@@ -19,7 +19,7 @@ function isValidColor(color: string) {
 }
 
 function getWaveColor(node: HTMLElement) {
-  const { backgroundColor, borderColor, borderTopColor } = ownerComputedStyle(node)
+  const { backgroundColor, borderColor, borderTopColor } = ownerStyle(node)
 
   if (isValidColor(borderTopColor)) return borderTopColor
 

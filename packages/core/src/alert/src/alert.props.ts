@@ -1,28 +1,32 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react'
-import type { CommonStatus, HasClosable, SemanticsStyled } from '../../_shared/types'
+import type { VoidFn } from '@mink-ui/shared/interface'
+import type { HasClosable } from '../../_shared/types/closable'
+import type { CommonStatus } from '../../_shared/types/status'
+import type { SemanticsStyled } from '../../_shared/types/styled'
 
-export interface AlertProps extends
+import { exhaustive } from '../../_shared/utils/exhaustive'
+
+export interface AlertInjectedProps extends
   HasClosable,
-  HTMLAttributes<HTMLDivElement>,
-  SemanticsStyled<'root' | 'icon' | 'action' | 'closeBtn' | 'content' | 'description' | 'message'> {
+  SemanticsStyled<'root' | 'statusIcon' | 'closeBtn' | 'action' | 'content' | 'description' | 'message'> {
   /**
    * @description 外部引用
    */
   ref?: Ref<{ nativeElement: HTMLDivElement | null }>
 
   /**
-   * @description 提示的类型(banner 模式下默认值为 warning)
+   * @description 类型(banner 模式下默认值为 warning)
    * @default info
    */
   type?: CommonStatus
 
   /**
-   * @description 警告提示内容
+   * @description 提示内容
    */
   message?: ReactNode
 
   /**
-   * @description 警告提示的辅助性文字介绍
+   * @description 提示介绍
    */
   description?: ReactNode
 
@@ -49,13 +53,15 @@ export interface AlertProps extends
   /**
    * @description 关闭按钮点击事件
    */
-  onClose?: () => void
+  onClose?: VoidFn
 
   /**
    * @description 关闭动画结束后触发
    */
-  onClosed?: () => void
+  onClosed?: VoidFn
 }
+
+export interface AlertProps extends AlertInjectedProps, HTMLAttributes<HTMLDivElement> {}
 
 export type DefaultNames = 'showIcon' | 'type'
 
@@ -76,7 +82,7 @@ export const defaultAlertProps: PickedAlertProps = {
   type: 'info',
 }
 
-export const excludedAlertProps = [
+export const excludedAlertProps = exhaustive<DefaultNames | keyof AlertInjectedProps>()([
   // extends
   'prefixCls',
   'className',
@@ -94,4 +100,7 @@ export const excludedAlertProps = [
   'banner',
   'icon',
   'showIcon',
-] as const
+  // events
+  'onClose',
+  'onClosed',
+])

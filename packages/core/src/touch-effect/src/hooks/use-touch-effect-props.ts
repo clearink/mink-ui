@@ -1,5 +1,5 @@
 import type { TouchEffectInfo } from '../_shared.props'
-import type { TouchEffectProps } from '../touch-effect.props'
+import type { OmittedTouchEffectProps, TouchEffectProps } from '../touch-effect.props'
 
 import { useEffect, useRef } from 'react'
 import { makeEventListener } from '@mink-ui/shared/dom/listener'
@@ -13,15 +13,20 @@ import { useNamespace } from '../../../_shared/hooks/use-settings/use-namespace'
 import showWaveEffect from '../utils/show-wave-effect'
 
 export function useTouchEffectProps(props: TouchEffectProps) {
-  const { disabled, showEffect } = useConfiguration('touchEffect') || {}
+  const globalConfig = useConfiguration('touchEffect') || {}
 
-  const { children, component, selector } = props
+  const {
+    children,
+    component,
+    selector,
+    disabled = globalConfig.disabled,
+  } = props
 
   const ns = useNamespace('touch-effect', undefined)
 
   const $container = useRef<HTMLElement>(null)
 
-  const refer = useMergeRefs($container, (children.props as any).ref || (children as any).ref)
+  const mergedRef = useMergeRefs($container, (children.props as any).ref || (children as any).ref)
 
   const showTouchEffect = useThrottleFrame((container: HTMLElement, event: MouseEvent) => {
     if (isBoolean(disabled) && disabled) return
@@ -35,7 +40,7 @@ export function useTouchEffectProps(props: TouchEffectProps) {
 
     if (isFunction(disabled) && disabled(info)) return
 
-    showEffect ? showEffect(info) : showWaveEffect(info)
+    (globalConfig?.showEffect ?? showWaveEffect)(info)
   })
 
   useEffect(() => {
@@ -52,7 +57,7 @@ export function useTouchEffectProps(props: TouchEffectProps) {
   }, [disabled, showTouchEffect])
 
   return {
-    omitted: props,
-    refer,
+    omitted: props as OmittedTouchEffectProps,
+    mergedRef,
   }
 }

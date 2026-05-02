@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react'
-import type { SemanticsStyled } from '../../_shared/types'
+import type { SemanticsStyled } from '../../_shared/types/styled'
 
 export interface BadgeProps extends
   HTMLAttributes<HTMLSpanElement>,

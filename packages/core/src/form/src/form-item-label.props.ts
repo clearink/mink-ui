@@ -2,10 +2,9 @@ import type { CSSProperties, ReactNode } from 'react'
 import type { ColProps } from '../../grid/src'
 import type { LabelAlign, RequiredMark } from './_shared.props'
 
-/**
- * @description 属于 Form.Item 的 props，但是要传递给 FormItemLabel 组件
- */
-export interface FormItemLabelOwnProps {
+import { exhaustive } from '../../_shared/utils/exhaustive'
+
+export interface FormItemLabelForwardedProps {
   /**
    * @description 字段名称
    */
@@ -47,11 +46,11 @@ export interface FormItemLabelOwnProps {
   requiredMark?: RequiredMark
 }
 
-export interface FormItemLabelProps extends FormItemLabelOwnProps {
+export interface FormItemLabelInjectedProps {
   /**
    * @description htmlFor 的默认值
    */
-  itemId?: string
+  itemId: string | undefined
 
   /**
    * @description 是否必填
@@ -61,18 +60,20 @@ export interface FormItemLabelProps extends FormItemLabelOwnProps {
   /**
    * @description 类名
    */
-  className?: string
+  className: string | undefined
 
   /**
    * @description 样式
    */
-  style?: CSSProperties
+  style: CSSProperties | undefined
 
   /**
-   * @description 前缀
+   * @description 外部命名空间
    */
-  rootNamespace: string
+  outerNamespace: string
 }
+
+export interface FormItemLabelProps extends FormItemLabelForwardedProps, FormItemLabelInjectedProps {}
 
 export type DefaultNames = 'htmlFor' | 'colon' | 'labelAlign' | 'labelWrap' | 'labelCol' | 'requiredMark'
 
@@ -88,8 +89,8 @@ export type OmittedFormItemLabelProps = Omit<FormItemLabelProps, DefaultNames>
  * |---------------------------------------------------------|
  */
 
-// keyof FormItemLabelOwnProps
-export const includedFormItemLabelProps = [
+export const includedFormItemLabelProps = exhaustive<DefaultNames | keyof FormItemLabelForwardedProps>()([
+  // props
   'label',
   'labelAlign',
   'labelWrap',
@@ -98,4 +99,4 @@ export const includedFormItemLabelProps = [
   'htmlFor',
   'tooltip',
   'requiredMark',
-] as const
+])

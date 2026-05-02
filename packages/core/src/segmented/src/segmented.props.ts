@@ -1,9 +1,9 @@
-import type { HTMLAttributes } from 'react'
-import type { CommonSize, Orientation, SemanticsStyled } from '../../_shared/types'
+import type { Orientation } from '../../_shared/types/orientation'
+import type { CommonSize } from '../../_shared/types/size'
+import type { SemanticsStyled } from '../../_shared/types/styled'
 import type { SegmentedOption, SegmentedValue } from './_shared.props'
 
 export interface SegmentedProps extends
-  Omit<HTMLAttributes<HTMLDivElement>, 'value' | 'defaultValue' | 'onChange'>,
   SemanticsStyled<'root' | 'inner' | 'item' | 'thumb'> {
 
   /**

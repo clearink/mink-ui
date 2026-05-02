@@ -39,11 +39,8 @@ jobs:
           cache: pnpm
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install Dependencies
-        run: pnpm install
-
-      - name: Generate Icons
-        run: pnpm gen:icons
+      - name: Install and Initialize
+        run: pnpm run setup
 
       - name: Create Release Pull Request or Publish
         uses: changesets/action@v1

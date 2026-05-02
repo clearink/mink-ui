@@ -14,9 +14,9 @@ function Collapse(props: CollapseProps) {
     ns,
     cssNames,
     cssAttrs,
-    rootCssNames,
-    rootCssAttrs,
     expandedNames,
+    outerCssNames,
+    outerCssAttrs,
     handleOnChange,
   } = useCollapseProps(props)
 
@@ -40,9 +40,9 @@ function Collapse(props: CollapseProps) {
           expandIcon={fallback(item.expandIcon, expandIcon)}
           expandIconPlacement={fallback(item.expandIconPlacement, expandIconPlacement)}
           keepMounted={fallback(item.keepMounted, keepMounted)}
-          rootCssAttrs={rootCssAttrs}
-          rootCssNames={rootCssNames}
-          rootNamespace={ns}
+          outerCssAttrs={outerCssAttrs}
+          outerCssNames={outerCssNames}
+          outerNamespace={ns}
           onChange={handleOnChange}
         />
       ))}

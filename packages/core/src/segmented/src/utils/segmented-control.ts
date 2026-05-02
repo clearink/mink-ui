@@ -1,11 +1,11 @@
 import type { VoidFn } from '@mink-ui/shared/interface'
 import type { CssTransitionInstance } from '../../../_shared/components/transition/src/css-transition.props'
-import type { SegmentedValue } from '../_shared.props'
+import type { SegmentedOption, SegmentedValue } from '../_shared.props'
 
 import { nextTick } from '@mink-ui/shared/dom/raf'
 import { getClientCoords } from '@mink-ui/shared/dom/rect'
 
-export class SegmentedRefs {
+export class SegmentedControl {
   private _cleanup = null as VoidFn | null
 
   public $inner = { current: null as HTMLDivElement | null }
@@ -32,6 +32,20 @@ export class SegmentedRefs {
     return this.$instance.current!
   }
 
+  public collect = (el: HTMLElement | null, item: SegmentedOption) => {
+    if (el) this.$items.set(item.value, el)
+    else this.$items.delete(item.value)
+  }
+
+  /**
+   * @description 清理
+   */
+  private dispose = () => {
+    this._cleanup?.()
+
+    this._cleanup = null
+  }
+
   /**
    * @description 更新 thumb 位置
    */
@@ -56,11 +70,11 @@ export class SegmentedRefs {
   }
 
   /**
-   * @description 清理
+   * @description 销毁
    */
-  public dispose = () => {
-    this._cleanup?.()
+  public destroy = () => {
+    this.dispose()
 
-    this._cleanup = null
+    this.items.clear()
   }
 }

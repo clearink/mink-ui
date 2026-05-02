@@ -4,12 +4,21 @@ import { defineName } from '../../_shared/utils/define-name'
 import { useSegmentedItemProps } from './hooks/use-segmented-item-props'
 
 function SegmentedItem(props: SegmentedItemProps) {
-  const { omitted, ns, cssNames, cssAttrs, handleOnChange } = useSegmentedItemProps(props)
+  const {
+    omitted,
+    ns,
+    cssNames,
+    cssAttrs,
+    mergedRef,
+    handleOnChange,
+  } = useSegmentedItemProps(props)
 
-  const { ref, checked, label, title, disabled } = omitted
+  const { checked, config } = omitted
+
+  const { label, title, disabled } = config
 
   return (
-    <label ref={ref} className={cssNames.root} style={cssAttrs.root}>
+    <label ref={mergedRef} className={cssNames.root} style={cssAttrs.root}>
       <input
         className={`${ns}__radio`}
         checked={checked}
