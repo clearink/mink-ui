@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode, Ref, RefCallback } from 'react'
+import type { CSSProperties, ReactElement, ReactNode, Ref, RefCallback } from 'react'
 import type { CssTransitionGetters, CssTransitionMotions, CssTransitionTimeouts } from './_shared.props'
 
 export interface CssTransitionInstance<E extends HTMLElement = HTMLElement> {
@@ -65,42 +65,48 @@ export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
   unmountOnExit?: boolean
 
   /**
+   * @private
+   * @description 供 SwitchTransition,GroupTransition 内部使用
+   */
+  __key?: ReactElement['key']
+
+  /**
    * @description enter 过渡开始时调用
    */
-  onEnter?: (el: E, appearing: boolean) => void | CSSProperties
+  onEnter?: (el: E, appearing: boolean, key?: ReactElement['key']) => void | CSSProperties
 
   /**
    * @description enter 过渡激活时调用
    */
-  onEntering?: (el: E, appearing: boolean) => void | CSSProperties
+  onEntering?: (el: E, appearing: boolean, key?: ReactElement['key']) => void | CSSProperties
 
   /**
    * @description enter 过渡结束时调用
    */
-  onEntered?: (el: E, appearing: boolean) => void | CSSProperties
+  onEntered?: (el: E, appearing: boolean, key?: ReactElement['key']) => void | CSSProperties
 
   /**
    * @description enter 过渡取消时调用
    */
-  onEnterCancel?: (el: E, appearing: boolean) => void
+  onEnterCancel?: (el: E, appearing: boolean, key?: ReactElement['key']) => void
 
   /**
    * @description exit 过渡开始时调用
    */
-  onExit?: (el: E) => void | CSSProperties
+  onExit?: (el: E, key?: ReactElement['key']) => void | CSSProperties
 
   /**
    * @description exit 过渡激活时调用
    */
-  onExiting?: (el: E) => void | CSSProperties
+  onExiting?: (el: E, key?: ReactElement['key']) => void | CSSProperties
 
   /**
    * @description exit 过渡结束时调用
    */
-  onExited?: (el: E) => void | CSSProperties
+  onExited?: (el: E, key?: ReactElement['key']) => void | CSSProperties
 
   /**
    * @description exit 过渡取消时调用
    */
-  onExitCancel?: (el: E) => void
+  onExitCancel?: (el: E, key?: ReactElement['key']) => void
 }

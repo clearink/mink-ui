@@ -24,7 +24,7 @@ export function useBadgeProps(props: BadgeProps) {
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
-      { ...globalConfig.classNames },
+      globalConfig.classNames,
       { root: globalConfig.className },
       classNames,
       omitted.classNames,

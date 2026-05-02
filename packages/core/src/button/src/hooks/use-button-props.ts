@@ -13,7 +13,7 @@ import { useButtonClassNames } from '../hooks/use-class-names'
 
 export function useButtonProps(props: ButtonProps) {
   const globalConfig = useConfiguration('button')
-  const btnGroupContext = ButtonGroupContext.use()
+  const buttonGroupContext = ButtonGroupContext.use()
   const disabledContext = DisabledContext.use()
   const sizeContext = SizeContext.use()
 
@@ -24,7 +24,7 @@ export function useButtonProps(props: ButtonProps) {
     theme = fallback(globalConfig.theme, defaultProps.theme),
     variant = fallback(globalConfig.variant, defaultProps.variant),
     size = fallback(sizeContext, defaultProps.size),
-    disabled = fallback(props.disabled || btnGroupContext.disabled, disabledContext),
+    disabled = fallback(props.disabled || buttonGroupContext.disabled, disabledContext),
   } = props
 
   const omitted = props as OmittedButtonProps

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "children",
+    "type": "React.ReactNode",
+    "zh-CN": "组件内容",
+    "en-US": "Component content"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  },
+  {
+    "name": "classNames",
+    "type": "Record<'root', string>",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "styles",
+    "type": "Record<'root', React.CSSProperties>",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  }
+]

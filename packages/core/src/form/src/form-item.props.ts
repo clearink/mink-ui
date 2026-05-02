@@ -2,14 +2,14 @@ import type { ReactNode } from 'react'
 import type { InternalFormFieldProps } from '../../_shared/components/form/src'
 import type { SemanticsStyled } from '../../_shared/types'
 import type { FormInstance, ValidateStatus } from './_shared.props'
-import type { FormItemInputOwnProps } from './form-item-input.props'
-import type { FormItemLabelOwnProps } from './form-item-label.props'
+import type { FormItemInputForwardedProps } from './form-item-input.props'
+import type { FormItemLabelForwardedProps } from './form-item-label.props'
 
-export type FunctionalChildren = (form: FormInstance) => ReactNode
+type FunctionalChildren = (form: FormInstance) => ReactNode
 
 export interface FormItemProps<V = any> extends
-  FormItemInputOwnProps,
-  FormItemLabelOwnProps,
+  FormItemInputForwardedProps,
+  FormItemLabelForwardedProps,
   Omit<InternalFormFieldProps<V>, 'children' | 'onMetaChange'>,
   SemanticsStyled<'root' | 'label' | 'input'> {
   /**

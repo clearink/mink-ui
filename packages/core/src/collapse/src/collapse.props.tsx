@@ -1,10 +1,12 @@
-import type { ReactNode, Ref } from 'react'
+import type { Ref } from 'react'
 import type { CommonSize, SemanticsStyled } from '../../_shared/types'
-import type { CollapseItemType, CollapsibleType, ExpandedName, ExpandIconPlacement } from './_shared.props'
+import type { CollapseItemType, ExpandedName } from './_shared.props'
+import type { CollapseItemForwardedProps } from './collapse-item.props'
 
 import CaretRightOutlined from '@mink-ui/icons/CaretRightOutlined'
 
 export interface CollapseProps extends
+  CollapseItemForwardedProps,
   SemanticsStyled<'root' | 'item' | 'header' | 'icon' | 'title' | 'extra' | 'content'> {
   /**
    * @description 外部引用
@@ -27,39 +29,14 @@ export interface CollapseProps extends
   defaultExpandedNames?: ExpandedName | ExpandedName[]
 
   /**
-   * @description 是否为手风琴模式
-   */
-  accordion?: boolean
-
-  /**
    * @description 是否显示边框
    */
   bordered?: boolean
 
   /**
-   * @description 展开触发区域
-   */
-  collapsible?: CollapsibleType
-
-  /**
-   * @description 自定义展开图标
-   */
-  expandIcon?: ReactNode | ((params: { expanded: boolean, name: ExpandedName }) => ReactNode)
-
-  /**
-   * @description 展开图标位置
-   */
-  expandIconPlacement?: ExpandIconPlacement
-
-  /**
    * @description 是否为幽灵模式, 无背景色
    */
   ghost?: boolean
-
-  /**
-   * @description 收起时是否保留元素
-   */
-  keepMounted?: boolean
 
   /**
    * @description 折叠面板尺寸

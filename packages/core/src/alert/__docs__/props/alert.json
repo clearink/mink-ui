@@ -64,13 +64,13 @@
   },
   {
     "name": "onClose",
-    "type": "() => void",
+    "type": "VoidFn",
     "zh-CN": "关闭按钮点击事件",
     "en-US": "Callback when close button is clicked"
   },
   {
     "name": "onClosed",
-    "type": "() => void",
+    "type": "VoidFn",
     "zh-CN": "关闭动画结束后触发",
     "en-US": "Callback after close animation ends"
   },

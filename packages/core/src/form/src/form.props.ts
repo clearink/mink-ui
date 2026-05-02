@@ -4,8 +4,9 @@ import type { CommonDisabled, CommonSize, SemanticsStyled } from '../../_shared/
 import type { FormInstance, FormLayout, FormVariant } from './_shared.props'
 import type { FormItemProps } from './form-item.props'
 
-export interface FormProps<S = any> extends
-  Omit<InternalFormProps<S>, 'form'>,
+import { exhaustive } from '../../_shared/utils/exhaustive'
+
+export interface FormInjectedProps<S = any> extends
   Pick<FormItemProps, 'colon' | 'labelAlign' | 'labelWrap' | 'labelCol' | 'wrapperCol' | 'requiredMark'>,
   SemanticsStyled<'root' | 'label' | 'input'> {
   /**
@@ -49,6 +50,8 @@ export interface FormProps<S = any> extends
   feedbackIcons?: any
 }
 
+export interface FormProps<S = any> extends FormInjectedProps<S>, Omit<InternalFormProps<S>, 'form' | 'ref'> {}
+
 export type DefaultNames = 'size' | 'colon' | 'layout' | 'variant' | 'disabled' | 'requiredMark'
 
 export type PickedFormProps<S = any> = Pick<FormProps<S>, DefaultNames>
@@ -70,7 +73,7 @@ export const defaultFormProps: Omit<PickedFormProps, 'disabled' | 'size'> = {
   requiredMark: true,
 }
 
-export const excludedFormProps = [
+export const excludedFormProps = exhaustive<DefaultNames | keyof FormInjectedProps>()([
   // extends
   'prefixCls',
   'className',
@@ -90,4 +93,6 @@ export const excludedFormProps = [
   'wrapperCol',
   'requiredMark',
   'scrollToFirstError',
-] as const
+  'feedbackIcons',
+  'variant',
+])

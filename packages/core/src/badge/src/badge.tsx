@@ -18,7 +18,7 @@ function Badge(props: BadgeProps) {
 
   const { children } = omitted
 
-  const renderSuperscript = () => {
+  const renderIndicator = () => {
     if (!isArray(numberItems) || !numberItems.length) return null
 
     return (
@@ -43,7 +43,7 @@ function Badge(props: BadgeProps) {
   return (
     <span className={cssNames.root} style={cssAttrs.root}>
       {children}
-      {renderSuperscript()}
+      {renderIndicator()}
     </span>
   )
 }

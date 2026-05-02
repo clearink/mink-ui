@@ -5,7 +5,7 @@ import type { SegmentedValue } from '../_shared.props'
 import { nextTick } from '@mink-ui/shared/dom/raf'
 import { getClientCoords } from '@mink-ui/shared/dom/rect'
 
-export class SegmentedRefs {
+export class SegmentedControl {
   private _cleanup = null as VoidFn | null
 
   public $inner = { current: null as HTMLDivElement | null }
@@ -33,6 +33,15 @@ export class SegmentedRefs {
   }
 
   /**
+   * @description 清理
+   */
+  private dispose = () => {
+    this._cleanup?.()
+
+    this._cleanup = null
+  }
+
+  /**
    * @description 更新 thumb 位置
    */
   public update = (currentValue: SegmentedValue) => {
@@ -56,11 +65,11 @@ export class SegmentedRefs {
   }
 
   /**
-   * @description 清理
+   * @description 销毁
    */
-  public dispose = () => {
-    this._cleanup?.()
+  public destroy = () => {
+    this.dispose()
 
-    this._cleanup = null
+    this.items.clear()
   }
 }

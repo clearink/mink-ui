@@ -18,9 +18,9 @@ export function useTooltipOpen(
   const timer = useRef(() => {})
 
   const [isOpen, setIsOpen] = useControlledState({
+    value: _isOpen && !!content,
     defaultValue: defaultIsOpen,
     onChange: onOpenChange,
-    value: _isOpen && !!content,
   })
 
   const hasContentChanged = useWatchValue(content, () => { setIsOpen(isOpen && !!content) })

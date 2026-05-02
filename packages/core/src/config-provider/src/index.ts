@@ -1,4 +1,6 @@
-import ConfigProvider from './config-provider'
+import _ConfigProvider from './config-provider'
+
+const ConfigProvider = Object.assign(_ConfigProvider, {})
 
 /**
  * |---------------------------------------------------------|

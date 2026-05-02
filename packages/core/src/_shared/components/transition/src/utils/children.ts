@@ -35,7 +35,6 @@ export function diff<T extends ReactElement>(prev: T[], next: T[]) {
 // 并集且有序
 export function union(
   entries: GroupTransitionControl['_entries'],
-  enters: Set<ReactElement['key']>,
   children: GroupTransitionProps['children'],
 ) {
   const orders = new Map<ReactElement['key'], number>()

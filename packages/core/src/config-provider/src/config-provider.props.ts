@@ -1,12 +1,11 @@
-import type { GetLayerLevel, HasChildren } from '../../_shared/types'
+import type { HasChildren } from '../../_shared/types'
 import type { GlobalConfig } from './_shared.props'
 
-export interface ConfigProviderProps extends HasChildren, Omit<GlobalConfig, 'layerLevel'> {
-  /**
-   * @description z-index 自定义
-   */
-  getLayerLevel?: GetLayerLevel
-}
+import { exhaustive } from '../../_shared/utils/exhaustive'
+
+export interface ConfigProviderInjectedProps extends HasChildren {}
+
+export interface ConfigProviderProps extends ConfigProviderInjectedProps, GlobalConfig {}
 
 /**
  * |---------------------------------------------------------|
@@ -16,16 +15,11 @@ export interface ConfigProviderProps extends HasChildren, Omit<GlobalConfig, 'la
  * |---------------------------------------------------------|
  */
 
-export const includedGlobalConfigNames = [
-  'size',
-  'disabled',
-  'getLayerLevel',
-  'rootPrefixCls',
-  'iconPrefixCls',
-  'touchEffect',
-  'button',
-  'form',
-  'space',
-  'tooltip',
-  'alert',
-] as const
+export const defaultConfigProviderProps: Partial<ConfigProviderProps> = {
+  rootPrefixCls: 'mink',
+  iconPrefixCls: 'minkicon',
+}
+
+export const excludedConfigProviderProps = exhaustive<keyof ConfigProviderInjectedProps>()([
+  'children',
+])

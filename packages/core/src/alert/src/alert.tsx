@@ -17,10 +17,10 @@ function Alert(props: AlertProps) {
     ns,
     cssNames,
     cssAttrs,
+    restAttrs,
     globalConfig,
     visible,
-    attrs,
-    handleOnClose,
+    handleCloseOnClick,
   } = useAlertProps(props)
 
   const { showIcon, type } = picked
@@ -32,10 +32,10 @@ function Alert(props: AlertProps) {
     const statusIcon = icon ?? mapStatusIcon(type)
 
     return cloneElementWithOptions(statusIcon, {
-      fallback: <span className={cssNames.icon} style={cssAttrs.icon}>{statusIcon}</span>,
+      fallback: <span className={cssNames.statusIcon} style={cssAttrs.statusIcon}>{statusIcon}</span>,
       transform: original => ({
-        className: cn(original.className, cssNames.icon),
-        style: { ...original.style, ...cssAttrs.icon },
+        className: cn(original.className, cssNames.statusIcon),
+        style: { ...original.style, ...cssAttrs.statusIcon },
       }),
     })
   }
@@ -51,7 +51,7 @@ function Alert(props: AlertProps) {
             style={cssAttrs.closeBtn}
             tabIndex={0}
             type="button"
-            onClick={handleOnClose}
+            onClick={handleCloseOnClick}
           >
             {icon}
           </button>
@@ -74,7 +74,7 @@ function Alert(props: AlertProps) {
     >
       {($motion, getters) => (
         <div
-          {...attrs}
+          {...restAttrs}
           ref={$motion}
           className={cn(cssNames.root, getters.names())}
           style={{ ...cssAttrs.root, ...getters.attrs() }}

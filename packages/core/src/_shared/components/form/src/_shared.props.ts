@@ -101,15 +101,21 @@ export interface InternalFormValidateErrorInfo<S = any> {
  */
 export type WatchCallBack = (values: any) => void
 
-export type ScheduleTasks = Partial<Record<
+/**
+ * @description 表单调度任务
+ */
+export type FormScheduleTasks = Partial<Record<
 'cleanup' | 'events' | 'update' | 'publish',
 { priority: number, handler: VoidFn }
 >>
 
-export type ScheduleFunction = <K extends keyof ScheduleTasks>(
+/**
+ * @description 表单调度方法
+ */
+export type FormScheduleFunction = <K extends keyof FormScheduleTasks>(
   key: K,
   priority: number,
-  factory: (tasks: ScheduleTasks) => void,
+  factory: (tasks: FormScheduleTasks) => void,
 ) => void
 
 /**
@@ -129,6 +135,7 @@ export interface RuleValidateOptions {
    */
   warningOnly?: boolean
 }
+
 /**
  * @description 通用表单检验规则实例属性
  */
@@ -139,7 +146,7 @@ export interface RuleLike {
 /**
  * @description 表单调度 action
  */
-export type DispatchAction
+export type FormDispatchAction
   = {
     type: 'fieldInitial'
     control: FormFieldControl
@@ -212,7 +219,7 @@ export interface InternalHooksReturn<S = any> {
   /**
    * @description 调度方法
    */
-  dispatch: (action: DispatchAction) => void
+  dispatch: (action: FormDispatchAction) => void
 
   /**
    * @description 注册字段
@@ -360,3 +367,24 @@ export interface InternalFormInstance<S = any> {
  * @description 外部使用的表单实例
  */
 export type ExternalFormInstance<S = any> = Omit<InternalFormInstance<S>, 'getInternalHooks'>
+
+/**
+ * @description Form.List 字段
+ */
+export interface InternalListField {
+  key: number
+  name: number
+}
+
+/**
+ * @description Form.List 暴露的方法
+ */
+export interface InternalListHelpers {
+  append: (value?: unknown) => void
+  insert: (index: number, value: any) => void
+  move: (from: number, to: number) => void
+  prepend: (value?: any) => void
+  remove: (index?: number | number[]) => void
+  replace: (index: number, value: any) => void
+  swap: (from: number, to: number) => void
+}

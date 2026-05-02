@@ -3,6 +3,7 @@ import type { GlobalConfig } from './_shared.props'
 
 import { ctxHelper } from '../../_shared/utils/ctx-helper'
 import { makeUniqueId } from '../../_shared/utils/make-unique-id'
+import { defaultConfigProviderProps } from './config-provider.props'
 
 /**
  * @zh-CN 自定义组件禁用状态 Context
@@ -23,6 +24,6 @@ export const LayerLevelContext = ctxHelper<GetLayerLevel>('LayerLevelContext', m
  * @description 自定义通用组件配置 Context
  */
 export const GlobalConfigContext = ctxHelper<GlobalConfig>('ConfigContext', {
-  rootPrefixCls: 'mink',
-  iconPrefixCls: 'minkicon',
+  rootPrefixCls: defaultConfigProviderProps.rootPrefixCls,
+  iconPrefixCls: defaultConfigProviderProps.iconPrefixCls,
 })

@@ -7,5 +7,5 @@ import { FormControl } from '../utils/form-control'
 export function useForm<S = any>(form?: ExternalFormInstance<S>) {
   const forceUpdate = useForceUpdate()
 
-  return useConstant(() => form || new FormControl<S>(forceUpdate).inject())
+  return useConstant(() => form || new FormControl<S>(forceUpdate).expose())
 }

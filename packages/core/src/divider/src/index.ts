@@ -1,4 +1,6 @@
-import Divider from './divider'
+import _Divider from './divider'
+
+const Divider = Object.assign(_Divider, {})
 
 /**
  * |---------------------------------------------------------|

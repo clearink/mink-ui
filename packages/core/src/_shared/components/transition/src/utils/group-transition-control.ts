@@ -52,6 +52,7 @@ export class GroupTransitionControl {
     const preset = omit(this._props as any, excluded) as CssTransitionProps
 
     const attrs = Object.assign(preset, params, {
+      __key: rawKey,
       key: rawKey,
       unmountOnExit: true,
       children: normalizeCssTransitionChildren(element),
@@ -134,9 +135,7 @@ export class GroupTransitionControl {
 
     const [enters, exits] = diff(this.current, children)
 
-    const allEntries = union(this._entries, enters, children)
-
-    const newEntries = allEntries.map((item) => {
+    const newEntries = union(this._entries, children).map((item) => {
       if (!isGroupTransitionEntry(item)) {
         return this._createEntry(item, { appear: true, when: true })
       }

@@ -2,7 +2,6 @@ import { useBreakpoint } from '../../_shared/hooks/use-breakpoint'
 import Col from './col'
 import Row from './row'
 
-// CompoundGrid
 const Grid = { Col, Row, useBreakpoint }
 
 /**

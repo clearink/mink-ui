@@ -14,9 +14,15 @@ function formatTimeoutInfo(declaration: CSSStyleDeclaration, type: CssTransition
 
   const durations = values(`${type!}Duration`)
 
+  const properties = values(`${type!}Property` as keyof CSSStyleDeclaration)
+
+  const hasAll = type === 'transition' && properties.includes('all')
+
+  const count = hasAll ? Infinity : durations.length
+
   const timeouts = durations.map((d, i) => ms(d) + ms(delays[i % delays.length]))
 
-  return { count: durations.length, timeout: Math.max.apply(null, timeouts) }
+  return { count, timeout: Math.max.apply(null, timeouts) }
 }
 
 /**

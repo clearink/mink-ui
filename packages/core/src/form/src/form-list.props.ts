@@ -12,5 +12,4 @@ export interface FormListProps extends Omit<InternalFormListProps, 'children'>, 
    * @description 渲染函数
    */
   children: (fields: InternalListField[], helpers: InternalListHelpers, meta: Pick<InternalMetaInfo, 'warnings' | 'errors'>) => ReactNode
-
 }

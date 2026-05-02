@@ -52,6 +52,18 @@ const routes: CustomRouteObject[] = [
         component: lazyLoad(() => import('../../../../packages/core/src/button/__docs__/zh-CN.md')),
       },
       {
+        path: 'checkbox',
+        meta: {
+          category: 'component',
+          path: 'checkbox',
+          title: 'Checkbox',
+          subtitle: '多选框',
+          desc: '多选框组件。',
+          group: { title: '数据录入', order: 0 },
+        },
+        component: lazyLoad(() => import('../../../../packages/core/src/checkbox/__docs__/zh-CN.md')),
+      },
+      {
         path: 'collapse',
         meta: {
           category: 'component',
@@ -99,6 +111,18 @@ const routes: CustomRouteObject[] = [
           group: { title: '布局', order: 1 },
         },
         component: lazyLoad(() => import('../../../../packages/core/src/grid/__docs__/zh-CN.md')),
+      },
+      {
+        path: 'notification',
+        meta: {
+          category: 'component',
+          path: 'notification',
+          title: 'Notification',
+          subtitle: '通知提醒框',
+          desc: '全局展示通知提醒信息。',
+          group: { title: '反馈', order: 0 },
+        },
+        component: lazyLoad(() => import('../../../../packages/core/src/notification/__docs__/zh-CN.md')),
       },
       {
         path: 'segmented',
@@ -185,6 +209,18 @@ const routes: CustomRouteObject[] = [
         component: lazyLoad(() => import('../../../../packages/core/src/button/__docs__/en-US.md')),
       },
       {
+        path: 'checkbox',
+        meta: {
+          category: 'component-en',
+          path: 'checkbox',
+          title: 'Checkbox',
+          subtitle: 'Checkbox',
+          desc: 'Checkbox component.',
+          group: { title: 'Data Entry', order: 0 },
+        },
+        component: lazyLoad(() => import('../../../../packages/core/src/checkbox/__docs__/en-US.md')),
+      },
+      {
         path: 'collapse-en',
         meta: {
           category: 'component-en',
@@ -232,6 +268,18 @@ const routes: CustomRouteObject[] = [
           group: { title: '布局', order: 1 },
         },
         component: lazyLoad(() => import('../../../../packages/core/src/grid/__docs__/en-US.md')),
+      },
+      {
+        path: 'notification',
+        meta: {
+          category: 'component-en',
+          path: 'notification',
+          title: 'Notification',
+          subtitle: 'Notification',
+          desc: 'Display notification messages globally.',
+          group: { title: 'Feedback', order: 0 },
+        },
+        component: lazyLoad(() => import('../../../../packages/core/src/notification/__docs__/en-US.md')),
       },
       {
         path: 'segmented-en',

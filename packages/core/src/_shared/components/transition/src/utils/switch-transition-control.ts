@@ -49,6 +49,7 @@ export class SwitchTransitionControl {
     const preset = omit(this._props as any, excluded) as CssTransitionProps
 
     const attrs = Object.assign(preset, params, {
+      __key: rawKey,
       key: rawKey,
       unmountOnExit: true,
       children: normalizeCssTransitionChildren(element),

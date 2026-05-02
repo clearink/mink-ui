@@ -10,7 +10,7 @@ import SegmentedItem from './segmented-item'
 function Segmented(props: SegmentedProps) {
   const {
     omitted,
-    refs,
+    ctrl,
     ns,
     cssNames,
     cssAttrs,
@@ -21,10 +21,10 @@ function Segmented(props: SegmentedProps) {
     currentValue,
     isShowThumb,
     returnEmpty,
+    handleOnChange,
     handleOnEnter,
     handleOnEntering,
     handleOnEntered,
-    handleOnChange,
   } = useSegmentedProps(props)
 
   const { disabled } = omitted
@@ -36,7 +36,7 @@ function Segmented(props: SegmentedProps) {
 
     return (
       <CssTransition
-        ref={refs.$instance}
+        ref={ctrl.$instance}
         classNames={`${ns}-motion`}
         appear
         when
@@ -47,7 +47,7 @@ function Segmented(props: SegmentedProps) {
       >
         {($motion, getters) => (
           <div
-            ref={mergeRefs($motion, refs.$thumb)}
+            ref={mergeRefs($motion, ctrl.$thumb)}
             className={cn(cssNames.thumb, getters.names())}
             style={{ ...cssAttrs.thumb, ...getters.attrs() }}
           />
@@ -62,8 +62,8 @@ function Segmented(props: SegmentedProps) {
         {...item}
         key={item.value}
         ref={(el) => {
-          if (el) refs.$items.set(item.value, el)
-          else refs.$items.delete(item.value)
+          if (el) ctrl.$items.set(item.value, el)
+          else ctrl.$items.delete(item.value)
         }}
         checked={currentValue === item.value}
         disabled={disabled || item.disabled}
@@ -82,7 +82,7 @@ function Segmented(props: SegmentedProps) {
       className={cssNames.root}
       style={cssAttrs.root}
     >
-      <div ref={refs.$inner} className={cssNames.inner} style={cssAttrs.inner}>
+      <div ref={ctrl.$inner} className={cssNames.inner} style={cssAttrs.inner}>
         {renderSegmentedThumb()}
         {renderSegmentedOptions()}
       </div>

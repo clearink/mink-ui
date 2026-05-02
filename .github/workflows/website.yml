@@ -37,14 +37,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
 
-      - name: Install Dependencies
-        run: pnpm install
-
-      - name: Generate Icons
-        run: pnpm gen:icons
-
-      - name: Generate Library Subpath
-        run: pnpm sub:shared | pnpm sub:icons
+      - name: Install and Initialize
+        run: pnpm setup
 
       # - name: Run ESLint
       #   run: pnpm lint

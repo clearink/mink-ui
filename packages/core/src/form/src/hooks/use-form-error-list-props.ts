@@ -19,7 +19,7 @@ export function useFormErrorListProps(props: FormErrorListProps) {
     helpStatus,
   } = props
 
-  const ns = useNamespace(preset => `${rootNs || preset}__explain`)
+  const ns = useNamespace(preset => `${rootNs || `${preset}-form-item`}__explain`)
 
   const warnings = useDebounceValue(_warnings.length ? 20 : 0, _warnings)
 

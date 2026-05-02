@@ -26,7 +26,7 @@ export function useDividerProps(props: DividerProps) {
 
   const finalOrientation = normalizeOrientation(orientation, vertical)
 
-  const classNames = useDividerClassNames(picked, omitted, finalOrientation)
+  const classNames = useDividerClassNames(picked, omitted, { orientation: finalOrientation })
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [

@@ -25,7 +25,10 @@ export function useRowProps(props: RowProps) {
 
   const { hGutter, vGutter, hLayout, vLayout } = useResponsiveValues(picked, omitted)
 
-  const classNames = useRowClassNames(picked, omitted, hLayout, vLayout)
+  const classNames = useRowClassNames(picked, omitted, {
+    align: vLayout,
+    justify: hLayout,
+  })
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -75,9 +78,11 @@ export function useColProps(props: ColProps) {
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
       classNames,
+      props.classNames,
       { root: props.className },
     ],
     [
+      props.styles,
       { root: props.style },
     ],
   )

@@ -1,4 +1,4 @@
-import type { MayBe } from '@mink-ui/shared/interface'
+import type { MayBe, VoidFn } from '@mink-ui/shared/interface'
 import type { GetContainerElement } from '../../components/portal/src/_shared.props'
 
 import { useEffect } from 'react'
@@ -10,15 +10,26 @@ import { useConstant } from '../use-constant'
 import { useEvent } from '../use-event'
 import observer from './utils/observer'
 
-class ObserverRefs<T extends Element> {
-  public cleanup = noop
+class ObserverControl<T extends Element> {
+  public cleanup: VoidFn | null = null
 
   public element = null as MayBe<T>
 
+  /**
+   * @description 清理
+   */
   public dispose = () => {
-    this.cleanup()
+    this.cleanup?.()
+
+    this.cleanup = null
+  }
+
+  /**
+   * @description 销毁
+   */
+  public destroy = () => {
+    this.dispose()
     this.element = null
-    this.cleanup = noop
   }
 }
 
@@ -26,21 +37,21 @@ export function useResizeObserver<T extends Element>(
   container: GetContainerElement<T>,
   handler: (el: Element) => void,
 ) {
-  const refs = useConstant(() => new ObserverRefs<T>())
+  const ctrl = useConstant(() => new ObserverControl<T>())
 
   const callback = useEvent(handler)
 
-  useEffect(() => () => { refs.dispose() }, [refs])
+  useEffect(() => () => { ctrl.destroy() }, [ctrl])
 
   useEffect(() => {
     const element = findContainerElement(container)
 
-    if (shallowEqual(element, refs.element)) return
+    if (shallowEqual(element, ctrl.element)) return
 
-    refs.cleanup()
+    ctrl.dispose()
 
-    refs.element = element
+    ctrl.element = element
 
-    refs.cleanup = element ? observer.observe(element, callback) : noop
-  }, [refs, container, callback])
+    ctrl.cleanup = element ? observer.observe(element, callback) : noop
+  }, [ctrl, container, callback])
 }

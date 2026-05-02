@@ -2,9 +2,10 @@ import type { HTMLAttributes, ReactNode, Ref } from 'react'
 import type { HasChildren, Orientation, SemanticsStyled } from '../../_shared/types'
 import type { SpaceAlign, SpaceSize } from './_shared.props'
 
-export interface SpaceProps extends
+import { exhaustive } from '../../_shared/utils/exhaustive'
+
+export interface SpaceInjectedProps extends
   HasChildren,
-  HTMLAttributes<HTMLDivElement>,
   SemanticsStyled<'root' | 'item' | 'separator'> {
   /**
    * @description 外部引用
@@ -42,6 +43,8 @@ export interface SpaceProps extends
   wrap?: boolean
 }
 
+export interface SpaceProps extends HTMLAttributes<HTMLDivElement>, SpaceInjectedProps {}
+
 export type DefaultNames = 'orientation' | 'size' | 'wrap'
 
 export type PickedSpaceProps = Pick<SpaceProps, DefaultNames>
@@ -62,7 +65,7 @@ export const defaultSpaceProps: PickedSpaceProps = {
   wrap: false,
 }
 
-export const excludedSpaceProps = [
+export const excludedSpaceProps = exhaustive<DefaultNames | keyof SpaceInjectedProps>()([
   // extends
   'children',
   'prefixCls',
@@ -78,4 +81,4 @@ export const excludedSpaceProps = [
   'align',
   'separator',
   'wrap',
-] as const
+])

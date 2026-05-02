@@ -1,4 +1,6 @@
-import Collapse from './collapse'
+import _Collapse from './collapse'
+
+const Collapse = Object.assign(_Collapse, {})
 
 /**
  * |---------------------------------------------------------|

@@ -1,0 +1,68 @@
+[
+  {
+    "name": "children",
+    "type": "React.ReactNode",
+    "zh-CN": "组件内容",
+    "en-US": "Component content"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  },
+  {
+    "name": "classNames",
+    "type": "Record<'root' | 'input' | 'inner', string>",
+    "zh-CN": "语义化自定义类名",
+    "en-US": "Semantic custom class name"
+  },
+  {
+    "name": "styles",
+    "type": "Record<'root' | 'input' | 'inner', React.CSSProperties>",
+    "zh-CN": "语义化自定义样式",
+    "en-US": "Semantic custom style"
+  },
+  {
+    "name": "ref",
+    "type": "React.Ref<HTMLInputElement>",
+    "zh-CN": "外部引用",
+    "en-US": "External ref"
+  },
+  {
+    "name": "checked",
+    "type": "boolean",
+    "zh-CN": "指定当前是否选中",
+    "en-US": "Specifies whether the checkbox is checked"
+  },
+  {
+    "name": "defaultChecked",
+    "type": "boolean",
+    "zh-CN": "初始是否选中",
+    "en-US": "Whether the checkbox is initially checked"
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "zh-CN": "是否禁用",
+    "en-US": "Whether the checkbox is disabled"
+  },
+  {
+    "name": "indeterminate",
+    "type": "boolean",
+    "zh-CN": "设置 indeterminate 状态，只负责样式控制",
+    "en-US": "Set indeterminate state, only affects style"
+  }
+]

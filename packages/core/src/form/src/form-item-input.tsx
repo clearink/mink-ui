@@ -12,6 +12,7 @@ function FormItemInput(props: FormItemInputProps) {
     picked,
     omitted,
     $extra,
+    ns,
     errorListContextValue,
     cssNames,
     cssAttrs,
@@ -33,20 +34,20 @@ function FormItemInput(props: FormItemInputProps) {
   return (
     <Col {...wrapperCol} className={cssNames.root} style={cssAttrs.root}>
       {/* <FormPropsContext value={propsContext}> */}
-      <div className={cssNames.content}>
+      <div className={`${ns}-content`}>
         {children}
       </div>
 
       {/* 为了保证视图的连贯，将 errorList 与 extra 渲染到一起 */}
       {(showErrorElement || showExtraElement) && (
         <div
-          className={cssNames.additional}
+          className={`${ns}-additional`}
           style={offset.margin ? { minHeight: offset.margin + offset.extra } : undefined}
         >
           {showErrorElement && (
             <ErrorListContext value={errorListContextValue}>
               <FormErrorList
-                className={cssNames.messages}
+                className={`${ns}-messages`}
                 errors={errors}
                 help={help}
                 helpStatus={status}
@@ -56,11 +57,11 @@ function FormItemInput(props: FormItemInputProps) {
               />
             </ErrorListContext>
           )}
-          {showExtraElement && <div ref={$extra} className={cssNames.extra}>{extra}</div>}
+          {showExtraElement && <div ref={$extra} className={`${ns}-extra`}>{extra}</div>}
         </div>
       )}
 
-      {offset.margin > 0 && <div className={cssNames.offset} style={{ marginBottom: -offset.margin }} />}
+      {offset.margin > 0 && <div className={`${ns}-offset`} style={{ marginBottom: -offset.margin }} />}
       {/* </FormPropsContext> */}
     </Col>
   )

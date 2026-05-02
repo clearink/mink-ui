@@ -36,7 +36,7 @@
     "prepublishOnly": "tsc -b & mink build:core",
     "sub": "mink sub:core",
     "build": "mink build:core",
-    "lint": "eslint src",
+    "lint": "eslint src --fix  --ignore-pattern '**/*.md'",
     "lint:ts": "tsc -b"
   },
   "peerDependencies": {

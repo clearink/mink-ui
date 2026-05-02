@@ -31,3 +31,11 @@ export function mapStatusIcon(status: any) {
     default: return null
   }
 }
+
+/**
+ * @description 获取所有预先定义好的 status
+ */
+export const getBuiltinStatus = (() => {
+  const result = Object.values(STATUS_ENUM)
+  return (): CommonStatus[] => result
+})()

@@ -1,4 +1,6 @@
-import Tooltip from './tooltip'
+import _Tooltip from './tooltip'
+
+const Tooltip = Object.assign(_Tooltip, {})
 
 /**
  * |---------------------------------------------------------|

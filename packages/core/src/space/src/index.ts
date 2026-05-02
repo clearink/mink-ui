@@ -1,4 +1,6 @@
-import Space from './space'
+import _Space from './space'
+
+const Space = Object.assign(_Space, {})
 
 /**
  * |---------------------------------------------------------|

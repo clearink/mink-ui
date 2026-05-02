@@ -89,7 +89,7 @@
   },
   {
     "name": "transition",
-    "type": "CssTransitionProps['attrs']",
+    "type": "CssTransitionProps['classNames']",
     "zh-CN": "动画配置",
     "en-US": "Transition config"
   },

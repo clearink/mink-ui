@@ -31,10 +31,10 @@ export function useFormClassNames(picked: PickedFormProps, omitted: OmittedFormP
  */
 export function useImpureFormItemClassNames(
   omitted: OmittedFormItemProps,
-  hasError: boolean,
-  status: ValidateStatus,
+  others: { hasError: boolean, status: ValidateStatus },
 ) {
   const { hasFeedback, hidden, prefixCls } = omitted
+  const { hasError, status } = others
 
   const ns = useNamespace('form-item', prefixCls)
 
@@ -71,14 +71,16 @@ export function useFormItemLabelClassNames(
   const ns = `${rootNamespace}__label`
 
   return {
-    root: cn(ns, {
-      [`${ns}--left`]: labelAlign === 'left',
-      [`${ns}--wrap`]: !!labelWrap,
-      [`${ns}--required`]: required,
-      [`${ns}--mark-${markType}`]: markType,
-      [`${ns}--no-colon`]: !colon,
-    }),
-    content: `${ns}-content`,
+    ns,
+    classNames: {
+      root: cn(ns, {
+        [`${ns}--left`]: labelAlign === 'left',
+        [`${ns}--wrap`]: !!labelWrap,
+        [`${ns}--required`]: required,
+        [`${ns}--mark-${markType}`]: markType,
+        [`${ns}--no-colon`]: !colon,
+      }),
+    },
   }
 }
 
@@ -92,11 +94,9 @@ export function useFormItemInputClassNames(omitted: OmittedFormItemInputProps) {
 
   // TODO: wrapperCol 需要经过计算. 这里需要确认下
   return {
-    root: ns,
-    content: `${ns}-content`,
-    additional: `${ns}-additional`,
-    messages: `${ns}-messages`,
-    extra: `${ns}-extra`,
-    offset: `${ns}-offset`,
+    ns,
+    classNames: {
+      root: ns,
+    },
   }
 }

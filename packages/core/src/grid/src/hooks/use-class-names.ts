@@ -14,11 +14,11 @@ import { formatGridFlex } from '../utils/format'
 export function useRowClassNames(
   picked: PickedRowProps,
   omitted: OmittedRowProps,
-  justify: GridJustify | undefined,
-  align: GridAlign | undefined,
+  others: { align?: GridAlign, justify?: GridJustify },
 ) {
   const { wrap } = picked
   const { prefixCls } = omitted
+  const { align, justify } = others
 
   const ns = useNamespace('row', prefixCls)
 

@@ -27,7 +27,7 @@ export function useCollapseClassNames(picked: PickedCollapseProps, omitted: Omit
 export function useCollapseItemClassNames(omitted: CollapseItemProps) {
   const { expanded, rootNamespace: rootNs, collapsible } = omitted
 
-  const ns = useNamespace(preset => `${rootNs || preset}-item`)
+  const ns = useNamespace(preset => `${rootNs || `${preset}-collapse`}-item`)
 
   return {
     ns,

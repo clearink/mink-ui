@@ -3,14 +3,12 @@ import type { InternalTooltipProps, OmittedInternalTooltipProps, PickedInternalT
 
 import { useMemo } from 'react'
 import { batch } from '@mink-ui/shared/function/batch'
-import { pick } from '@mink-ui/shared/object/pick'
 
 import { useConstant } from '../../../../hooks/use-constant'
 import { useEvent } from '../../../../hooks/use-event'
 import { useExactState } from '../../../../hooks/use-exact-state'
 import { useThrottleFrame, useThrottleTick } from '../../../../hooks/use-scheduler'
 import { useCombinedSemantics } from '../../../../hooks/use-settings/use-combined'
-import { overlayIncluded } from '../_shared.constant'
 import { InternalTooltipContext } from '../_shared.context'
 import { defaultInternalTooltipProps as defaultProps } from '../tooltip.props'
 import aligners from '../utils/aligners'
@@ -69,12 +67,6 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
     ],
   )
 
-  const overlayProps = pick(omitted, overlayIncluded)
-
-  const handleOnEnqueue = useMemo(() => {
-    return batch(topTooltipContext, control.enqueue)
-  }, [control, topTooltipContext])
-
   const handleOnUpdate = useEvent(() => {
     const { popup, trigger } = control
 
@@ -95,6 +87,10 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
 
   const handleOnScroll = useThrottleFrame(handleOnUpdate)
 
+  const handleOnEnqueue = useMemo(() => {
+    return batch(topTooltipContext, control.enqueue)
+  }, [control, topTooltipContext])
+
   return {
     picked,
     omitted,
@@ -106,10 +102,9 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
     popupCoords,
     popupEvents,
     triggerEvents,
-    overlayProps,
     returnEmpty: hasContentChanged || hasCoordsChanged,
-    handleOnEnqueue,
     handleOnResize,
     handleOnScroll,
+    handleOnEnqueue,
   }
 }

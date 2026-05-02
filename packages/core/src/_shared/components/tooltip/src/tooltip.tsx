@@ -22,15 +22,23 @@ function InternalTooltip(props: InternalTooltipProps) {
     popupCoords,
     popupEvents,
     triggerEvents,
-    overlayProps,
     returnEmpty,
-    handleOnEnqueue,
     handleOnResize,
     handleOnScroll,
+    handleOnEnqueue,
   } = useInternalTooltipProps(props)
 
   const { arrow } = picked
-  const { children, content, fresh, transition } = omitted
+  const {
+    children,
+    content,
+    fresh,
+    transition,
+    mountOnEnter,
+    unmountOnExit,
+    zIndex,
+    getContainer,
+  } = omitted
 
   if (returnEmpty) return null
 
@@ -47,11 +55,14 @@ function InternalTooltip(props: InternalTooltipProps) {
       </TooltipTrigger>
 
       <Overlay
-        {...overlayProps}
         style={{ left: 0, top: 0 }}
+        getContainer={getContainer}
         isOpen={isOpen}
         mask={false}
+        mountOnEnter={mountOnEnter}
         transitions={{ content: transition }}
+        unmountOnExit={unmountOnExit}
+        zIndex={zIndex}
       >
         {($motion, getters) => {
           return (

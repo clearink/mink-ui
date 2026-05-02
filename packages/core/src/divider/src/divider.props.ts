@@ -1,6 +1,8 @@
 import type { CommonDisabled, CommonSize, HasChildren, Orientation, SemanticsStyled } from '../../_shared/types'
 import type { DividerAlign, DividerVariant } from './_shared.props'
 
+import { exhaustive } from '../../_shared/utils/exhaustive'
+
 export interface DividerProps extends
   HasChildren,
   SemanticsStyled<'root' | 'content'> {
@@ -54,12 +56,12 @@ export type OmittedDividerProps = Omit<DividerProps, DefaultNames>
  * |---------------------------------------------------------|
  */
 
-export const defaultDividerProps: PickedDividerProps = {
+export const defaultDividerProps: Omit<PickedDividerProps, 'size'> = {
   align: 'center',
   variant: 'solid',
 }
 
-export const excludedDividerProps = [
+export const excludedDividerProps = exhaustive<DefaultNames | keyof DividerProps>()([
   // extends
   'children',
   'prefixCls',
@@ -75,4 +77,4 @@ export const excludedDividerProps = [
   'plain',
   'size',
   'disabled',
-] as const
+])

@@ -67,8 +67,6 @@ export function useImpureFormItemProps(props: FormItemProps) {
     children: flattenFormItemChildren(props),
   }
 
-  const { help } = omitted
-
   const $item = useRef<HTMLDivElement>(null)
   const $input = useRef<VoidFn>(null)
 
@@ -89,11 +87,11 @@ export function useImpureFormItemProps(props: FormItemProps) {
     }, [[...metaInfo.warnings], [...metaInfo.errors]])
   }, [metaInfo.errors, metaInfo.warnings, pureInfo])
 
-  const hasError = !isNullish(help) || !!(warnings.length || errors.length)
+  const hasError = !isNullish(omitted.help) || !!(warnings.length || errors.length)
 
   const status = normalizeValidateStatus(metaInfo, omitted, '')
 
-  const { ns, classNames } = useImpureFormItemClassNames(omitted, hasError, status)
+  const { ns, classNames } = useImpureFormItemClassNames(omitted, { hasError, status })
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -170,7 +168,7 @@ export function useFormItemLabelProps(props: FormItemLabelProps) {
     requiredMark,
   }
 
-  const classNames = useFormItemLabelClassNames(picked, omitted)
+  const { ns, classNames } = useFormItemLabelClassNames(picked, omitted)
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -191,6 +189,7 @@ export function useFormItemLabelProps(props: FormItemLabelProps) {
   return {
     picked,
     omitted,
+    ns,
     cssNames,
     cssAttrs,
     htmlTitle,
@@ -212,7 +211,7 @@ export function useFormItemInputProps(props: FormItemInputProps) {
 
   const errorListContextValue = useMemo(() => ({ rootNamespace, status }), [rootNamespace, status])
 
-  const classNames = useFormItemInputClassNames(omitted)
+  const { ns, classNames } = useFormItemInputClassNames(omitted)
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -232,6 +231,7 @@ export function useFormItemInputProps(props: FormItemInputProps) {
     picked,
     omitted,
     $extra,
+    ns,
     errorListContextValue,
     cssNames,
     cssAttrs,

@@ -24,6 +24,7 @@ import { useNormalizeMotions, useNormalizeTimeouts } from './use-normalize'
 
 export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitionProps<E>) {
   const {
+    __key,
     ref,
     when,
     type,
@@ -67,7 +68,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
     setIsMounted(!unmountOnExit || !!when, () => {
       control.finish(el, phase, motions)
 
-      const attrs = isExit(phase) ? onExited?.(el) : onEntered?.(el, isAppear(phase))
+      const attrs = isExit(phase) ? onExited?.(el, __key) : onEntered?.(el, isAppear(phase), __key)
 
       setCssValues(attrs || undefined)
     })
@@ -78,7 +79,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
 
     if (!isRunning(control.state)) return
 
-    isExit(phase) ? onExitCancel?.(el) : onEnterCancel?.(el, isAppear(phase))
+    isExit(phase) ? onExitCancel?.(el, __key) : onEnterCancel?.(el, isAppear(phase), __key)
 
     control.cancel(phase)
   }
@@ -126,7 +127,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
   const runCssTransition = useEvent((el: E, phase: TransitionPhase) => {
     control.begin(el, phase, motions)
 
-    const attrs = isExit(phase) ? onExit?.(el) : onEnter?.(el, isAppear(phase))
+    const attrs = isExit(phase) ? onExit?.(el, __key) : onEnter?.(el, isAppear(phase), __key)
 
     flushSync(() => { setCssValues(attrs || undefined) })
 
@@ -135,7 +136,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
     const runFrameCleanup = nextFrame(() => {
       control.frame(el, phase, motions)
 
-      const attrs = isExit(phase) ? onExiting?.(el) : onEntering?.(el, isAppear(phase))
+      const attrs = isExit(phase) ? onExiting?.(el, __key) : onEntering?.(el, isAppear(phase), __key)
 
       setCssValues(attrs || undefined)
 

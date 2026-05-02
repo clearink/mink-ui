@@ -1,7 +1,7 @@
 import type { ExpandedName } from '../_shared.props'
 import type { CollapseProps, OmittedCollapseProps, PickedCollapseProps } from '../collapse.props'
 
-import { isUndefined } from '@mink-ui/shared/is/is-undefined'
+import { fallback } from '@mink-ui/shared/function/fallback'
 import { omit } from '@mink-ui/shared/object/omit'
 
 import { useControlledState } from '../../../_shared/hooks/use-controlled-state'
@@ -33,8 +33,8 @@ export function useCollapseProps(props: CollapseProps) {
   const picked = { bordered, collapsible, expandIcon, expandIconPlacement, size } as PickedCollapseProps
 
   const [expandedNames, setExpandedNames] = useControlledState({
-    defaultValue: () => normalizeExpandedNames(defaultExpandedNames, accordion),
-    value: isUndefined(_expandedNames) ? undefined : normalizeExpandedNames(_expandedNames, accordion),
+    value: normalizeExpandedNames(fallback(_expandedNames, defaultExpandedNames), accordion),
+    onChange: (names, name: ExpandedName) => { onChange?.(name, names) },
   })
 
   const { ns, classNames } = useCollapseClassNames(picked, omitted)
@@ -70,9 +70,7 @@ export function useCollapseProps(props: CollapseProps) {
     else if (isExpanded) names.splice(index, 1)
     else names.push(name)
 
-    setExpandedNames(names)
-
-    onChange?.(name, names)
+    setExpandedNames(names, name)
   })
 
   return {
