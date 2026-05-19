@@ -1,9 +1,5 @@
 @use '../../styles/helpers.scss' as *;
 
-$mink-checkbox-outline-width: 2px;
-
-$mink-checkbox-outline-offset: 1px;
-
 $mink-checkbox-inner-width: var(--#{$ns}-unit-4);
 
 $mink-checkbox-inner-height: var(--#{$ns}-unit-4);
@@ -16,4 +12,7 @@ $mink-checkbox-arrow-transition-enter: all var(--#{$ns}-motion-duration-1) var(-
 
 $mink-checkbox-arrow-transition-exit: all var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-out-back);
 
-$mink-checkbox-inner-transition: all var(--#{$ns}-motion-duration-3);
+$mink-checkbox-inner-transition:
+  all var(--#{$ns}-motion-duration-3),
+  outline 0s,
+  outline-offset 0s;

@@ -1,6 +1,8 @@
-import type { AriaAttributes, MouseEventHandler, ReactNode } from 'react'
+import type { AriaAttributes, ReactNode } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
 import type { CommonDisabled } from './disabled'
+
+import { exhaustive } from '../utils/exhaustive'
 
 export interface CommonClosable extends AriaAttributes {
   /**
@@ -16,7 +18,7 @@ export interface CommonClosable extends AriaAttributes {
   /**
    * @description 点击关闭时触发
    */
-  onClose?: MouseEventHandler<HTMLButtonElement>
+  onClose?: VoidFn
 
   /**
    * @description 彻底关闭后触发
@@ -26,16 +28,26 @@ export interface CommonClosable extends AriaAttributes {
 
 export interface HasClosable {
   /**
-   * @description 关闭图标
-   */
-  closeIcon?: ReactNode
-
-  /**
-   * @description 能否关闭
+   * @description 是否可关闭
    */
   closable?: CommonClosable | boolean
 }
 
-export interface HasClosableWithIconRender extends HasClosable {
-  closeIconRender?: (icon: ReactNode) => ReactNode
-}
+export type CloseIconRender = (icon: ReactNode, disabled?: boolean) => ReactNode
+
+export type DefaultNames = 'closeIcon' | 'disabled' | 'onClose' | 'onClosed'
+
+/**
+ * |---------------------------------------------------------|
+ * |---------------------------------------------------------|
+ * |                        constants                        |
+ * |---------------------------------------------------------|
+ * |---------------------------------------------------------|
+ */
+
+export const excludedClosableConfig = exhaustive<DefaultNames>()([
+  'closeIcon',
+  'disabled',
+  'onClose',
+  'onClosed',
+])

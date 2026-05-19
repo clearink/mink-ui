@@ -17,12 +17,14 @@ export function useFormClassNames(picked: PickedFormProps, omitted: OmittedFormP
   const ns = useNamespace('form', prefixCls)
 
   return {
-    root: cn(ns, {
-      [`${ns}--layout-${layout}`]: layout,
-      [`${ns}--size-${size}`]: size,
-    }),
-    label: undefined,
-    input: undefined,
+    classNames: {
+      root: cn(ns, {
+        [`${ns}--layout-${layout}`]: layout,
+        [`${ns}--size-${size}`]: size,
+      }),
+      label: undefined,
+      input: undefined,
+    },
   }
 }
 

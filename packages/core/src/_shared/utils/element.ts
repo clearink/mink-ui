@@ -24,9 +24,7 @@ export function findNonStaticElement(element: Element) {
     current = current.parentElement
   }
 
-  const root = ownerDocument(element)
-
-  return root.documentElement || root.body
+  return ownerDocument(element).documentElement
 }
 
 /**

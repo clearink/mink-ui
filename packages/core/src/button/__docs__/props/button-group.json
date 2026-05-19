@@ -1,14 +1,15 @@
 [
   {
-    "name": "prefixCls",
-    "type": "string",
-    "zh-CN": "自定义类名前缀"
-  },
-  {
     "name": "size",
     "enum": true,
     "type": ["small", "middle", "large"],
     "zh-CN": "按钮尺寸",
     "en-US": "Button size"
+  },
+  {
+    "name": "...",
+    "type": "SemanticsStyled<'root' | 'icon' | 'text', ButtonProps>",
+    "zh-CN": "语义化样式",
+    "en-US": "Semantics styles"
   }
 ]

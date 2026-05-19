@@ -1,20 +1,15 @@
 import type { AnyFn } from '@mink-ui/shared/interface'
 
 import { makeTimeout } from '@mink-ui/shared/dom/timer'
+import { noop } from '@mink-ui/shared/function/noop'
 
 export function debounce<F extends AnyFn>(func: F, delay: number) {
-  let params: any[] = []
-  let context: unknown = null
-  let cleanup = () => {}
+  let cleanup = noop
 
   function inner(this: unknown, ...args: any[]) {
     cleanup()
 
-    params = args
-    // eslint-disable-next-line ts/no-this-alias
-    context = this
-
-    cleanup = makeTimeout(delay, () => { func.apply(context, params) })
+    cleanup = makeTimeout(delay, () => { func.apply(this, args) })
   }
 
   return [inner as F, () => { cleanup() }] as const

@@ -3,27 +3,27 @@ import type { SegmentedProps } from './segmented.props'
 import { CssTransition } from '../../_shared/components/transition/src'
 import { cn } from '../../_shared/libs/cn'
 import { defineName } from '../../_shared/utils/define-name'
-import { mergeRefs } from '../../_shared/utils/refs'
+import { combineRefs } from '../../_shared/utils/refs'
 import { useSegmentedProps } from './hooks/use-segmented-props'
 import SegmentedItem from './segmented-item'
 
 function Segmented(props: SegmentedProps) {
   const {
     omitted,
-    ctrl,
     ns,
     cssNames,
     cssAttrs,
+    ctrl,
+    options,
+    value,
+    isShowThumb,
     outerCssNames,
     outerCssAttrs,
-    normalizedOptions,
-    currentValue,
-    isShowThumb,
     returnEmpty,
-    handleOnChange,
-    handleOnEnter,
-    handleOnEntering,
-    handleOnEntered,
+    handleChange,
+    handleEnter,
+    handleEntering,
+    handleEntered,
   } = useSegmentedProps(props)
 
   const { disabled } = omitted
@@ -40,13 +40,13 @@ function Segmented(props: SegmentedProps) {
         appear
         when
         timeouts={3000}
-        onEnter={handleOnEnter}
-        onEntered={handleOnEntered}
-        onEntering={handleOnEntering}
+        onEnter={handleEnter}
+        onEntered={handleEntered}
+        onEntering={handleEntering}
       >
         {($motion, getters) => (
           <div
-            ref={mergeRefs($motion, ctrl.$thumb)}
+            ref={combineRefs($motion, ctrl.$thumb)}
             className={cn(cssNames.thumb, getters.names())}
             style={{ ...cssAttrs.thumb, ...getters.attrs() }}
           />
@@ -56,17 +56,17 @@ function Segmented(props: SegmentedProps) {
   }
 
   const renderSegmentedOptions = () => {
-    return normalizedOptions.map(item => (
+    return options.map(item => (
       <SegmentedItem
         key={item.value}
-        checked={currentValue === item.value}
+        checked={value === item.value}
         config={item}
         disabled={disabled || item.disabled}
         isShowThumb={isShowThumb}
         outerCssAttrs={outerCssAttrs}
         outerCssNames={outerCssNames}
         outerNamespace={ns}
-        onChange={handleOnChange}
+        onChange={handleChange}
         onCollect={ctrl.collect}
       />
     ))

@@ -137,13 +137,23 @@ export class FormFieldControl {
   public forceUpdate: VoidFn
 
   constructor(_forceUpdate: VoidFn, _refreshField: VoidFn) {
-    this.forceUpdate = () => {
-      this._mounted && _forceUpdate()
-    }
+    this.forceUpdate = () => { this._mounted && _forceUpdate() }
 
-    this._refreshField = () => {
-      this._mounted && _refreshField()
-    }
+    this._refreshField = () => { this._mounted && _refreshField() }
+  }
+
+  /**
+   * @description 绑定最新的数据
+   */
+  public _bind = (props: OmittedInternalFormFieldProps) => {
+    this._props = props
+
+    // 如果 name 没有变，不更新 _name, _id
+    if (arrayEqual(this._name, props.name)) return
+
+    this._name = props.name
+
+    this._id = _getId(props.name)
   }
 
   /**
@@ -213,20 +223,6 @@ export class FormFieldControl {
    */
   public getErrorInfo = (): InternalErrorInfo => {
     return pick(this.getMetaInfo(), ['name', 'warnings', 'errors'])
-  }
-
-  /**
-   * @description 更新内部状态
-   */
-  public updateInternals = (props: OmittedInternalFormFieldProps) => {
-    this._props = props
-
-    // 如果 name 没有变，不更新 _name, _id
-    if (arrayEqual(this._name, props.name)) return
-
-    this._name = props.name
-
-    this._id = _getId(props.name)
   }
 
   /**

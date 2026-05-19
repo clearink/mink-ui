@@ -2,10 +2,20 @@ import type { SemanticsStyled } from '../../../types/styled'
 import type { PortalProps } from '../../portal/src'
 import type { CssTransitionProps } from '../../transition/src'
 
-export interface OverlayProps extends
-  Pick<CssTransitionProps, 'mountOnEnter' | 'unmountOnExit' | 'children'>,
-  Pick<PortalProps, 'getContainer'>,
-  SemanticsStyled<'root' | 'mask'> {
+import { exhaustive } from '../../../utils/exhaustive'
+
+export interface OverlayPortalProps extends Pick<PortalProps, 'getContainer'> {}
+
+export interface OverlayTransitionProps extends
+  Pick<
+    CssTransitionProps,
+    | 'children' | 'mountOnEnter' | 'unmountOnExit' | 'resumeOnCancel'
+    | 'onEnter' | 'onEntering' | 'onEntered' | 'onEnterCancel'
+    | 'onExit' | 'onExiting' | 'onExited' | 'onExitCancel'
+  > {}
+
+export interface OverlayInjectedProps extends
+  SemanticsStyled<'root' | 'mask', OverlayProps> {
   /**
    * @description 是否展示遮罩
    */
@@ -24,8 +34,10 @@ export interface OverlayProps extends
   /**
    * @description 动效配置
    */
-  transitions: Partial<Record<'mask' | 'content', CssTransitionProps['classNames']>>
+  transitions?: Partial<Record<'mask' | 'content', CssTransitionProps['classNames']>>
 }
+
+export interface OverlayProps extends OverlayInjectedProps, OverlayPortalProps, OverlayTransitionProps {}
 
 export type DefaultNames = 'mask' | 'mountOnEnter' | 'unmountOnExit'
 
@@ -46,3 +58,18 @@ export const defaultOverlayProps: PickedOverlayProps = {
   mountOnEnter: true,
   unmountOnExit: false,
 }
+
+export const overlayTransitionProps = exhaustive<keyof OverlayTransitionProps>()([
+  'children',
+  'mountOnEnter',
+  'unmountOnExit',
+  'resumeOnCancel',
+  'onEnter',
+  'onEntering',
+  'onEntered',
+  'onEnterCancel',
+  'onExit',
+  'onExiting',
+  'onExited',
+  'onExitCancel',
+])

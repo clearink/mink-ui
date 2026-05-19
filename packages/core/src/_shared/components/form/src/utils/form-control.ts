@@ -90,12 +90,12 @@ export class FormControl<S = any> {
     const { $other, $scheduler, $controls, $dispatch, $initial } = this
 
     return {
+      _bind: $other._bind,
       dispatch: $dispatch.dispatch,
       registerField: $dispatch.registerField,
       registerWatch: $other.registerWatch,
       registerScheduler: $scheduler.registerScheduler,
       setFieldsInfo: $dispatch.setFieldsInfo,
-      updateInternals: $other.updateInternals,
       defineInitialValue: $initial.defineInitialValue,
       updateControlsMap: $controls.updateControlsMap,
       updateFieldGraph: $other.updateFieldGraph,
@@ -172,16 +172,9 @@ export class FormOtherControl<S = any> {
   constructor(public forceUpdate: VoidFn) {}
 
   /**
-   * @description 表单是否为 render props
-   */
-  public isFunctional = () => {
-    return isFunction(this._omitted.children)
-  }
-
-  /**
    * @description 更新内部状态
    */
-  public updateInternals = (
+  public _bind = (
     picked: PickedInternalFormProps<S>,
     omitted: OmittedInternalFormProps<S>,
     provider: InternalFormProviderContextState | null,
@@ -197,6 +190,11 @@ export class FormOtherControl<S = any> {
     //   ...omitted.validateMessages,
     // }
   }
+
+  /**
+   * @description 表单是否为 render props
+   */
+  public isFunctional = () => isFunction(this._omitted.children)
 
   /**
    * @description 是否保留字段值

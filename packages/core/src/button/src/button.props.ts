@@ -1,17 +1,29 @@
-import type { ButtonHTMLAttributes, MouseEvent, ReactNode, Ref } from 'react'
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, MouseEvent, ReactNode, Ref } from 'react'
 import type { HasChildren } from '../../_shared/types/has-children'
 import type { CommonSize } from '../../_shared/types/size'
 import type { SemanticsStyled } from '../../_shared/types/styled'
+import type {
+  ButtonLoading,
+  ButtonShape,
+  ButtonTheme,
+  ButtonVariant,
+  IconPlacement,
+} from './_shared.props'
 
 import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface ButtonInjectedProps extends
   HasChildren,
-  SemanticsStyled<'root' | 'icon' | 'text', { picked: PickedButtonProps, omitted: OmittedButtonProps }> {
+  SemanticsStyled<'root' | 'icon' | 'text', ButtonProps> {
   /**
    * @description 外部引用
    */
-  ref?: Ref<HTMLButtonElement>
+  ref?: Ref<HTMLButtonElement | HTMLAnchorElement>
+
+  /**
+   * @description 按钮加载状态
+   */
+  loading?: boolean | ButtonLoading
 
   /**
    * @description 块级样式
@@ -34,15 +46,15 @@ export interface ButtonInjectedProps extends
   icon?: ReactNode
 
   /**
-   * @description 按钮加载状态
+   * @description 图标位置
    */
-  loading?: boolean | { delay: number }
+  iconPlacement?: IconPlacement
 
   /**
    * @default `default`
    * @description 按钮形状
    */
-  shape?: 'round' | 'default' | 'circle'
+  shape?: ButtonShape
 
   /**
    * @description 按钮尺寸
@@ -54,24 +66,32 @@ export interface ButtonInjectedProps extends
    * @default `primary`
    * @description 按钮主题
    */
-  theme?: 'danger' | 'info' | 'primary' | 'success' | 'warning'
+  theme?: ButtonTheme
 
   /**
    * @default `outlined`
    * @description 按钮变体
    */
-  variant?: 'dashed' | 'filled' | 'outlined' | 'link' | 'text'
+  variant?: ButtonVariant
+
+  /**
+   * @description 超链接
+   */
+  href?: string
 
   /**
    * @function
    * @description 点击事件，元素可能是 `<button>` 或 `<a>`
    */
-  onClick?: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-export interface ButtonProps extends ButtonInjectedProps, Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {}
+export interface ButtonProps extends
+  ButtonInjectedProps,
+  Omit<AnchorHTMLAttributes<HTMLElement>, 'type' | 'onClick'>,
+  Omit<ButtonHTMLAttributes<HTMLElement>, 'type' | 'onClick'> {}
 
-export type DefaultNames = 'shape' | 'size' | 'theme' | 'variant' | 'disabled'
+export type DefaultNames = 'shape' | 'size' | 'theme' | 'variant' | 'disabled' | 'iconPlacement'
 
 export type PickedButtonProps = Pick<ButtonProps, DefaultNames>
 
@@ -102,15 +122,17 @@ export const excludedButtonProps = exhaustive<DefaultNames | keyof ButtonInjecte
   'styles',
   // props
   'ref',
+  'loading',
   'block',
   'disabled',
   'ghost',
   'icon',
-  'loading',
+  'iconPlacement',
   'shape',
   'size',
   'theme',
   'variant',
+  'href',
   // events
   'onClick',
 ])

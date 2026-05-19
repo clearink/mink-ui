@@ -9,7 +9,7 @@ import type { PopupPlacement, PopupTriggerEvent } from './_shared.props'
 export interface InternalTooltipProps extends
   Pick<OverlayProps, 'getContainer' | 'mountOnEnter' | 'unmountOnExit' | 'zIndex'>,
   Required<HasChildren<ReactElement>>,
-  SemanticsStyled<'root' | 'arrow' | 'wrapper'> {
+  SemanticsStyled<'root' | 'arrow' | 'wrapper', InternalTooltipProps> {
 
   /**
    * @description 内容
@@ -79,7 +79,7 @@ export interface InternalTooltipProps extends
   /**
    * @description isOpen 改变回调
    */
-  onOpenChange?: (isOpen: boolean) => void
+  onIsOpenChange?: (isOpen: boolean) => void
 }
 
 export type DefaultNames = 'arrow' | 'openDelay' | 'closeDelay' | 'placement' | 'trigger' | 'offset' | 'flip' | 'shift'

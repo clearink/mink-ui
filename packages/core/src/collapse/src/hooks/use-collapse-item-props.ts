@@ -4,7 +4,7 @@ import type { CollapseItemProps } from '../collapse-item.props'
 import { omit } from '@mink-ui/shared/object/omit'
 
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
-import { isKeyPressed } from '../../../config-provider/src/utils/keyboard'
+import { isPressKey } from '../../../_shared/utils/keyboard'
 import { excludedCollapseItemProps } from '../collapse-item.props'
 import { useCollapseItemClassNames } from './use-class-names'
 
@@ -33,7 +33,7 @@ export function useCollapseItemProps(props: CollapseItemProps) {
       props.styles,
       { root: props.style },
     ],
-    { omitted: props },
+    { meta: props },
   )
 
   const restAttrs = omit(props, excludedCollapseItemProps)
@@ -49,7 +49,7 @@ export function useCollapseItemProps(props: CollapseItemProps) {
       'tabIndex': disabled ? -1 : 0,
       'role': accordion ? 'tab' : 'button',
       'onClick': disabled ? undefined : () => { onChange(name) },
-      'onKeyDown': disabled ? undefined : (e: any) => { isKeyPressed(e, 'enter') && onChange(name) },
+      'onKeyDown': disabled ? undefined : (e: any) => { isPressKey(e.key, 'enter') && onChange(name) },
     }
   }
 

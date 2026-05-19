@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import type { ExternalFormInstance, MetaChangeEvent } from '../../_shared/components/form/src'
 import type { ExternalFieldName } from '../../_shared/components/form/src/_shared.props'
 
@@ -20,3 +21,7 @@ export interface FormInstance<S = any> extends ExternalFormInstance<S> {
 }
 
 export type MetaChangeHandler = (event: MetaChangeEvent) => void
+
+export interface FormItemChildren {
+  (form: FormInstance): ReactNode
+}

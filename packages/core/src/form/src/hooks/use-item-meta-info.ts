@@ -1,10 +1,9 @@
 import type { MetaChangeEvent } from '../_shared.props'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import { _getId } from '../../../_shared/components/form/src'
 import { useEvent } from '../../../_shared/hooks/use-event'
-import { useExactState } from '../../../_shared/hooks/use-exact-state'
 import { useThrottleFrame } from '../../../_shared/hooks/use-scheduler'
 import { initialMetaInfo, shouldFormItemMetaInfoUpdate } from '../utils/helpers'
 
@@ -12,7 +11,7 @@ import { initialMetaInfo, shouldFormItemMetaInfoUpdate } from '../utils/helpers'
  * @description Form.Item 组件自身的 metaInfo
  */
 export function useFormItemMetaInfo() {
-  const [state, setState] = useExactState(initialMetaInfo)
+  const [state, setState] = useState(initialMetaInfo)
 
   return [state, useThrottleFrame((event: MetaChangeEvent) => {
     if (!event.mounted) return
@@ -29,7 +28,7 @@ export type PureItemMetaInfo = Record<string, MetaChangeEvent | undefined>
  */
 export function useFormItemPureInfo() {
   // 其下所有的pure字段错误信息在此收集
-  const [pureInfo, setPureInfo] = useExactState<PureItemMetaInfo>({})
+  const [pureInfo, setPureInfo] = useState<PureItemMetaInfo>({})
 
   const records = useRef<PureItemMetaInfo>(Object.create(null))
 

@@ -38,7 +38,7 @@ jobs:
           cache: pnpm
 
       - name: Install and Initialize
-        run: pnpm run setup
+        run: pnpm run bootstrap
 
       # - name: Run ESLint
       #   run: pnpm run lint

@@ -25,11 +25,7 @@ export function useCheckboxProps(props: CheckboxProps) {
   const omitted = props as OmittedCheckboxProps
   const picked: PickedCheckboxProps = { disabled }
 
-  const [checked, setChecked] = useControlledState({
-    value: _checked,
-    defaultValue: defaultChecked,
-    onChange,
-  })
+  const [checked, setChecked] = useControlledState(_checked, () => !!defaultChecked, onChange)
 
   const { ns, classNames } = useCheckboxClassNames(picked, omitted, { checked })
 
@@ -47,10 +43,10 @@ export function useCheckboxProps(props: CheckboxProps) {
       omitted.styles,
       { root: omitted.style },
     ],
-    { picked, omitted },
+    { meta: { ...omitted, ...picked, checked } },
   )
 
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (disabled) return
 
     setChecked(e.target.checked)
@@ -63,6 +59,6 @@ export function useCheckboxProps(props: CheckboxProps) {
     cssNames,
     cssAttrs,
     checked,
-    handleOnChange,
+    handleChange,
   }
 }

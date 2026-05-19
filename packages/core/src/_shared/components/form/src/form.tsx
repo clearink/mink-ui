@@ -21,8 +21,8 @@ function InternalForm<S = any>(props: InternalFormProps<S>) {
     internalHooks,
     propsContextValue,
     restAttrs,
-    handleOnReset,
-    handleOnSubmit,
+    handleReset,
+    handleSubmit,
   } = useInternalFormProps(props)
 
   const { component: JsxTag } = picked
@@ -50,8 +50,8 @@ function InternalForm<S = any>(props: InternalFormProps<S>) {
     <JsxTag
       {...restAttrs()}
       ref={$element}
-      onReset={handleOnReset}
-      onSubmit={handleOnSubmit}
+      onReset={handleReset}
+      onSubmit={handleSubmit}
     >
       {element}
     </JsxTag>

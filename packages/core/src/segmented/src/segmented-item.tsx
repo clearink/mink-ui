@@ -9,8 +9,8 @@ function SegmentedItem(props: SegmentedItemProps) {
     ns,
     cssNames,
     cssAttrs,
-    mergedRef,
-    handleOnChange,
+    refCombined,
+    handleChange,
   } = useSegmentedItemProps(props)
 
   const { checked, config } = omitted
@@ -18,13 +18,13 @@ function SegmentedItem(props: SegmentedItemProps) {
   const { label, title, disabled } = config
 
   return (
-    <label ref={mergedRef} className={cssNames.root} style={cssAttrs.root}>
+    <label ref={refCombined} className={cssNames.root} style={cssAttrs.root}>
       <input
         className={`${ns}__radio`}
         checked={checked}
         disabled={disabled}
         type="radio"
-        onChange={handleOnChange}
+        onChange={handleChange}
       />
       <div className={cssNames.label} style={cssAttrs.label} title={title}>
         {label}

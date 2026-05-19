@@ -10,7 +10,7 @@ import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface FormInjectedProps<S = any> extends
   Pick<FormItemProps, 'colon' | 'labelAlign' | 'labelWrap' | 'labelCol' | 'wrapperCol' | 'requiredMark'>,
-  SemanticsStyled<'root' | 'label' | 'input'> {
+  SemanticsStyled<'root' | 'label' | 'input', FormProps<S>> {
   /**
    * @description 外部引用
    */

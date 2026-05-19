@@ -1,4 +1,4 @@
-import type { IsOpenChangeHandler } from '../_shared.props'
+import type { SetStateDispatch } from '../../../../types/state-dispatch'
 import type { PickedInternalTooltipProps } from '../tooltip.props'
 import type { TooltipControl } from '../utils/tooltip-control'
 
@@ -16,11 +16,13 @@ import { formatTriggerEvents } from '../utils/format'
 export function useTooltipEvents(
   { trigger }: PickedInternalTooltipProps,
   control: TooltipControl,
-  isOpenChange: IsOpenChangeHandler,
+  handleChange: SetStateDispatch<boolean>,
 ) {
   const actions = useComputed(() => new Set(toArray(trigger)), toArray(trigger), arrayEqual)
 
   const clickToHide = actions.has('click') || actions.has('contextMenu')
+
+  const events = useMemo(() => formatTriggerEvents(actions, handleChange), [actions, handleChange])
 
   useEffect(() => {
     const element = control.trigger
@@ -33,14 +35,14 @@ export function useTooltipEvents(
 
     const handler = (event: MouseEvent) => {
       const isInChain = () => control.inChain(event)
-      isOpenChange(isOpen => !isOpen || isInChain() ? isOpen : false)
+      handleChange(isOpen => !isOpen || isInChain() ? isOpen : false)
     }
 
     return batch(
       makeEventListener([thisWindow, shadowRoot], 'mousedown', handler, true),
       makeEventListener([thisWindow, shadowRoot], 'contextmenu', handler, true),
     )
-  }, [control, clickToHide, isOpenChange])
+  }, [control, clickToHide, handleChange])
 
-  return useMemo(() => formatTriggerEvents(actions, isOpenChange), [actions, isOpenChange])
+  return events
 }

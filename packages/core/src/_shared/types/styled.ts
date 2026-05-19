@@ -56,6 +56,6 @@ export interface ComponentStyled<P> {
   styles?: P extends { styles?: infer SemanticsCssAttrs } ? SemanticsCssAttrs : CssAttrsItem<string>
 }
 
-export type GetSemanticsValues<P, V> = P extends SemanticsStyled<infer T>
+export type GetSemanticsValues<P, V> = P extends SemanticsStyled<infer T, infer _U>
   ? Partial<Record<T, V>>
   : never

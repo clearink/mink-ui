@@ -1,18 +1,17 @@
 import type { ExternalFieldName, ExternalFormInstance, InternalFormInstance } from '../_shared.props'
 
-import { use, useEffect, useMemo } from 'react'
+import { use, useEffect, useMemo, useState } from 'react'
 import { arrayEqual } from '@mink-ui/shared/array/array-equal'
 import { toArray } from '@mink-ui/shared/array/to-array'
 
 import { useComputed } from '../../../../hooks/use-computed'
-import { useExactState } from '../../../../hooks/use-exact-state'
 import { logger } from '../../../../utils/logger'
 import { HOOKS_SECRET } from '../_shared.constant'
 import { InternalFormInstanceContext } from '../_shared.context'
 import { getIn } from '../utils/path'
 
 export function useWatch<T>(name: ExternalFieldName, form?: ExternalFormInstance) {
-  const [value, setValue] = useExactState<T | undefined>(undefined)
+  const [value, setValue] = useState<T | undefined>(undefined)
 
   const formInstance = (form || use(InternalFormInstanceContext)) as InternalFormInstance
 

@@ -1,14 +1,14 @@
 import type { ReactNode, Ref, RefCallback } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
-import type { CssTransitionGetters, UniquedTransitionItem } from './_shared.props'
+import type { CssTransitionGetters, UniqueTransitionItem } from './_shared.props'
 import type { CssTransitionProps } from './css-transition.props'
 import type { GroupTransitionControl } from './utils/group-transition-control'
 
 export interface GroupTransitionInstance {
-  instances: GroupTransitionControl['_instances']
+  instances: GroupTransitionControl['instances']
 }
 
-export interface GroupTransitionProps<T extends UniquedTransitionItem = UniquedTransitionItem> extends
+export interface GroupTransitionProps<T extends UniqueTransitionItem = UniqueTransitionItem> extends
   Omit<CssTransitionProps, 'ref' | 'children' | 'unmountOnExit' | 'when'> {
   /**
    * @description 外部引用

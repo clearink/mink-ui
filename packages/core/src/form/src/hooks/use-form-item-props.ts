@@ -3,14 +3,15 @@ import type { FormItemInputProps, OmittedFormItemInputProps, PickedFormItemInput
 import type { FormItemLabelProps, OmittedFormItemLabelProps, PickedFormItemLabelProps } from '../form-item-label.props'
 import type { FormItemProps, OmittedFormItemProps, PickedFormItemProps } from '../form-item.props'
 
-import { useCallback, useLayoutEffect, useMemo, useRef } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { pushItem } from '@mink-ui/shared/array/push-item'
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
 import { isString } from '@mink-ui/shared/is/is-string'
 import { pick } from '@mink-ui/shared/object/pick'
 
 import { InternalFormListContext } from '../../../_shared/components/form/src'
+import { useIsomorphicEffect } from '../../../_shared/hooks/use-isomorphic-effect'
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
+import { isRenderable } from '../../../_shared/utils/renderable'
 import { FormInstanceContext, FormPropsContext, PureItemContext } from '../_shared.context'
 import { includedFormItemInputProps } from '../form-item-input.props'
 import { includedFormItemLabelProps } from '../form-item-label.props'
@@ -87,7 +88,7 @@ export function useImpureFormItemProps(props: FormItemProps) {
     }, [[...metaInfo.warnings], [...metaInfo.errors]])
   }, [metaInfo.errors, metaInfo.warnings, pureInfo])
 
-  const hasError = !isNullish(omitted.help) || !!(warnings.length || errors.length)
+  const hasError = isRenderable(omitted.help) || !!(warnings.length || errors.length)
 
   const status = normalizeValidateStatus(metaInfo, omitted, '')
 
@@ -103,6 +104,7 @@ export function useImpureFormItemProps(props: FormItemProps) {
       omitted.styles,
       { root: omitted.style },
     ],
+    { meta: { ...omitted, ...picked } },
   )
 
   const result = prepareFormItemChildren(picked, omitted, formInstance)
@@ -118,7 +120,7 @@ export function useImpureFormItemProps(props: FormItemProps) {
   const onGetFormItemElement = useCallback(() => $item.current, [])
 
   // 由子组件提升到父组件
-  useLayoutEffect(() => { $input.current?.() }, [])
+  useIsomorphicEffect(() => { $input.current?.() }, [])
 
   return {
     picked,
@@ -207,7 +209,13 @@ export function useFormItemInputProps(props: FormItemInputProps) {
   const omitted = props as OmittedFormItemInputProps
   const picked: PickedFormItemInputProps = { wrapperCol }
 
-  const { $extra, offset, hasError, returnEmpty, onCleanupOffset } = useFormInputOffset(omitted)
+  const {
+    $extra,
+    offset,
+    hasError,
+    returnEmpty,
+    handleGroupExited,
+  } = useFormInputOffset(omitted)
 
   const errorListContextValue = useMemo(() => ({ outerNamespace, status }), [outerNamespace, status])
 
@@ -238,6 +246,6 @@ export function useFormItemInputProps(props: FormItemInputProps) {
     offset,
     hasError,
     returnEmpty,
-    onCleanupOffset,
+    handleGroupExited,
   }
 }

@@ -25,13 +25,13 @@
   },
   {
     "name": "classNames",
-    "type": "Record<'root' | 'input' | 'inner', string>",
+    "type": "Record<'root' | 'input' | 'inner' | 'label', string>",
     "zh-CN": "语义化自定义类名",
     "en-US": "Semantic custom class name"
   },
   {
     "name": "styles",
-    "type": "Record<'root' | 'input' | 'inner', React.CSSProperties>",
+    "type": "Record<'root' | 'input' | 'inner' | 'label', React.CSSProperties>",
     "zh-CN": "语义化自定义样式",
     "en-US": "Semantic custom style"
   },
@@ -64,5 +64,11 @@
     "type": "boolean",
     "zh-CN": "设置 indeterminate 状态，只负责样式控制",
     "en-US": "Set indeterminate state, only affects style"
+  },
+  {
+    "name": "onChange",
+    "type": "(checked: boolean) => void",
+    "zh-CN": "变化时的回调函数",
+    "en-US": "Callback when checkbox state changes"
   }
 ]

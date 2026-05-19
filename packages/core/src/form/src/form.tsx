@@ -17,7 +17,7 @@ function Form<S = any>(props: FormProps<S>) {
     formInstance,
     propsContextValue,
     validateMessages,
-    handleOnFailed,
+    handleFailed,
   } = useFormProps(props)
 
   const { disabled, size } = picked
@@ -40,7 +40,7 @@ function Form<S = any>(props: FormProps<S>) {
                   className={cssNames.root}
                   style={cssAttrs.root}
                   form={formInstance}
-                  onFailed={handleOnFailed}
+                  onFailed={handleFailed}
                 />
 
               </FormStatusProvider>

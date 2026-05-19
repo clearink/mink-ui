@@ -1,10 +1,8 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import type { SemanticsStyled } from '../../_shared/types/styled'
 
-export interface BadgeProps extends
-  HTMLAttributes<HTMLSpanElement>,
-  SemanticsStyled<'root' | 'indicator'> {
-
+export interface BadgeInjectedProps extends
+  SemanticsStyled<'root' | 'indicator', BadgeProps> {
   /**
    * @description 徽标内容
    */
@@ -22,6 +20,8 @@ export interface BadgeProps extends
    */
   dot?: boolean
 }
+
+export interface BadgeProps extends BadgeInjectedProps, HTMLAttributes<HTMLSpanElement> {}
 
 export type DefaultNames = 'overflowCount'
 

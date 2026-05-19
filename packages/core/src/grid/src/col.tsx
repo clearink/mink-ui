@@ -8,8 +8,6 @@ function Col(props: ColProps) {
     omitted,
     cssNames,
     cssAttrs,
-    extraCssAttrs,
-    cssVars,
     restAttrs,
   } = useColProps(props)
 
@@ -20,7 +18,7 @@ function Col(props: ColProps) {
       {...restAttrs}
       ref={ref}
       className={cssNames.root}
-      style={{ ...cssAttrs.root, ...extraCssAttrs, ...cssVars }}
+      style={cssAttrs.root}
     >
       {children}
     </div>

@@ -1,4 +1,4 @@
-import type { UniquedTransitionItem } from '../_shared.props'
+import type { UniqueTransitionItem } from '../_shared.props'
 import type { GroupTransitionProps } from '../group-transition.props'
 
 import { useImperativeHandle } from 'react'
@@ -10,27 +10,20 @@ import { useWatchValue } from '../../../../hooks/use-watch-value'
 import { GroupTransitionControl } from '../utils/group-transition-control'
 import { isItemsEqual } from '../utils/helpers'
 
-export function useGroupTransitionProps<T extends UniquedTransitionItem>(props: GroupTransitionProps<T>) {
+export function useGroupTransitionProps<T extends UniqueTransitionItem>(props: GroupTransitionProps<T>) {
   const { ref, items } = props
 
   const forceUpdate = useForceUpdate()
 
   const control = useConstant(() => new GroupTransitionControl(forceUpdate, props))
 
-  useInvoke(() => { control.updateInternals(props) })
+  useInvoke(() => { control._bind(props) })
 
-  const returnEarly = useWatchValue(items, {
-    compare: isItemsEqual,
-    listener: (current) => {
-      if (isItemsEqual(control.current, current)) return
-
-      control.runGroupTransition()
-    },
-  })
+  const returnEarly = useWatchValue(items, () => { control.runGroupTransition() }, isItemsEqual)
 
   useImperativeHandle(ref, () => ({
-    get instances() { return control._instances },
-  }), [control._instances])
+    get instances() { return control.instances },
+  }), [control.instances])
 
   return {
     returnEmpty: returnEarly,

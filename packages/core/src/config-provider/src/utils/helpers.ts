@@ -1,15 +1,15 @@
 import type { GlobalConfig } from '../_shared.props'
 
+import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
+
 /**
- * @description 全部配置是否不相等
+ * @description GlobalConfig 是否相等
  */
-export function shouldGlobalConfigUpdate(prev: GlobalConfig, next: GlobalConfig) {
-  if (prev === next) return false
-
+export function isGlobalConfigEqual(prev: GlobalConfig, next: GlobalConfig) {
   const prevKeys = Object.keys(prev) as (keyof GlobalConfig)[]
-  const nextKeys = Object.keys(next) as (keyof GlobalConfig)[]
+  const nextKeys = Object.keys(next)
 
-  if (prevKeys.length !== nextKeys.length) return true
+  if (prevKeys.length !== nextKeys.length) return false
 
-  return prevKeys.some(key => prev[key] !== next[key])
+  return prevKeys.every(key => shallowEqual(prev[key], next[key]))
 }

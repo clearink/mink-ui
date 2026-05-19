@@ -1,5 +1,6 @@
 import type { AnyFn } from '@mink-ui/shared/interface'
-import type { IsOpenChangeHandler, PopupTriggerEvent } from '../_shared.props'
+import type { SetStateDispatch } from '../../../../types/state-dispatch'
+import type { PopupTriggerEvent } from '../_shared.props'
 
 import { shallowMerge } from '@mink-ui/shared/object/shallow-merge'
 
@@ -10,17 +11,17 @@ import { getClickEvents, getFocusEvents, getHoverEvents, getMenusEvents } from '
  */
 export function formatTriggerEvents(
   actions: Set<PopupTriggerEvent>,
-  isOpenChange: IsOpenChangeHandler,
+  handleChange: SetStateDispatch<boolean>,
 ) {
   const events: Record<string, AnyFn>[][] = []
 
-  if (actions.has('hover')) events.push(getHoverEvents(isOpenChange))
+  if (actions.has('hover')) events.push(getHoverEvents(handleChange))
 
-  if (actions.has('click')) events.push(getClickEvents(isOpenChange))
+  if (actions.has('click')) events.push(getClickEvents(handleChange))
 
-  if (actions.has('focus')) events.push(getFocusEvents(isOpenChange))
+  if (actions.has('focus')) events.push(getFocusEvents(handleChange))
 
-  if (actions.has('contextMenu')) events.push(getMenusEvents(isOpenChange))
+  if (actions.has('contextMenu')) events.push(getMenusEvents(handleChange))
 
   return events.reduce((result, tuple) => {
     result[0] = shallowMerge(result[0], tuple[0])

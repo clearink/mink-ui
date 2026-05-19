@@ -1,11 +1,16 @@
 import type { NotificationItemProps } from '../notification-item.props'
 
-import { useExactState } from '../../../_shared/hooks/use-exact-state'
-import { useMergeRefs } from '../../../_shared/hooks/use-merge-refs'
+import { useState } from 'react'
+
+import { useCombinedRefs } from '../../../_shared/hooks/use-combined-refs'
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
+import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
+import { normalizeClosable } from '../../../_shared/utils/closable'
 import { useNotificationItemClassNames } from './use-class-names'
 
 export function useNotificationItemProps(props: NotificationItemProps) {
+  const globalConfig = useConfiguration('notification')
+
   const {
     ref,
     config,
@@ -17,7 +22,7 @@ export function useNotificationItemProps(props: NotificationItemProps) {
     onCollect,
     onDismiss,
   } = props
-  const { onClose } = config
+  const { closable, onClose } = config
 
   const { ns, classNames } = useNotificationItemClassNames(props)
 
@@ -36,17 +41,30 @@ export function useNotificationItemProps(props: NotificationItemProps) {
       { root: outerCssVars },
       { root: getters.attrs() },
     ],
-    { omitted: props },
+    { meta: props },
   )
 
-  const [itemHovering, setItemHovering] = useExactState(listHovering)
+  const [itemHovering, setItemHovering] = useState(listHovering)
 
-  const mergedRef = useMergeRefs(ref, (el) => { onCollect(el, config) })
+  const refCombined = useCombinedRefs(ref, (el) => { onCollect(el, config) })
 
-  const handleOnMouseEnter = () => { setItemHovering(true) }
-  const handleOnMouseLeave = () => { setItemHovering(false) }
+  const [closableState, closeIconRender] = normalizeClosable({
+    currentState: { closable },
+    contextState: { closable: globalConfig.closable },
+  })
 
-  const handleCloseOnClick = () => { onClose?.(); onDismiss(config.key!) }
+  const handleClose = () => {
+    onDismiss(config.key!)
+
+    onClose?.()
+
+    // TODO: 需要增加 closableState?.onClosed?.() 的调用
+    closableState?.onClose?.()
+  }
+
+  const handleMouseEnter = () => { setItemHovering(true) }
+
+  const handleMouseLeave = () => { setItemHovering(false) }
 
   // useEffect(() => {
   //   if (listHovering) {
@@ -62,9 +80,11 @@ export function useNotificationItemProps(props: NotificationItemProps) {
     ns,
     cssNames,
     cssAttrs,
-    mergedRef,
-    handleOnMouseEnter,
-    handleOnMouseLeave,
-    handleCloseOnClick,
+    refCombined,
+    globalConfig,
+    closeIconRender,
+    handleClose,
+    handleMouseEnter,
+    handleMouseLeave,
   }
 }

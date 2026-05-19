@@ -1,10 +1,9 @@
 import type { FormErrorListProps } from './form-error-list.props'
 
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
-
 import { GroupTransition } from '../../_shared/components/transition/src'
 import { cn } from '../../_shared/libs/cn'
 import { defineName } from '../../_shared/utils/define-name'
+import { isRenderable } from '../../_shared/utils/renderable'
 import { useFormErrorListProps } from './hooks/use-form-error-list-props'
 
 function FormErrorList(props: FormErrorListProps) {
@@ -21,7 +20,7 @@ function FormErrorList(props: FormErrorListProps) {
     >
       <GroupTransition
         classNames={`${ns}-motion`}
-        appear={isNullish(help)}
+        appear={!isRenderable(help)}
         items={explains}
         onEnter={() => ({ height: 0 })}
         onEntering={el => ({ height: el.scrollHeight })}

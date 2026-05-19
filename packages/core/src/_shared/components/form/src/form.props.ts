@@ -1,10 +1,8 @@
 import type { ComponentType, FormEvent, FormHTMLAttributes, ReactNode, Ref } from 'react'
 import type { AnyObj } from '@mink-ui/shared/interface'
-import type { ExternalFieldInfo, ExternalFormInstance, InternalFormInstance, InternalFormValidateErrorInfo, RuleLike } from './_shared.props'
+import type { ExternalFieldInfo, ExternalFormInstance, InternalFormRenderFunction, InternalFormValidateErrorInfo, RuleLike } from './_shared.props'
 
 import { exhaustive } from '../../../utils/exhaustive'
-
-type FunctionalChildren<S> = (state: unknown, form: InternalFormInstance<S>) => ReactNode
 
 export interface InternalFormInjectedProps<S = any> {
   /**
@@ -15,7 +13,7 @@ export interface InternalFormInjectedProps<S = any> {
   /**
    * @description 子元素
    */
-  children?: ReactNode | FunctionalChildren<S>
+  children?: ReactNode | InternalFormRenderFunction<S>
 
   /**
    * @description useForm 返回值，不提供时会自动创建

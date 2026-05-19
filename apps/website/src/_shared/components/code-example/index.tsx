@@ -3,7 +3,6 @@ import type { HTMLAttributes } from 'react'
 import { useState } from 'react'
 import { cn } from '@mink-ui/core/_shared/libs/cn'
 import Divider from '@mink-ui/core/divider/src'
-import { Tooltip } from '@mink-ui/core/tooltip/src'
 import UpOutlined from '@mink-ui/icons/UpOutlined'
 
 import MarkedBlock from '@/_shared/components/markdown-block'
@@ -13,7 +12,7 @@ import SourceLink from './components/source-link'
 import styles from './style.module.scss'
 
 export default function CodeExample(props: CodeExampleProps) {
-  const { className, element, title, metaInfo, rawText, cssName, relativePath } = props
+  const { className, element, title, metaInfo, rawText, cssName, relPath } = props
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -22,16 +21,14 @@ export default function CodeExample(props: CodeExampleProps) {
       <div className={cn(styles.example_preview, cssName)}>{element}</div>
       <Divider className={styles.example_name} align="left">
         <span>{title}</span>
-        <SourceLink relativePath={relativePath} />
+        <SourceLink source={relPath} />
       </Divider>
       <MarkedBlock className={styles.example_desc} rawText={metaInfo?.['zh-CN'] || ''} />
       <div className={styles.example_toolbar}>
-        <Tooltip content={`${isOpen ? '收起' : '展开'}代码`}>
-          <UpOutlined
-            className={cn(styles.collapse_icon, !isOpen && styles['is-collapse'])}
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        </Tooltip>
+        <UpOutlined
+          className={cn(styles.collapse_icon, !isOpen && styles['is-collapse'])}
+          onClick={() => setIsOpen(!isOpen)}
+        />
       </div>
       <CodeCollapse isOpen={isOpen} rawText={rawText} />
     </div>
@@ -45,7 +42,7 @@ export interface CodeExampleProps extends HTMLAttributes<HTMLDivElement> {
   title: string
   rawText: string
   metaInfo: Record<string, string>
-  relativePath: string
+  relPath: string
 }
 
 const _excluded = [

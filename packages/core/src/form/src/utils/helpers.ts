@@ -1,8 +1,11 @@
 import type { AnyObj } from '@mink-ui/shared/interface'
+import type { FormPropsContextState } from '../_shared.context'
 import type { MetaChangeEvent } from '../_shared.props'
 
+import isEqual from 'react-fast-compare'
 import { arrayEqual } from '@mink-ui/shared/array/array-equal'
 import { isFunction } from '@mink-ui/shared/is/is-function'
+import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
 /**
  * @description 初始化 metaInfo
@@ -53,4 +56,20 @@ export function shouldFormItemMetaInfoUpdate(prev: MetaChangeEvent, next: MetaCh
     || !arrayEqual(prev.warnings, next.warnings)
     || !arrayEqual(prev.errors, next.errors)
   )
+}
+
+/**
+ * @description propsContextValue 是否相等
+ */
+export function isPropsContextValueEqual(prev: FormPropsContextState, next: FormPropsContextState) {
+  const prevKeys = Object.keys(prev) as (keyof FormPropsContextState)[]
+  const nextKeys = Object.keys(next)
+
+  if (prevKeys.length !== nextKeys.length) return false
+
+  return prevKeys.every((key) => {
+    const isDeepCompare = ['classNames', 'styles', 'labelCol', 'wrapperCol'].includes(key)
+
+    return (isDeepCompare ? isEqual : shallowEqual)(prev[key], next[key])
+  })
 }

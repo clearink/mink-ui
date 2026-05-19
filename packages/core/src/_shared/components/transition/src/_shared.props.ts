@@ -58,7 +58,7 @@ export interface ManagedTransitionEntry {
   callback?: VoidFn
 }
 
-export interface UniquedTransitionItem {
+export interface UniqueTransitionItem {
   /**
    * @description 唯一标识
    */

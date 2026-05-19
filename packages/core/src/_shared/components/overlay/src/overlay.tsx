@@ -12,30 +12,31 @@ function Overlay(props: OverlayProps) {
   const {
     picked,
     omitted,
-    $portal,
     cssNames,
     cssAttrs,
+    transitionInherited,
   } = useOverlayProps(props)
 
   const { mask, mountOnEnter, unmountOnExit } = picked
   const { children, isOpen, transitions, getContainer } = omitted
 
   return (
-    <CssTransition
-      classNames={transitions.content}
-      appear
-      mountOnEnter={mountOnEnter}
-      unmountOnExit={unmountOnExit}
-      when={isOpen}
-    >
-      {($content, getters) => (
-        <Portal ref={$portal} getContainer={getContainer}>
+    <Portal getContainer={getContainer}>
+      <CssTransition
+        {...transitionInherited}
+        classNames={transitions?.content}
+        appear
+        mountOnEnter={mountOnEnter}
+        unmountOnExit={unmountOnExit}
+        when={isOpen}
+      >
+        {($content, getters) => (
           <div
             className={cssNames.root}
-            style={shallowMerge(cssAttrs.root || {}, { position: 'absolute' })}
+            style={shallowMerge(cssAttrs.root || {}, { position: 'absolute' as const })}
           >
             {!!mask && (
-              <CssTransition classNames={transitions.mask} appear when={isOpen}>
+              <CssTransition classNames={transitions?.mask} appear resumeOnCancel when={isOpen}>
                 {($mask, _mask) => (
                   <div ref={$mask} className={cn(cssNames.mask, _mask.names())} style={cssAttrs.mask} />
                 )}
@@ -44,9 +45,9 @@ function Overlay(props: OverlayProps) {
 
             {children?.($content, getters)}
           </div>
-        </Portal>
-      )}
-    </CssTransition>
+        )}
+      </CssTransition>
+    </Portal>
   )
 }
 

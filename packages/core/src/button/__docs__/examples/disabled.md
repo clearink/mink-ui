@@ -9,15 +9,19 @@
 ```tsx
 import { Button, Space } from '@mink-ui/core'
 
+function capitalize<T extends string>(str: T) {
+  return `${str.charAt(0).toUpperCase()}${str.slice(1)}` as Capitalize<T>
+}
+
 export default function App() {
   return (
     <>
-      {['filled', 'dashed', 'link', 'outlined', 'text'].map(variant => (
+      {['solid', 'outlined', 'dashed', 'filled', 'text', 'link'].map(variant => (
         <div key={variant} style={{ marginBottom: 16 }}>
-          <Space>
-            {['danger', 'info', 'primary', 'success', 'warning'].map(theme => (
+          <Space styles={{ item: { minWidth: 120, textAlign: 'center' } }} wrap>
+            {['primary', 'success', 'warning', 'danger', 'info'].map(theme => (
               <Button key={theme} disabled theme={theme} variant={variant}>
-                {theme}
+                {capitalize(variant)}
               </Button>
             ))}
           </Space>

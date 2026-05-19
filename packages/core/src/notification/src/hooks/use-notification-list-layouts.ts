@@ -1,10 +1,10 @@
+import type { UniqueKey } from '../../../_shared/types/unique-key'
 import type { OmittedNotificationListProps, PickedNotificationListProps } from '../notification-list.props'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 import { useConstant } from '../../../_shared/hooks/use-constant'
-import { useExactState } from '../../../_shared/hooks/use-exact-state'
-import { useForceUpdate } from '../../../_shared/hooks/use-force-update'
+import { useInvoke } from '../../../_shared/hooks/use-invoke'
 import { useDebounceFrame } from '../../../_shared/hooks/use-scheduler'
 import { normalizeNotificationStackConfig } from '../utils/format'
 import { getNotificationListLayouts } from '../utils/helpers'
@@ -17,11 +17,13 @@ export function useNotificationListLayouts(
   const { gap, stack } = picked
   const { items } = omitted
 
-  const forceUpdate = useForceUpdate()
+  const [sizes, setSizes] = useState(() => new Map<UniqueKey, number>())
 
-  const ctrl = useConstant(() => new NotificationListControl(forceUpdate))
+  const ctrl = useConstant(() => new NotificationListControl())
 
-  const [isHovering, setIsHovering] = useExactState(false)
+  useInvoke(() => { ctrl._bind((updater) => { setSizes(updater) }) })
+
+  const [isHovering, setIsHovering] = useState(false)
 
   const [stackEnable, { threshold, offset }] = normalizeNotificationStackConfig(stack)
 
@@ -29,20 +31,20 @@ export function useNotificationListLayouts(
 
   const isCollapsed = !isExpanded && stackEnable
 
-  const { itemLayouts, listHeight } = useMemo(() => getNotificationListLayouts(
+  const { itemCssVars, listHeight } = useMemo(() => getNotificationListLayouts(
     items,
-    ctrl.$sizes,
+    sizes,
     gap!,
     offset,
     isCollapsed,
-  ), [ctrl.$sizes, items, gap, offset, isCollapsed])
+  ), [sizes, items, gap, offset, isCollapsed])
 
-  const handleOnMouseEnter = () => { stackEnable && setIsHovering(true) }
+  const handleMouseEnter = () => { stackEnable && setIsHovering(true) }
 
-  const handleOnMouseLeave = () => { setIsHovering(false) }
+  const handleMouseLeave = () => { setIsHovering(false) }
 
-  const handleSyncHovering = useDebounceFrame(() => {
-    const el = ctrl.$container.current
+  const handleRecheckHover = useDebounceFrame(() => {
+    const el = ctrl.container
     el && setIsHovering(el.matches(':hover'))
   })
 
@@ -51,10 +53,10 @@ export function useNotificationListLayouts(
     isHovering,
     isExpanded,
     listHeight,
-    itemLayouts,
+    itemCssVars,
     stackEnable,
-    handleOnMouseEnter,
-    handleOnMouseLeave,
-    handleSyncHovering,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleRecheckHover,
   }
 }

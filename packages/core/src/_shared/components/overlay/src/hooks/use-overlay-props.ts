@@ -1,10 +1,9 @@
-import type { PortalInstance } from '../../../portal/src'
 import type { OmittedOverlayProps, OverlayProps, PickedOverlayProps } from '../overlay.props'
 
-import { useRef } from 'react'
+import { pick } from '@mink-ui/shared/object/pick'
 
 import { useCombinedSemantics } from '../../../../hooks/use-settings/use-combined'
-import { defaultOverlayProps as defaultProps } from '../overlay.props'
+import { defaultOverlayProps as defaultProps, overlayTransitionProps } from '../overlay.props'
 
 export function useOverlayProps(props: OverlayProps) {
   const {
@@ -16,8 +15,6 @@ export function useOverlayProps(props: OverlayProps) {
   const omitted = props as OmittedOverlayProps
   const picked: PickedOverlayProps = { mask, mountOnEnter, unmountOnExit }
 
-  const $portal = useRef<PortalInstance>(null)
-
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
       omitted.classNames,
@@ -27,13 +24,16 @@ export function useOverlayProps(props: OverlayProps) {
       omitted.styles,
       { root: omitted.style },
     ],
+    { meta: { ...omitted, ...picked } },
   )
+
+  const transitionInherited = pick(props, overlayTransitionProps)
 
   return {
     picked,
     omitted,
-    $portal,
     cssNames,
     cssAttrs,
+    transitionInherited,
   }
 }

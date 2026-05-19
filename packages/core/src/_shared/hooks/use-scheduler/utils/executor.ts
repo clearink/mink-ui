@@ -1,4 +1,4 @@
-import type { AnyFn } from '@mink-ui/shared/interface'
+import type { VoidFn } from '@mink-ui/shared/interface'
 
 import { execute } from '@mink-ui/shared/function/execute'
 
@@ -8,7 +8,7 @@ export class DeferredExecutor<T> {
   /**
    * @description 事件
    */
-  private _callbacks = new Map<string, AnyFn>()
+  private _callbacks = new Map<string, VoidFn>()
 
   /**
    * @description
@@ -51,7 +51,7 @@ export class DeferredExecutor<T> {
   /**
    * @description 调度逻辑
    */
-  public execute = (fn: AnyFn, schedule: AnyFn) => {
+  public execute = (fn: VoidFn, schedule: (callback: VoidFn) => T) => {
     // 初始化时变更一次 current
     if (this.current === this.initial) {
       this.current = schedule(this.flush)

@@ -30,11 +30,7 @@ function GeneratedFormField<V = any>(props: GeneratedFormFieldProps<V>) {
   const { key, attrs } = useInternalGeneratedProps(props, false)
 
   return (
-    <InternalFormField
-      {...props}
-      {...attrs}
-      key={key}
-    />
+    <InternalFormField {...attrs} key={key} />
   )
 }
 
@@ -42,11 +38,7 @@ function GeneratedFormList<V = any>(props: GeneratedFormListProps<V>) {
   const { key, attrs } = useInternalGeneratedProps(props, true)
 
   return (
-    <InternalFormField
-      {...props}
-      {...attrs}
-      key={key}
-    />
+    <InternalFormField {...attrs} key={key} />
   )
 }
 

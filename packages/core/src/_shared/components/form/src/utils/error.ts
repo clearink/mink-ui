@@ -69,6 +69,11 @@ export class FieldsValidateError extends Error {
  */
 export class FormValidateError<S> extends Error {
   /**
+   * @description 第一个错误信息
+   */
+  private _firstMessage: string
+
+  /**
    * @description 错误字段
    */
   public errorFields: InternalFormValidateErrorInfo['errorFields']
@@ -83,11 +88,6 @@ export class FormValidateError<S> extends Error {
    */
   public values: S
 
-  /**
-   * @description 第一个错误信息
-   */
-  firstMessage: string
-
   constructor(options: { error: FieldsValidateError | null, isExpired: boolean, values: S }) {
     super(`[mink-ui] 'Form' validation failed`)
 
@@ -99,14 +99,14 @@ export class FormValidateError<S> extends Error {
 
     this.errorFields = (error?.errors || []).map(_ => ({ errors: _.errors, name: _.path }))
 
-    this.firstMessage = this.errorFields[0]?.errors?.[0] || ''
+    this._firstMessage = this.errorFields[0]?.errors?.[0] || ''
   }
 
   public toJSON(): InternalFormValidateErrorInfo<S> {
     return {
       isExpired: this.isExpired,
       values: this.values,
-      message: this.firstMessage,
+      message: this._firstMessage,
       errorFields: this.errorFields,
     }
   }

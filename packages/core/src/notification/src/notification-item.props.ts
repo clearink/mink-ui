@@ -9,9 +9,8 @@ import type { NotificationPlacement } from './_shared.props'
 import type { NotificationListProps } from './notification-list.props'
 
 import { exhaustive } from '../../_shared/utils/exhaustive'
-import { defaultNotificationConfig } from './_shared.props'
 
-export interface NotificationItemSharedConfig extends HasClosable {
+export interface NotificationItemSharedProps extends HasClosable {
   /**
    * @description 通知位置
    */
@@ -34,9 +33,12 @@ export interface NotificationItemSharedConfig extends HasClosable {
   pauseOnHover?: boolean
 }
 
-export interface NotificationItemMethodParams extends
-  NotificationItemSharedConfig,
-  Omit<SemanticsStyled<'root' | 'statusIcon' | 'closeBtn' | 'content' | 'title' | 'description' | 'progress'>, 'prefixCls'> {
+export interface NotificationItemMethodConfig extends
+  NotificationItemSharedProps,
+  Omit<
+    SemanticsStyled<'root' | 'statusIcon' | 'closeBtn' | 'content' | 'title' | 'description' | 'progress', NotificationItemProps>,
+    'prefixCls'
+  > {
   /**
    * @description 唯一表示
    */
@@ -93,7 +95,7 @@ export interface NotificationItemInjectedProps {
   /**
    * @description 配置项
    */
-  config: NotificationItemMethodParams
+  config: NotificationItemMethodConfig
 
   /**
    * @description 动画配置
@@ -133,16 +135,10 @@ export interface NotificationItemInjectedProps {
   /**
    * @description 收集 DOM 元素
    */
-  onCollect: (el: HTMLElement | null, item: NotificationItemMethodParams) => void
+  onCollect: (el: HTMLElement | null, item: NotificationItemMethodConfig) => void
 }
 
 export interface NotificationItemProps extends NotificationItemInjectedProps {}
-
-export type DefaultNames = 'placement' | 'duration' | 'showProgress' | 'pauseOnHover' | 'closable'
-
-export type PickedNotificationItemConfig = Pick<NotificationItemProps['config'], DefaultNames>
-
-export type OmittedNotificationItemConfig = Omit<NotificationItemProps['config'], DefaultNames>
 
 /**
  * |---------------------------------------------------------|
@@ -152,20 +148,11 @@ export type OmittedNotificationItemConfig = Omit<NotificationItemProps['config']
  * |---------------------------------------------------------|
  */
 
-export const defaultNotificationItemConfig: PickedNotificationItemConfig = {
-  placement: defaultNotificationConfig.placement,
-  duration: defaultNotificationConfig.duration,
-  showProgress: defaultNotificationConfig.showProgress,
-  pauseOnHover: defaultNotificationConfig.pauseOnHover,
-  closable: defaultNotificationConfig.closable,
-}
-
-export const sharedNotificationItmeProps = exhaustive<DefaultNames | keyof NotificationItemSharedConfig>()([
+export const sharedNotificationItemProps = exhaustive<keyof NotificationItemSharedProps>()([
   // props
   'placement',
   'duration',
   'showProgress',
   'pauseOnHover',
   'closable',
-  'closeIcon',
 ])

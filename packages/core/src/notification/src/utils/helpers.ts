@@ -1,7 +1,6 @@
 import type { UniqueKey } from '../../../_shared/types/unique-key'
-import type { NotificationItemLayout, NotificationPlacement } from '../_shared.props'
+import type { NotificationPlacement } from '../_shared.props'
 import type { NotificationListProps } from '../notification-list.props'
-import type { NotificationListControl } from './notification-list-control'
 
 export function isTopSided(placement: NotificationPlacement) {
   return placement === 'topLeft' || placement === 'top' || placement === 'topRight'
@@ -9,20 +8,21 @@ export function isTopSided(placement: NotificationPlacement) {
 
 export function getNotificationListLayouts(
   items: NotificationListProps['items'],
-  sizes: NotificationListControl['$sizes'],
+  sizes: Map<UniqueKey, number>,
   gap: number,
   offset: number,
   collapsed: boolean,
 ) {
   const count = items.length
-  const itemLayouts = new Map<UniqueKey, Record<string, string>>()
+  const itemCssVars = new Map<UniqueKey, Record<string, string>>()
 
   let listHeight = 0
   let lastHeight = 0
 
   for (let i = count - 1, delta = 0; i >= 0; i--) {
     const { key } = items[i]
-    const { height = 0 } = sizes.get(`${key}`) || {}
+
+    const height = sizes.get(`${key}`) || 0
 
     if (i === count - 1) lastHeight = height
 
@@ -37,12 +37,12 @@ export function getNotificationListLayouts(
 
     delta += collapsed ? offset : height + gap
 
-    itemLayouts.set(`${key}`, {
+    itemCssVars.set(`${key}`, {
       '--nt-shift': `${shift}px`,
       '--nt-order': `${order}`,
       '--nt-clip': `${clip}px`,
     })
   }
 
-  return { itemLayouts, listHeight }
+  return { itemCssVars, listHeight }
 }

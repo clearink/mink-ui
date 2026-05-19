@@ -18,7 +18,7 @@ export function useTooltipProps(props: TooltipProps) {
 
   const rns = useNamespace(preset => preset)
 
-  const classNames = useTooltipClassNames(omitted)
+  const { classNames } = useTooltipClassNames(omitted)
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -34,13 +34,14 @@ export function useTooltipProps(props: TooltipProps) {
       omitted.styles,
       { root: omitted.style },
     ],
+    { defer: true },
   )
 
   return {
     picked,
     omitted,
+    rns,
     cssNames,
     cssAttrs,
-    rns,
   }
 }

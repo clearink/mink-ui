@@ -1,4 +1,5 @@
 import type { AnyFn } from '@mink-ui/shared/interface'
+import type { SchedulerHookOptions } from '../_shared.props'
 
 import { useEffect } from 'react'
 
@@ -6,13 +7,6 @@ import { useConstant } from '../../use-constant'
 import { useEvent } from '../../use-event'
 import { useIsMounted } from '../../use-is-mounted'
 import { DeferredExecutor } from './executor'
-
-export interface SchedulerHookOptions<T> {
-  initial: T
-  onCleanup: (id: string, executor: DeferredExecutor<T>) => any
-  onExecute: (fn: AnyFn, executor: DeferredExecutor<T>) => string
-  shouldUpdate: (id: string, executor: DeferredExecutor<T>) => boolean
-}
 
 export function makeSchedulerHook<Fn extends AnyFn, T>(options: SchedulerHookOptions<T>) {
   const { initial, onCleanup, onExecute, shouldUpdate } = options

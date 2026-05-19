@@ -24,11 +24,12 @@ export default function App() {
   })
 
   const openNotification = (placement) => {
+    const prefix = 'Hello'.repeat(Math.random() > 0.5 ? 12 : 32)
     api.info({
       title: `Notification ${placement}`,
-      description: <Context.Consumer>{({ name }) => `Hello, ${name}!`.repeat(Math.random() * 10 | 0 + 1)}</Context.Consumer>,
+      description: <Context.Consumer>{({ name }) => `${prefix}, ${name}!`}</Context.Consumer>,
       placement,
-      duration: 1e10
+      duration: 1e10,
     })
   }
 
@@ -38,27 +39,27 @@ export default function App() {
     <Context value={contextValue}>
       {contextHolder}
       <div style={{ marginBottom: 24 }}>
-        <Button onClick={() => { setStackEnable(p => !p) }}>
+        <Button variant="solid" onClick={() => { setStackEnable(p => !p) }}>
           stackEnable-
           {`${stackEnable}`}
         </Button>
       </div>
       <Space>
         <Button
-          variant="filled"
+          theme="info"
           onClick={() => openNotification('topLeft')}
         >
           <RadiusUpleftOutlined />
           topLeft
         </Button>
         <Button
-          variant="filled"
+          theme="info"
           onClick={() => openNotification('top')}
         >
           top
         </Button>
         <Button
-          variant="filled"
+          theme="info"
           onClick={() => openNotification('topRight')}
         >
           <RadiusUprightOutlined />
@@ -68,20 +69,20 @@ export default function App() {
       <Divider />
       <Space>
         <Button
-          variant="filled"
+          theme="info"
           onClick={() => openNotification('bottomLeft')}
         >
           <RadiusBottomleftOutlined />
           bottomLeft
         </Button>
         <Button
-          variant="filled"
+          theme="info"
           onClick={() => openNotification('bottom')}
         >
           bottom
         </Button>
         <Button
-          variant="filled"
+          theme="info"
           onClick={() => openNotification('bottomRight')}
         >
           <RadiusBottomrightOutlined />

@@ -1,12 +1,12 @@
 import type { OmittedFormItemInputProps } from '../form-item-input.props'
 
-import { useImperativeHandle, useRef } from 'react'
+import { useImperativeHandle, useRef, useState } from 'react'
 import { ownerStyle } from '@mink-ui/shared/dom/global'
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
+import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
 import { useEvent } from '../../../_shared/hooks/use-event'
-import { useExactState } from '../../../_shared/hooks/use-exact-state'
 import { useWatchValue } from '../../../_shared/hooks/use-watch-value'
+import { isRenderable } from '../../../_shared/utils/renderable'
 
 /**
  * @description FormItemInput 偏移值, 用于保证视图的连贯
@@ -16,11 +16,11 @@ export function useFormInputOffset(omitted: OmittedFormItemInputProps) {
 
   const $extra = useRef<HTMLDivElement>(null)
 
-  const [offset, setOffset] = useExactState({ margin: 0, extra: 0 })
+  const [offset, setOffset] = useState({ margin: 0, extra: 0 })
 
-  const hasError = !isNullish(help) || !!(warnings.length || errors.length)
+  const hasError = isRenderable(help) || !!(warnings.length || errors.length)
 
-  const onUpdateOffset = useEvent(() => {
+  const handleUpdate = useEvent(() => {
     if (!hasError) return
 
     const extra = $extra.current
@@ -35,22 +35,18 @@ export function useFormInputOffset(omitted: OmittedFormItemInputProps) {
     setOffset({ margin: Number.parseFloat(marginBottom), extra: clientHeight })
   })
 
-  const returnEarly = useWatchValue(hasError, onUpdateOffset)
+  const handleGroupExited = useEvent(() => { !hasError && setOffset({ margin: 0, extra: 0 }) })
 
-  const onCleanupOffset = useEvent(() => {
-    if (hasError) return
-
-    setOffset({ margin: 0, extra: 0 })
-  })
+  const returnEarly = useWatchValue(hasError, handleUpdate, (curr, prev) => !curr || shallowEqual(curr, prev))
 
   // 向外暴露方法
-  useImperativeHandle(ref, () => onUpdateOffset, [onUpdateOffset])
+  useImperativeHandle(ref, () => handleUpdate, [handleUpdate])
 
   return {
     $extra,
     offset,
     hasError,
     returnEmpty: returnEarly,
-    onCleanupOffset,
+    handleGroupExited,
   }
 }

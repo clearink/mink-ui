@@ -1,5 +1,5 @@
 import { useNotification } from './hooks/use-notification'
-import { globalNotificationControl } from './utils/global-singleton'
+import { globalNotificationControl } from './utils/singleton'
 
 const notification = Object.assign(globalNotificationControl.expose(), { useNotification })
 
@@ -12,7 +12,6 @@ const notification = Object.assign(globalNotificationControl.expose(), { useNoti
 export type {
   NotificationConfig,
   NotificationGlobalMethods,
-  NotificationHookConfig,
   NotificationHookMethods,
   NotificationMethodParams,
 } from './_shared.props'

@@ -80,6 +80,9 @@
 @mixin mink-line() {
   --#{$ns}-line-width: 1px;
   --#{$ns}-line-type: solid;
+  --#{$ns}-outline-width: 2px;
+  --#{$ns}-outline-width-focus: 3px;
+  --#{$ns}-outline-offset: 1px;
 }
 
 @mixin mink-typography() {
@@ -111,14 +114,23 @@
 }
 
 @mixin mink-motion() {
-  --#{$ns}-motion-ease-out-circ: cubic-bezier(0.08, 0.82, 0.17, 1);
-  --#{$ns}-motion-ease-in-out-circ: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  --#{$ns}-motion-ease-in: cubic-bezier(0.55, 0.06, 0.68, 0.54);
   --#{$ns}-motion-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
   --#{$ns}-motion-ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
-  --#{$ns}-motion-ease-out-back: cubic-bezier(0.12, 0.4, 0.29, 1.46);
+
+  --#{$ns}-motion-ease-in-circ: cubic-bezier(0.55, 0, 0.83, 0.18);
+  --#{$ns}-motion-ease-out-circ: cubic-bezier(0.08, 0.82, 0.17, 1);
+  --#{$ns}-motion-ease-in-out-circ: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+
   --#{$ns}-motion-ease-in-back: cubic-bezier(0.71, -0.46, 0.88, 0.6);
+  --#{$ns}-motion-ease-out-back: cubic-bezier(0.12, 0.4, 0.29, 1.46);
+  --#{$ns}-motion-ease-in-out-back: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
   --#{$ns}-motion-ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
   --#{$ns}-motion-ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --#{$ns}-motion-ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+
+  --#{$ns}-motion-duration-0_5: 0.05s;
   --#{$ns}-motion-duration-1: 0.1s;
   --#{$ns}-motion-duration-1_5: 0.15s;
   --#{$ns}-motion-duration-2: 0.2s;

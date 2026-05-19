@@ -5,7 +5,7 @@ import fse from 'fs-extra'
 
 import { formatFilePath, formatUniqueId } from './utils/formatter.ts'
 import { resolveEntryFile, resolveExampleFile, resolveTableFile } from './utils/resolver.ts'
-import { createPluginStore } from './utils/store.ts'
+import { createPluginStore, destroyPluginStore } from './utils/store.ts'
 import { updateEntries } from './utils/virtual-module.ts'
 
 export default function docsLoader(options: DocsLoaderOptions): Plugin {
@@ -14,6 +14,9 @@ export default function docsLoader(options: DocsLoaderOptions): Plugin {
   return {
     name: 'vite:mink-ui-docs-loader',
     enforce: 'pre',
+    buildEnd() {
+      destroyPluginStore(_store)
+    },
     resolveId(sourceId, importer) {
       const { resolved, sources } = _store.modules
 

@@ -1,0 +1,42 @@
+import type { ReactNode } from 'react'
+import type { CommonStatus } from '../types/status'
+
+import CheckCircleFilled from '@mink-ui/icons/CheckCircleFilled'
+import CloseCircleFilled from '@mink-ui/icons/CloseCircleFilled'
+import ExclamationCircleFilled from '@mink-ui/icons/ExclamationCircleFilled'
+import InfoCircleFilled from '@mink-ui/icons/InfoCircleFilled'
+import { hasOwn } from '@mink-ui/shared/object/has-own'
+
+import { STATUS_ENUM } from '../types/status'
+
+/**
+ * @description 是否为预设的 status
+ */
+export function isBuiltinStatus(value: any): value is CommonStatus {
+  return hasOwn(STATUS_ENUM, value)
+}
+
+/**
+ * @description 匹配预设 status 图标
+ */
+export function mapStatusIcon(status: any, fallback?: CommonStatus): ReactNode {
+  switch (status) {
+    case STATUS_ENUM.info: return <InfoCircleFilled />
+
+    case STATUS_ENUM.warning: return <ExclamationCircleFilled />
+
+    case STATUS_ENUM.success: return <CheckCircleFilled />
+
+    case STATUS_ENUM.error: return <CloseCircleFilled />
+
+    default : return fallback ? mapStatusIcon(fallback) : null
+  }
+}
+
+/**
+ * @description 获取所有预先定义好的 status
+ */
+export const getBuiltinStatus = (() => {
+  const result = Object.values(STATUS_ENUM)
+  return (): CommonStatus[] => result
+})()

@@ -1,8 +1,7 @@
 import type { CheckboxProps } from './checkbox.props'
 
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
-
 import { defineName } from '../../_shared/utils/define-name'
+import { isRenderable } from '../../_shared/utils/renderable'
 import TouchEffect from '../../touch-effect/src'
 import { useCheckboxProps } from './hooks/use-checkbox-props'
 
@@ -14,7 +13,7 @@ function Checkbox(props: CheckboxProps) {
     cssNames,
     cssAttrs,
     checked,
-    handleOnChange,
+    handleChange,
   } = useCheckboxProps(props)
 
   const { disabled } = picked
@@ -35,10 +34,11 @@ function Checkbox(props: CheckboxProps) {
           style={cssAttrs.input}
           checked={!!checked}
           type="checkbox"
-          onChange={handleOnChange}
+          onChange={handleChange}
         />
         <span className={cssNames.inner} style={cssAttrs.inner} />
-        {!isNullish(children) && (
+
+        {isRenderable(children) && (
           <span className={cssNames.label} style={cssAttrs.label}>
             {children}
           </span>

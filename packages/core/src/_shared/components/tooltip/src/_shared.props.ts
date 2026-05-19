@@ -120,38 +120,30 @@ export type HorizontalCrossAxis = 'bottom' | 'center' | 'top'
 export type VerticalCrossAxis = 'center' | 'left' | 'right'
 export type CrossAxis = HorizontalCrossAxis | VerticalCrossAxis
 
-export interface IsOpenChangeEvent {
-  (state: boolean): boolean
-}
-
-export interface IsOpenChangeHandler {
-  (event: IsOpenChangeEvent): void
-}
-
-export interface GetScreenCoordsFunc {
+export interface GetScreenCoordsFunction {
   (picked: PickedInternalTooltipProps, popup: ElementCoords, trigger: ElementCoords): ScreenCoords
 }
 
-export interface keepArrowCenterFunc {
+export interface keepArrowCenterFunction {
   (picked: PickedInternalTooltipProps, screen: ScreenCoords, trigger: ElementCoords): ScreenCoords
 }
 
-export interface OffsetScreenCoordsFunc {
+export interface OffsetPopupCoordsFunction {
   (picked: PickedInternalTooltipProps, screen: ScreenCoords): ScreenCoords
 }
 
-export interface ShiftPopupCoordsFunc {
+export interface ShiftPopupCoordsFunction {
   (picked: PickedInternalTooltipProps, screen: ScreenCoords, trigger: ElementCoords): ScreenCoords
 }
 
-export interface FlipPopupCoordsFunc {
+export interface FlipPopupCoordsFunction {
   (picked: PickedInternalTooltipProps, screen: ScreenCoords, trigger: ElementCoords): ScreenCoords
 }
 
-export interface GetArrowCoordsFunc {
+export interface GetArrowCoordsFunction {
   (screen: ScreenCoords, trigger: ElementCoords): ArrowCoords
 }
 
-export interface GetOriginCoordsFunc {
+export interface GetOriginCoordsFunction {
   (screen: ScreenCoords, arrow: ArrowCoords): OriginCoords
 }

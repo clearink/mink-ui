@@ -1,18 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useConstant } from '../use-constant'
-import { useExactState } from '../use-exact-state'
 import { shouldScreenMatchUpdate } from './utils/helpers'
-import observer from './utils/observer'
+import { breakpointMonitor as monitor } from './utils/singleton'
 
 export function useBreakpoint() {
-  useConstant(() => observer.initial())
+  useConstant(() => monitor.initial())
 
-  const [matches, update] = useExactState(() => observer.current)
+  const [matches, update] = useState(() => monitor.current)
 
-  useEffect(() => observer.subscribe((next) => {
+  useEffect(() => monitor.subscribe((next) => {
     update(prev => shouldScreenMatchUpdate(prev, next) ? next : prev)
-  }), [update])
+  }), [])
 
   return matches
 }

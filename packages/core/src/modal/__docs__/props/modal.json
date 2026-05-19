@@ -1,0 +1,96 @@
+[
+  {
+    "name": "open",
+    "type": "boolean",
+    "zh-CN": "是否显示弹窗",
+    "en-US": "Whether the modal is visible"
+  },
+  {
+    "name": "onClose",
+    "type": "() => void",
+    "zh-CN": "关闭回调",
+    "en-US": "Callback when the modal is closed"
+  },
+  {
+    "name": "title",
+    "type": "React.ReactNode",
+    "zh-CN": "弹窗标题",
+    "en-US": "Modal title"
+  },
+  {
+    "name": "footer",
+    "type": ["React.ReactNode", "null"],
+    "zh-CN": "底部内容，设为 null 时不显示",
+    "en-US": "Footer content, hidden when set to null"
+  },
+  {
+    "name": "closable",
+    "type": "boolean",
+    "defaultValue": "true",
+    "zh-CN": "是否显示关闭按钮",
+    "en-US": "Whether to show the close button"
+  },
+  {
+    "name": "maskClosable",
+    "type": "boolean",
+    "defaultValue": "true",
+    "zh-CN": "点击遮罩层是否关闭",
+    "en-US": "Whether to close on mask click"
+  },
+  {
+    "name": "mask",
+    "type": "boolean",
+    "defaultValue": "true",
+    "zh-CN": "是否显示遮罩层",
+    "en-US": "Whether to show the mask"
+  },
+  {
+    "name": "width",
+    "type": ["number", "string"],
+    "zh-CN": "弹窗宽度",
+    "en-US": "Modal width"
+  },
+  {
+    "name": "centered",
+    "type": "boolean",
+    "defaultValue": "true",
+    "zh-CN": "是否居中显示",
+    "en-US": "Whether to center the modal"
+  },
+  {
+    "name": "children",
+    "type": "React.ReactNode",
+    "zh-CN": "组件内容",
+    "en-US": "Component content"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  },
+  {
+    "name": "classNames",
+    "type": "Record<'root', string>",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "styles",
+    "type": "Record<'root', React.CSSProperties>",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  }
+]

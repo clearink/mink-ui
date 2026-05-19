@@ -49,8 +49,8 @@ $ns-checkbox: #{$ns}-checkbox;
     opacity: 0;
 
     &:focus-visible + .#{$ns-checkbox}__inner {
-      outline-color: var(--#{$ns}-color-primary-active);
-      outline-offset: $mink-checkbox-outline-offset;
+      outline: var(--#{$ns}-outline-width-focus) solid var(--#{$ns}-color-control-outline);
+      outline-offset: var(--#{$ns}-outline-offset);
     }
   }
 
@@ -64,7 +64,7 @@ $ns-checkbox: #{$ns}-checkbox;
     background-color: var(--#{$ns}-color-bg);
     border: 1px solid var(--#{$ns}-color-border);
     border-radius: var(--#{$ns}-border-radius-sm);
-    outline: transparent solid $mink-checkbox-outline-width;
+    outline: 0;
     transition: $mink-checkbox-inner-transition;
 
     &::after {

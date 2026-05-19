@@ -1,9 +1,8 @@
 import type { OmittedAlertProps, PickedAlertProps } from '../alert.props'
 
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
-
 import { useNamespace } from '../../../_shared/hooks/use-settings/use-namespace'
 import { cn } from '../../../_shared/libs/cn'
+import { isRenderable } from '../../../_shared/utils/renderable'
 
 export function useAlertClassNames(picked: PickedAlertProps, omitted: OmittedAlertProps) {
   const { type } = picked
@@ -17,7 +16,7 @@ export function useAlertClassNames(picked: PickedAlertProps, omitted: OmittedAle
       root: cn(ns, {
         [`${ns}--as-banner`]: banner,
         [`${ns}--${type}`]: type,
-        [`${ns}--has-description`]: !isNullish(description),
+        [`${ns}--has-description`]: isRenderable(description),
       }),
       statusIcon: `${ns}__status-icon`,
       closeBtn: `${ns}__close-btn`,

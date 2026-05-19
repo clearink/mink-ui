@@ -10,6 +10,7 @@ import { DisabledContext, SizeContext } from '../../../config-provider/src/_shar
 import { ButtonGroupContext } from '../_shared.context'
 import { defaultButtonProps as defaultProps, excludedButtonProps } from '../button.props'
 import { useButtonClassNames } from '../hooks/use-class-names'
+import { useButtonLoading } from './use-button-loading'
 
 export function useButtonProps(props: ButtonProps) {
   const globalConfig = useConfiguration('button')
@@ -18,8 +19,8 @@ export function useButtonProps(props: ButtonProps) {
   const sizeContext = SizeContext.use()
 
   const {
-    loading,
     onClick,
+    iconPlacement = defaultProps.iconPlacement,
     shape = fallback(globalConfig.shape, defaultProps.shape),
     theme = fallback(globalConfig.theme, defaultProps.theme),
     variant = fallback(globalConfig.variant, defaultProps.variant),
@@ -28,9 +29,18 @@ export function useButtonProps(props: ButtonProps) {
   } = props
 
   const omitted = props as OmittedButtonProps
-  const picked: PickedButtonProps = { shape, size, theme, variant, disabled }
+  const picked: PickedButtonProps = {
+    shape,
+    size,
+    theme,
+    variant,
+    disabled,
+    iconPlacement,
+  }
 
-  const classNames = useButtonClassNames(picked, omitted)
+  const { isLoading, loadingOptions } = useButtonLoading(omitted)
+
+  const { rns, ns, classNames } = useButtonClassNames(picked, omitted, { isLoading })
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -46,22 +56,26 @@ export function useButtonProps(props: ButtonProps) {
       omitted.styles,
       { root: omitted.style },
     ],
-    { picked, omitted },
+    { meta: { ...omitted, ...picked } },
   )
 
   const restAttrs = omit(props, excludedButtonProps)
 
-  const handleOnClick = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
-    if (disabled || loading) event.preventDefault()
-    else if (onClick) onClick(event)
+  const handleClick = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    if (disabled || isLoading) event.preventDefault()
+    else if (onClick) onClick(event as any)
   }
 
   return {
     picked,
     omitted,
+    rns,
+    ns,
     cssNames,
     cssAttrs,
+    isLoading,
+    loadingOptions,
     restAttrs,
-    handleOnClick,
+    handleClick,
   }
 }

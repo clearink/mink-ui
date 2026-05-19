@@ -37,7 +37,7 @@ export function useInternalFormProps<S = any>(props: InternalFormProps<S>) {
 
   const internalHooks = useMemo(() => formInstance.getInternalHooks(HOOKS_SECRET)!, [formInstance])
 
-  useInvoke(() => { internalHooks.updateInternals(picked, omitted, formProvider, formShared) })
+  useInvoke(() => { internalHooks._bind(picked, omitted, formProvider, formShared) })
 
   // 设置 Form 各种初始值
   useConstant(() => { internalHooks.defineFormInitials(initialValues, fields) })
@@ -46,7 +46,7 @@ export function useInternalFormProps<S = any>(props: InternalFormProps<S>) {
 
   const restAttrs = () => omit(props, excludedInternalFormProps)
 
-  const handleOnReset = (event: FormEvent<HTMLFormElement>) => {
+  const handleReset = (event: FormEvent<HTMLFormElement>) => {
     event?.preventDefault()
 
     formInstance.resetFields()
@@ -54,7 +54,7 @@ export function useInternalFormProps<S = any>(props: InternalFormProps<S>) {
     onReset?.(event)
   }
 
-  const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event?.preventDefault()
     event?.stopPropagation()
 
@@ -77,7 +77,7 @@ export function useInternalFormProps<S = any>(props: InternalFormProps<S>) {
     internalHooks,
     propsContextValue,
     restAttrs,
-    handleOnReset,
-    handleOnSubmit,
+    handleReset,
+    handleSubmit,
   }
 }

@@ -11,11 +11,11 @@ export function useComputed<T, U>(
   const state = useConstant(() => ({ deps, value: factory() }))
 
   return useInvoke(() => {
-    if (!compare(state.deps, deps)) {
-      state.deps = deps
+    const hasChanged = !compare(state.deps, deps)
 
-      state.value = factory()
-    }
+    if (hasChanged) state.deps = deps
+
+    if (hasChanged) state.value = factory()
 
     return state.value
   })

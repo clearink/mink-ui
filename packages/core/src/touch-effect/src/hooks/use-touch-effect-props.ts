@@ -1,3 +1,4 @@
+import type { AnyObj } from '@mink-ui/shared/interface'
 import type { TouchEffectInfo } from '../_shared.props'
 import type { OmittedTouchEffectProps, TouchEffectProps } from '../touch-effect.props'
 
@@ -6,7 +7,7 @@ import { makeEventListener } from '@mink-ui/shared/dom/listener'
 import { isBoolean } from '@mink-ui/shared/is/is-boolean'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 
-import { useMergeRefs } from '../../../_shared/hooks/use-merge-refs'
+import { getElementRef, useCombinedRefs } from '../../../_shared/hooks/use-combined-refs'
 import { useThrottleFrame } from '../../../_shared/hooks/use-scheduler'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
 import { useNamespace } from '../../../_shared/hooks/use-settings/use-namespace'
@@ -22,11 +23,15 @@ export function useTouchEffectProps(props: TouchEffectProps) {
     disabled = globalConfig.disabled,
   } = props
 
+  const omitted = props as OmittedTouchEffectProps
+
   const ns = useNamespace('touch-effect', undefined)
 
   const $container = useRef<HTMLElement>(null)
 
-  const mergedRef = useMergeRefs($container, (children.props as any).ref || (children as any).ref)
+  const refCombined = useCombinedRefs($container, getElementRef(children))
+
+  const restAttrs: AnyObj = { ref: refCombined }
 
   const showTouchEffect = useThrottleFrame((container: HTMLElement, event: MouseEvent) => {
     if (isBoolean(disabled) && disabled) return
@@ -57,7 +62,7 @@ export function useTouchEffectProps(props: TouchEffectProps) {
   }, [disabled, showTouchEffect])
 
   return {
-    omitted: props as OmittedTouchEffectProps,
-    mergedRef,
+    omitted,
+    restAttrs,
   }
 }

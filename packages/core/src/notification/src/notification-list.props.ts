@@ -5,7 +5,7 @@ import type { NotificationItemInjectedProps } from './notification-item.props'
 import { defaultNotificationConfig } from './_shared.props'
 
 export interface NotificationListForwardedProps extends
-  SemanticsStyled<'root' | 'item' | 'statusIcon' | 'closeBtn' | 'content' | 'title' | 'description' | 'progress'> {
+  SemanticsStyled<'root' | 'item' | 'statusIcon' | 'closeBtn' | 'content' | 'title' | 'description' | 'progress', NotificationListProps> {
   /**
    * @description 距离窗口顶部距离
    */

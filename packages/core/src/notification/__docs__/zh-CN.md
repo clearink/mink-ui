@@ -19,9 +19,26 @@ TODO: 描述使用场景。
 
 ## API
 
-### Notification Props
+### NotificationMethodParams 参数
 
-<props-table src="./props/notification.json" />
+> notification.info(params)
+> notification.error(params)
+> notification.warnning(params)
+> notification.success(params)
+
+<props-table src="./props/notification-method-params.json" />
+
+### NotificationHookConfig 参数
+
+> notification.useNotification(config)
+
+<props-table src="./props/notification-hook-config.json" />
+
+### NotificationConfig 参数
+
+> notificationc.config(config)
+
+<props-table src="./props/notification-config.json" />
 
 ## Semantic DOM
 

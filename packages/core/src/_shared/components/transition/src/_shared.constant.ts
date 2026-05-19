@@ -18,8 +18,6 @@ export const isEntered = (state: string) => state === ENTERED
 export const isExiting = (state: string) => state === EXITING
 export const isExited = (state: string) => state === EXITED
 
-export const isRunning = (state: string) => isEntering(state) || isExiting(state)
-
 /**
  * @description 用来标识 ManagedTransitionEntry
  */

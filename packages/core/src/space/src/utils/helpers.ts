@@ -3,7 +3,7 @@ import type { PickedSpaceProps } from '../space.props'
 import { isArray } from '@mink-ui/shared/is/is-array'
 import { isNumber } from '@mink-ui/shared/is/is-number'
 
-import { isBuiltinSize } from '../../../config-provider/src/utils/size'
+import { isBuiltinSize } from '../../../_shared/utils/size'
 
 /**
  * @description 检查是否为有效的数字间距（排除 0 和 NaN）

@@ -1,50 +1,47 @@
-import type { VoidFn } from '@mink-ui/shared/interface'
-import type { GroupTransitionInstance } from '../../../_shared/components/transition/src/group-transition.props'
+import type { SetStateDispatch } from '../../../_shared/types/state-dispatch'
 import type { UniqueKey } from '../../../_shared/types/unique-key'
-import type { NotificationItemMethodParams } from '../notification-item.props'
+import type { NotificationItemMethodConfig } from '../notification-item.props'
 
 export class NotificationListControl {
+  private _change!: SetStateDispatch<Map<UniqueKey, number>>
+
   public $container = { current: null as HTMLDivElement | null }
-
-  public $group = { current: null as GroupTransitionInstance | null }
-
-  public $sizes = new Map<UniqueKey, { width: number, height: number }>()
 
   public get container() {
     return this.$container.current
   }
 
-  public get group() {
-    return this.$group.current
-  }
-
-  public constructor(public forceUpdate: VoidFn) {}
-
-  private delete = (key: UniqueKey) => {
-    if (!this.$sizes.has(key)) return
-
-    this.$sizes.delete(key)
-
-    this.$sizes = new Map(this.$sizes)
-
-    this.forceUpdate()
+  public _bind = (change: NotificationListControl['_change']) => {
+    this._change = change
   }
 
   private append = (el: HTMLElement, key: UniqueKey) => {
-    const { offsetHeight: height, offsetWidth: width } = el
+    const { offsetHeight: height } = el
 
-    const cache = this.$sizes.get(key)
+    this._change((prev) => {
+      if (prev.get(key) === height) return prev
 
-    if (cache && cache.height === height && cache.width === width) return
+      const next = new Map(prev)
 
-    this.$sizes.set(key, { height, width })
+      next.set(key, height)
 
-    this.$sizes = new Map(this.$sizes)
-
-    this.forceUpdate()
+      return next
+    })
   }
 
-  public collect = (el: HTMLElement | null, item: NotificationItemMethodParams) => {
+  private delete = (key: UniqueKey) => {
+    this._change((prev) => {
+      if (!prev.has(key)) return prev
+
+      const next = new Map(prev)
+
+      next.delete(key)
+
+      return next
+    })
+  }
+
+  public collect = (el: HTMLElement | null, item: NotificationItemMethodConfig) => {
     if (!el) this.delete(`${item.key}`)
     else this.append(el, `${item.key}`)
   }

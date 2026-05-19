@@ -5,10 +5,12 @@ import { useImperativeHandle, useMemo } from 'react'
 import { fallback } from '@mink-ui/shared/function/fallback'
 import { omit } from '@mink-ui/shared/object/omit'
 
+import { useComputed } from '../../../_shared/hooks/use-computed'
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
 import { DisabledContext, SizeContext } from '../../../config-provider/src/_shared.context'
 import { defaultFormProps as defaultProps, excludedFormProps } from '../form.props'
+import { isPropsContextValueEqual } from '../utils/helpers'
 import { useFormClassNames } from './use-class-names'
 import { useForm } from './use-form'
 
@@ -28,7 +30,7 @@ export function useFormProps<S = any>(props: FormProps<S>) {
     validateMessages: _validateMessages,
     // scrollToFirstError = globalConfig.scrollToFirstError
     onFailed,
-    size = sizeContext,
+    size = fallback(sizeContext, globalConfig.size),
     colon = fallback(globalConfig.colon, defaultProps.colon),
     layout = defaultProps.layout,
     variant = defaultProps.variant,
@@ -37,7 +39,7 @@ export function useFormProps<S = any>(props: FormProps<S>) {
   } = props
 
   const omitted = props as OmittedFormProps<S>
-  const picked: PickedFormProps = {
+  const picked: PickedFormProps<S> = {
     size,
     colon,
     layout,
@@ -48,7 +50,7 @@ export function useFormProps<S = any>(props: FormProps<S>) {
 
   const formInstance = useForm(form)
 
-  const classNames = useFormClassNames(picked, omitted)
+  const { classNames } = useFormClassNames(picked, omitted)
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -60,35 +62,38 @@ export function useFormProps<S = any>(props: FormProps<S>) {
       omitted.styles,
       { root: omitted.style },
     ],
+    { meta: { ...omitted, ...picked } },
   )
 
-  const propsContextValue = useMemo<FormPropsContextState>(() => ({
-    colon,
-    labelAlign,
-    labelWrap,
-    labelCol,
-    wrapperCol,
-    layout,
-    requiredMark,
-    name,
-    form: formInstance,
-    styles: { label: cssAttrs.label, input: cssAttrs.input },
-    classNames: { label: cssNames.label, input: cssNames.input },
-  }), [
-    colon,
-    formInstance,
-    labelAlign,
-    labelCol,
-    labelWrap,
-    layout,
-    name,
-    requiredMark,
-    wrapperCol,
-    cssNames.label,
-    cssNames.input,
-    cssAttrs.label,
-    cssAttrs.input,
-  ])
+  const propsContextValue = useComputed<FormPropsContextState, FormPropsContextState>(
+    () => ({
+      colon,
+      labelAlign,
+      labelWrap,
+      labelCol,
+      wrapperCol,
+      layout,
+      requiredMark,
+      name,
+      form: formInstance,
+      styles: { label: cssAttrs.label, input: cssAttrs.input },
+      classNames: { label: cssNames.label, input: cssNames.input },
+    }),
+    {
+      colon,
+      labelAlign,
+      labelWrap,
+      labelCol,
+      wrapperCol,
+      layout,
+      requiredMark,
+      name,
+      form: formInstance,
+      styles: { label: cssAttrs.label, input: cssAttrs.input },
+      classNames: { label: cssNames.label, input: cssNames.input },
+    },
+    isPropsContextValueEqual,
+  )
 
   const validateMessages = useMemo(() => {
     return { ...globalConfig.validateMessages, ..._validateMessages }
@@ -96,7 +101,7 @@ export function useFormProps<S = any>(props: FormProps<S>) {
 
   const restAttrs = omit(props, excludedFormProps)
 
-  const handleOnFailed = (errors: any) => {
+  const handleFailed = (errors: any) => {
     onFailed?.(errors)
 
     // if(scrollToFirstError) formInstance.scrollToField(errors[0]?.name)
@@ -114,6 +119,6 @@ export function useFormProps<S = any>(props: FormProps<S>) {
     formInstance,
     propsContextValue,
     validateMessages,
-    handleOnFailed,
+    handleFailed,
   }
 }

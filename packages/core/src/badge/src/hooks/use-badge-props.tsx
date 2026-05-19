@@ -36,6 +36,7 @@ export function useBadgeProps(props: BadgeProps) {
       omitted.styles,
       { root: omitted.style },
     ],
+    { meta: { ...omitted, ...picked } },
   )
 
   const numberItems = useMemo(() => {

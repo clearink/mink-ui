@@ -2,7 +2,7 @@ import type { MayBe, VoidFn } from '@mink-ui/shared/interface'
 import type { TransitionMotions, TransitionPhase, TransitionState } from '../_shared.props'
 import type { CssTransitionProps } from '../css-transition.props'
 
-import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isEntered, isExit, isExited, isExiting } from '../_shared.constant'
+import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isEntered, isExit, isExited } from '../_shared.constant'
 import { removeClassNames, updateClassNames } from './helpers'
 
 export class CssTransitionControl<E extends HTMLElement> {
@@ -17,9 +17,19 @@ export class CssTransitionControl<E extends HTMLElement> {
   private _isInitial = true
 
   /**
-   * @description 监听事件清理函数
+   * @description 是否被取消过
    */
-  private _cleanup: null | VoidFn = null
+  private _hasCanceled = false
+
+  /**
+   * @description 事件的清理函数
+   */
+  private _eventsCleanup: null | VoidFn = null
+
+  /**
+   * @description frame 的清理函数
+   */
+  private _framesCleanup: null | VoidFn = null
 
   /**
    * @description DOM 元素引用
@@ -54,16 +64,23 @@ export class CssTransitionControl<E extends HTMLElement> {
   }
 
   /**
-   * @description 同步清理函数
+   * @description 同步 events 清理函数
    */
-  sync = (cleanup: VoidFn) => {
-    this._cleanup = cleanup
+  public syncEvents = (cleanup: VoidFn) => {
+    this._eventsCleanup = cleanup
+  }
+
+  /**
+   * @description 同步 frames 清理函数
+   */
+  public syncFrames = (cleanup: VoidFn) => {
+    this._framesCleanup = cleanup
   }
 
   /**
    * @description 连接到 DOM 元素
    */
-  connect = (el: E | null) => {
+  public connect = (el: E | null) => {
     this.$element = el
 
     if (el) this.connected = true
@@ -74,7 +91,7 @@ export class CssTransitionControl<E extends HTMLElement> {
   /**
    * @description 计算状态
    */
-  compute = (when: boolean) => {
+  public compute = (when: boolean) => {
     const { _isInitial, state } = this
 
     if (_isInitial) this._isInitial = false
@@ -89,20 +106,24 @@ export class CssTransitionControl<E extends HTMLElement> {
   /**
    * @description 开始
    */
-  begin = (el: E, phase: TransitionPhase, motions: TransitionMotions) => {
+  public begin = (el: E, phase: TransitionPhase, motions: TransitionMotions, resumeOnCancel: boolean) => {
     this.state = isExit(phase) ? EXITING : ENTERING
 
     removeClassNames(el, this.names)
 
-    this.names = [motions[phase].from]
+    const resume = this._hasCanceled && resumeOnCancel
+
+    this.names = [motions[phase].from, resume ? motions[phase].active : null]
 
     updateClassNames(el, this.names)
+
+    return resume
   }
 
   /**
    * @description 激活
    */
-  active = (el: E, phase: TransitionPhase, motions: TransitionMotions) => {
+  public active = (el: E, phase: TransitionPhase, motions: TransitionMotions) => {
     removeClassNames(el, this.names)
 
     this.names = [motions[phase].from, motions[phase].active]
@@ -113,7 +134,7 @@ export class CssTransitionControl<E extends HTMLElement> {
   /**
    * @description 下一帧
    */
-  frame = (el: E, phase: TransitionPhase, motions: TransitionMotions) => {
+  public frame = (el: E, phase: TransitionPhase, motions: TransitionMotions) => {
     removeClassNames(el, this.names)
 
     this.names = [motions[phase].active, motions[phase].to]
@@ -124,7 +145,9 @@ export class CssTransitionControl<E extends HTMLElement> {
   /**
    * @description 结束
    */
-  finish = (el: E, phase: TransitionPhase, motions: TransitionMotions) => {
+  public finish = (el: E, phase: TransitionPhase, motions: TransitionMotions) => {
+    this._hasCanceled = false
+
     this.state = isExit(phase) ? EXITED : ENTERED
 
     removeClassNames(el, this.names)
@@ -137,24 +160,37 @@ export class CssTransitionControl<E extends HTMLElement> {
   /**
    * @description 取消
    */
-  cancel = (phase: TransitionPhase) => {
+  public cancel = (phase: TransitionPhase) => {
+    this._hasCanceled = true
+
     this.state = isExit(phase) ? EXITED : ENTERED
   }
 
   /**
-   * @description 清理
+   * @description 清理 events 的回调
    */
-  dispose = () => {
-    this._cleanup?.()
+  public clearEvents = () => {
+    this._eventsCleanup?.()
 
-    this._cleanup = null
+    this._eventsCleanup = null
+  }
+
+  /**
+   * @description 清理 frames 的回调
+   */
+  public clearFrames = (): any => {
+    this._framesCleanup?.()
+
+    this._framesCleanup = null
   }
 
   /**
    * @description 销毁
    */
-  destroy = () => {
-    this.dispose()
+  public destroy = () => {
+    this.clearEvents()
+
+    this.clearFrames()
 
     this._isInitial = true
 

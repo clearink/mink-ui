@@ -2,19 +2,19 @@ import type {
   ArrowCoords,
   CrossAxis,
   ElementCoords,
-  FlipPopupCoordsFunc,
-  GetArrowCoordsFunc,
-  GetOriginCoordsFunc,
-  GetScreenCoordsFunc,
+  FlipPopupCoordsFunction,
+  GetArrowCoordsFunction,
+  GetOriginCoordsFunction,
+  GetScreenCoordsFunction,
   HorizontalCrossAxis,
   HorizontalMainAxis,
-  keepArrowCenterFunc,
+  keepArrowCenterFunction,
   MainAxis,
-  OffsetScreenCoordsFunc,
+  OffsetPopupCoordsFunction,
   PopupCoords,
   PopupPlacement,
   ScreenCoords,
-  ShiftPopupCoordsFunc,
+  ShiftPopupCoordsFunction,
   VerticalCrossAxis,
   VerticalMainAxis,
 } from '../_shared.props'
@@ -39,7 +39,7 @@ const _effect = _size / 2
 function getTopOrBottomScreenCoords(
   main: VerticalMainAxis,
   cross: VerticalCrossAxis,
-): GetScreenCoordsFunc {
+): GetScreenCoordsFunction {
   return (picked, popup, trigger) => {
     const dy = (picked.arrow ? _effect : 0) + _offset
 
@@ -49,9 +49,7 @@ function getTopOrBottomScreenCoords(
 
     const left = trigger.l + (cross === 'left' ? 0 : cross === 'right' ? dx : dx / 2)
 
-    const doc = ownerDocument(trigger._el)
-
-    const root = doc.documentElement || doc.body
+    const root = ownerDocument(trigger._el).documentElement
 
     return {
       _ch: popup._ch,
@@ -70,7 +68,7 @@ function getTopOrBottomScreenCoords(
 function getLeftOrRightScreenCoords(
   main: HorizontalMainAxis,
   cross: HorizontalCrossAxis,
-): GetScreenCoordsFunc {
+): GetScreenCoordsFunction {
   return (picked, popup, trigger) => {
     const dx = (picked.arrow ? _effect : 0) + _offset
 
@@ -80,9 +78,7 @@ function getLeftOrRightScreenCoords(
 
     const top = trigger.t + (cross === 'top' ? 0 : cross === 'bottom' ? dy : dy / 2)
 
-    const doc = ownerDocument(trigger._el)
-
-    const root = doc.documentElement || doc.body
+    const root = ownerDocument(trigger._el).documentElement
 
     return {
       _ch: popup._ch,
@@ -100,7 +96,7 @@ function getLeftOrRightScreenCoords(
 
 /* ****************************** arrow center ****************************** */
 
-function keepTopOrBottomArrowCenter(): keepArrowCenterFunc {
+function keepTopOrBottomArrowCenter(): keepArrowCenterFunction {
   const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords) => {
     const { cross } = screen
 
@@ -120,7 +116,7 @@ function keepTopOrBottomArrowCenter(): keepArrowCenterFunc {
   }
 }
 
-function keepLeftOrRightArrowCenter(): keepArrowCenterFunc {
+function keepLeftOrRightArrowCenter(): keepArrowCenterFunction {
   const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords) => {
     const { cross } = screen
 
@@ -142,7 +138,7 @@ function keepLeftOrRightArrowCenter(): keepArrowCenterFunc {
 
 /* ****************************** popup offset ****************************** */
 
-function offsetTopOrBottomPopupCoords(): OffsetScreenCoordsFunc {
+function offsetTopOrBottomPopupCoords(): OffsetPopupCoordsFunction {
   return ({ offset }, screen) => {
     const { _dx, _dy, main } = screen
 
@@ -158,7 +154,7 @@ function offsetTopOrBottomPopupCoords(): OffsetScreenCoordsFunc {
   }
 }
 
-function offsetLeftOrRightPopupCoords(): OffsetScreenCoordsFunc {
+function offsetLeftOrRightPopupCoords(): OffsetPopupCoordsFunction {
   return ({ offset }, screen) => {
     const { _dx, _dy, main } = screen
 
@@ -176,7 +172,7 @@ function offsetLeftOrRightPopupCoords(): OffsetScreenCoordsFunc {
 
 /* ****************************** shift coords ****************************** */
 
-function shiftTopOrBottomPopupCoords(): ShiftPopupCoordsFunc {
+function shiftTopOrBottomPopupCoords(): ShiftPopupCoordsFunction {
   const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords) => {
     const min = (_px + _size) * 2 + screen._da
 
@@ -198,7 +194,7 @@ function shiftTopOrBottomPopupCoords(): ShiftPopupCoordsFunc {
   }
 }
 
-function shiftLeftOrRightPopupCoords(): ShiftPopupCoordsFunc {
+function shiftLeftOrRightPopupCoords(): ShiftPopupCoordsFunction {
   const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords) => {
     const min = (_py + _size) * 2 + screen._da
 
@@ -222,7 +218,7 @@ function shiftLeftOrRightPopupCoords(): ShiftPopupCoordsFunc {
 
 /* ****************************** flip coords ****************************** */
 
-function flipTopOrBottomPopupCoords(): FlipPopupCoordsFunc {
+function flipTopOrBottomPopupCoords(): FlipPopupCoordsFunction {
   const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords): [number, MainAxis] => {
     const { _ch, _sh, _dy, main } = screen
 
@@ -246,7 +242,7 @@ function flipTopOrBottomPopupCoords(): FlipPopupCoordsFunc {
   }
 }
 
-function flipLeftOrRightPopupCoords(): FlipPopupCoordsFunc {
+function flipLeftOrRightPopupCoords(): FlipPopupCoordsFunction {
   const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords): [number, MainAxis] => {
     const { _cw, _sw, _dx, main } = screen
 
@@ -272,7 +268,7 @@ function flipLeftOrRightPopupCoords(): FlipPopupCoordsFunc {
 
 /* ****************************** arrow coords ****************************** */
 
-function getTopOrBottomArrowCoords(): GetArrowCoordsFunc {
+function getTopOrBottomArrowCoords(): GetArrowCoordsFunction {
   return (screen: ScreenCoords, trigger: ElementCoords) => {
     const { main, cross } = screen
 
@@ -296,7 +292,7 @@ function getTopOrBottomArrowCoords(): GetArrowCoordsFunc {
   }
 }
 
-function getLeftOrRightArrowCoords(): GetArrowCoordsFunc {
+function getLeftOrRightArrowCoords(): GetArrowCoordsFunction {
   return (screen, trigger) => {
     const { main, cross } = screen
 
@@ -322,7 +318,7 @@ function getLeftOrRightArrowCoords(): GetArrowCoordsFunc {
 
 /* ****************************** origin coords ****************************** */
 
-function getTopOrBottomOriginCoords(): GetOriginCoordsFunc {
+function getTopOrBottomOriginCoords(): GetOriginCoordsFunction {
   return (screen, arrow) => {
     const sign = screen.main === 'top' ? 1 : -1
 
@@ -333,7 +329,7 @@ function getTopOrBottomOriginCoords(): GetOriginCoordsFunc {
   }
 }
 
-function getLeftOrRightOriginCoords(): GetOriginCoordsFunc {
+function getLeftOrRightOriginCoords(): GetOriginCoordsFunction {
   return (screen, arrow) => {
     const sign = screen.main === 'left' ? 1 : -1
 

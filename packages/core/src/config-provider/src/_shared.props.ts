@@ -10,6 +10,7 @@ import type { CheckboxProps } from '../../checkbox/src'
 import type { CollapseProps } from '../../collapse/src'
 import type { DividerProps } from '../../divider/src'
 import type { FormProps } from '../../form/src'
+import type { ModalProps } from '../../modal/src'
 import type { NotificationConfig } from '../../notification/src'
 import type { SegmentedProps } from '../../segmented/src'
 import type { SpaceProps } from '../../space/src'
@@ -17,7 +18,7 @@ import type { TooltipProps } from '../../tooltip/src'
 import type { TouchEffectGlobalConfig } from '../../touch-effect/src/_shared.context'
 
 export interface AlertGlobalConfig extends ComponentStyled<AlertProps>,
-  Pick<AlertProps, 'closable' | 'closeIcon'> {
+  Pick<AlertProps, 'closable'> {
   successIcon?: ReactNode
   infoIcon?: ReactNode
   errorIcon?: ReactNode
@@ -37,7 +38,15 @@ export interface CollapseGlobalConfig extends ComponentStyled<CollapseProps> {}
 export interface DividerGlobalConfig extends ComponentStyled<DividerProps> {}
 
 export interface FormGlobalConfig extends ComponentStyled<FormProps>,
-  Pick<FormProps, 'colon' | 'requiredMark' | 'validateMessages' | 'variant' | 'scrollToFirstError'> {}
+  Pick<
+    FormProps,
+    | 'size'
+    | 'colon'
+    | 'requiredMark'
+    | 'validateMessages'
+    | 'variant'
+    | 'scrollToFirstError'
+  > {}
 
 export interface SegmentedGlobalConfig extends ComponentStyled<SegmentedProps>,
   Pick<SegmentedProps, 'size'> {}
@@ -53,7 +62,21 @@ export interface TooltipGlobalConfig extends ComponentStyled<TooltipProps>,
   shared?: boolean
 }
 
-export interface NotificationGlobalConfig extends NotificationConfig {}
+export interface ModalGlobalConfig extends ComponentStyled<ModalProps>,
+  Pick<
+    ModalProps,
+    | 'keyboard'
+    | 'maskClosable'
+    | 'centered'
+    | 'closable'
+    | 'focusable'
+    | 'slots'
+    | 'confirmButtonProps'
+    | 'cancelButtonProps'
+  > {}
+
+export interface NotificationGlobalConfig extends ComponentStyled<NotificationConfig>,
+  Pick<NotificationConfig, 'closable' | 'getContainer'> {}
 
 export interface ComponentGlobalConfig {
   alert?: AlertGlobalConfig
@@ -69,6 +92,8 @@ export interface ComponentGlobalConfig {
   divider?: DividerGlobalConfig
 
   form?: FormGlobalConfig
+
+  modal?: ModalGlobalConfig
 
   notification?: NotificationGlobalConfig
 

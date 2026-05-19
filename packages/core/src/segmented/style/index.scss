@@ -73,15 +73,6 @@ $ns-segmented: #{$ns}-segmented;
       border-radius: $mink-segmented-border-radius-sm;
     }
   }
-
-  &-motion {
-    &-enter-active {
-      user-select: none;
-      transition:
-        transform var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
-        width var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
-    }
-  }
 }
 
 .#{$ns-segmented}-item {
@@ -153,5 +144,14 @@ $ns-segmented: #{$ns}-segmented;
     line-height: $mink-segmented-height;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+}
+
+.#{$ns-segmented}-motion {
+  &-enter-active {
+    user-select: none;
+    transition:
+      transform var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
+      width var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
   }
 }

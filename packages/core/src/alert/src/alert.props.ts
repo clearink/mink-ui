@@ -8,7 +8,7 @@ import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface AlertInjectedProps extends
   HasClosable,
-  SemanticsStyled<'root' | 'statusIcon' | 'closeBtn' | 'action' | 'content' | 'description' | 'message'> {
+  SemanticsStyled<'root' | 'statusIcon' | 'closeBtn' | 'action' | 'content' | 'description' | 'message', AlertProps> {
   /**
    * @description 外部引用
    */
@@ -89,7 +89,6 @@ export const excludedAlertProps = exhaustive<DefaultNames | keyof AlertInjectedP
   'classNames',
   'style',
   'styles',
-  'closeIcon',
   'closable',
   // props
   'ref',
