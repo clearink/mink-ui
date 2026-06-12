@@ -30,8 +30,8 @@ export interface SegmentedItemConfig {
   disabled?: boolean
 }
 
-export interface SegmentedItemProps extends
-  SemanticsStyled<'root' | 'label'> {
+export interface SegmentedItemInjectedProps extends
+  SemanticsStyled<'root' | 'label', SegmentedItemProps> {
   /**
    * @description 培训项
    */
@@ -77,3 +77,5 @@ export interface SegmentedItemProps extends
    */
   onCollect: (el: HTMLElement | null, item: SegmentedOption) => void
 }
+
+export interface SegmentedItemProps extends SegmentedItemInjectedProps {}

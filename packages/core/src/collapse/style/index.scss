@@ -122,23 +122,23 @@ $ns-collapse: #{$ns}-collapse;
       padding: var(--#{$ns}-unit-3);
     }
   }
+}
 
-  &-item-motion {
-    &-enter-from,
-    &-exit-to {
-      opacity: 0;
-    }
+.#{$ns-collapse}-item-motion {
+  &-enter-from,
+  &-exit-to {
+    opacity: 0;
+  }
 
-    &-enter-active,
-    &-exit-active {
-      overflow-y: hidden;
-      transition:
-        opacity var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-in-out),
-        height var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-in-out);
-    }
+  &-enter-active,
+  &-exit-active {
+    overflow-y: hidden;
+    transition:
+      opacity var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-in-out),
+      height var(--#{$ns}-motion-duration-2) var(--#{$ns}-motion-ease-in-out);
+  }
 
-    &-exit-done {
-      display: none;
-    }
+  &-exit-done {
+    display: none;
   }
 }

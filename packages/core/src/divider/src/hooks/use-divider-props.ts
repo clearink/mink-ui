@@ -4,8 +4,8 @@ import { omit } from '@mink-ui/shared/object/omit'
 
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
+import { normalizeOrientation } from '../../../_shared/utils/orientation'
 import { SizeContext } from '../../../config-provider/src/_shared.context'
-import { normalizeOrientation } from '../../../config-provider/src/utils/orientation'
 import { defaultDividerProps as defaultProps, excludedDividerProps } from '../divider.props'
 import { useDividerClassNames } from './use-class-names'
 
@@ -15,7 +15,7 @@ export function useDividerProps(props: DividerProps) {
 
   const {
     vertical,
-    orientation,
+    orientation: _orientation,
     align = defaultProps.align,
     variant = defaultProps.variant,
     size = sizeContext,
@@ -24,9 +24,9 @@ export function useDividerProps(props: DividerProps) {
   const omitted = props as OmittedDividerProps
   const picked: PickedDividerProps = { align, variant, size }
 
-  const finalOrientation = normalizeOrientation(orientation, vertical)
+  const orientation = normalizeOrientation(_orientation, vertical)
 
-  const classNames = useDividerClassNames(picked, omitted, { orientation: finalOrientation })
+  const { classNames } = useDividerClassNames(picked, omitted, { orientation })
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -42,6 +42,7 @@ export function useDividerProps(props: DividerProps) {
       omitted.styles,
       { root: omitted.style },
     ],
+    { meta: { ...omitted, ...picked, orientation } },
   )
 
   const restAttrs = omit(props, excludedDividerProps)
@@ -50,7 +51,7 @@ export function useDividerProps(props: DividerProps) {
     omitted,
     cssNames,
     cssAttrs,
+    orientation,
     restAttrs,
-    finalOrientation,
   }
 }

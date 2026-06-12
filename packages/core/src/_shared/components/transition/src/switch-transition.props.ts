@@ -1,8 +1,8 @@
 import type { ReactNode, RefCallback } from 'react'
-import type { CssTransitionGetters, UniquedTransitionItem } from './_shared.props'
+import type { CssTransitionGetters, UniqueTransitionItem } from './_shared.props'
 import type { CssTransitionProps } from './css-transition.props'
 
-export interface SwitchTransitionProps<T extends UniquedTransitionItem = UniquedTransitionItem> extends
+export interface SwitchTransitionProps<T extends UniqueTransitionItem = UniqueTransitionItem> extends
   Omit<CssTransitionProps, 'ref' | 'children' | 'unmountOnExit' | 'when'> {
   /**
    * @description 过渡元素项

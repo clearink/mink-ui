@@ -17,7 +17,7 @@ function Collapse(props: CollapseProps) {
     expandedNames,
     outerCssNames,
     outerCssAttrs,
-    handleOnChange,
+    handleChange,
   } = useCollapseProps(props)
 
   const { collapsible, expandIcon, expandIconPlacement } = picked
@@ -43,7 +43,7 @@ function Collapse(props: CollapseProps) {
           outerCssAttrs={outerCssAttrs}
           outerCssNames={outerCssNames}
           outerNamespace={ns}
-          onChange={handleOnChange}
+          onChange={handleChange}
         />
       ))}
     </div>

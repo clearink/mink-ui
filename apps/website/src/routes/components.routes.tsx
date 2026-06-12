@@ -113,6 +113,18 @@ const routes: CustomRouteObject[] = [
         component: lazyLoad(() => import('../../../../packages/core/src/grid/__docs__/zh-CN.md')),
       },
       {
+        path: 'modal',
+        meta: {
+          category: 'component',
+          path: 'modal',
+          title: 'Modal',
+          subtitle: '对话框',
+          desc: '模态对话框，在保留当前页面状态的情况下，告知用户并承载相关操作。',
+          group: { title: '反馈', order: 0 },
+        },
+        component: lazyLoad(() => import('../../../../packages/core/src/modal/__docs__/zh-CN.md')),
+      },
+      {
         path: 'notification',
         meta: {
           category: 'component',
@@ -268,6 +280,18 @@ const routes: CustomRouteObject[] = [
           group: { title: '布局', order: 1 },
         },
         component: lazyLoad(() => import('../../../../packages/core/src/grid/__docs__/en-US.md')),
+      },
+      {
+        path: 'modal',
+        meta: {
+          category: 'component-en',
+          path: 'modal',
+          title: 'Modal',
+          subtitle: 'Dialog',
+          desc: 'Modal dialogs that inform users and carry related actions while preserving the current page state.',
+          group: { title: 'Feedback', order: 0 },
+        },
+        component: lazyLoad(() => import('../../../../packages/core/src/modal/__docs__/en-US.md')),
       },
       {
         path: 'notification',

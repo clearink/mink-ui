@@ -12,9 +12,9 @@ export class SegmentedControl {
 
   public $thumb = { current: null as HTMLDivElement | null }
 
-  public $items = new Map<SegmentedValue | null, HTMLElement>()
-
   public $instance = { current: null as CssTransitionInstance<HTMLDivElement> | null }
+
+  public items = new Map<SegmentedValue | null, HTMLElement>()
 
   public get inner() {
     return this.$inner.current!
@@ -24,23 +24,19 @@ export class SegmentedControl {
     return this.$thumb.current!
   }
 
-  public get items() {
-    return this.$items
-  }
-
   public get instance() {
     return this.$instance.current!
   }
 
   public collect = (el: HTMLElement | null, item: SegmentedOption) => {
-    if (el) this.$items.set(item.value, el)
-    else this.$items.delete(item.value)
+    if (el) this.items.set(item.value, el)
+    else this.items.delete(item.value)
   }
 
   /**
    * @description 清理
    */
-  private dispose = () => {
+  private clear = () => {
     this._cleanup?.()
 
     this._cleanup = null
@@ -49,11 +45,11 @@ export class SegmentedControl {
   /**
    * @description 更新 thumb 位置
    */
-  public update = (currentValue: SegmentedValue) => {
-    this.dispose()
+  public update = (value: SegmentedValue) => {
+    this.clear()
 
     this._cleanup = nextTick(() => {
-      const target = this.items.get(currentValue)
+      const target = this.items.get(value)
 
       if (!target || !this.instance || !this.inner) return
 
@@ -70,10 +66,25 @@ export class SegmentedControl {
   }
 
   /**
+   * @description 计算 thumb 位置
+   */
+  public resolve = (item: HTMLElement) => {
+    const itemCoords = getClientCoords(item)
+    const innerCoords = getClientCoords(this.inner)
+
+    const delta = itemCoords.left - innerCoords.left
+
+    return {
+      transform: `translate3d(${delta}px, 0, 0)`,
+      width: `${itemCoords.width}px`,
+    }
+  }
+
+  /**
    * @description 销毁
    */
   public destroy = () => {
-    this.dispose()
+    this.clear()
 
     this.items.clear()
   }

@@ -8,7 +8,7 @@ import { cn } from '../../../_shared/libs/cn'
  * @description 获取组件的 className
  */
 export function useSegmentedClassNames(_picked: PickedSegmentedProps, omitted: OmittedSegmentedProps) {
-  const { disabled, oreientation, prefixCls } = omitted
+  const { disabled, orientation, prefixCls } = omitted
 
   const ns = useNamespace('segmented', prefixCls)
 
@@ -17,7 +17,7 @@ export function useSegmentedClassNames(_picked: PickedSegmentedProps, omitted: O
     classNames: {
       root: cn(ns, {
         [`${ns}--disabled`]: disabled,
-        [`${ns}--vertical`]: oreientation === 'vertical',
+        [`${ns}--vertical`]: orientation === 'vertical',
       }),
       inner: `${ns}__inner`,
       thumb: `${ns}__thumb`,
@@ -26,10 +26,10 @@ export function useSegmentedClassNames(_picked: PickedSegmentedProps, omitted: O
 }
 
 export function useSegmentedItemClassNames(omitted: SegmentedItemProps) {
-  const { outerNamespace: ins, checked, config, isShowThumb } = omitted
+  const { outerNamespace: ons, checked, config, isShowThumb } = omitted
   const { disabled } = config
 
-  const ns = useNamespace(preset => `${ins || `${preset}-segmented`}-item`)
+  const ns = useNamespace(preset => `${ons || `${preset}-segmented`}-item`)
 
   return {
     ns,

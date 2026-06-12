@@ -1,30 +1,31 @@
 import type { AlertProps } from './alert.props'
 
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
-
 import { CssTransition } from '../../_shared/components/transition/src'
 import { cn } from '../../_shared/libs/cn'
 import { cloneElementWithOptions } from '../../_shared/utils/children'
 import { defineName } from '../../_shared/utils/define-name'
-import { normalizeClosable } from '../../config-provider/src/utils/closable'
-import { mapStatusIcon } from '../../config-provider/src/utils/status'
+import { combineRefs } from '../../_shared/utils/refs'
+import { isRenderable } from '../../_shared/utils/renderable'
+import { mapStatusIcon } from '../../_shared/utils/status'
 import { useAlertProps } from './hooks/use-alert-props'
 
 function Alert(props: AlertProps) {
   const {
     picked,
     omitted,
+    $element,
     ns,
     cssNames,
     cssAttrs,
-    restAttrs,
-    globalConfig,
     visible,
-    handleCloseOnClick,
+    closeIconRender,
+    restAttrs,
+    handleClose,
+    handleClosed,
   } = useAlertProps(props)
 
   const { showIcon, type } = picked
-  const { description, action, message, icon, closable, closeIcon, onClosed } = omitted
+  const { description, action, message, icon } = omitted
 
   const renderStatusIcon = () => {
     if (!showIcon) return null
@@ -41,25 +42,18 @@ function Alert(props: AlertProps) {
   }
 
   const renderCloseIcon = () => {
-    const { closeIcon: closeIconElement } = normalizeClosable({
-      currentState: { closable, closeIcon },
-      contextState: { closable: globalConfig.closable, closeIcon: globalConfig.closeIcon },
-      defaultState: {
-        closeIconRender: icon => (
-          <button
-            className={cssNames.closeBtn}
-            style={cssAttrs.closeBtn}
-            tabIndex={0}
-            type="button"
-            onClick={handleCloseOnClick}
-          >
-            {icon}
-          </button>
-        ),
-      },
-    })
-
-    return closeIconElement
+    return closeIconRender((icon, disabled) => (
+      <button
+        className={cssNames.closeBtn}
+        style={cssAttrs.closeBtn}
+        disabled={disabled}
+        tabIndex={0}
+        type="button"
+        onClick={handleClose}
+      >
+        {icon}
+      </button>
+    ))
   }
 
   return (
@@ -69,13 +63,13 @@ function Alert(props: AlertProps) {
       timeouts={{ appear: 0, enter: 0 }}
       when={visible}
       onExit={el => ({ height: el.getBoundingClientRect().height })}
-      onExited={() => { onClosed?.() }}
+      onExited={handleClosed}
       onExiting={() => ({ height: 0 })}
     >
       {($motion, getters) => (
         <div
           {...restAttrs}
-          ref={$motion}
+          ref={combineRefs($motion, $element)}
           className={cn(cssNames.root, getters.names())}
           style={{ ...cssAttrs.root, ...getters.attrs() }}
         >
@@ -83,14 +77,15 @@ function Alert(props: AlertProps) {
 
           <div className={cssNames.content} style={cssAttrs.content}>
             <div className={cssNames.message} style={cssAttrs.message}>{message}</div>
-            {!isNullish(description) && (
+
+            {isRenderable(description) && (
               <div className={cssNames.description} style={cssAttrs.description}>
                 {description}
               </div>
             )}
           </div>
 
-          {!isNullish(action) && (
+          {isRenderable(action) && (
             <div className={cssNames.action} style={cssAttrs.action}>
               {action}
             </div>

@@ -9,7 +9,7 @@ import { ctxHelper } from '../../_shared/utils/ctx-helper'
 export interface FormPropsContextState extends
   Pick<
     FormProps,
-    'form'
+    | 'form'
     | 'colon'
     | 'labelAlign'
     | 'labelWrap'

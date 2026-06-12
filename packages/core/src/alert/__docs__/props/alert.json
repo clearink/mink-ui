@@ -57,12 +57,6 @@
     "en-US": "Whether the alert is closable"
   },
   {
-    "name": "closeIcon",
-    "type": "ReactNode",
-    "zh-CN": "关闭图标",
-    "en-US": "Close icon"
-  },
-  {
     "name": "onClose",
     "type": "VoidFn",
     "zh-CN": "关闭按钮点击事件",

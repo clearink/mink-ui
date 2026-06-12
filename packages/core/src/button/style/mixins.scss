@@ -12,7 +12,7 @@
   text-align: center;
   background-image: none;
   border: $mink-btn-border;
-  outline: transparent solid $mink-btn-outline-width;
+  outline: 0;
   cursor: pointer;
   transition: $mink-btn-transition;
   user-select: none;

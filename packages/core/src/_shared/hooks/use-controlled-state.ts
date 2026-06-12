@@ -1,37 +1,38 @@
 import type { SetStateAction } from 'react'
 
+import { useState } from 'react'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 import { isUndefined } from '@mink-ui/shared/is/is-undefined'
-import { shallowUnequal } from '@mink-ui/shared/object/shallow-unequal'
+import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
 import { useEvent } from './use-event'
-import { useExactState } from './use-exact-state'
 
-export interface ControllableStateOptions<T, Extra extends any[] = []> {
+export interface ControlledStateOptions<T, Extra extends any[] = []> {
   value?: T
-  defaultValue?: T | (() => T)
+  defaultValue: () => T
   onChange?: (value: T, ...extra: Extra) => any
-  shouldUpdate?: (prev: T, next: T) => boolean
 }
 
-export function useControlledState<T, Extra extends any[] = []>(options: ControllableStateOptions<T, Extra>) {
-  const { defaultValue, onChange, shouldUpdate = shallowUnequal, value } = options
+export function useControlledState<T, Extra extends any[] = []>(
+  value: T | undefined,
+  defaultValue: () => T,
+  onChange?: (value: T, ...extra: Extra) => any,
+) {
+  const isControlled = !isUndefined(value)
 
-  const controlled = !isUndefined(value)
+  const [internal, setInternal] = useState(() => isControlled ? value : defaultValue())
 
-  const [internal, setInternal] = useExactState(controlled ? value : defaultValue)
+  const external = isControlled ? value : internal
 
-  const external = controlled ? value : internal as T
+  const setState = useEvent((action: SetStateAction<T>, ...extra: Extra) => {
+    const next = isFunction(action) ? action(external) : action
 
-  const setState = useEvent((state: SetStateAction<T>, ...extra: Extra) => {
-    const next = isFunction(state) ? state(external) : state
+    if (shallowEqual(external, next)) return
 
-    if (!shouldUpdate(external, next)) return
+    if (!isControlled) setInternal(() => next)
 
-    if (!controlled) setInternal(next)
-
-    onChange && onChange(next, ...extra)
+    onChange?.(next, ...extra)
   })
 
-  return [external, setState, controlled] as [T, (state: SetStateAction<T>, ...extra: Extra) => void, boolean]
+  return [external, setState, isControlled] as const
 }

@@ -1,7 +1,6 @@
 import type { FormItemInputProps } from './form-item-input.props'
 
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
-
+import { isRenderable } from '../../_shared/utils/renderable'
 import { Col } from '../../grid/src'
 import { ErrorListContext } from './_shared.context'
 import FormErrorList from './form-error-list'
@@ -19,7 +18,7 @@ function FormItemInput(props: FormItemInputProps) {
     offset,
     hasError,
     returnEmpty,
-    onCleanupOffset,
+    handleGroupExited,
   } = useFormItemInputProps(props)
 
   const { wrapperCol } = picked
@@ -27,7 +26,7 @@ function FormItemInput(props: FormItemInputProps) {
 
   const showErrorElement = offset.margin > 0 || hasError
 
-  const showExtraElement = !isNullish(extra)
+  const showExtraElement = isRenderable(extra)
 
   if (returnEmpty) return null
 
@@ -53,7 +52,7 @@ function FormItemInput(props: FormItemInputProps) {
                 helpStatus={status}
                 itemId={itemId}
                 warnings={warnings}
-                onGroupExited={onCleanupOffset}
+                onGroupExited={handleGroupExited}
               />
             </ErrorListContext>
           )}

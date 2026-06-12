@@ -2,13 +2,13 @@ import { isObject } from '../is/is-object'
 import { isUndefined } from '../is/is-undefined'
 
 /**
- * @description source 中不存在或为 undefined 的字段由 partials 填充
+ * @description 浅合并
  */
-export function shallowMerge<T extends Record<string, any>, U extends Partial<T>>(source: T, ...partials: U[]) {
-  const result = { ...source } as any
+export function shallowMerge<T extends Record<string, any>>(...sources: Partial<T>[]): T {
+  const result = { ...sources[0] } as any
 
-  for (let size = partials.length, i = 0; i < size; i++) {
-    const partial = partials[i]
+  for (let i = 1; i < sources.length; i++) {
+    const partial = sources[i]
 
     if (!isObject(partial)) continue
 

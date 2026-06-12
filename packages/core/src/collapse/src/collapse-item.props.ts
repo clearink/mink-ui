@@ -35,7 +35,7 @@ export interface CollapseItemForwardedProps {
 
 export interface CollapseItemInjectedProps extends
   HasChildren,
-  Omit<SemanticsStyled<'root' | 'header' | 'icon' | 'title' | 'extra' | 'content'>, 'prefixCls'> {
+  Omit<SemanticsStyled<'root' | 'header' | 'icon' | 'title' | 'extra' | 'content', CollapseItemProps>, 'prefixCls'> {
   /**
    * @description 外部引用
    */

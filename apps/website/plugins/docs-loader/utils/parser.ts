@@ -3,10 +3,9 @@ import type { AddSourceFile, ExampleExtname, PluginStore, SourceSection } from '
 import type { generateExampleHolder } from './generator.ts'
 
 import fse from 'fs-extra'
-import { Marked, marked } from 'marked'
+import { marked } from 'marked'
 import { constants } from '@internal/cli'
 
-import { codeExampleExtension, propsTableExtension, semanticDomExtension } from './extensions.ts'
 import { formatCssName } from './formatter.ts'
 import { generateEntrySource } from './generator.ts'
 import groupTokens from './groups.ts'
@@ -74,7 +73,7 @@ export default {
   metaInfo: ${JSON.stringify(metaInfo)},
   rawText: ${JSON.stringify(rawText)},
   cssName: ${JSON.stringify(cssName)},
-  relativePath: ${JSON.stringify(constants.relativeRoot(filePath))}
+  relPath: ${JSON.stringify(constants.relativeRoot(filePath))}
 }
 `
   return extname === 'ts' ? ts : extname === 'tsx' ? tsx : css
@@ -92,15 +91,9 @@ export function parseEntryFile(
   filePath: string,
   addSourceFile: AddSourceFile,
 ) {
-  const marked = new Marked({
-    extensions: [
-      codeExampleExtension(_store, filePath, addSourceFile),
-      semanticDomExtension(_store, filePath, addSourceFile),
-      propsTableExtension(_store, filePath, addSourceFile),
-    ],
-  })
+  _store.parser.init(_store, filePath, addSourceFile)
 
-  const sections = marked
+  const sections = _store.parser
     .lexer(content)
     .reduce((result, token) => {
       if (token.type === 'code-example') {

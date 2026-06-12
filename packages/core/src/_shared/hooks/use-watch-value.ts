@@ -1,34 +1,27 @@
-import { isFunction } from '@mink-ui/shared/is/is-function'
 import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
-import { useExactState } from './use-exact-state'
+import { useConstant } from './use-constant'
+import { useForceUpdate } from './use-force-update'
 import { useInvoke } from './use-invoke'
 
-export interface WatchOptions<S> {
-  compare: (current: S, previous: S) => boolean
-  listener: (current: S, previous: S) => any
-}
+export function useWatchValue<S>(
+  current: S,
+  factory: (current: S, previous: S) => void,
+  compare: (current: S, previous: S) => boolean = shallowEqual,
+): boolean {
+  const forceUpdate = useForceUpdate()
 
-function normalizeOptions<S>(options: WatchOptions<S> | WatchOptions<S>['listener']): WatchOptions<S> {
-  return isFunction(options)
-    ? { compare: shallowEqual, listener: options }
-    : options
-}
-
-export function useWatchValue<S>(current: S, args: WatchOptions<S>): boolean
-export function useWatchValue<S>(current: S, args: WatchOptions<S>['listener']): boolean
-export function useWatchValue<S>(current: S, args: any): boolean {
-  const { compare, listener } = normalizeOptions(args)
-
-  const [previous, updater] = useExactState(() => current)
+  const store = useConstant(() => ({ previous: current }))
 
   return useInvoke(() => {
-    if (compare(current, previous)) return false
+    const hasChanged = !compare(current, store.previous)
 
-    listener(current, previous)
+    hasChanged && factory(current, store.previous)
 
-    updater(current)
+    hasChanged && forceUpdate()
 
-    return true
+    store.previous = current
+
+    return hasChanged
   })
 }

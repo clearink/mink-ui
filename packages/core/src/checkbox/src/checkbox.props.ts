@@ -2,10 +2,9 @@ import type { InputHTMLAttributes } from 'react'
 import type { HasChildren } from '../../_shared/types/has-children'
 import type { SemanticsStyled } from '../../_shared/types/styled'
 
-export interface CheckboxProps extends
+export interface CheckboxInjectedProps extends
   HasChildren,
-  Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'>,
-  SemanticsStyled<'root' | 'input' | 'inner' | 'label', { picked: PickedCheckboxProps, omitted: OmittedCheckboxProps }> {
+  SemanticsStyled<'root' | 'input' | 'inner' | 'label', CheckboxProps> {
   /**
    * @description 是否选中
    */
@@ -31,6 +30,10 @@ export interface CheckboxProps extends
    */
   onChange?: (checked: boolean) => void
 }
+
+export interface CheckboxProps extends
+  CheckboxInjectedProps,
+  Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {}
 
 export type DefaultNames = 'disabled'
 

@@ -1,3 +1,5 @@
+import type { MarkedControl } from './utils/marked-control.ts'
+
 export type ExampleExtname = 'css' | 'ts' | 'tsx'
 
 // 需要重新设计存储方式
@@ -17,6 +19,8 @@ export interface PluginStore {
   examples: Map<string, { filePath: string, extname: ExampleExtname }>
   // <props-table/>
   tables: Map<string, { filePath: string }>
+  // markedown parser
+  parser: MarkedControl
 }
 
 export interface DocsLoaderOptions {

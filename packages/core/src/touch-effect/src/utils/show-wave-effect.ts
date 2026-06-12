@@ -4,7 +4,7 @@ import { ownerStyle } from '@mink-ui/shared/dom/global'
 import { getClientCoords } from '@mink-ui/shared/dom/rect'
 import { makeTimeout } from '@mink-ui/shared/dom/timer'
 
-import observer from '../../../_shared/hooks/use-observer/utils/observer'
+import { resizeMonitor as monitor } from '../../../_shared/hooks/use-observer/utils/singleton'
 import { findNonStaticElement } from '../../../_shared/utils/element'
 
 // 白色，透明 不合格
@@ -48,28 +48,42 @@ export default function showWaveEffect(info: TouchEffectInfo) {
   div.classList.add(className || '')
 
   const resize = () => {
+    const wrapper = findNonStaticElement(div)
+
+    const targetStyles = ownerStyle(target)
+
+    const wrapperStyles = ownerStyle(wrapper)
+
     const targetCoords = getClientCoords(target)
 
-    const wrapperCoords = getClientCoords(findNonStaticElement(div))
+    const wrapperCoords = getClientCoords(wrapper)
 
-    div.style.height = `${targetCoords.height}px`
+    const offsetX = Number.parseFloat(wrapperStyles.borderLeftWidth) || 0
 
-    div.style.width = `${targetCoords.width}px`
+    const offsetY = Number.parseFloat(wrapperStyles.borderTopWidth) || 0
 
-    const dx = targetCoords.left - wrapperCoords.left
+    const dx = targetCoords.left - wrapperCoords.left - offsetX
 
-    const dy = targetCoords.top - wrapperCoords.top
+    const dy = targetCoords.top - wrapperCoords.top - offsetY
+
+    div.style.width = targetStyles.width
+
+    div.style.height = targetStyles.height
 
     div.style.transform = `translate3d(${dx}px, ${dy}px, 0)`
   }
 
-  const disconnect = observer.observe(target, resize)
+  const unsubscribe = monitor.subscribe()
 
-  const destroy = () => { disconnect(); div.remove() }
+  const deactivate = monitor.activate(target, resize)
+
+  const destroy = () => { unsubscribe?.(); deactivate?.(); div.remove() }
 
   div.addEventListener('animationstart', resize)
 
   div.addEventListener('animationend', destroy)
+
+  div.addEventListener('animationcancel', destroy)
 
   makeTimeout(2000, destroy)
 

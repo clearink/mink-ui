@@ -8,7 +8,7 @@ import CaretRightOutlined from '@mink-ui/icons/CaretRightOutlined'
 
 export interface CollapseProps extends
   CollapseItemForwardedProps,
-  SemanticsStyled<'root' | 'item' | 'header' | 'icon' | 'title' | 'extra' | 'content'> {
+  SemanticsStyled<'root' | 'item' | 'header' | 'icon' | 'title' | 'extra' | 'content', CollapseProps> {
   /**
    * @description 外部引用
    */

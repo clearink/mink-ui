@@ -1,15 +1,14 @@
 import type { OmittedSegmentedProps, PickedSegmentedProps, SegmentedProps } from '../segmented.props'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { arrayEqual } from '@mink-ui/shared/array/array-equal'
-import { getClientCoords } from '@mink-ui/shared/dom/rect'
 import { fallback } from '@mink-ui/shared/function/fallback'
 import { omit } from '@mink-ui/shared/object/omit'
 
 import { useComputed } from '../../../_shared/hooks/use-computed'
 import { useConstant } from '../../../_shared/hooks/use-constant'
 import { useControlledState } from '../../../_shared/hooks/use-controlled-state'
-import { useExactState } from '../../../_shared/hooks/use-exact-state'
+import { useFlushState } from '../../../_shared/hooks/use-exact-state'
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
 import { useWatchValue } from '../../../_shared/hooks/use-watch-value'
@@ -24,9 +23,9 @@ export function useSegmentedProps(props: SegmentedProps) {
   const sizeContext = SizeContext.use()
 
   const {
-    options,
-    value,
-    defaultValue,
+    options: _options,
+    value: _value,
+    defaultValue: _default,
     onChange,
     block = defaultProps.block,
     size = fallback(globalConfig.size, sizeContext, defaultProps.size),
@@ -36,6 +35,14 @@ export function useSegmentedProps(props: SegmentedProps) {
   const picked: PickedSegmentedProps = { block, size }
 
   const ctrl = useConstant(() => new SegmentedControl())
+
+  const options = useComputed(() => normalizeSegmentedOptions(_options), _options, arrayEqual)
+
+  const [value, handleChange] = useControlledState(
+    _value,
+    () => fallback(_default, options[0]?.value)!,
+    onChange,
+  )
 
   const { ns, classNames } = useSegmentedClassNames(picked, omitted)
 
@@ -53,82 +60,57 @@ export function useSegmentedProps(props: SegmentedProps) {
       omitted.styles,
       { root: omitted.style },
     ],
+    { meta: { ...omitted, ...picked, options, value } },
   )
 
-  const normalizedOptions = useComputed(
-    () => normalizeSegmentedOptions(options),
-    options,
-    arrayEqual,
-  )
+  const [history, setHistory] = useFlushState (() => [null, value])
 
-  const [currentValue, handleOnChange] = useControlledState({
-    value,
-    defaultValue: () => fallback(defaultValue, normalizedOptions[0]?.value)!,
-    onChange,
-  })
-
-  const [history, setHistory] = useExactState([null, currentValue])
-
-  const [isShowThumb, setIsShowThumb] = useExactState(false)
-
-  const returnEarly = useWatchValue(currentValue, () => {
-    setHistory([history[1], currentValue])
-
-    setIsShowThumb(true)
-
-    ctrl.update(currentValue)
-  })
+  const [isShowThumb, setIsShowThumb] = useState(false)
 
   const outerCssNames = { ...omit(cssNames, ['root', 'inner', 'item']), root: cssNames.item }
   const outerCssAttrs = { ...omit(cssAttrs, ['root', 'inner', 'item']), root: cssAttrs.item }
 
-  const resolveTransform = (itemCoords: DOMRect) => {
-    const innerCoords = getClientCoords(ctrl.inner)
-
-    const delta = itemCoords.left - innerCoords.left
-
-    return {
-      transform: `translate3d(${delta}px, 0, 0)`,
-      width: `${itemCoords.width}px`,
-    }
-  }
-
-  const handleOnEnter = () => {
+  const handleEnter = () => {
     const from = ctrl.items.get(history[0])
 
     if (!from || !ctrl.inner) return
 
-    return resolveTransform(getClientCoords(from))
+    return ctrl.resolve(from)
   }
 
-  const handleOnEntering = () => {
+  const handleEntering = () => {
     const target = ctrl.items.get(history[1])
 
     if (!target || !ctrl.inner) return
 
-    return resolveTransform(getClientCoords(target))
+    return ctrl.resolve(target)
   }
 
-  const handleOnEntered = () => { setIsShowThumb(false) }
+  const handleEntered = () => { setIsShowThumb(false) }
+
+  const returnEarly = useWatchValue(value, () => {
+    setHistory([history[1], value], () => { setIsShowThumb(true) })
+
+    ctrl.update(value)
+  })
 
   useEffect(() => () => { ctrl.destroy() }, [ctrl])
 
   return {
-    picked,
     omitted,
-    ctrl,
     ns,
     cssNames,
     cssAttrs,
+    ctrl,
+    options,
+    value,
+    isShowThumb,
     outerCssNames,
     outerCssAttrs,
-    normalizedOptions,
-    currentValue,
-    isShowThumb,
     returnEmpty: returnEarly,
-    handleOnChange,
-    handleOnEnter,
-    handleOnEntering,
-    handleOnEntered,
+    handleChange,
+    handleEnter,
+    handleEntering,
+    handleEntered,
   }
 }

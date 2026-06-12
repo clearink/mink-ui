@@ -10,7 +10,7 @@ export function useNamespace(component: string, custom: string | undefined): str
 export function useNamespace(arg1: any, arg2?: string) {
   const { rootPrefixCls: preset } = GlobalConfigContext.use()
 
-  if (arg1 && isFunction(arg1)) return arg1(preset)
+  if (isFunction(arg1)) return arg1(preset)
 
   return arg2 ?? `${preset}-${arg1}`
 }

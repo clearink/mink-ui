@@ -17,7 +17,6 @@ import { normalizeIsListField } from '../utils/helpers'
 import { _getId } from '../utils/path'
 
 export function useInternalFormFieldProps(props: InternalFormFieldProps) {
-  // 表单实例
   const formInstance = InternalFormInstanceContext.use()
   const propsContext = InternalFormPropsContext.use()
 
@@ -48,23 +47,16 @@ export function useInternalFormFieldProps(props: InternalFormFieldProps) {
 
   const control = useConstant(() => new FormFieldControl(forceUpdate, refreshField))
 
-  // 同步内部属性，使用 useMemo 兼容 react-dev-tool
-  useInvoke(() => { control.updateInternals(omitted) })
+  useInvoke(() => { control._bind(omitted) })
 
   // 设置字段初始值 (同时返回当前字段值)
   const transient = useConstant(() => internalHooks.defineInitialValue(control))
 
   // 监听 name 是否变化
-  const nameChanged = useWatchValue(name, {
-    compare: isEqual,
-    listener: (_, prev) => { internalHooks.updateControlsMap(control, prev) },
-  })
+  const nameChanged = useWatchValue(name, (_, prev) => { internalHooks.updateControlsMap(control, prev) }, isEqual)
 
   // 监听 dependencies 是否变化
-  const depsChanged = useWatchValue(dependencies, {
-    compare: isEqual,
-    listener: () => { internalHooks.updateFieldGraph(control) },
-  })
+  const depsChanged = useWatchValue(dependencies, () => { internalHooks.updateFieldEdges(control) }, isEqual)
 
   // 注册字段 & 建立依赖图
   useEffect(() => internalHooks.registerField(control, transient), [internalHooks, control, transient])
@@ -104,6 +96,7 @@ export function useInternalGeneratedProps<V>(
   return {
     key: isListField ? 'controlled' : _getId(fieldName),
     attrs: {
+      ...props,
       isFormList: (isFormList ? { listControl } : false) as InternalFormFieldProps['isFormList'],
       isListField,
       name: fieldName,

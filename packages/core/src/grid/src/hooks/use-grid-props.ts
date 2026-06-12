@@ -25,22 +25,7 @@ export function useRowProps(props: RowProps) {
 
   const { hGutter, vGutter, hLayout, vLayout } = useResponsiveValues(picked, omitted)
 
-  const classNames = useRowClassNames(picked, omitted, {
-    align: vLayout,
-    justify: hLayout,
-  })
-
-  const [cssNames, cssAttrs] = useCombinedSemantics(
-    [
-      classNames,
-      { root: omitted.className },
-    ],
-    [
-      { root: omitted.style },
-    ],
-  )
-
-  const rowGutterContextValue = useMemo(() => ({ gutter: hGutter, wrap }), [hGutter, wrap])
+  const { classNames } = useRowClassNames(picked, omitted, { align: vLayout, justify: hLayout })
 
   const extraCssAttrs = useMemo(() => {
     const result: CSSProperties = {}
@@ -56,6 +41,20 @@ export function useRowProps(props: RowProps) {
     return result
   }, [hGutter, vGutter])
 
+  const [cssNames, cssAttrs] = useCombinedSemantics(
+    [
+      classNames,
+      { root: omitted.className },
+    ],
+    [
+      { root: omitted.style },
+      { root: extraCssAttrs },
+    ],
+    { meta: { ...omitted, ...picked } },
+  )
+
+  const rowGutterContextValue = useMemo(() => ({ gutter: hGutter, wrap }), [hGutter, wrap])
+
   const restAttrs = omit(props, excludedRowProps)
 
   return {
@@ -63,7 +62,6 @@ export function useRowProps(props: RowProps) {
     cssNames,
     cssAttrs,
     rowGutterContextValue,
-    extraCssAttrs,
     restAttrs,
   }
 }
@@ -74,18 +72,6 @@ export function useColProps(props: ColProps) {
   const { flex } = props
 
   const { cssVars, classNames } = useColClassNames(props)
-
-  const [cssNames, cssAttrs] = useCombinedSemantics(
-    [
-      classNames,
-      props.classNames,
-      { root: props.className },
-    ],
-    [
-      props.styles,
-      { root: props.style },
-    ],
-  )
 
   const extraCssAttrs = useMemo(() => {
     const result: CSSProperties = {}
@@ -106,14 +92,27 @@ export function useColProps(props: ColProps) {
     return result
   }, [rowGutterContext.gutter, rowGutterContext.wrap, flex])
 
+  const [cssNames, cssAttrs] = useCombinedSemantics(
+    [
+      classNames,
+      props.classNames,
+      { root: props.className },
+    ],
+    [
+      props.styles,
+      { root: props.style },
+      { root: extraCssAttrs },
+      { root: cssVars },
+    ],
+    { meta: props },
+  )
+
   const restAttrs = omit(props, excludedColProps)
 
   return {
     omitted: props,
     cssNames,
     cssAttrs,
-    cssVars,
-    extraCssAttrs,
     restAttrs,
   }
 }

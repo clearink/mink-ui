@@ -48,4 +48,4 @@ export interface GridColLayout {
   flex?: GridFlex
 }
 
-export type BresponsiveGridColLayout = Partial<Record<Breakpoint, GridColLayout | GridSpan>>
+export type ResponsiveGridColLayout = Partial<Record<Breakpoint, GridColLayout | GridSpan>>

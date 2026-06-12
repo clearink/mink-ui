@@ -9,7 +9,7 @@ $ns-touch-effect: #{$ns}-touch-effect;
   top: 0;
   left: 0;
   border-radius: inherit;
-  opacity: 0.25;
+  opacity: 0.2;
   pointer-events: none;
 
   animation: #{$ns}-wave 2s var(--#{$ns}-motion-ease-out-circ);

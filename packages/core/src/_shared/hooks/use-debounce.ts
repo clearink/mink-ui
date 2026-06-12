@@ -1,10 +1,9 @@
 import type { AnyFn } from '@mink-ui/shared/interface'
 
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { debounce } from '../utils/debounce'
 import { useEvent } from './use-event'
-import { useExactState } from './use-exact-state'
 import { useIsMounted } from './use-is-mounted'
 
 export function useDebounceTimeout<F extends AnyFn>(delay: number, fn: F) {
@@ -19,7 +18,7 @@ export function useDebounceTimeout<F extends AnyFn>(delay: number, fn: F) {
 }
 
 export function useDebounceValue<Value>(delay: number, value: Value) {
-  const [state, update] = useExactState(() => value)
+  const [state, update] = useState(() => value)
 
   const isMounted = useIsMounted()
 
@@ -31,7 +30,7 @@ export function useDebounceValue<Value>(delay: number, value: Value) {
 }
 
 export function useDebounceState<State>(delay: number, initialState: State | (() => State)) {
-  const [state, update] = useExactState(initialState)
+  const [state, update] = useState(initialState)
 
   return [state, useDebounceTimeout(delay, update)] as const
 }

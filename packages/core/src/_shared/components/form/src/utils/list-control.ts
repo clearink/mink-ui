@@ -46,6 +46,19 @@ export class FormListControl {
   }
 
   /**
+   * @description 绑定最新的数据
+   */
+  public _bind = (
+    props: InternalFormListProps,
+    formInstance: InternalFormInstance,
+    listName: InternalFieldName,
+  ) => {
+    this._props = props
+    this._formInstance = formInstance
+    this._name = listName
+  }
+
+  /**
    * @description 获取当前字段数据
    */
   private getFieldValue = () => {
@@ -198,15 +211,5 @@ export class FormListControl {
       replace: this.replace,
       swap: this.swap,
     }
-  }
-
-  public updateInternals = (
-    props: InternalFormListProps,
-    formInstance: InternalFormInstance,
-    listName: InternalFieldName,
-  ) => {
-    this._props = props
-    this._formInstance = formInstance
-    this._name = listName
   }
 }

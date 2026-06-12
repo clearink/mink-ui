@@ -32,11 +32,11 @@ export function useCollapseProps(props: CollapseProps) {
   const omitted = props as OmittedCollapseProps
   const picked = { bordered, collapsible, expandIcon, expandIconPlacement, size } as PickedCollapseProps
 
-  const [expandedNames, setExpandedNames] = useControlledState({
-    value: isUndefined(_names) ? undefined : normalizeExpandedNames(_names, accordion),
-    defaultValue: () => normalizeExpandedNames(_default, accordion),
-    onChange: (names, name: ExpandedName) => { onChange?.(name, names) },
-  })
+  const [expandedNames, setExpandedNames] = useControlledState(
+    isUndefined(_names) ? undefined : normalizeExpandedNames(_names, accordion),
+    () => normalizeExpandedNames(_default, accordion),
+    (names, name: ExpandedName) => { onChange?.(name, names) },
+  )
 
   const { ns, classNames } = useCollapseClassNames(picked, omitted)
 
@@ -54,13 +54,13 @@ export function useCollapseProps(props: CollapseProps) {
       omitted.styles,
       { root: omitted.style },
     ],
-    { picked, omitted },
+    { meta: { ...omitted, ...picked, expandedNames } },
   )
 
   const outerCssNames = { ...omit(cssNames, ['root', 'item']), root: cssNames.item }
   const outerCssAttrs = { ...omit(cssAttrs, ['root', 'item']), root: cssAttrs.item }
 
-  const handleOnChange = useEvent((name: ExpandedName) => {
+  const handleChange = useEvent((name: ExpandedName) => {
     let names = expandedNames.concat()
 
     const index = names.indexOf(name)
@@ -83,6 +83,6 @@ export function useCollapseProps(props: CollapseProps) {
     expandedNames,
     outerCssNames,
     outerCssAttrs,
-    handleOnChange,
+    handleChange,
   }
 }

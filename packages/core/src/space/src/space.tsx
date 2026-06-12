@@ -2,10 +2,10 @@ import type { SpaceProps } from './space.props'
 
 import { isValidElement } from 'react'
 import { Fragment } from 'react/jsx-runtime'
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
 
 import { flattenChildren } from '../../_shared/utils/children'
 import { defineName } from '../../_shared/utils/define-name'
+import { isRenderable } from '../../_shared/utils/renderable'
 import { useSpaceProps } from './hooks/user-space-props'
 
 function Space(props: SpaceProps) {
@@ -14,7 +14,6 @@ function Space(props: SpaceProps) {
     cssNames,
     cssAttrs,
     restAttrs,
-    extraCssAttrs,
   } = useSpaceProps(props)
 
   const { ref, children, separator } = omitted
@@ -30,7 +29,8 @@ function Space(props: SpaceProps) {
             <div className={cssNames.item} style={cssAttrs.item}>
               {child}
             </div>
-            {!isLast && !isNullish(separator) && (
+
+            {!isLast && isRenderable(separator) && (
               <span className={cssNames.separator} style={cssAttrs.separator}>
                 {separator}
               </span>
@@ -45,7 +45,7 @@ function Space(props: SpaceProps) {
       {...restAttrs}
       ref={ref}
       className={cssNames.root}
-      style={{ ...cssAttrs.root, ...extraCssAttrs }}
+      style={cssAttrs.root}
     >
       {renderSpaceChildren()}
     </div>

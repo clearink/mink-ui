@@ -1,24 +1,24 @@
 import type { PortalProps } from './portal.props'
 
-import { useCallback, useEffect, useImperativeHandle } from 'react'
+import { useCallback, useImperativeHandle, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ownerBody } from '@mink-ui/shared/dom/global'
 import { isNullish } from '@mink-ui/shared/is/is-nullish'
 
-import { useExactState } from '../../../hooks/use-exact-state'
+import { useIsomorphicEffect } from '../../../hooks/use-isomorphic-effect'
 import { defineName } from '../../../utils/define-name'
 import { findContainerElement } from '../../../utils/element'
 
 function Portal(props: PortalProps) {
-  const { ref, children, getContainer: _get } = props
+  const { ref, children, getContainer } = props
 
-  const getContainer = useCallback(() => findContainerElement(_get, ownerBody()), [_get])
+  const callback = useCallback(() => findContainerElement(getContainer, ownerBody()), [getContainer])
 
-  const [container, update] = useExactState(getContainer)
+  const [container, update] = useState(callback)
 
   useImperativeHandle(ref, () => container as any, [container])
 
-  useEffect(() => { update(getContainer) }, [getContainer, update])
+  useIsomorphicEffect(() => { update(callback) }, [callback])
 
   if (isNullish(container)) return null
 

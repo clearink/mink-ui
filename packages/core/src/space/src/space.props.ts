@@ -8,7 +8,7 @@ import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface SpaceInjectedProps extends
   HasChildren,
-  SemanticsStyled<'root' | 'item' | 'separator'> {
+  SemanticsStyled<'root' | 'item' | 'separator', SpaceProps> {
   /**
    * @description 外部引用
    */

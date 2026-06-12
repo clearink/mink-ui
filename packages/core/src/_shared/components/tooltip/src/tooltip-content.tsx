@@ -1,35 +1,16 @@
 import type { TooltipContentProps } from './tooltip-content.props'
 
-import { cloneElement, useEffect, useRef } from 'react'
-import { ownerWindow } from '@mink-ui/shared/dom/global'
-import { makeEventListener } from '@mink-ui/shared/dom/listener'
+import { cloneElement } from 'react'
 
-import { useMergeRefs } from '../../../hooks/use-merge-refs'
-import { useResizeObserver } from '../../../hooks/use-observer'
 import { defineName } from '../../../utils/define-name'
-import { getScrollElements } from './utils/element'
+import { useTooltipContentProps } from './hooks/use-tooltip-content-props'
 
 function TooltipContent(props: TooltipContentProps) {
-  const { children, isOpen, onMounted, onResize, onScroll } = props
+  const { omitted, restAttrs } = useTooltipContentProps(props)
 
-  const $element = useRef<Element>(null)
+  const { children } = omitted
 
-  const ref = useMergeRefs(children.props.ref, $element)
-
-  useResizeObserver($element, onResize)
-
-  useEffect(() => onMounted($element.current), [onMounted])
-
-  useEffect(() => {
-    if (!$element.current || !isOpen) return
-
-    const set = new Set(getScrollElements($element.current))
-    set.add(ownerWindow($element.current) as any)
-
-    return makeEventListener(Array.from(set), 'scroll', onScroll, { passive: true })
-  }, [isOpen, onScroll])
-
-  return cloneElement(children, { ref })
+  return cloneElement(children, restAttrs)
 }
 
 defineName(TooltipContent, 'InternalTooltip.Content')

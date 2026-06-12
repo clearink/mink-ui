@@ -7,7 +7,7 @@ import type {
 } from '../../_shared/components/form/src'
 import type { SemanticsStyled } from '../../_shared/types/styled'
 
-export interface FormListProps extends Omit<InternalFormListProps, 'children'>, Pick<SemanticsStyled<''>, 'prefixCls'> {
+export interface FormListProps extends Omit<InternalFormListProps, 'children'>, Pick<SemanticsStyled<never>, 'prefixCls'> {
   /**
    * @description 渲染函数
    */

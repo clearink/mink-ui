@@ -1,5 +1,5 @@
 import type { AnyFn } from '@mink-ui/shared/interface'
-import type { IsOpenChangeHandler } from '../_shared.props'
+import type { SetStateDispatch } from '../../../../types/state-dispatch'
 
 // 除了 hover 时， popup 都是使用 click 结束 close 的
 
@@ -7,15 +7,11 @@ import type { IsOpenChangeHandler } from '../_shared.props'
  * @description hover 触发时 popup 需要的事件
  */
 export function getHoverEvents(
-  isOpenChange: IsOpenChangeHandler,
+  handleChange: SetStateDispatch<boolean>,
 ): [Record<string, AnyFn>, Record<string, AnyFn>] {
-  const onMouseEnter = () => {
-    isOpenChange(() => true)
-  }
+  const onMouseEnter = () => { handleChange(() => true) }
 
-  const onMouseLeave = () => {
-    isOpenChange(() => false)
-  }
+  const onMouseLeave = () => { handleChange(() => false) }
 
   return [
     { onMouseEnter, onMouseLeave },
@@ -27,11 +23,9 @@ export function getHoverEvents(
  * @description click 触发时 popup 需要的事件
  */
 export function getClickEvents(
-  isOpenChange: IsOpenChangeHandler,
+  handleChange: SetStateDispatch<boolean>,
 ): [Record<string, AnyFn>, Record<string, AnyFn>] {
-  const onClick = () => {
-    isOpenChange(state => !state)
-  }
+  const onClick = () => { handleChange(state => !state) }
 
   return [{ onClick }, {}]
 }
@@ -40,15 +34,11 @@ export function getClickEvents(
  * @description focus 触发时 popup 需要的事件
  */
 export function getFocusEvents(
-  isOpenChange: IsOpenChangeHandler,
+  handleChange: SetStateDispatch<boolean>,
 ): [Record<string, AnyFn>, Record<string, AnyFn>] {
-  const onFocus = () => {
-    isOpenChange(() => true)
-  }
+  const onFocus = () => { handleChange(() => true) }
 
-  const onBlur = () => {
-    isOpenChange(() => false)
-  }
+  const onBlur = () => { handleChange(() => false) }
 
   return [{ onBlur, onFocus }, {}]
 }
@@ -57,13 +47,9 @@ export function getFocusEvents(
  * @description contextmenu 触发时 popup 需要的事件
  */
 export function getMenusEvents(
-  isOpenChange: IsOpenChangeHandler,
+  handleChange: SetStateDispatch<boolean>,
 ): [Record<string, AnyFn>, Record<string, AnyFn>] {
-  const onContextMenu = (e: MouseEvent) => {
-    e.preventDefault()
-
-    isOpenChange(state => !state)
-  }
+  const onContextMenu = (e: MouseEvent) => { e.preventDefault(); handleChange(state => !state) }
 
   return [{ onContextMenu }, {}]
 }

@@ -1,15 +1,17 @@
 import type { SetStateAction } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
 
-import { useLayoutEffect, useState } from 'react'
+import { useState } from 'react'
+import { noop } from '@mink-ui/shared/function/noop'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
 import { useConstant } from './use-constant'
 import { useEvent } from './use-event'
+import { useIsomorphicEffect } from './use-isomorphic-effect'
 
-export function useExactState<S>(initialState: (() => S) | S) {
-  const store = useConstant(() => ({ fn: null as VoidFn | null }))
+export function useFlushState<S>(initialState: (() => S) | S) {
+  const store = useConstant(() => ({ fn: noop }))
 
   const [internal, setInternal] = useState(initialState)
 
@@ -18,12 +20,12 @@ export function useExactState<S>(initialState: (() => S) | S) {
 
     if (shallowEqual(internal, next)) return callback?.()
 
-    store.fn = callback || null
+    store.fn = () => { store.fn = noop; callback?.() }
 
     setInternal(() => next)
   })
 
-  useLayoutEffect(() => { store.fn?.(); store.fn = null }, [internal, store])
+  useIsomorphicEffect(() => { store.fn() }, [internal, store])
 
   return [internal, setState] as const
 }

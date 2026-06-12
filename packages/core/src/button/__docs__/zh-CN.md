@@ -23,9 +23,11 @@ group:
 
 <code-example src="./examples/icon.md" title="图标按钮" />
 
+<code-example src="./examples/loading.md" title="加载中" />
+
 <code-example src="./examples/status.md" title="按钮状态" />
 
-<code-example src="./examples/disabled.md" title="禁用按钮" disabled/>
+<code-example src="./examples/disabled.md" title="禁用按钮" />
 
 <code-example src="./examples/block.md" title="长按钮" />
 
@@ -41,7 +43,7 @@ group:
 
 ## Semantic DOM
 
-<semantic-dom src="./examples/semantic.md" />
+<!-- <semantic-dom src="./examples/semantic.md" /> -->
 
 ## FAQ
 

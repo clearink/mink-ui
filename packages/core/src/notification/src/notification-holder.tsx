@@ -6,7 +6,7 @@ import { useNotificationHolderProps } from './hooks/use-notification-holder-prop
 import NotificationList from './notification-list'
 
 function NotificationHolder(props: NotificationHolderProps) {
-  const { picked, omitted, resetAttrs } = useNotificationHolderProps(props)
+  const { picked, omitted, restAttrs } = useNotificationHolderProps(props)
 
   const { getContainer } = picked
   const { groups, onDismiss, onGroupExited } = omitted
@@ -15,9 +15,9 @@ function NotificationHolder(props: NotificationHolderProps) {
     <Portal getContainer={getContainer}>
       {groups.map(group => (
         <NotificationList
-          {...resetAttrs}
+          {...restAttrs}
           key={group.key}
-          items={group.items}
+          items={Array.from(group.items.values())}
           placement={group.key}
           onDismiss={onDismiss}
           onGroupExited={onGroupExited}

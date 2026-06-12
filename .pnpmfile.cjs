@@ -30,7 +30,9 @@ module.exports = {
   hooks: {
     beforePacking(pkg) {
       if (`${pkg.name}`.startsWith('@mink-ui')) {
-        pkg.exports = transformExports(pkg.exports)
+        if (Object.keys(pkg.exports || {}).length) {
+          pkg.exports = transformExports(pkg.exports || {})
+        }
       }
 
       return pkg

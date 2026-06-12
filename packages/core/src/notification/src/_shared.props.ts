@@ -1,13 +1,25 @@
 import type { CommonStatus } from '../../_shared/types/status'
+import type { UniqueKey } from '../../_shared/types/unique-key'
 import type { NOTIFICATION_PLACEMENTS } from './_shared.constant'
-import type { NotificationHolderSharedConfig } from './notification-holder.props'
-import type { NotificationItemMethodParams, NotificationItemSharedConfig } from './notification-item.props'
-
-import { ownerBody } from '@mink-ui/shared/dom/global'
+import type { NotificationHolderSharedProps } from './notification-holder.props'
+import type { NotificationItemMethodConfig, NotificationItemSharedProps } from './notification-item.props'
 
 export type NotificationPlacement = typeof NOTIFICATION_PLACEMENTS[number]
 
 export type NotificationVariantMethods = Record<CommonStatus, (params: NotificationMethodParams) => void>
+
+export interface NotificationHookMethods extends NotificationVariantMethods {
+  open: (params: NotificationMethodParams) => void
+  close: (key?: NotificationMethodParams['key']) => void
+}
+
+export interface NotificationGlobalMethods extends NotificationHookMethods {
+  config: (config: Partial<NotificationConfig>) => void
+}
+
+export interface NotificationMethodParams extends NotificationItemMethodConfig {}
+
+export interface NotificationConfig extends NotificationHolderSharedProps, NotificationItemSharedProps {}
 
 export interface NotificationHolderGroup {
   /**
@@ -18,7 +30,7 @@ export interface NotificationHolderGroup {
   /**
    * @description 通知列表
    */
-  items: NotificationMethodParams[]
+  items: Map<UniqueKey, NotificationMethodParams>
 }
 
 export interface NotificationStackConfig {
@@ -32,27 +44,6 @@ export interface NotificationStackConfig {
    */
   threshold: number
 }
-
-export interface NotificationItemLayout {
-  shift: number
-  order: number
-  clip: number
-}
-
-export interface NotificationHookMethods extends NotificationVariantMethods {
-  open: (params: NotificationMethodParams) => void
-  close: (key?: NotificationMethodParams['key']) => void
-}
-
-export interface NotificationGlobalMethods extends NotificationHookMethods {
-  config: (config: NotificationConfig) => void
-}
-
-export interface NotificationConfig extends NotificationHolderSharedConfig, NotificationItemSharedConfig {}
-
-export interface NotificationMethodParams extends NotificationItemMethodParams {}
-
-export interface NotificationHookConfig extends NotificationConfig {}
 
 /**
  * |---------------------------------------------------------|
@@ -71,7 +62,6 @@ export const defaultNotificationConfig: Partial<NotificationConfig> = {
   placement: 'topRight',
   showProgress: false,
   pauseOnHover: true,
-  getContainer: () => ownerBody(),
   closable: true,
 }
 

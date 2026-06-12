@@ -1,7 +1,6 @@
 import type { NotificationListProps } from './notification-list.props'
 
 import { GroupTransition } from '../../_shared/components/transition/src'
-import { cn } from '../../_shared/libs/cn'
 import { defineName } from '../../_shared/utils/define-name'
 import { useNotificationListProps } from './hooks/use-notification-list-props'
 import NotificationItem from './notification-item'
@@ -14,14 +13,13 @@ function NotificationList(props: NotificationListProps) {
     cssAttrs,
     ctrl,
     isHovering,
-    itemLayouts,
+    itemCssVars,
     stackEnable,
-    extraCssAttrs,
     outerCssNames,
     outerCssAttrs,
-    handleOnMouseEnter,
-    handleOnMouseLeave,
-    handleOnGroupExited,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleGroupExited,
   } = useNotificationListProps(props)
 
   const { items, onDismiss } = omitted
@@ -30,16 +28,15 @@ function NotificationList(props: NotificationListProps) {
     <div
       ref={ctrl.$container}
       className={cssNames.root}
-      style={{ ...cssAttrs.root, ...extraCssAttrs }}
-      onMouseEnter={handleOnMouseEnter}
-      onMouseLeave={handleOnMouseLeave}
+      style={cssAttrs.root}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <GroupTransition
-        ref={ctrl.$group}
         classNames={`${ns}-motion`}
         appear
         items={items as any[]}
-        onGroupExited={handleOnGroupExited}
+        onGroupExited={handleGroupExited}
       >
         {($motion, getters, item) => (
           <NotificationItem
@@ -49,7 +46,7 @@ function NotificationList(props: NotificationListProps) {
             listHovering={stackEnable && isHovering}
             outerCssAttrs={outerCssAttrs}
             outerCssNames={outerCssNames}
-            outerCssVars={itemLayouts.get(item.key)}
+            outerCssVars={itemCssVars.get(item.key)}
             outerNamespace={ns}
             onCollect={ctrl.collect}
             onDismiss={onDismiss}

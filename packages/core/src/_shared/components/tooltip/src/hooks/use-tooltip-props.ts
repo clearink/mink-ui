@@ -1,21 +1,21 @@
 import type { ArrowCoords, PopupCoords } from '../_shared.props'
 import type { InternalTooltipProps, OmittedInternalTooltipProps, PickedInternalTooltipProps } from '../tooltip.props'
 
-import { useMemo } from 'react'
+import isEqual from 'react-fast-compare'
+import { useMemo, useState } from 'react'
 import { batch } from '@mink-ui/shared/function/batch'
 
 import { useConstant } from '../../../../hooks/use-constant'
 import { useEvent } from '../../../../hooks/use-event'
-import { useExactState } from '../../../../hooks/use-exact-state'
 import { useThrottleFrame, useThrottleTick } from '../../../../hooks/use-scheduler'
 import { useCombinedSemantics } from '../../../../hooks/use-settings/use-combined'
+import { useWatchValue } from '../../../../hooks/use-watch-value'
 import { InternalTooltipContext } from '../_shared.context'
 import { defaultInternalTooltipProps as defaultProps } from '../tooltip.props'
 import aligners from '../utils/aligners'
 import { TooltipControl } from '../utils/tooltip-control'
 import { useTooltipEvents } from './use-tooltip-events'
 import { useTooltipOpen } from './use-tooltip-open'
-import { useWatchCoords } from './use-watch-coords'
 
 export function useInternalTooltipProps(props: InternalTooltipProps) {
   const topTooltipContext = InternalTooltipContext.use()
@@ -45,16 +45,16 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
 
   const control = useConstant(() => new TooltipControl())
 
-  const [arrowCoords, setArrowCoords] = useExactState<Partial<ArrowCoords>>({
+  const [arrowCoords, setArrowCoords] = useState<Partial<ArrowCoords>>({
     transform: `translate3d(0, 0, 0) rotate(0)`,
   })
 
-  const [popupCoords, setPopupCoords] = useExactState<Partial<PopupCoords>>({
+  const [popupCoords, setPopupCoords] = useState<Partial<PopupCoords>>({
     transform: `translate3d(0, 0, 0) rotate(0)`,
   })
-  const { isOpen, hasContentChanged, isOpenChange } = useTooltipOpen(picked, omitted)
+  const { isOpen, hasContentChanged, handleIsOpenChange } = useTooltipOpen(picked, omitted)
 
-  const [triggerEvents, popupEvents] = useTooltipEvents(picked, control, isOpenChange)
+  const [triggerEvents, popupEvents] = useTooltipEvents(picked, control, handleIsOpenChange)
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -64,10 +64,13 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
     [
       omitted.styles,
       { root: omitted.style },
+      { arrow: arrowCoords },
+      { wrapper: popupCoords },
     ],
+    { meta: { ...omitted, ...picked, isOpen } },
   )
 
-  const handleOnUpdate = useEvent(() => {
+  const handleUpdate = useEvent(() => {
     const { popup, trigger } = control
 
     if (!isOpen || !popup || !trigger) return
@@ -76,20 +79,23 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
 
     const { getArrowCoords, getPopupCoords } = getCoords(picked, popup, trigger)
 
-    setArrowCoords(getArrowCoords(arrowCoords))
+    setArrowCoords(getArrowCoords)
 
-    setPopupCoords(getPopupCoords(popupCoords))
+    setPopupCoords(getPopupCoords)
   })
 
-  const hasCoordsChanged = useWatchCoords(picked, handleOnUpdate)
+  const handleResize = useThrottleTick(handleUpdate)
 
-  const handleOnResize = useThrottleTick(handleOnUpdate)
+  const handleScroll = useThrottleFrame(handleUpdate)
 
-  const handleOnScroll = useThrottleFrame(handleOnUpdate)
+  const handleEnqueue = useMemo(() => batch(topTooltipContext, control.enqueue), [control, topTooltipContext])
 
-  const handleOnEnqueue = useMemo(() => {
-    return batch(topTooltipContext, control.enqueue)
-  }, [control, topTooltipContext])
+  // 影响布局的属性会被 watch
+  const hasCoordsChanged = useWatchValue(
+    [placement, offset, arrow, shift, flip],
+    handleUpdate,
+    (curr, prev) => !isOpen || isEqual(curr, prev),
+  )
 
   return {
     picked,
@@ -98,13 +104,11 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
     cssAttrs,
     control,
     isOpen,
-    arrowCoords,
-    popupCoords,
     popupEvents,
     triggerEvents,
     returnEmpty: hasContentChanged || hasCoordsChanged,
-    handleOnResize,
-    handleOnScroll,
-    handleOnEnqueue,
+    handleResize,
+    handleScroll,
+    handleEnqueue,
   }
 }

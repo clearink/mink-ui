@@ -10,6 +10,7 @@ export default function CodeCollapse(props: CodeCollapseProps) {
   return (
     <CssTransition
       classNames="x-collapse"
+      resumeOnCancel
       unmountOnExit
       when={isOpen}
       onEnter={() => ({ height: 0 })}

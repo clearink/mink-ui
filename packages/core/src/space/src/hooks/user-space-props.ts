@@ -24,6 +24,16 @@ export function useSpaceProps(props: SpaceProps) {
 
   const { classNames, hGutter, hIsNumeric, vGutter, vIsNumeric } = useSpaceClassNames(picked, omitted)
 
+  const extraCssAttrs = useMemo(() => {
+    const result: CSSProperties = {}
+
+    if (hIsNumeric) result.columnGap = hGutter
+
+    if (vIsNumeric) result.rowGap = vGutter
+
+    return result
+  }, [hGutter, hIsNumeric, vGutter, vIsNumeric])
+
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
       globalConfig.classNames,
@@ -37,18 +47,10 @@ export function useSpaceProps(props: SpaceProps) {
       { root: globalConfig.style },
       omitted.styles,
       { root: omitted.style },
+      { root: extraCssAttrs },
     ],
+    { meta: { ...omitted, ...picked } },
   )
-
-  const extraCssAttrs = useMemo(() => {
-    const result: CSSProperties = {}
-
-    if (hIsNumeric) result.columnGap = hGutter
-
-    if (vIsNumeric) result.rowGap = vGutter
-
-    return result
-  }, [hGutter, hIsNumeric, vGutter, vIsNumeric])
 
   const restAttrs = omit(props, excludedSpaceProps)
 
@@ -58,6 +60,5 @@ export function useSpaceProps(props: SpaceProps) {
     cssNames,
     cssAttrs,
     restAttrs,
-    extraCssAttrs,
   }
 }

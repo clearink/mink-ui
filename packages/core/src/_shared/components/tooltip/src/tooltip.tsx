@@ -6,7 +6,6 @@ import Overlay from '../../overlay/src/overlay'
 import ShouldUpdate from '../../should-update/src'
 import { InternalTooltipContext } from './_shared.context'
 import { useInternalTooltipProps } from './hooks/use-tooltip-props'
-import TooltipArrow from './tooltip-arrow'
 import TooltipContent from './tooltip-content'
 import TooltipTrigger from './tooltip-trigger'
 
@@ -18,14 +17,12 @@ function InternalTooltip(props: InternalTooltipProps) {
     cssAttrs,
     control,
     isOpen,
-    arrowCoords,
-    popupCoords,
     popupEvents,
     triggerEvents,
     returnEmpty,
-    handleOnResize,
-    handleOnScroll,
-    handleOnEnqueue,
+    handleResize,
+    handleScroll,
+    handleEnqueue,
   } = useInternalTooltipProps(props)
 
   const { arrow } = picked
@@ -48,14 +45,15 @@ function InternalTooltip(props: InternalTooltipProps) {
         ref={control.$trigger}
         events={triggerEvents}
         isOpen={isOpen}
-        onResize={handleOnResize}
-        onScroll={handleOnScroll}
+        onResize={handleResize}
+        onScroll={handleScroll}
       >
         {children}
       </TooltipTrigger>
 
       <Overlay
         style={{ left: 0, top: 0 }}
+        resumeOnCancel
         getContainer={getContainer}
         isOpen={isOpen}
         mask={false}
@@ -68,14 +66,14 @@ function InternalTooltip(props: InternalTooltipProps) {
           return (
             <TooltipContent
               isOpen={isOpen}
-              onMounted={handleOnEnqueue}
-              onResize={handleOnResize}
-              onScroll={handleOnScroll}
+              onMounted={handleEnqueue}
+              onResize={handleResize}
+              onScroll={handleScroll}
             >
               <div
                 ref={control.$popup}
                 className={cssNames.wrapper}
-                style={{ ...cssAttrs.wrapper, ...popupCoords }}
+                style={cssAttrs.wrapper}
               >
                 <div
                   ref={$motion}
@@ -83,13 +81,9 @@ function InternalTooltip(props: InternalTooltipProps) {
                   style={{ ...cssAttrs.root, ...getters.attrs() }}
                   {...popupEvents}
                 >
-                  <TooltipArrow
-                    className={cssNames.arrow}
-                    style={{ ...cssAttrs.arrow, ...arrowCoords }}
-                    show={!!arrow}
-                  />
+                  {!!arrow && <div className={cssNames.arrow} style={cssAttrs.arrow} />}
 
-                  <InternalTooltipContext value={handleOnEnqueue}>
+                  <InternalTooltipContext value={handleEnqueue}>
                     <ShouldUpdate when={() => isOpen || !!fresh}>{content}</ShouldUpdate>
                   </InternalTooltipContext>
                 </div>

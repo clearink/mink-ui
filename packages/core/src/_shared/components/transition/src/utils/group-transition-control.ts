@@ -1,5 +1,5 @@
 import type { VoidFn } from '@mink-ui/shared/interface'
-import type { ManagedTransitionEntry, UniquedTransitionItem } from '../_shared.props'
+import type { ManagedTransitionEntry, UniqueTransitionItem } from '../_shared.props'
 import type { CssTransitionInstance, CssTransitionProps } from '../css-transition.props'
 import type { GroupTransitionProps } from '../group-transition.props'
 
@@ -14,40 +14,47 @@ import { isManagedTransitionEntry, normalizeCssTransitionChildren } from './help
 
 const excluded = ['key', 'onGroupExited', 'ref', 'children', 'when', 'unmountOnExit'] as const
 
-export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTransitionItem> {
+export class GroupTransitionControl<T extends UniqueTransitionItem = UniqueTransitionItem> {
   private _entries: ManagedTransitionEntry[] = []
 
-  public _instances = new Map<T['key'], CssTransitionInstance>()
+  public instances = new Map<T['key'], CssTransitionInstance>()
 
   public current: T[] = []
 
   constructor(private forceUpdate: VoidFn, public _props: GroupTransitionProps<T>) {
     this.current = _props.items
 
-    this._entries = this.current.map(item => this._createEntry(item, { when: true }))
+    this._entries = this.current.map(item => this.createEntry(item, { when: true }))
+  }
+
+  /**
+   * @description 绑定最新的数据
+   */
+  public _bind = (props: GroupTransitionProps<T>) => {
+    this._props = props
   }
 
   /**
    * @description 获取 css-transition 实例
    */
-  private _getInstance = (key: T['key']) => {
-    return this._instances.get(key)
+  private getInstance = (key: T['key']) => {
+    return this.instances.get(key)
   }
 
   /**
    * @description 创建 transition entry
    */
-  private _createEntry = (item: T, params: Partial<CssTransitionProps>) => {
+  private createEntry = (item: T, params: Partial<CssTransitionProps>) => {
     const preset = omit(this._props as any, excluded) as CssTransitionProps
 
     const attrs = Object.assign(preset, params, {
-      __item: item,
+      _item: item,
       key: `${item.key}`,
       unmountOnExit: true,
       children: normalizeCssTransitionChildren(this._props.children, item),
       ref: (instance: CssTransitionInstance) => {
-        if (!instance) this._instances.delete(item.key)
-        else this._instances.set(item.key, instance)
+        if (!instance) this.instances.delete(item.key)
+        else this.instances.set(item.key, instance)
       },
     })
 
@@ -61,11 +68,11 @@ export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTra
   /**
    * @description 更新 transition entry
    */
-  private _updateEntry = (entry: ManagedTransitionEntry, params: Partial<CssTransitionProps>) => {
+  private updateEntry = (entry: ManagedTransitionEntry, params: Partial<CssTransitionProps>) => {
     const preset = omit(this._props as any, excluded) as CssTransitionProps
 
     const attrs = Object.assign(preset, params, {
-      onExited: batch(preset.onExited, this.handleOnGroupFinished),
+      onExited: batch(preset.onExited, this.handleGroupFinished),
     }) as CssTransitionProps
 
     return {
@@ -78,21 +85,21 @@ export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTra
   /**
    * @description 更新 transition entry node
    */
-  private _updateNode = (entry: ManagedTransitionEntry, params: Partial<CssTransitionProps>) => {
-    return this._updateEntry(entry, params).node
+  private updateNode = (entry: ManagedTransitionEntry, params: Partial<CssTransitionProps>) => {
+    return this.updateEntry(entry, params).node
   }
 
   /**
    * @description 更新当前元素
    */
-  private _updateCurrent = (current: GroupTransitionControl<T>['current']) => {
+  private updateCurrent = (current: GroupTransitionControl<T>['current']) => {
     this.current = current
   }
 
   /**
    * @description 更新 transition entries
    */
-  private _updateEntries = (values: GroupTransitionControl['_entries']) => {
+  private updateEntries = (values: GroupTransitionControl['_entries']) => {
     const map = new Map<T['key'], ManagedTransitionEntry>()
 
     values.forEach((item) => { map.set(item.key, item) })
@@ -103,20 +110,13 @@ export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTra
   }
 
   /**
-   * @description 更新内部属性
-   */
-  public updateInternals = (props: GroupTransitionProps<T>) => {
-    this._props = props
-  }
-
-  /**
    * @description 结束时的回调
    */
-  public handleOnGroupFinished = () => {
+  public handleGroupFinished = () => {
     let isGroupExited = true
 
     const newEntries = this._entries.filter((item) => {
-      const instance = this._instances.get(item.key)
+      const instance = this.instances.get(item.key)
 
       if (!instance) return false
 
@@ -125,7 +125,7 @@ export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTra
       return !instance.isExited
     })
 
-    isGroupExited && this._updateEntries(newEntries)
+    isGroupExited && this.updateEntries(newEntries)
 
     isGroupExited && this._props.onGroupExited?.()
   }
@@ -140,7 +140,7 @@ export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTra
 
     const newEntries = union(this._entries, items).map((item) => {
       if (!isManagedTransitionEntry(item)) {
-        return this._createEntry(item as T, { appear: true, when: true })
+        return this.createEntry(item as T, { appear: true, when: true })
       }
 
       const params = {} as CssTransitionProps
@@ -148,12 +148,12 @@ export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTra
       if (enters.has(item.key)) params.when = true
       else if (exits.has(item.key)) params.when = false
 
-      return this._updateEntry(item, params)
+      return this.updateEntry(item, params)
     })
 
-    this._updateCurrent(items)
+    this.updateCurrent(items)
 
-    this._updateEntries(newEntries)
+    this.updateEntries(newEntries)
   }
 
   /**
@@ -165,7 +165,7 @@ export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTra
     const map = new Map(items.map(item => [item.key, item]))
 
     return this._entries.map((entry) => {
-      const instance = this._getInstance(entry.key)
+      const instance = this.getInstance(entry.key)
       const config = map.get(entry.key)
 
       if (instance?.isExiting) return entry.node
@@ -173,7 +173,7 @@ export class GroupTransitionControl<T extends UniquedTransitionItem = UniquedTra
 
       const normalized = normalizeCssTransitionChildren(children, config)
 
-      return entry.node = this._updateNode(entry, { children: normalized })
+      return entry.node = this.updateNode(entry, { children: normalized })
     })
   }
 }

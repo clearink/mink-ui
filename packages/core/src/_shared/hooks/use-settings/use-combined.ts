@@ -3,69 +3,58 @@ import type { AnyObj } from '@mink-ui/shared/interface'
 import type { CssAttrsItem, CssNamesItem } from '../../types/styled'
 
 import { isFunction } from '@mink-ui/shared/is/is-function'
-import { rawType } from '@mink-ui/shared/object/raw-type'
 
 import { cn } from '../../libs/cn'
-import { useComputed } from '../use-computed'
 
-function shouldSemanticItemsUpdate<T extends AnyObj | undefined>(prev: T[], next: T[]) {
-  if (prev.length !== next.length) return false
+function resolveCssItem<T>(v: T, meta: unknown): T {
+  return isFunction(v) ? v(meta) : v as any
+}
 
-  return prev.every((prevItem, index) => {
-    const nextItem = next[index]
+function composeCssNames(prev: unknown, next: unknown) {
+  const prevFn = isFunction(prev) ? prev : () => prev
+  const nextFn = isFunction(next) ? next : () => next
+  return (...args: any[]) => cn(prevFn(...args), nextFn(...args))
+}
 
-    if (rawType(prevItem) !== rawType(nextItem)) return false
-
-    if (!prevItem || !nextItem) return false
-
-    const prevKeys = Object.keys(prevItem)
-    const nextKeys = Object.keys(nextItem)
-
-    if (prevKeys.length !== nextKeys.length) return false
-
-    return prevKeys.every(key => prevItem[key] === nextItem[key])
-  })
+function composeCssAttrs(prev: unknown, next: unknown) {
+  const prevFn = isFunction(prev) ? prev : () => prev
+  const nextFn = isFunction(next) ? next : () => next
+  return (...args: any[]) => ({ ...prevFn(...args), ...nextFn(...args) })
 }
 
 /**
  * @description 合并所有的样式
  */
-export function useCombinedSemantics<U extends AnyObj, T extends string = string>(
+export function useCombinedSemantics<U extends AnyObj, T extends string = string, D extends boolean = false>(
   cssNamesList: (CssNamesItem<T, U> | undefined)[],
   cssAttrsList: (CssAttrsItem<T, U> | undefined)[],
-  metaInfo = {} as U,
+  options?: { defer?: D, meta?: U },
 ) {
-  const cssNames = useComputed(
-    () => cssNamesList.reduce<Partial<Record<T, string>>>((result, item) => {
-      item && Object.entries(item).forEach(([k, v]) => {
-        const values = isFunction(v) ? v(metaInfo) : v
+  const { defer, meta } = options ?? {}
 
-        if (!values) return
+  const cssNames = cssNamesList.reduce<Partial<Record<T, D extends true ? any : string>>>((result, item) => {
+    item && Object.entries(item).forEach(([k, v]) => {
+      const values: any = defer ? composeCssNames(result[k as T], v) : resolveCssItem(v, meta)
 
-        result[k as T] = cn(result[k as T], values)
-      })
+      if (!values) return
 
-      return result
-    }, {}),
-    cssNamesList,
-    shouldSemanticItemsUpdate,
-  )
+      result[k as T] = defer ? values : cn(result[k as T], values)
+    })
 
-  const cssAttrs = useComputed(
-    () => cssAttrsList.reduce<Partial<Record<T, CSSProperties>>>((result, item) => {
-      item && Object.entries(item).forEach(([k, v]) => {
-        const values = isFunction(v) ? v(metaInfo) : v
+    return result
+  }, {})
 
-        if (!values) return
+  const cssAttrs = cssAttrsList.reduce<Partial<Record<T, D extends true ? any : CSSProperties>>>((result, item) => {
+    item && Object.entries(item).forEach(([k, v]) => {
+      const values: any = defer ? composeCssAttrs(result[k as T], v) : resolveCssItem(v, meta)
 
-        result[k as T] = { ...result[k as T], ...values }
-      })
+      if (!values) return
 
-      return result
-    }, {}),
-    cssAttrsList,
-    shouldSemanticItemsUpdate,
-  )
+      result[k as T] = defer ? values : { ...result[k as T], ...values }
+    })
+
+    return result
+  }, {})
 
   return [cssNames, cssAttrs] as const
 }

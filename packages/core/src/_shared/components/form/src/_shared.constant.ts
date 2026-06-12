@@ -24,6 +24,6 @@ export const VALIDATE_INITIAL = Symbol.for('_$mink-form-field-validate-initial$_
 export const COPIED = Symbol.for('_$copied$_')
 
 /**
- * @description 唯一标识，表示字段是否要被删除
+ * @description 唯一标识，表示该字段名是否被链接（注册）
  */
-export const DELETE = Symbol.for('_$delete$_')
+export const LINKED = Symbol.for('_$linked$_')

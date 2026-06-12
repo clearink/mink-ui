@@ -4,8 +4,7 @@ import type { SemanticsStyled } from '../../_shared/types/styled'
 import type { SegmentedOption, SegmentedValue } from './_shared.props'
 
 export interface SegmentedProps extends
-  SemanticsStyled<'root' | 'inner' | 'item' | 'thumb'> {
-
+  SemanticsStyled<'root' | 'inner' | 'item' | 'thumb', SegmentedProps> {
   /**
    * @description 选项数据
    */
@@ -40,7 +39,7 @@ export interface SegmentedProps extends
   /**
    * @description 方向
    */
-  oreientation?: Orientation
+  orientation?: Orientation
 
   /**
    * @description 选项变化时的回调函数

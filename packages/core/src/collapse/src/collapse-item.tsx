@@ -1,10 +1,10 @@
 import type { CollapseItemProps } from './collapse-item.props'
 
 import { isFunction } from '@mink-ui/shared/is/is-function'
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
 
 import { CssTransition } from '../../_shared/components/transition/src'
 import { defineName } from '../../_shared/utils/define-name'
+import { isRenderable } from '../../_shared/utils/renderable'
 import { useCollapseItemProps } from './hooks/use-collapse-item-props'
 
 function CollapseItem(props: CollapseItemProps) {
@@ -32,7 +32,9 @@ function CollapseItem(props: CollapseItemProps) {
   const renderExpandIcon = () => {
     const iconNode = isFunction(expandIcon) ? expandIcon({ expanded, name }) : expandIcon
 
-    return !isNullish(iconNode) && (
+    if (!isRenderable(iconNode)) return null
+
+    return (
       <span
         className={cssNames.icon}
         style={cssAttrs.icon}
@@ -60,7 +62,7 @@ function CollapseItem(props: CollapseItemProps) {
           {title}
         </span>
 
-        {!isNullish(extra) && (
+        {isRenderable(extra) && (
           <span className={cssNames.extra} style={cssAttrs.extra}>
             {extra}
           </span>
@@ -68,6 +70,7 @@ function CollapseItem(props: CollapseItemProps) {
       </div>
       <CssTransition
         classNames={`${ns}-motion`}
+        resumeOnCancel
         mountOnEnter={!keepMounted}
         unmountOnExit={!keepMounted}
         when={expanded}

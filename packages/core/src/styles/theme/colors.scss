@@ -163,6 +163,7 @@
 @mixin mink-color-primary($theme) {
   --#{$ns}-color-primary-bg: var(--#{$ns}-color-blue-1);
   --#{$ns}-color-primary-bg-hover: var(--#{$ns}-color-blue-2);
+  --#{$ns}-color-primary-bg-active: var(--#{$ns}-color-blue-7);
   --#{$ns}-color-primary-border: var(--#{$ns}-color-blue-3);
   --#{$ns}-color-primary-border-hover: var(--#{$ns}-color-blue-4);
   --#{$ns}-color-primary-hover: var(--#{$ns}-color-blue-5);
@@ -176,6 +177,7 @@
 @mixin mink-color-success($theme) {
   --#{$ns}-color-success-bg: var(--#{$ns}-color-green-1);
   --#{$ns}-color-success-bg-hover: var(--#{$ns}-color-green-2);
+  --#{$ns}-color-success-bg-active: var(--#{$ns}-color-green-7);
   --#{$ns}-color-success-border: var(--#{$ns}-color-green-3);
   --#{$ns}-color-success-border-hover: var(--#{$ns}-color-green-4);
   --#{$ns}-color-success-hover: var(--#{$ns}-color-green-5);
@@ -189,6 +191,7 @@
 @mixin mink-color-warning($theme) {
   --#{$ns}-color-warning-bg: var(--#{$ns}-color-gold-1);
   --#{$ns}-color-warning-bg-hover: var(--#{$ns}-color-gold-2);
+  --#{$ns}-color-warning-bg-active: var(--#{$ns}-color-gold-7);
   --#{$ns}-color-warning-border: var(--#{$ns}-color-gold-3);
   --#{$ns}-color-warning-border-hover: var(--#{$ns}-color-gold-4);
   --#{$ns}-color-warning-hover: var(--#{$ns}-color-gold-5);
@@ -197,20 +200,6 @@
   --#{$ns}-color-warning-text-hover: var(--#{$ns}-color-gold-8);
   --#{$ns}-color-warning-text: var(--#{$ns}-color-gold-9);
   --#{$ns}-color-warning-text-active: var(--#{$ns}-color-gold-10);
-}
-
-// TODO: 这个颜色后续要改成别的
-@mixin mink-color-info($theme) {
-  --#{$ns}-color-info-bg: var(--#{$ns}-color-blue-1);
-  --#{$ns}-color-info-bg-hover: var(--#{$ns}-color-blue-2);
-  --#{$ns}-color-info-border: var(--#{$ns}-color-blue-3);
-  --#{$ns}-color-info-border-hover: var(--#{$ns}-color-blue-4);
-  --#{$ns}-color-info-hover: var(--#{$ns}-color-blue-5);
-  --#{$ns}-color-info: var(--#{$ns}-color-blue-6);
-  --#{$ns}-color-info-active: var(--#{$ns}-color-blue-7);
-  --#{$ns}-color-info-text-hover: var(--#{$ns}-color-blue-8);
-  --#{$ns}-color-info-text: var(--#{$ns}-color-blue-9);
-  --#{$ns}-color-info-text-active: var(--#{$ns}-color-blue-10);
 }
 
 @mixin mink-color-error($theme) {
@@ -247,14 +236,14 @@
     --#{$ns}-color-control-item-bg-active-disabled: var(--#{$ns}-color-fill);
     --#{$ns}-color-control-item-bg-active-hover: var(--#{$ns}-color-primary-bg-hover);
     --#{$ns}-color-control-item-bg-hover: var(--#{$ns}-color-fill-tertiary);
-    --#{$ns}-color-control-outline: #0591ff;
+    --#{$ns}-color-control-outline: var(--#{$ns}-color-primary-border);
     --#{$ns}-color-control-tmp-outline: var(--#{$ns}-color-fill-quaternary);
   } @else if $theme == 'dark' {
     --#{$ns}-color-control-item-bg-active: var(--#{$ns}-color-primary-bg);
     --#{$ns}-color-control-item-bg-active-disabled: var(--#{$ns}-color-fill);
     --#{$ns}-color-control-item-bg-active-hover: var(--#{$ns}-color-primary-bg-hover);
     --#{$ns}-color-control-item-bg-hover: var(--#{$ns}-color-fill-tertiary);
-    --#{$ns}-color-control-outline: var(--#{$ns}-color-primary-bg);
+    --#{$ns}-color-control-outline: var(--#{$ns}-color-primary-border);
     --#{$ns}-color-control-tmp-outline: var(--#{$ns}-color-fill-quaternary);
   }
 }

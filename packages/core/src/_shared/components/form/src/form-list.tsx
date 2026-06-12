@@ -33,7 +33,7 @@ function InternalFormList(props: InternalFormListProps) {
 
   const [listControl, listHelpers] = useConstant(() => FormListControl.expose())
 
-  useInvoke(() => { listControl.updateInternals(props, formInstance, listName) })
+  useInvoke(() => { listControl._bind(props, formInstance, listName) })
 
   const listContextValue = useMemo<InternalFormListContextState>(() => {
     return { listControl, listName, listId: _getId(listName) }

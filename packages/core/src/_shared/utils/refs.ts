@@ -17,7 +17,7 @@ export function fillRef<T>(el: T, ref?: Ref<T>): void | VoidFn {
   return () => { ref.current = null }
 }
 
-export function mergeRefs<T>(...refs: (MayBe<Ref<T>>)[]): RefCallback<T> | undefined {
+export function combineRefs<T>(...refs: (MayBe<Ref<T>>)[]): RefCallback<T> | undefined {
   const filtered = refs.filter(ref => !isNullish(ref))
 
   // 如果都是 nullish，则返回 undefined

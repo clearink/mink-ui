@@ -1,6 +1,5 @@
 import type { NotificationListProps, OmittedNotificationListProps, PickedNotificationListProps } from '../notification-list.props'
 
-import { fallback } from '@mink-ui/shared/function/fallback'
 import { omit } from '@mink-ui/shared/object/omit'
 
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
@@ -15,12 +14,12 @@ export function useNotificationListProps(props: NotificationListProps) {
 
   const {
     onGroupExited,
-    top = fallback(globalConfig.top, defaultProps.top),
-    bottom = fallback(globalConfig.bottom, defaultProps.bottom),
-    gap = fallback(globalConfig.gap, defaultProps.gap),
-    stack = fallback(globalConfig.stack, defaultProps.stack),
-    maxCount = fallback(globalConfig.maxCount, defaultProps.maxCount),
-    placement = fallback(globalConfig.placement, defaultProps.placement)!,
+    top = defaultProps.top,
+    bottom = defaultProps.bottom,
+    gap = defaultProps.gap,
+    stack = defaultProps.stack,
+    maxCount = defaultProps.maxCount,
+    placement = defaultProps.placement,
   } = props
 
   const omitted = props as OmittedNotificationListProps
@@ -39,11 +38,11 @@ export function useNotificationListProps(props: NotificationListProps) {
     isHovering,
     isExpanded,
     listHeight,
-    itemLayouts,
+    itemCssVars,
     stackEnable,
-    handleOnMouseEnter,
-    handleOnMouseLeave,
-    handleSyncHovering,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleRecheckHover,
   } = useNotificationListLayouts(picked, omitted)
 
   const { ns, classNames } = useNotificationListClassNames(picked, omitted, {
@@ -64,15 +63,16 @@ export function useNotificationListProps(props: NotificationListProps) {
       { root: globalConfig.style },
       props.styles,
       { root: props.style },
+      { root: { height: listHeight } },
+      { root: isTopSided(placement) ? { top } : { bottom } },
     ],
-    { omitted: props },
+    { meta: props },
   )
 
   const outerCssNames = { ...omit(cssNames, ['root', 'item']), root: cssNames.item }
   const outerCssAttrs = { ...omit(cssAttrs, ['root', 'item']), root: cssAttrs.item }
-  const extraCssAttrs = { height: listHeight, ...isTopSided(placement) ? { top } : { bottom } }
 
-  const handleOnGroupExited = () => { handleSyncHovering(); onGroupExited(placement) }
+  const handleGroupExited = () => { handleRecheckHover(); onGroupExited(placement) }
 
   return {
     omitted,
@@ -81,14 +81,13 @@ export function useNotificationListProps(props: NotificationListProps) {
     cssAttrs,
     ctrl,
     isHovering,
-    itemLayouts,
+    itemCssVars,
     stackEnable,
-    extraCssAttrs,
     outerCssNames,
     outerCssAttrs,
-    handleOnMouseEnter,
-    handleOnMouseLeave,
-    handleSyncHovering,
-    handleOnGroupExited,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleGroupExited,
+    handleRecheckHover,
   }
 }

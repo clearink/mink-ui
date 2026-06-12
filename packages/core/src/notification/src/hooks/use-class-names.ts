@@ -30,10 +30,10 @@ export function useNotificationListClassNames(
 }
 
 export function useNotificationItemClassNames(omitted: NotificationItemProps) {
-  const { outerNamespace: rootNs, config } = omitted
+  const { outerNamespace: ons, config } = omitted
   const { type } = config
 
-  const ns = useNamespace(preset => `${rootNs || `${preset}-notification`}-item`)
+  const ns = useNamespace(preset => `${ons || `${preset}-notification`}-item`)
 
   return {
     ns,

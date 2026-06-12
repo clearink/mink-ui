@@ -1,4 +1,4 @@
-import type { ManagedTransitionEntry, UniquedTransitionItem } from '../_shared.props'
+import type { ManagedTransitionEntry, UniqueTransitionItem } from '../_shared.props'
 import type { GroupTransitionControl } from './group-transition-control'
 
 import { fallback } from '@mink-ui/shared/function/fallback'
@@ -6,20 +6,20 @@ import { fallback } from '@mink-ui/shared/function/fallback'
 /**
  * @description 获取进入和退出的元素
  */
-export function diff<T extends UniquedTransitionItem>(prev: T[], next: T[]) {
-  const pset = new Set(prev.map(item => item.key))
+export function diff<T extends UniqueTransitionItem>(prev: T[], next: T[]) {
+  const pKeys = new Set(prev.map(item => item.key))
 
-  const nset = new Set(next.map(item => item.key))
+  const nKeys = new Set(next.map(item => item.key))
 
   const enters = new Set<T['key']>()
 
   const exits = new Set<T['key']>()
 
   // next 有 prev 没有
-  nset.forEach((key) => { if (!pset.has(key)) enters.add(key) })
+  nKeys.forEach((key) => { if (!pKeys.has(key)) enters.add(key) })
 
   // prev 有 next 没有
-  pset.forEach((key) => { if (!nset.has(key)) exits.add(key) })
+  pKeys.forEach((key) => { if (!nKeys.has(key)) exits.add(key) })
 
   return [enters, exits] as const
 }
@@ -27,11 +27,11 @@ export function diff<T extends UniquedTransitionItem>(prev: T[], next: T[]) {
 // 并集且有序
 export function union(
   entries: GroupTransitionControl['_entries'],
-  items: UniquedTransitionItem[],
+  items: UniqueTransitionItem[],
 ) {
-  const orders = new Map<UniquedTransitionItem['key'], number>()
+  const orders = new Map<UniqueTransitionItem['key'], number>()
 
-  const result: (ManagedTransitionEntry | UniquedTransitionItem)[] = []
+  const result: (ManagedTransitionEntry | UniqueTransitionItem)[] = []
 
   const map = new Map(entries.map(e => [e.key, e]))
 

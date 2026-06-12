@@ -4,7 +4,8 @@
       "Bash(pnpm changeset:*)",
       "Bash(pnpm add:*)",
       "mcp__ide__getDiagnostics",
-      "WebSearch"
+      "WebSearch",
+      "Bash(gh api *)"
     ]
   }
 }

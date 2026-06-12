@@ -1,8 +1,9 @@
 import type { InternalFormSchedulerProps } from './form-scheduler.props'
 
-import { useImperativeHandle, useLayoutEffect, useState } from 'react'
+import { useImperativeHandle, useState } from 'react'
 import { noop } from '@mink-ui/shared/function/noop'
 
+import { useIsomorphicEffect } from '../../../hooks/use-isomorphic-effect'
 import { defineName } from '../../../utils/define-name'
 
 function InternalFormScheduler(props: InternalFormSchedulerProps) {
@@ -12,7 +13,7 @@ function InternalFormScheduler(props: InternalFormSchedulerProps) {
 
   useImperativeHandle(ref, () => (callback) => { setHandler(() => callback) }, [])
 
-  useLayoutEffect(() => { handler() }, [handler])
+  useIsomorphicEffect(() => { handler() }, [handler])
 
   return null
 }

@@ -1,18 +1,16 @@
 import type { ReactNode } from 'react'
 import type { AnyObj, LiteralUnion, VoidFn } from '@mink-ui/shared/interface'
 import type { InternalFormListContextState } from './_shared.context'
-import type { ExternalFieldName, ExternalFormInstance, InternalFieldName, InternalMetaInfo, MetaChangeEvent, RuleLike } from './_shared.props'
+import type { ExternalFieldName, InternalFieldName, InternalFormFieldRenderFunction, MetaChangeEvent, RuleLike } from './_shared.props'
 import type { FormListControl } from './utils/list-control'
 
 import { isObject } from '@mink-ui/shared/is/is-object'
-
-type FunctionalChildren<V = any> = (params: AnyObj, meta: InternalMetaInfo, form: ExternalFormInstance<V>) => ReactNode
 
 export interface InternalFormFieldProps<V = any> {
   /**
    * @description 子元素
    */
-  children?: ReactNode | FunctionalChildren<V>
+  children?: ReactNode | InternalFormFieldRenderFunction<V>
 
   /**
    * @description 字段名称，根据该字段设置对应 Form 属性

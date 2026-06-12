@@ -12,7 +12,7 @@ import { defineName } from '../../_shared/utils/define-name'
 import { TouchEffectContext } from '../../touch-effect/src/_shared.context'
 import { DisabledContext, GlobalConfigContext, LayerLevelContext, SizeContext } from './_shared.context'
 import { excludedConfigProviderProps } from './config-provider.props'
-import { shouldGlobalConfigUpdate } from './utils/helpers'
+import { isGlobalConfigEqual } from './utils/helpers'
 
 function ConfigProvider(props: ConfigProviderProps) {
   const globalConfigContext = GlobalConfigContext.use()
@@ -32,7 +32,7 @@ function ConfigProvider(props: ConfigProviderProps) {
 
   const iconConfig = useMemo(() => ({ prefixCls: iconPrefixCls }), [iconPrefixCls])
 
-  const globalConfigContextValue = useComputed(() => globalConfig, globalConfig, shouldGlobalConfigUpdate)
+  const globalConfigContextValue = useComputed(() => globalConfig, globalConfig, isGlobalConfigEqual)
 
   let element = props.children
 

@@ -8,8 +8,10 @@ export function useTooltipClassNames(omitted: OmittedTooltipProps) {
   const ns = useNamespace('tooltip', prefixCls)
 
   return {
-    root: ns,
-    arrow: `${ns}__arrow`,
-    wrapper: `${ns}-wrapper`,
+    classNames: {
+      root: ns,
+      arrow: `${ns}__arrow`,
+      wrapper: `${ns}-wrapper`,
+    },
   }
 }

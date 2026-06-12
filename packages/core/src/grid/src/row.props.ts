@@ -8,7 +8,7 @@ import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface RowInjectedProps extends
   HasChildren,
-  SemanticsStyled<'root'> {
+  SemanticsStyled<'root', RowProps> {
   /**
    * @description 外部引用
    */

@@ -1,0 +1,179 @@
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
+
+$ns-modal: #{$ns}-modal;
+
+.#{$ns-modal} {
+  @include reset-component();
+
+  --#{$ns-modal}-xs-width: 520px;
+  --#{$ns-modal}-sm-width: var(--#{$ns-modal}-xs-width);
+  --#{$ns-modal}-md-width: var(--#{$ns-modal}-sm-width);
+  --#{$ns-modal}-lg-width: var(--#{$ns-modal}-md-width);
+  --#{$ns-modal}-xl-width: var(--#{$ns-modal}-lg-width);
+  --#{$ns-modal}-xxl-width: var(--#{$ns-modal}-xl-width);
+
+  position: relative;
+  top: 100px;
+  width: var(--#{$ns-modal}-xs-width);
+  max-width: calc(100vw - var(--#{$ns}-unit-8));
+  margin: 0 auto;
+  pointer-events: none;
+
+  &.#{$ns-modal}--confirm {
+    .#{$ns-modal}__status-icon {
+      position: absolute;
+      color: var(--#{$ns}-color-warning);
+      top: var(--#{$ns}-unit-5);
+      left: var(--#{$ns}-unit-6);
+    }
+
+    .#{$ns-modal}__header,
+    .#{$ns-modal}__body {
+      padding-inline-start: var(--#{$ns}-unit-8);
+    }
+  }
+
+  &.#{$ns-modal}--confirm-info {
+    .#{$ns-modal}__status-icon {
+      color: var(--#{$ns}-color-primary);
+    }
+  }
+
+  &.#{$ns-modal}--confirm-warning {
+    .#{$ns-modal}__status-icon {
+      color: var(--#{$ns}-color-warning);
+    }
+  }
+
+  &.#{$ns-modal}--confirm-error {
+    .#{$ns-modal}__status-icon {
+      color: var(--#{$ns}-color-error);
+    }
+  }
+
+  &.#{$ns-modal}--confirm-success {
+    .#{$ns-modal}__status-icon {
+      color: var(--#{$ns}-color-success);
+    }
+  }
+
+  @include media(xs) {
+    width: var(--#{$ns-modal}-xs-width);
+  }
+
+  @include media(sm) {
+    width: var(--#{$ns-modal}-sm-width);
+  }
+
+  @include media(md) {
+    width: var(--#{$ns-modal}-md-width);
+  }
+
+  @include media(lg) {
+    width: var(--#{$ns-modal}-lg-width);
+  }
+
+  @include media(xl) {
+    width: var(--#{$ns-modal}-xl-width);
+  }
+
+  @include media(xxl) {
+    width: var(--#{$ns-modal}-xxl-width);
+  }
+
+  &__main {
+    position: relative;
+    padding: var(--#{$ns}-padding-md) var(--#{$ns}-padding-lg);
+    background-color: var(--#{$ns}-color-bg-container);
+    border-radius: var(--#{$ns}-border-radius);
+    box-shadow: var(--#{$ns}-box-shadow);
+    pointer-events: auto;
+  }
+
+  &__status-icon {
+    flex-shrink: 0;
+    font-size: var(--#{$ns}-unit-6);
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: var(--#{$ns}-unit-3);
+    right: var(--#{$ns}-unit-3);
+    flex-shrink: 0;
+    height: var(--#{$ns}-size-xl);
+    line-height: var(--#{$ns}-size-xl);
+    width: var(--#{$ns}-size-xl);
+    font-size: var(--#{$ns}-font-size-xl);
+    background-color: var(--#{$ns}-color-transparent);
+    border: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--#{$ns}-color-icon);
+    border-radius: var(--#{$ns}-border-radius);
+    transition:
+      background-color var(--#{$ns}-motion-duration-2),
+      color var(--#{$ns}-motion-duration-2);
+
+    &:not([disabled]) {
+      &:hover {
+        background-color: var(--#{$ns}-color-bg-text-hover);
+        color: var(--#{$ns}-color-icon-hover);
+      }
+
+      &:active {
+        background-color: var(--#{$ns}-color-bg-text-active);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--#{$ns}-outline-width-focus) solid var(--#{$ns}-color-control-outline);
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+    }
+  }
+
+  &__header {
+    margin-bottom: var(--#{$ns}-unit-2);
+    padding-inline-end: var(--#{$ns}-unit-5);
+  }
+
+  &__title {
+    display: inline-block;
+    color: var(--#{$ns}-color-text);
+    font-weight: var(--#{$ns}-font-weight-strong);
+    font-size: var(--#{$ns}-font-size-lg);
+    line-height: var(--#{$ns}-line-height);
+    word-wrap: break-word;
+  }
+
+  &__body {
+    font-size: var(--#{$ns}-font-size);
+    line-height: var(--#{$ns}-line-height);
+    word-wrap: break-word;
+  }
+
+  &__footer {
+    margin-top: var(--#{$ns}-unit-3);
+    text-align: end;
+
+    .#{$ns}-button + .#{$ns}-button {
+      margin-left: var(--#{$ns}-margin-xs);
+    }
+  }
+}
+
+.#{$ns-modal}-mask {
+  @include full-screen();
+
+  background-color: var(--#{$ns}-color-bg-mask);
+  pointer-events: none;
+}
+
+.#{$ns-modal}-wrapper {
+  @include full-screen();
+}

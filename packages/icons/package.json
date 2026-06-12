@@ -1,7 +1,7 @@
 {
   "name": "@mink-ui/icons",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.17",
   "description": "mink-ui icons",
   "author": "clearink",
   "license": "MIT",
@@ -4206,7 +4206,7 @@
     "types": "./esm/index.d.ts"
   },
   "scripts": {
-    "prepublishOnly": "tsc -b & mink build:icons",
+    "prepublishOnly": "tsc -b & mink build:icons & pnpm run sub",
     "gen": "mink gen:icons",
     "sub": "mink sub:icons",
     "build": "mink build:icons",

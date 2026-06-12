@@ -4,7 +4,7 @@ import { isUndefined } from '@mink-ui/shared/is/is-undefined'
 
 import { useNamespace } from '../../../_shared/hooks/use-settings/use-namespace'
 import { cn } from '../../../_shared/libs/cn'
-import { isBuiltinOrientation } from '../../../config-provider/src/utils/orientation'
+import { isBuiltinOrientation } from '../../../_shared/utils/orientation'
 import { formatSpaceGutter } from '../utils/helpers'
 
 export function useSpaceClassNames(picked: PickedSpaceProps, omitted: OmittedSpaceProps) {

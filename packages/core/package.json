@@ -1,7 +1,7 @@
 {
   "name": "@mink-ui/core",
   "type": "module",
-  "version": "0.0.14",
+  "version": "0.0.17",
   "description": "mink-ui react components",
   "author": "clearink",
   "license": "MIT",
@@ -22,6 +22,7 @@
   "module": "./src/index.ts",
   "types": "./src/index.ts",
   "files": [
+    "dist",
     "esm",
     "lib"
   ],

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import type { AnyObj, VoidFn } from '@mink-ui/shared/interface'
 import type { InternalFormProviderContextState, InternalFormSharedContextState } from './_shared.context'
 import type { ScheduleCallback } from './form-scheduler.props'
@@ -144,6 +145,20 @@ export interface RuleLike {
 }
 
 /**
+ * @description InternalForm render props
+ */
+export interface InternalFormRenderFunction<S = any> {
+  (state: S, form: InternalFormInstance<S>): ReactNode
+}
+
+/**
+ * @description InternalFormField render props
+ */
+export interface InternalFormFieldRenderFunction<V = any> {
+  (params: AnyObj, meta: InternalMetaInfo, form: ExternalFormInstance<V>): ReactNode
+}
+
+/**
  * @description 表单调度 action
  */
 export type FormDispatchAction
@@ -217,6 +232,16 @@ export interface IsFieldsTouchedFunction {
  */
 export interface InternalHooksReturn<S = any> {
   /**
+   * @description 绑定最新的数据
+   */
+  _bind: (
+    picked: PickedInternalFormProps<S>,
+    omitted: OmittedInternalFormProps<S>,
+    provider: InternalFormProviderContextState | null,
+    shared: InternalFormSharedContextState | null,
+  ) => void
+
+  /**
    * @description 调度方法
    */
   dispatch: (action: FormDispatchAction) => void
@@ -242,16 +267,6 @@ export interface InternalHooksReturn<S = any> {
   setFieldsInfo: (fields: ExternalFieldInfo[]) => void
 
   /**
-   * @description 更新内部状态
-   */
-  updateInternals: (
-    picked: PickedInternalFormProps<S>,
-    omitted: OmittedInternalFormProps<S>,
-    provider: InternalFormProviderContextState | null,
-    shared: InternalFormSharedContextState | null,
-  ) => void
-
-  /**
    * @description 设置字段初始值 (同时返回当前字段值)
    */
   defineInitialValue: (control: FormFieldControl) => any
@@ -264,7 +279,7 @@ export interface InternalHooksReturn<S = any> {
   /**
    * @description 更新依赖字段
    */
-  updateFieldGraph: (control: FormFieldControl) => void
+  updateFieldEdges: (control: FormFieldControl) => void
 
   /**
    * @description 保存内部字段信息

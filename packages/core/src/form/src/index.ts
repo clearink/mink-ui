@@ -24,6 +24,7 @@ const Form = Object.assign(_Form, {
  * |---------------------------------------------------------|
  */
 
+export type { FormInstance } from './_shared.props'
 export type { FormErrorListProps } from './form-error-list.props'
 export type { FormItemProps } from './form-item.props'
 export type { FormListProps } from './form-list.props'

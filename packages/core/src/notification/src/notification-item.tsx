@@ -1,12 +1,10 @@
 import type { NotificationItemProps } from './notification-item.props'
 
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
-
 import { cn } from '../../_shared/libs/cn'
 import { cloneElementWithOptions } from '../../_shared/utils/children'
 import { defineName } from '../../_shared/utils/define-name'
-import { normalizeClosable } from '../../config-provider/src/utils/closable'
-import { mapStatusIcon } from '../../config-provider/src/utils/status'
+import { isRenderable } from '../../_shared/utils/renderable'
+import { mapStatusIcon } from '../../_shared/utils/status'
 import { useNotificationItemProps } from './hooks/use-notification-item-props'
 
 function NotificationItem(props: NotificationItemProps) {
@@ -14,15 +12,31 @@ function NotificationItem(props: NotificationItemProps) {
     omitted,
     cssNames,
     cssAttrs,
-    mergedRef,
-    handleOnMouseEnter,
-    handleOnMouseLeave,
-    handleCloseOnClick,
+    refCombined,
+    closeIconRender,
+    handleClose,
+    handleMouseEnter,
+    handleMouseLeave,
   } = useNotificationItemProps(props)
 
   const { config } = omitted
 
-  const { type, closable, closeIcon, title, description } = config
+  const { type, title, description } = config
+
+  const renderCloseIcon = () => {
+    return closeIconRender((icon, disabled) => (
+      <button
+        className={cssNames.closeBtn}
+        style={cssAttrs.closeBtn}
+        disabled={disabled}
+        tabIndex={0}
+        type="button"
+        onClick={handleClose}
+      >
+        {icon}
+      </button>
+    ))
+  }
 
   const renderStatusIcon = () => {
     const statusIcon = mapStatusIcon(type)
@@ -36,47 +50,28 @@ function NotificationItem(props: NotificationItemProps) {
     })
   }
 
-  const renderCloseIcon = () => {
-    const { closeIcon: closeIconElement } = normalizeClosable({
-      currentState: { closable, closeIcon },
-      defaultState: {
-        closeIconRender: icon => (
-          <button
-            className={cssNames.closeBtn}
-            style={cssAttrs.closeBtn}
-            tabIndex={0}
-            type="button"
-            onClick={handleCloseOnClick}
-          >
-            {icon}
-          </button>
-        ),
-      },
-    })
-
-    return closeIconElement
-  }
-
   return (
     <div
-      ref={mergedRef}
+      ref={refCombined}
       className={cssNames.root}
       style={cssAttrs.root}
-      onMouseEnter={handleOnMouseEnter}
-      onMouseLeave={handleOnMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
+      {renderCloseIcon()}
+
       {renderStatusIcon()}
 
       <div className={cssNames.content} style={cssAttrs.content}>
         <div className={cssNames.title} style={cssAttrs.title}>{title}</div>
-        {!isNullish(description) && (
+
+        {isRenderable(description) && (
           <div className={cssNames.description} style={cssAttrs.description}>
             {description}
           </div>
         )}
       </div>
 
-      {renderCloseIcon()}
     </div>
   )
 }

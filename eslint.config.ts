@@ -30,7 +30,9 @@ export default antfu(
         'react/jsx-key-before-spread': 'off',
         'react/no-unnecessary-use-prefix': 'off',
         'react/component-hook-factories': 'off',
-        'react/exhaustive-deps': ['warn', { additionalHooks: 'useIsomorphicEffect' }],
+        'react/exhaustive-deps': ['warn', { additionalHooks: 'useIsomorphicEffect|useInsertionEffect' }],
+        'react/set-state-in-effect': 'off',
+        'react/use-state': ['warn', { enforceSetterName: false }],
         'react-dom/no-dangerously-set-innerhtml': 'off',
         'react-dom/no-flush-sync': 'off',
         'react-dom/no-missing-button-type': 'off',
@@ -61,6 +63,7 @@ export default antfu(
       'no-console': 'off',
       'no-else-return': ['error', { allowElseIf: false }],
       'eslint-comments/no-unlimited-disable': 'off',
+      'prefer-promise-reject-errors': 'off',
     },
   },
   {

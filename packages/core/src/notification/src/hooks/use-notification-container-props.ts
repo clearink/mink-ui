@@ -1,26 +1,25 @@
 import type { NotificationContainerProps } from '../notification-container.props'
 
-import { useImperativeHandle } from 'react'
+import { useImperativeHandle, useState } from 'react'
 
-import { useExactState } from '../../../_shared/hooks/use-exact-state'
-import { globalNotificationConfig } from '../utils/global-singleton'
+import { globalNotificationConfig } from '../utils/singleton-config'
 import { useNotification } from './use-notification'
 
 export function useNotificationContainerProps(props: NotificationContainerProps) {
   const { ref } = props
 
-  const [currentnConfig, setCurrentConfig] = useExactState(() => globalNotificationConfig.get())
+  const [currConfig, setCurrConfig] = useState(() => globalNotificationConfig.get())
 
-  const [api, ctxHolder] = useNotification(currentnConfig)
+  const [api, ctxHolder] = useNotification(currConfig)
 
   useImperativeHandle(ref, () => ({
     get open() { return api.open },
     get close() { return api.close },
-    sync: () => { setCurrentConfig(globalNotificationConfig.get()) },
-  }), [api, setCurrentConfig])
+    sync: () => { setCurrConfig(globalNotificationConfig.get()) },
+  }), [api, setCurrConfig])
 
   return {
     ctxHolder,
-    notificationConfig: currentnConfig,
+    notificationConfig: currConfig,
   }
 }

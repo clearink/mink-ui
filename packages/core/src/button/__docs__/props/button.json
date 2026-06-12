@@ -55,7 +55,7 @@
   {
     "name": "theme",
     "enum": true,
-    "type": ["danger", "info", "primary", "success", "warning"],
+    "type": ["danger", "primary", "success", "warning", "info"],
     "defaultValue": "primary",
     "zh-CN": "按钮主题",
     "en-US": "Button theme"
@@ -63,14 +63,14 @@
   {
     "name": "variant",
     "enum": true,
-    "type": ["dashed", "filled", "outlined", "link", "text"],
+    "type": ["solid", "outlined", "dashed", "filled", "text", "link"],
     "defaultValue": "outlined",
     "zh-CN": "按钮风格",
     "en-US": "Button variant"
   },
   {
     "name": "onClick",
-    "type": "(event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void",
+    "type": "(event: React.MouseEvent<HTMLButtonElement>) => void",
     "zh-CN": "点击事件",
     "en-US": "Click event"
   },
@@ -81,33 +81,9 @@
     "en-US": "Button content"
   },
   {
-    "name": "className",
-    "type": "string",
-    "zh-CN": "自定义类名",
-    "en-US": "Custom class name"
-  },
-  {
-    "name": "style",
-    "type": "React.CSSProperties",
-    "zh-CN": "自定义样式",
-    "en-US": "Custom style"
-  },
-  {
-    "name": "prefixCls",
-    "type": "string",
-    "zh-CN": "自定义类名前缀",
-    "en-US": "Custom class name prefix"
-  },
-  {
-    "name": "classNames",
-    "type": "Record<'root' | 'icon' | 'text', style>",
-    "zh-CN": "自定义类名",
-    "en-US": "Custom class name"
-  },
-  {
-    "name": "styles",
-    "type": "Record<'root' | 'icon' | 'text', React.CSSProperties>",
-    "zh-CN": "自定义样式",
-    "en-US": "Custom style"
+    "name": "...",
+    "type": "SemanticsStyled<'root' | 'icon' | 'text', ButtonProps>",
+    "zh-CN": "语义化样式",
+    "en-US": "Semantics styles"
   }
 ]

@@ -94,7 +94,7 @@
     "en-US": "Transition config"
   },
   {
-    "name": "onOpenChange",
+    "name": "onIsOpenChange",
     "type": "(isOpen: boolean) => void",
     "zh-CN": "打开/关闭状态变化回调",
     "en-US": "Callback when open state changes"

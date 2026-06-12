@@ -35,7 +35,7 @@ import { FieldsValidateError, FormValidateError } from './error'
 import { FakeFieldControl } from './field-control'
 import { normalizeGetFieldsValueOptions, normalizeIsFieldsTouchedOptions } from './helpers'
 import { _getId, getIn, hasIn, relation } from './path'
-import { defineIn, deleteIn, mergeIn } from './value'
+import { defineIn, deleteIn, linkIn, mergeIn, unlinkIn } from './value'
 
 export class FormControl<S = any> {
   private $other: FormOtherControl
@@ -90,15 +90,15 @@ export class FormControl<S = any> {
     const { $other, $scheduler, $controls, $dispatch, $initial } = this
 
     return {
+      _bind: $other._bind,
       dispatch: $dispatch.dispatch,
       registerField: $dispatch.registerField,
       registerWatch: $other.registerWatch,
       registerScheduler: $scheduler.registerScheduler,
       setFieldsInfo: $dispatch.setFieldsInfo,
-      updateInternals: $other.updateInternals,
       defineInitialValue: $initial.defineInitialValue,
       updateControlsMap: $controls.updateControlsMap,
-      updateFieldGraph: $other.updateFieldGraph,
+      updateFieldEdges: $other.updateFieldEdges,
       defineFormInitials: $dispatch.defineFormInitials,
       saveInternalFields: $dispatch.saveInternalFields,
       getFormListControl: $controls.getFormListControl,
@@ -162,7 +162,7 @@ export class FormOtherControl<S = any> {
   /**
    * @description 记录字段依赖关系
    */
-  private _graphs = new Map<string, Set<FormFieldControl>>()
+  private _edges = new Map<string, Set<FormFieldControl>>()
 
   /**
    * @description useWatch 监听事件
@@ -172,16 +172,9 @@ export class FormOtherControl<S = any> {
   constructor(public forceUpdate: VoidFn) {}
 
   /**
-   * @description 表单是否为 render props
-   */
-  public isFunctional = () => {
-    return isFunction(this._omitted.children)
-  }
-
-  /**
    * @description 更新内部状态
    */
-  public updateInternals = (
+  public _bind = (
     picked: PickedInternalFormProps<S>,
     omitted: OmittedInternalFormProps<S>,
     provider: InternalFormProviderContextState | null,
@@ -199,6 +192,11 @@ export class FormOtherControl<S = any> {
   }
 
   /**
+   * @description 表单是否为 render props
+   */
+  public isFunctional = () => isFunction(this._omitted.children)
+
+  /**
    * @description 是否保留字段值
    */
   public isKeepFieldValue = (control: FormFieldControl) => {
@@ -212,13 +210,13 @@ export class FormOtherControl<S = any> {
   /**
    * @description 收集依赖的字段
    */
-  public collectFieldGraph = (controls: FormFieldControl[], set: Set<FormFieldControl>) => {
+  public collectFieldEdges = (controls: FormFieldControl[], set: Set<FormFieldControl>) => {
     if (!controls.length) return
 
     const next: FormFieldControl[] = []
 
     controls.forEach(({ _id }) => {
-      const collection = this._graphs.get(_id)
+      const collection = this._edges.get(_id)
 
       collection && collection.forEach((ctrl) => {
         if (set.has(ctrl) || !ctrl.isDirty()) return
@@ -229,13 +227,13 @@ export class FormOtherControl<S = any> {
       })
     })
 
-    this.collectFieldGraph(next, set)
+    this.collectFieldEdges(next, set)
   }
 
   /**
    * @description 建立依赖关系
    */
-  public buildFieldGraph = (control: FormFieldControl) => {
+  public buildFieldEdges = (control: FormFieldControl) => {
     const { dependencies = [] } = control._props
 
     dependencies.forEach((name) => {
@@ -243,32 +241,32 @@ export class FormOtherControl<S = any> {
 
       if (!id || id === control._id) return
 
-      const set = this._graphs.get(id) || new Set()
+      const set = this._edges.get(id) || new Set()
 
-      this._graphs.set(id, set.add(control))
+      this._edges.set(id, set.add(control))
     })
 
-    return () => { this.cleanFieldGraph(control) }
+    return () => { this.cleanFieldEdges(control) }
   }
 
   /**
    * @description 清理依赖关系
    */
-  public cleanFieldGraph = (control: FormFieldControl) => {
-    this._graphs.forEach((set, id) => {
+  public cleanFieldEdges = (control: FormFieldControl) => {
+    this._edges.forEach((set, id) => {
       if (set.has(control)) set.delete(control)
 
-      if (!set.size) this._graphs.delete(id)
+      if (!set.size) this._edges.delete(id)
     })
   }
 
   /**
    * @description 更新依赖关系
    */
-  public updateFieldGraph = (control: FormFieldControl) => {
-    this.cleanFieldGraph(control)
+  public updateFieldEdges = (control: FormFieldControl) => {
+    this.cleanFieldEdges(control)
 
-    this.buildFieldGraph(control)
+    this.buildFieldEdges(control)
   }
 
   /**
@@ -386,6 +384,7 @@ export class FormSchedulerControl<S = any> {
    */
   public _initial = {
     defined: new Set<FormFieldControl>(),
+    linked: Object.create(null),
   }
 
   /**
@@ -393,6 +392,7 @@ export class FormSchedulerControl<S = any> {
    */
   public _cleanup = {
     controls: [] as FormFieldControl[],
+    linked: Object.create(null),
   }
 
   /**
@@ -433,8 +433,10 @@ export class FormSchedulerControl<S = any> {
       this._snapshots = null
 
       this._initial.defined.clear()
+      this._initial.linked = Object.create(null)
 
       this._cleanup.controls = []
+      this._cleanup.linked = Object.create(null)
 
       this._events.updated.clear()
       this._events.values = undefined
@@ -450,6 +452,8 @@ export class FormControlsControl {
   public _list: FormFieldControl[] = []
 
   public _map = new Map<string, FormFieldControl[]>()
+
+  public _links = Object.create(null)
 
   constructor(private $other: FormOtherControl) {}
 
@@ -771,6 +775,21 @@ export class FormControlsControl {
   }
 
   /**
+   * @description 创建字段名链接
+   */
+  public buildFieldLinks = (control: FormFieldControl, $scheduler: FormSchedulerControl) => {
+    if (!control._id) return noop
+
+    this._links = linkIn(this._links, control._name, $scheduler._initial.linked)
+
+    return () => {
+      if (this._map.has(control._id)) return
+
+      this._links = unlinkIn(this._links, control._name, $scheduler._cleanup.linked)
+    }
+  }
+
+  /**
    * @description 更新 Form.List 子字段在卸载时的行为
    */
   public updateListFieldBehavior = (control: FormFieldControl) => {
@@ -1039,7 +1058,7 @@ export class FormInitialControl<S = any> {
     for (let i = _name.length; i > 0; i--) {
       const parent = _name.slice(0, i)
 
-      if ($controls._map.get(_getId(parent))) return
+      if (getIn($controls._links, parent)) return
 
       $state.deleteFieldValue(parent, _copied)
     }
@@ -1116,7 +1135,7 @@ export class FormDispatchControl<S = any> {
 
     const dependencies = new Set<FormFieldControl>()
 
-    this.$other.collectFieldGraph(controls, dependencies)
+    this.$other.collectFieldEdges(controls, dependencies)
 
     // 相关字段触发一次更新
     dependencies.forEach((ctrl) => { ctrl.forceUpdate() })
@@ -1317,7 +1336,9 @@ export class FormDispatchControl<S = any> {
   public registerField = (control: FormFieldControl, transient: any) => {
     const cleanup1 = this.$controls.registerControl(control, this.$initial)
 
-    const cleanup2 = this.$other.buildFieldGraph(control)
+    const cleanup2 = this.$controls.buildFieldLinks(control, this.$scheduler)
+
+    const cleanup3 = this.$other.buildFieldEdges(control)
 
     this.dispatch({ type: 'fieldInitial', control, transient })
 
@@ -1325,6 +1346,8 @@ export class FormDispatchControl<S = any> {
       cleanup1()
 
       cleanup2()
+
+      cleanup3()
 
       this.dispatch({ type: 'fieldCleanup', control })
     }

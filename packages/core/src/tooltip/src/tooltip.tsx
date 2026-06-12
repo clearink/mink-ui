@@ -10,24 +10,22 @@ function Tooltip(props: TooltipProps) {
   const {
     picked,
     omitted,
+    rns,
     cssNames,
     cssAttrs,
-    rns,
   } = useTooltipProps(props)
 
-  const { arrow, trigger } = picked
   const { transition } = omitted
 
   return (
     <InternalTooltip
       {...omitted}
+      {...picked}
       className={undefined}
       classNames={cssNames}
       style={undefined}
       styles={cssAttrs}
-      arrow={arrow}
       transition={fallback(transition, `${rns}-zoom-fast`)}
-      trigger={trigger}
     />
   )
 }

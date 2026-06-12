@@ -7,9 +7,9 @@ import type { DividerAlign, DividerVariant } from './_shared.props'
 
 import { exhaustive } from '../../_shared/utils/exhaustive'
 
-export interface DividerProps extends
+export interface DividerInjectedProps extends
   HasChildren,
-  SemanticsStyled<'root' | 'content'> {
+  SemanticsStyled<'root' | 'content', DividerProps> {
   /**
    * @description 方向
    */
@@ -45,6 +45,8 @@ export interface DividerProps extends
    */
   disabled?: CommonDisabled
 }
+
+export interface DividerProps extends DividerInjectedProps {}
 
 export type DefaultNames = 'align' | 'variant' | 'size'
 

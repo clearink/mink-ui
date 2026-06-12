@@ -2,11 +2,10 @@ import type { MetaChangeEvent } from '../../_shared/components/form/src'
 import type { FormItemProps } from './form-item.props'
 import type { NormalizeFormItemChildrenOptions } from './utils/children'
 
-import { isNullish } from '@mink-ui/shared/is/is-nullish'
-
 import InternalForm from '../../_shared/components/form/src'
 import ShouldUpdate from '../../_shared/components/should-update/src'
 import { defineName } from '../../_shared/utils/define-name'
+import { isRenderable } from '../../_shared/utils/renderable'
 import { Row } from '../../grid/src'
 import { PureItemContext } from './_shared.context'
 import FormItemInput from './form-item-input'
@@ -102,7 +101,7 @@ function ImpureFormItem(props: FormItemProps) {
 
   return (
     <Row ref={$item} className={cssNames.root} style={cssAttrs.root}>
-      {!isNullish(label) && (
+      {isRenderable(label) && (
         <FormItemLabel
           {...itemLabelInherited}
           className={cssNames.label}

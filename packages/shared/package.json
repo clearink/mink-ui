@@ -1,7 +1,7 @@
 {
   "name": "@mink-ui/shared",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.17",
   "description": "mink-ui shared utils",
   "author": "clearink",
   "license": "MIT",
@@ -271,7 +271,7 @@
     "types": "./esm/index.d.ts"
   },
   "scripts": {
-    "prepublishOnly": "tsc -b & mink build:shared",
+    "prepublishOnly": "tsc -b & mink build:shared & pnpm run sub",
     "sub": "mink sub:shared",
     "build": "mink build:shared",
     "lint": "eslint src --fix --ignore-pattern \"**/*.md\"",

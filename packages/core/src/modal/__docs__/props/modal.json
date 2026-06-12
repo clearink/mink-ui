@@ -1,0 +1,202 @@
+[
+  {
+    "name": "cancelButtonProps",
+    "type": "ButtonProps",
+    "zh-CN": "取消按钮属性",
+    "en-US": "Props for the cancel button"
+  },
+  {
+    "name": "cancelText",
+    "type": "string",
+    "zh-CN": "取消按钮文本",
+    "en-US": "Text for the cancel button"
+  },
+  {
+    "name": "centered",
+    "type": "boolean",
+    "defaultValue": "false",
+    "zh-CN": "是否垂直居中",
+    "en-US": "Whether to center the modal vertically"
+  },
+  {
+    "name": "children",
+    "type": "React.ReactNode",
+    "zh-CN": "子元素（弹窗内容）",
+    "en-US": "Children (modal content)"
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "zh-CN": "自定义类名",
+    "en-US": "Custom class name"
+  },
+  {
+    "name": "classNames",
+    "type": "Partial<Record<'mask' | 'root' | 'main' | 'header' | 'title' | 'statusIcon' | 'closeBtn' | 'body' | 'footer', string | ((props: ModalProps) => string)>>",
+    "zh-CN": "语义化类名，支持按 slot 自定义",
+    "en-US": "Semantic class names by slot"
+  },
+  {
+    "name": "closable",
+    "type": ["boolean", "CommonClosable"],
+    "defaultValue": "true",
+    "zh-CN": "是否可关闭，传入对象可配置关闭图标、禁用及回调",
+    "en-US": "Whether the modal is closable, pass an object to configure close icon, disabled state and callbacks"
+  },
+  {
+    "name": "confirmButtonProps",
+    "type": "ButtonProps",
+    "zh-CN": "确认按钮属性",
+    "en-US": "Props for the confirm button"
+  },
+  {
+    "name": "confirmLoading",
+    "type": "boolean | { delay?: number }",
+    "zh-CN": "确认按钮加载状态",
+    "en-US": "Loading state of the confirm button"
+  },
+  {
+    "name": "confirmText",
+    "type": "string",
+    "zh-CN": "确认按钮文本",
+    "en-US": "Text for the confirm button"
+  },
+  {
+    "name": "focusable",
+    "type": ["boolean", "{ focusTrap?: boolean; returnFocus?: boolean }"],
+    "defaultValue": "true",
+    "zh-CN": "是否可聚焦，传入对象可配置焦点捕获与返回",
+    "en-US": "Whether the modal is focusable, pass an object to configure focus trap and return"
+  },
+  {
+    "name": "footer",
+    "type": ["React.ReactNode", "(element: ReactNode, params: { confirmButton: ReactNode; cancelButton: ReactNode }) => ReactNode"],
+    "zh-CN": "底部内容，支持自定义渲染函数",
+    "en-US": "Footer content, supports custom render function"
+  },
+  {
+    "name": "fresh",
+    "type": "boolean",
+    "zh-CN": "关闭后仍更新 modal 内容",
+    "en-US": "Keep updating modal content after close"
+  },
+  {
+    "name": "getContainer",
+    "type": "() => HTMLElement",
+    "zh-CN": "指定弹窗挂载的容器",
+    "en-US": "Specify the container to mount the modal"
+  },
+  {
+    "name": "isOpen",
+    "type": "boolean",
+    "zh-CN": "是否显示弹窗",
+    "en-US": "Whether the modal is visible"
+  },
+  {
+    "name": "keyboard",
+    "type": "boolean",
+    "defaultValue": "true",
+    "zh-CN": "是否支持 Esc 键关闭",
+    "en-US": "Whether to close on Esc key press"
+  },
+  {
+    "name": "mask",
+    "type": "boolean",
+    "defaultValue": "true",
+    "zh-CN": "是否显示遮罩层",
+    "en-US": "Whether to show the mask"
+  },
+  {
+    "name": "maskClosable",
+    "type": "boolean",
+    "defaultValue": "true",
+    "zh-CN": "点击遮罩层是否关闭",
+    "en-US": "Whether to close on mask click"
+  },
+  {
+    "name": "mountOnEnter",
+    "type": "boolean",
+    "defaultValue": "true",
+    "zh-CN": "进入动画开始时挂载节点",
+    "en-US": "Mount the node on enter transition"
+  },
+  {
+    "name": "onCancel",
+    "type": "(event: MouseEvent | KeyboardEvent) => void",
+    "zh-CN": "取消回调",
+    "en-US": "Callback when the modal is cancelled"
+  },
+  {
+    "name": "onClosed",
+    "type": "() => void",
+    "zh-CN": "完全关闭后触发",
+    "en-US": "Callback after the modal is fully closed"
+  },
+  {
+    "name": "onOk",
+    "type": "(event: MouseEvent) => void",
+    "zh-CN": "确认回调",
+    "en-US": "Callback when the modal is confirmed"
+  },
+  {
+    "name": "onOpened",
+    "type": "() => void",
+    "zh-CN": "完全打开后触发",
+    "en-US": "Callback after the modal is fully opened"
+  },
+  {
+    "name": "prefixCls",
+    "type": "string",
+    "zh-CN": "自定义类名前缀",
+    "en-US": "Custom class name prefix"
+  },
+  {
+    "name": "slots",
+    "type": "{ main?: (node: ReactNode) => ReactNode }",
+    "zh-CN": "自定义 slot 渲染",
+    "en-US": "Custom slot rendering"
+  },
+  {
+    "name": "style",
+    "type": "React.CSSProperties",
+    "zh-CN": "自定义样式",
+    "en-US": "Custom style"
+  },
+  {
+    "name": "styles",
+    "type": "Partial<Record<'mask' | 'root' | 'main' | 'header' | 'title' | 'statusIcon' | 'closeBtn' | 'body' | 'footer', React.CSSProperties | ((props: ModalProps) => React.CSSProperties)>>",
+    "zh-CN": "语义化样式，支持按 slot 自定义",
+    "en-US": "Semantic styles by slot"
+  },
+  {
+    "name": "title",
+    "type": "React.ReactNode",
+    "zh-CN": "弹窗标题",
+    "en-US": "Modal title"
+  },
+  {
+    "name": "transitions",
+    "type": "Partial<Record<'mask' | 'content', CssTransitionProps['classNames']>>",
+    "zh-CN": "动效配置，支持 mask 和 content 分别设置",
+    "en-US": "Transition configuration for mask and content"
+  },
+  {
+    "name": "unmountOnExit",
+    "type": "boolean",
+    "defaultValue": "false",
+    "zh-CN": "退出动画结束后卸载节点",
+    "en-US": "Unmount the node on exit transition"
+  },
+  {
+    "name": "width",
+    "type": ["number", "string", "Partial<Record<Breakpoint, number | string>>"],
+    "zh-CN": "弹窗宽度，支持响应式断点配置",
+    "en-US": "Modal width, supports responsive breakpoint configuration"
+  },
+  {
+    "name": "zIndex",
+    "type": "number",
+    "zh-CN": "弹窗 z-index",
+    "en-US": "Modal z-index"
+  }
+]

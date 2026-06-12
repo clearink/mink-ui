@@ -3,9 +3,8 @@ import type { NotificationHolderGroup } from './_shared.props'
 import type { NotificationListForwardedProps, NotificationListProps } from './notification-list.props'
 
 import { exhaustive } from '../../_shared/utils/exhaustive'
-import { defaultNotificationConfig } from './_shared.props'
 
-export interface NotificationHolderSharedConfig extends NotificationListForwardedProps {
+export interface NotificationHolderSharedProps extends NotificationListForwardedProps {
   /**
    * @description 自定义 portal 容器，为 false 表示不使用 portal
    */
@@ -19,7 +18,7 @@ export interface NotificationHolderInjectedProps extends Pick<NotificationListPr
   groups: NotificationHolderGroup[]
 }
 
-export interface NotificationHolderProps extends NotificationHolderInjectedProps, NotificationHolderSharedConfig {}
+export interface NotificationHolderProps extends NotificationHolderInjectedProps, NotificationHolderSharedProps {}
 
 export type DefaultNames = 'getContainer'
 
@@ -35,11 +34,7 @@ export type OmittedNotificationHolderProps = Omit<NotificationHolderProps, Defau
  * |---------------------------------------------------------|
  */
 
-export const defaultNotificationHolderProps: PickedNotificationHolderProps = {
-  getContainer: defaultNotificationConfig.getContainer,
-}
-
-export const sharedNotificationHolderConfig = exhaustive<DefaultNames | keyof NotificationHolderSharedConfig>()([
+export const sharedNotificationHolderProps = exhaustive<DefaultNames | keyof NotificationHolderSharedProps>()([
   // extends
   'prefixCls',
   'className',

@@ -37,32 +37,32 @@ $ns-badge: #{$ns}-badge;
     display: flex;
     flex-direction: column;
   }
+}
 
-  &-motion {
-    &-enter-from,
-    &-exit-to {
-      opacity: 0;
-    }
-    &-enter-active,
-    &-exit-active {
-      user-select: none;
-      overflow: hidden;
-      transition:
-        opacity var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
-        width var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
-    }
-
-    &-exit-done {
-      display: none;
-    }
+.#{$ns-badge}-motion {
+  &-enter-from,
+  &-exit-to {
+    opacity: 0;
+  }
+  &-enter-active,
+  &-exit-active {
+    user-select: none;
+    overflow: hidden;
+    transition:
+      opacity var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out),
+      width var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
   }
 
-  &-scroll-number-motion {
-    &-enter-active {
-      transition: transform var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
-    }
-    &-exit-done {
-      display: none !important;
-    }
+  &-exit-done {
+    display: none;
+  }
+}
+
+.#{$ns-badge}-scroll-number-motion {
+  &-enter-active {
+    transition: transform var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-in-out);
+  }
+  &-exit-done {
+    display: none !important;
   }
 }

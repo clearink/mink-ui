@@ -10,7 +10,6 @@ function Row(props: RowProps) {
     cssNames,
     cssAttrs,
     rowGutterContextValue,
-    extraCssAttrs,
     restAttrs,
   } = useRowProps(props)
 
@@ -21,7 +20,7 @@ function Row(props: RowProps) {
       {...restAttrs}
       ref={ref}
       className={cssNames.root}
-      style={{ ...cssAttrs.root, ...extraCssAttrs }}
+      style={cssAttrs.root}
     >
       <RowGutterContext value={rowGutterContextValue}>
         {children}

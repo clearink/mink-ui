@@ -4,13 +4,13 @@ import EditOutlined from '@mink-ui/icons/EditOutlined'
 import styles from './source-link.module.scss'
 
 export default function SourceLink(props: SourceLinkProps) {
-  const { relativePath } = props
+  const { source } = props
 
   return (
     <Tooltip content="在 GitHub 上编辑此示例！">
       <a
         className={styles.source_link}
-        href={`https://github.com/clearink/mink-ui/tree/master/${relativePath}`}
+        href={`https://github.com/clearink/mink-ui/tree/master/${source}`}
         target="_blank"
       >
         <EditOutlined />
@@ -20,5 +20,5 @@ export default function SourceLink(props: SourceLinkProps) {
 }
 
 export interface SourceLinkProps {
-  relativePath: string
+  source: string
 }

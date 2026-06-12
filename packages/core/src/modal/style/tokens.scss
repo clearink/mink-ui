@@ -1,0 +1,4 @@
+@use '../../styles/helpers.scss' as *;
+
+// layout
+$mink-modal-margin: var(--#{$ns}-margin-xl);
