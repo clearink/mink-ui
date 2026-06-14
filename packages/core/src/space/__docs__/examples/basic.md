@@ -13,7 +13,7 @@ export default function App() {
   return (
     <Space>
       Space
-      <Button variant="solid">Solid Button</Button>
+      <Button theme="primary" variant="solid">Solid Button</Button>
       <Button>Default Button</Button>
     </Space>
   )

@@ -1,48 +1,45 @@
 import type { SetStateDispatch } from '../../../_shared/types/state-dispatch'
 import type { UniqueKey } from '../../../_shared/types/unique-key'
-import type { NotificationItemMethodConfig } from '../notification-item.props'
+import type { NotificationMethodParams } from '../_shared.props'
+import type { NotificationItemSharedParams } from '../notification-item.props'
 
 export class NotificationListControl {
+  private _elements = new Map<UniqueKey, HTMLElement>()
+
   private _change!: SetStateDispatch<Map<UniqueKey, number>>
 
-  public $container = { current: null as HTMLDivElement | null }
+  public $root = { current: null as HTMLDivElement | null }
 
-  public get container() {
-    return this.$container.current
+  public get root() {
+    return this.$root.current
   }
 
   public _bind = (change: NotificationListControl['_change']) => {
     this._change = change
   }
 
-  private append = (el: HTMLElement, key: UniqueKey) => {
-    const { offsetHeight: height } = el
-
-    this._change((prev) => {
-      if (prev.get(key) === height) return prev
-
-      const next = new Map(prev)
-
-      next.set(key, height)
-
-      return next
-    })
+  /**
+   * @description 收集 DOM 元素
+   */
+  public collect = (el: HTMLElement | null, item: NotificationItemSharedParams) => {
+    if (!el) this._elements.delete(item.key!)
+    else this._elements.set(item.key!, el)
   }
 
-  private delete = (key: UniqueKey) => {
-    this._change((prev) => {
-      if (!prev.has(key)) return prev
+  /**
+   * @description 测量高度
+   */
+  public measure = (items: NotificationMethodParams[]) => {
+    const next = new Map<UniqueKey, number>()
 
-      const next = new Map(prev)
+    const keys = new Set(items.map(item => item.key))
 
-      next.delete(key)
+    this._elements.forEach((el, key) => {
+      if (!keys.has(key)) return
 
-      return next
+      next.set(key, el.offsetHeight)
     })
-  }
 
-  public collect = (el: HTMLElement | null, item: NotificationItemMethodConfig) => {
-    if (!el) this.delete(`${item.key}`)
-    else this.append(el, `${item.key}`)
+    this._change(() => next)
   }
 }

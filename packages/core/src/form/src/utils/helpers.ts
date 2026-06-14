@@ -62,12 +62,9 @@ export function shouldFormItemMetaInfoUpdate(prev: MetaChangeEvent, next: MetaCh
  * @description propsContextValue 是否相等
  */
 export function isPropsContextValueEqual(prev: FormPropsContextState, next: FormPropsContextState) {
-  const prevKeys = Object.keys(prev) as (keyof FormPropsContextState)[]
-  const nextKeys = Object.keys(next)
+  const keys = Object.keys(prev) as (keyof FormPropsContextState)[]
 
-  if (prevKeys.length !== nextKeys.length) return false
-
-  return prevKeys.every((key) => {
+  return keys.every((key) => {
     const isDeepCompare = ['classNames', 'styles', 'labelCol', 'wrapperCol'].includes(key)
 
     return (isDeepCompare ? isEqual : shallowEqual)(prev[key], next[key])

@@ -9,9 +9,9 @@ $mink-notification-clip-bleed: calc(var(--#{$ns}-unit-10) * -1);
 $mink-notification-item-clip: inset($mink-notification-clip-bleed);
 
 $mink-notification-item-clip-top: inset(
-  var(--nt-clip, 50%) $mink-notification-clip-bleed $mink-notification-clip-bleed $mink-notification-clip-bleed
+  var(--notification-item-clip, 50%) $mink-notification-clip-bleed $mink-notification-clip-bleed $mink-notification-clip-bleed
 );
 
 $mink-notification-item-clip-bottom: inset(
-  $mink-notification-clip-bleed $mink-notification-clip-bleed var(--nt-clip, 50%) $mink-notification-clip-bleed
+  $mink-notification-clip-bleed $mink-notification-clip-bleed var(--notification-item-clip, 50%) $mink-notification-clip-bleed
 );

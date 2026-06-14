@@ -12,9 +12,9 @@ import { Button, Space } from '@mink-ui/core'
 export default function App() {
   return (
     <Space>
-      <Button variant="solid">Button</Button>
-      <Button shape="circle" variant="solid">Btn</Button>
-      <Button shape="round" variant="solid">Button</Button>
+      <Button theme="primary" variant="solid">Button</Button>
+      <Button shape="circle" theme="primary" variant="solid">Btn</Button>
+      <Button shape="round" theme="primary" variant="solid">Button</Button>
     </Space>
   )
 }

@@ -23,9 +23,9 @@ Used to switch between mutually exclusive options, similar to tab switching, sui
 
 <props-table src="./props/segmented.json" />
 
-### SegmentedOption
+### SegmentedOptionType
 
-<props-table src="./props/segmented-option.json" />
+<props-table src="./props/segmented-option-type.json" />
 
 ## Semantic DOM
 

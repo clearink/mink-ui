@@ -1,10 +1,10 @@
 import type { ErrorInfo, ReactNode } from 'react'
+import type { HasChildren } from '../../_shared/types/has-children'
 
-export interface ErrorBoundaryProps {
+export interface ErrorBoundaryProps extends HasChildren {
   message?: ReactNode
   description?: ReactNode
   id?: string
-  children?: ReactNode
 }
 export interface ErrorBoundaryState {
   error: Error | null

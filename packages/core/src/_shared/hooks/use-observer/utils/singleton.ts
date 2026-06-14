@@ -29,10 +29,14 @@ class ResizeMonitor {
   }
 
   private init = () => {
+    if (typeof ResizeObserver !== 'undefined') return
+
     ownerWindow().addEventListener('resize', this.execute)
   }
 
-  private clear = () => {
+  private dispose = () => {
+    if (typeof ResizeObserver !== 'undefined') return
+
     ownerWindow().removeEventListener('resize', this.execute)
   }
 
@@ -42,7 +46,7 @@ class ResizeMonitor {
     this._subscribers++ === 0 && this.init()
 
     return () => {
-      --this._subscribers === 0 && this.clear()
+      --this._subscribers === 0 && this.dispose()
 
       this._subscribers = Math.max(this._subscribers, 0)
     }

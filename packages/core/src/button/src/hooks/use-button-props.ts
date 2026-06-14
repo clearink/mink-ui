@@ -4,12 +4,14 @@ import type { ButtonProps, OmittedButtonProps, PickedButtonProps } from '../butt
 import { fallback } from '@mink-ui/shared/function/fallback'
 import { omit } from '@mink-ui/shared/object/omit'
 
+import { useConstant } from '../../../_shared/hooks/use-constant'
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
 import { DisabledContext, SizeContext } from '../../../config-provider/src/_shared.context'
 import { ButtonGroupContext } from '../_shared.context'
 import { defaultButtonProps as defaultProps, excludedButtonProps } from '../button.props'
 import { useButtonClassNames } from '../hooks/use-class-names'
+import { ButtonControl } from '../utils/button-control'
 import { useButtonLoading } from './use-button-loading'
 
 export function useButtonProps(props: ButtonProps) {
@@ -37,6 +39,8 @@ export function useButtonProps(props: ButtonProps) {
     disabled,
     iconPlacement,
   }
+
+  const ctrl = useConstant(() => new ButtonControl())
 
   const { isLoading, loadingOptions } = useButtonLoading(omitted)
 
@@ -73,6 +77,7 @@ export function useButtonProps(props: ButtonProps) {
     ns,
     cssNames,
     cssAttrs,
+    ctrl,
     isLoading,
     loadingOptions,
     restAttrs,

@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 import type { ExternalFormInstance, MetaChangeEvent } from '../../_shared/components/form/src'
 import type { ExternalFieldName } from '../../_shared/components/form/src/_shared.props'
+import type { GetSemanticsConfig } from '../../_shared/types/has-semantics'
+import type { FormProps } from './form.props'
 
 export type FieldName = ExternalFieldName
 
@@ -22,6 +24,23 @@ export interface FormInstance<S = any> extends ExternalFormInstance<S> {
 
 export type MetaChangeHandler = (event: MetaChangeEvent) => void
 
-export interface FormItemChildren {
+export interface FormItemRenderFunction {
   (form: FormInstance): ReactNode
 }
+
+/**
+ * |---------------------------------------------------------|
+ * |                     global definition                   |
+ * |---------------------------------------------------------|
+ */
+
+export interface FormGlobalConfig extends GetSemanticsConfig<FormProps>,
+  Pick<
+    FormProps,
+    | 'size'
+    | 'colon'
+    | 'requiredMark'
+    | 'validateMessages'
+    | 'variant'
+    | 'scrollToFirstError'
+  > {}

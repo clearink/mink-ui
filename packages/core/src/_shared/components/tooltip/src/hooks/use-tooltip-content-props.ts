@@ -1,38 +1,35 @@
-import type { AnyObj } from '@mink-ui/shared/interface'
 import type { TooltipContentProps } from '../tooltip-content.props'
 
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
+import { pushItem } from '@mink-ui/shared/array/push-item'
 import { ownerWindow } from '@mink-ui/shared/dom/global'
 import { makeEventListener } from '@mink-ui/shared/dom/listener'
+import { batch } from '@mink-ui/shared/function/batch'
 
-import { getElementRef, useCombinedRefs } from '../../../../hooks/use-combined-refs'
 import { useResizeObserver } from '../../../../hooks/use-observer'
 import { getScrollElements } from '../utils/element'
 
 export function useTooltipContentProps(props: TooltipContentProps) {
-  const { isOpen, children, onResize, onMounted, onScroll } = props
+  const { ctrl, isOpen, onResize, onMounted, onScroll } = props
 
-  const $el = useRef<Element>(null)
+  useResizeObserver(ctrl.$popup, isOpen, onResize)
 
-  const refCombined = useCombinedRefs($el, getElementRef(children))
-
-  const restAttrs: AnyObj = { ref: refCombined }
-
-  useResizeObserver($el, onResize)
-
-  useEffect(() => onMounted($el.current), [onMounted])
+  useEffect(() => onMounted(ctrl.popupElement), [ctrl, onMounted])
 
   useEffect(() => {
-    if (!$el.current || !isOpen) return
+    if (!isOpen || !ctrl.popupElement) return
 
-    const set = new Set(getScrollElements($el.current))
-    set.add(ownerWindow($el.current) as any)
+    const thisWindow = ownerWindow(ctrl.popupElement)
 
-    return makeEventListener(Array.from(set), 'scroll', onScroll)
-  })
+    const elements = getScrollElements(ctrl.popupElement)
+
+    return batch(
+      makeEventListener(pushItem(elements, thisWindow as any), 'scroll', onScroll),
+      makeEventListener(thisWindow, 'resize', onScroll),
+    )
+  }, [ctrl, isOpen, onScroll])
 
   return {
     omitted: props,
-    restAttrs,
   }
 }

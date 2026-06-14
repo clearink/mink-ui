@@ -16,11 +16,11 @@ function scrollable(el: Element) {
 /**
  * @description 获取可滚动元素
  */
-export function getScrollElements(element: Element) {
+export function getScrollElements(element: Element | null) {
   const result: HTMLElement[] = []
 
   let depth = 0
-  let current = element.parentElement
+  let current = element?.parentElement
 
   // 层级超过 5000 的 应该不存在吧
   while (current && depth++ < 5000) {

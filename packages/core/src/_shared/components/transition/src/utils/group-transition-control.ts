@@ -7,6 +7,7 @@ import { cloneElement, createElement } from 'react'
 import { batch } from '@mink-ui/shared/function/batch'
 import { omit } from '@mink-ui/shared/object/omit'
 
+import { jsxId } from '../../../../utils/jsx-id'
 import { ENTRY_MARK } from '../_shared.constant'
 import CssTransition from '../css-transition'
 import { diff, union } from './children'
@@ -49,7 +50,7 @@ export class GroupTransitionControl<T extends UniqueTransitionItem = UniqueTrans
 
     const attrs = Object.assign(preset, params, {
       _item: item,
-      key: `${item.key}`,
+      key: jsxId(item.key),
       unmountOnExit: true,
       children: normalizeCssTransitionChildren(this._props.children, item),
       ref: (instance: CssTransitionInstance) => {

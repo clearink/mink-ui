@@ -1,15 +1,31 @@
-import type { ReactElement, ReactNode } from 'react'
+import type { ReactElement, ReactNode, Ref } from 'react'
 import type { HasChildren } from '../../../../_shared/types/has-children'
 import type { Orientation } from '../../../../_shared/types/orientation'
-import type { SemanticsStyled } from '../../../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../../types/has-semantics'
 import type { OverlayProps } from '../../overlay/src'
 import type { CssTransitionProps } from '../../transition/src'
 import type { PopupPlacement, PopupTriggerEvent } from './_shared.props'
 
+export interface InternalTooltipInstance {
+  /**
+   * @description 触发元素
+   */
+  triggerElement: HTMLElement | null
+
+  /**
+   * @description 弹出层元素
+   */
+  popupElement: HTMLElement | null
+}
+
 export interface InternalTooltipProps extends
+  HasSemanticsStyled<'root' | 'arrow' | 'wrapper', InternalTooltipProps>,
   Pick<OverlayProps, 'getContainer' | 'mountOnEnter' | 'unmountOnExit' | 'zIndex'>,
-  Required<HasChildren<ReactElement>>,
-  SemanticsStyled<'root' | 'arrow' | 'wrapper', InternalTooltipProps> {
+  Required<HasChildren<ReactElement>> {
+  /**
+   * @description 外部引用
+   */
+  ref?: Ref<InternalTooltipInstance>
 
   /**
    * @description 内容

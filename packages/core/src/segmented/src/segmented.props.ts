@@ -1,14 +1,14 @@
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { Orientation } from '../../_shared/types/orientation'
 import type { CommonSize } from '../../_shared/types/size'
-import type { SemanticsStyled } from '../../_shared/types/styled'
-import type { SegmentedOption, SegmentedValue } from './_shared.props'
+import type { SegmentedOptionType, SegmentedValue } from './_shared.props'
 
 export interface SegmentedProps extends
-  SemanticsStyled<'root' | 'inner' | 'item' | 'thumb', SegmentedProps> {
+  HasSemanticsStyled<'root' | 'inner' | 'item' | 'thumb', SegmentedProps> {
   /**
    * @description 选项数据
    */
-  options: SegmentedOption[]
+  options: SegmentedOptionType[]
 
   /**
    * @description 当前选中的值

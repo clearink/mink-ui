@@ -1,0 +1,43 @@
+@use '../../styles/helpers.scss' as *;
+@use './tokens.scss' as *;
+@use './mixins.scss' as *;
+
+$ns-masonry: #{$ns}-masonry;
+
+.#{$ns-masonry} {
+  @include reset-component();
+
+  // 基础样式
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.#{$ns-masonry}-item {
+  position: absolute;
+  width: var(--masonry-item-width);
+  left: var(--masonry-item-left);
+  top: var(--masonry-item-top);
+
+  transition: inset var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-out);
+}
+
+.#{$ns-masonry}-motion {
+  &-enter-from,
+  &-exit-to {
+    opacity: 0;
+  }
+
+  &-enter-active {
+    transition: opacity var(--#{$ns}-motion-duration-3) var(--#{$ns}-motion-ease-out) !important;
+  }
+
+  &-exit-active {
+    transition: opacity var(--#{$ns}-motion-duration-1) var(--#{$ns}-motion-ease-out) !important;
+  }
+
+  &-exit-done {
+    display: none !important;
+  }
+}

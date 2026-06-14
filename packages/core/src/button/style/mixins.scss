@@ -39,3 +39,12 @@
     }
   }
 }
+
+@mixin btn-icon-gap($ns-button, $margin-left: 0, $margin-right: 0) {
+  &:not(.#{$ns-button}--icon-only) {
+    .#{$ns-button}__icon {
+      margin-left: $margin-left;
+      margin-right: $margin-right;
+    }
+  }
+}

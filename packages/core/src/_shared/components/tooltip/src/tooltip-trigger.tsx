@@ -1,6 +1,6 @@
 import type { TooltipTriggerProps } from './tooltip-trigger.props'
 
-import { cloneElement } from 'react'
+import { Children, cloneElement } from 'react'
 
 import { defineName } from '../../../utils/define-name'
 import { useTooltipTriggerProps } from './hooks/use-tooltip-trigger-props'
@@ -10,7 +10,7 @@ function TooltipTrigger(props: TooltipTriggerProps) {
 
   const { children } = omitted
 
-  return cloneElement(children, restAttrs)
+  return cloneElement(Children.only(children), restAttrs)
 }
 
 defineName(TooltipTrigger, 'InternalTooltip.Trigger')

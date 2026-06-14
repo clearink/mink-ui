@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <div className={styles.root}>
       <div className={styles.content}>
-        <Button variant="solid" onClick={() => { navigate('/component') }}>
+        <Button theme="primary" variant="solid" onClick={() => { navigate('/component') }}>
           开始使用
         </Button>
       </div>

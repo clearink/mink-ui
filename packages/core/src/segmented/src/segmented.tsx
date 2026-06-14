@@ -56,13 +56,13 @@ function Segmented(props: SegmentedProps) {
   }
 
   const renderSegmentedOptions = () => {
-    return options.map(item => (
+    return options.map(option => (
       <SegmentedItem
-        key={item.value}
-        checked={value === item.value}
-        config={item}
-        disabled={disabled || item.disabled}
+        key={option.value}
+        checked={value === option.value}
+        disabled={disabled || option.disabled}
         isShowThumb={isShowThumb}
+        option={option}
         outerCssAttrs={outerCssAttrs}
         outerCssNames={outerCssNames}
         outerNamespace={ns}

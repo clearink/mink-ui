@@ -4,6 +4,7 @@ import { fallback } from '@mink-ui/shared/function/fallback'
 
 import InternalTooltip from '../../_shared/components/tooltip/src'
 import { defineName } from '../../_shared/utils/define-name'
+import { isConcreteElement } from '../../_shared/utils/element'
 import { useTooltipProps } from './hooks/use-tooltip-props'
 
 function Tooltip(props: TooltipProps) {
@@ -15,7 +16,7 @@ function Tooltip(props: TooltipProps) {
     cssAttrs,
   } = useTooltipProps(props)
 
-  const { transition } = omitted
+  const { children, transition } = omitted
 
   return (
     <InternalTooltip
@@ -26,7 +27,9 @@ function Tooltip(props: TooltipProps) {
       style={undefined}
       styles={cssAttrs}
       transition={fallback(transition, `${rns}-zoom-fast`)}
-    />
+    >
+      {isConcreteElement(children) ? children : <span>{children}</span>}
+    </InternalTooltip>
   )
 }
 

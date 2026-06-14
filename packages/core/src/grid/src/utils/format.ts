@@ -1,5 +1,7 @@
+import type { MayBe } from '@mink-ui/shared/interface'
 import type { GridFlex, GutterValue } from '../_shared.props'
 
+import { isNullish } from '@mink-ui/shared/is/is-nullish'
 import { isNumber } from '@mink-ui/shared/is/is-number'
 
 import { COL_FLEX_REG } from '../_shared.constant'
@@ -20,10 +22,10 @@ export function formatGridFlex(flex: GridFlex | undefined) {
 }
 
 /**
- * @description 格式化 gutter
+ * @description 根据比例计算gutter
  */
-export function formatGridGutter(gutter: GutterValue | undefined, ratio: number) {
-  if (!gutter) return undefined
+export function formatGridSpacing(gutter: MayBe<GutterValue>, ratio: number) {
+  if (isNullish(gutter)) return undefined
 
   return isNumber(gutter) ? `${gutter / ratio}px` : `calc(${gutter} / ${ratio})`
 }

@@ -2,25 +2,28 @@ import type { ArrowCoords, PopupCoords } from '../_shared.props'
 import type { InternalTooltipProps, OmittedInternalTooltipProps, PickedInternalTooltipProps } from '../tooltip.props'
 
 import isEqual from 'react-fast-compare'
-import { useMemo, useState } from 'react'
+import { useImperativeHandle, useMemo, useState } from 'react'
 import { batch } from '@mink-ui/shared/function/batch'
+import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
 import { useConstant } from '../../../../hooks/use-constant'
 import { useEvent } from '../../../../hooks/use-event'
+import { useInvoke } from '../../../../hooks/use-invoke'
 import { useThrottleFrame, useThrottleTick } from '../../../../hooks/use-scheduler'
 import { useCombinedSemantics } from '../../../../hooks/use-settings/use-combined'
 import { useWatchValue } from '../../../../hooks/use-watch-value'
+import { TOOLTIP_MARK } from '../_shared.constant'
 import { InternalTooltipContext } from '../_shared.context'
 import { defaultInternalTooltipProps as defaultProps } from '../tooltip.props'
 import aligners from '../utils/aligners'
 import { TooltipControl } from '../utils/tooltip-control'
-import { useTooltipEvents } from './use-tooltip-events'
-import { useTooltipOpen } from './use-tooltip-open'
+import { useTooltipBehavior } from './use-tooltip-behavior'
 
 export function useInternalTooltipProps(props: InternalTooltipProps) {
   const topTooltipContext = InternalTooltipContext.use()
 
   const {
+    ref,
     placement = defaultProps.placement,
     trigger = defaultProps.trigger,
     arrow = defaultProps.arrow,
@@ -43,8 +46,6 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
     closeDelay,
   }
 
-  const control = useConstant(() => new TooltipControl())
-
   const [arrowCoords, setArrowCoords] = useState<Partial<ArrowCoords>>({
     transform: `translate3d(0, 0, 0) rotate(0)`,
   })
@@ -52,9 +53,19 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
   const [popupCoords, setPopupCoords] = useState<Partial<PopupCoords>>({
     transform: `translate3d(0, 0, 0) rotate(0)`,
   })
-  const { isOpen, hasContentChanged, handleIsOpenChange } = useTooltipOpen(picked, omitted)
 
-  const [triggerEvents, popupEvents] = useTooltipEvents(picked, control, handleIsOpenChange)
+  const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null)
+
+  const ctrl = useConstant(() => new TooltipControl())
+
+  useInvoke(() => { ctrl._bind((updater) => { setTriggerElement(updater) }) })
+
+  const {
+    isOpen,
+    popupHandlers,
+    triggerHandlers,
+    hasContentChanged,
+  } = useTooltipBehavior(ctrl, picked, omitted, triggerElement)
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
@@ -71,13 +82,13 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
   )
 
   const handleUpdate = useEvent(() => {
-    const { popup, trigger } = control
+    const { popupElement } = ctrl
 
-    if (!isOpen || !popup || !trigger) return
+    if (!isOpen || !popupElement || !triggerElement) return
 
     const getCoords = aligners[picked.placement!] || aligners.top
 
-    const { getArrowCoords, getPopupCoords } = getCoords(picked, popup, trigger)
+    const { getArrowCoords, getPopupCoords } = getCoords(picked, popupElement, triggerElement)
 
     setArrowCoords(getArrowCoords)
 
@@ -88,24 +99,31 @@ export function useInternalTooltipProps(props: InternalTooltipProps) {
 
   const handleScroll = useThrottleFrame(handleUpdate)
 
-  const handleEnqueue = useMemo(() => batch(topTooltipContext, control.enqueue), [control, topTooltipContext])
+  const handleEnqueue = useMemo(() => batch(topTooltipContext, ctrl.enqueue), [ctrl, topTooltipContext])
 
   // 影响布局的属性会被 watch
   const hasCoordsChanged = useWatchValue(
-    [placement, offset, arrow, shift, flip],
+    [triggerElement, { placement, offset, arrow, shift, flip }] as const,
     handleUpdate,
-    (curr, prev) => !isOpen || isEqual(curr, prev),
+    (curr, prev) => !isOpen || (shallowEqual(curr[0], prev[0]) && isEqual(curr[1], prev[1])),
   )
+
+  useImperativeHandle(ref, () => ({
+    [TOOLTIP_MARK]: true,
+    get triggerElement() { return triggerElement },
+    get popupElement() { return ctrl.popupElement },
+  }), [ctrl, triggerElement])
 
   return {
     picked,
     omitted,
     cssNames,
     cssAttrs,
-    control,
+    ctrl,
     isOpen,
-    popupEvents,
-    triggerEvents,
+    popupHandlers,
+    triggerElement,
+    triggerHandlers,
     returnEmpty: hasContentChanged || hasCoordsChanged,
     handleResize,
     handleScroll,

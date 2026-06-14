@@ -8,7 +8,7 @@ function CssTransition<E extends HTMLElement>(props: CssTransitionProps<E>) {
 
   const { children } = omitted
 
-  return returnEmpty ? null : children(control.connect, getters)
+  return returnEmpty ? null : children(control.$element, getters)
 }
 
 defineName(CssTransition)

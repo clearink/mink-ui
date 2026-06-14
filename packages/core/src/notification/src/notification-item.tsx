@@ -19,9 +19,9 @@ function NotificationItem(props: NotificationItemProps) {
     handleMouseLeave,
   } = useNotificationItemProps(props)
 
-  const { config } = omitted
+  const { item } = omitted
 
-  const { type, title, description } = config
+  const { type, title, description } = item
 
   const renderCloseIcon = () => {
     return closeIconRender((icon, disabled) => (

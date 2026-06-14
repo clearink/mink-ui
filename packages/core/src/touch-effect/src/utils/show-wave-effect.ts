@@ -39,13 +39,13 @@ export default function showWaveEffect(info: TouchEffectInfo) {
 
   const div = document.createElement('div')
 
-  div.style.setProperty('position', 'absolute')
+  div.style.cssText = `
+    position: absolute; top: 0; left: 0;
+    --wave-color: ${waveColor}; 
+    box-shadow: 0 0 0 0 var(--wave-color);
+  `
 
-  div.style.setProperty('--wave-color', waveColor)
-
-  div.style.setProperty('box-shadow', '0 0 0 0 var(--wave-color)')
-
-  div.classList.add(className || '')
+  className && div.classList.add(className)
 
   const resize = () => {
     const wrapper = findNonStaticElement(div)

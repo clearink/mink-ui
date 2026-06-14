@@ -23,6 +23,10 @@ group:
 
 <code-example src="./examples/arrow.md" title="箭头" />
 
+<code-example src="./examples/adjust.md" title="自动偏移" />
+
+<code-example src="./examples/nested.md" title="嵌套" />
+
 ## API
 
 ### Tooltip Props

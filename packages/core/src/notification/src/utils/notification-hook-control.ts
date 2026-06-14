@@ -1,5 +1,11 @@
 import type { SetStateDispatch } from '../../../_shared/types/state-dispatch'
-import type { NotificationHolderGroup, NotificationHookMethods, NotificationMethodParams, NotificationPlacement, NotificationVariantMethods } from '../_shared.props'
+import type {
+  NotificationHolderGroup,
+  NotificationHookMethods,
+  NotificationMethodParams,
+  NotificationPlacement,
+  NotificationVariantMethods,
+} from '../_shared.props'
 
 import { isUndefined } from '@mink-ui/shared/is/is-undefined'
 

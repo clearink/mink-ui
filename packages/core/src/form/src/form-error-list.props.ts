@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
-import type { SemanticsStyled } from '../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { ValidateStatus } from './_shared.props'
 
-export interface FormErrorListProps extends Pick<SemanticsStyled<never>, 'className' | 'style'> {
+export interface FormErrorListProps extends Pick<HasSemanticsStyled<never>, 'className' | 'style'> {
   /**
    * @description 字段唯一 id
    */

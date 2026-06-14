@@ -15,10 +15,11 @@ function InternalTooltip(props: InternalTooltipProps) {
     omitted,
     cssNames,
     cssAttrs,
-    control,
+    ctrl,
     isOpen,
-    popupEvents,
-    triggerEvents,
+    popupHandlers,
+    triggerElement,
+    triggerHandlers,
     returnEmpty,
     handleResize,
     handleScroll,
@@ -42,9 +43,10 @@ function InternalTooltip(props: InternalTooltipProps) {
   return (
     <>
       <TooltipTrigger
-        ref={control.$trigger}
-        events={triggerEvents}
+        ref={ctrl.$trigger}
+        handlers={triggerHandlers}
         isOpen={isOpen}
+        triggerElement={triggerElement}
         onResize={handleResize}
         onScroll={handleScroll}
       >
@@ -65,21 +67,22 @@ function InternalTooltip(props: InternalTooltipProps) {
         {($motion, getters) => {
           return (
             <TooltipContent
+              ctrl={ctrl}
               isOpen={isOpen}
               onMounted={handleEnqueue}
               onResize={handleResize}
               onScroll={handleScroll}
             >
               <div
-                ref={control.$popup}
+                ref={ctrl.$popup}
                 className={cssNames.wrapper}
                 style={cssAttrs.wrapper}
               >
                 <div
+                  {...popupHandlers}
                   ref={$motion}
                   className={cn(cssNames.root, getters.names())}
                   style={{ ...cssAttrs.root, ...getters.attrs() }}
-                  {...popupEvents}
                 >
                   {!!arrow && <div className={cssNames.arrow} style={cssAttrs.arrow} />}
 

@@ -13,9 +13,9 @@ function SegmentedItem(props: SegmentedItemProps) {
     handleChange,
   } = useSegmentedItemProps(props)
 
-  const { checked, config } = omitted
+  const { checked, disabled, option } = omitted
 
-  const { label, title, disabled } = config
+  const { label, title } = option
 
   return (
     <label ref={refCombined} className={cssNames.root} style={cssAttrs.root}>

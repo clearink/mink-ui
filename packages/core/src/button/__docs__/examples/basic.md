@@ -12,7 +12,7 @@ import { Button, Space } from '@mink-ui/core'
 export default function App() {
   return (
     <Space>
-      <Button variant="solid">Solid Button</Button>
+      <Button theme="primary" variant="solid">Primary Solid Button</Button>
       <Button>Outlined Button</Button>
       <Button variant="dashed">Dashed Button</Button>
       <Button variant="filled">Filled Button</Button>

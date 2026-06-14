@@ -12,12 +12,6 @@ class GlobalPointerTracker {
 
   public position: MayBe<{ x: number, y: number }> = undefined
 
-  private clear = () => {
-    this._cleanup?.()
-
-    this._cleanup = null
-  }
-
   /**
    * @description 同步
    */
@@ -33,7 +27,7 @@ class GlobalPointerTracker {
     else if (!rect) this.position = { x: e.clientX, y: e.clientY }
     else this.position = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }
 
-    this.clear()
+    this._cleanup?.()
 
     // 超过 100ms 则重置
     this._cleanup = makeTimeout(200, () => { this.position = undefined })

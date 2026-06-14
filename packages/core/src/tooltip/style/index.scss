@@ -4,10 +4,6 @@
 
 $ns-tooltip: #{$ns}-tooltip;
 
-.#{$ns-tooltip}-wrapper {
-  position: absolute;
-}
-
 .#{$ns-tooltip} {
   @include reset-component();
 
@@ -23,22 +19,19 @@ $ns-tooltip: #{$ns}-tooltip;
 
   &__arrow {
     position: absolute;
-    // TODO: 暗色模式下颜色会抖动, 暂时屏蔽
-    // z-index: -1;
     width: $mink-tooltip-arrow-size;
     height: $mink-tooltip-arrow-size;
-    box-shadow: var(--#{$ns}-box-shadow-secondary);
     clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
     pointer-events: none;
 
     &::before {
+      content: '';
       display: block;
       width: 50%;
       height: 50%;
       background-color: var(--#{$ns}-color-bg-spot-light);
       border-bottom-right-radius: 2px;
       transform: translate3d(50%, 50%, 0) rotate(45deg);
-      content: '';
     }
   }
 }

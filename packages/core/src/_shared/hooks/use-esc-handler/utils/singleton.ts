@@ -20,12 +20,12 @@ class EscStack {
 
   private _keydownCleanup = noop
 
-  private _composedCleanup = noop
+  private _composeCleanup = noop
 
   private init = () => {
     const root = ownerWindow()
 
-    this._composedCleanup = makeEventListener(root, 'compositionend', () => {
+    this._composeCleanup = makeEventListener(root, 'compositionend', () => {
       this._lastEndTime = now()
     })
 
@@ -38,10 +38,10 @@ class EscStack {
     })
   }
 
-  private clear = () => {
+  private dispose = () => {
     this._keydownCleanup()
 
-    this._composedCleanup()
+    this._composeCleanup()
   }
 
   public subscribe = () => {
@@ -50,7 +50,7 @@ class EscStack {
     this._subscribers++ === 0 && this.init()
 
     return () => {
-      --this._subscribers === 0 && this.clear()
+      --this._subscribers === 0 && this.dispose()
 
       this._subscribers = Math.max(this._subscribers, 0)
     }

@@ -26,7 +26,7 @@ class FocusTrapStack {
     this._focusinCleanup = makeEventListener(root, 'focusin', getTopHandler('onFocusIn'))
   }
 
-  private clear = () => {
+  private dispose = () => {
     this._keydownCleanup()
 
     this._focusinCleanup()
@@ -38,7 +38,7 @@ class FocusTrapStack {
     this._subscribers++ === 0 && this.init(root)
 
     return () => {
-      --this._subscribers === 0 && this.clear()
+      --this._subscribers === 0 && this.dispose()
 
       this._subscribers = Math.max(this._subscribers, 0)
     }

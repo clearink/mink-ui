@@ -1,6 +1,6 @@
 import type { HTMLAttributes, Ref } from 'react'
 import type { HasChildren } from '../../_shared/types/has-children'
-import type { SemanticsStyled } from '../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { GridColLayout, ResponsiveGridColLayout } from './_shared.props'
 
 import { BREAKPOINT_NAME } from '../../_shared/hooks/use-breakpoint/_shared.constant'
@@ -9,8 +9,8 @@ import { exhaustive } from '../../_shared/utils/exhaustive'
 export interface ColInjectedProps extends
   GridColLayout,
   HasChildren,
-  ResponsiveGridColLayout,
-  SemanticsStyled<'root', ColProps> {
+  HasSemanticsStyled<'root', ColProps>,
+  ResponsiveGridColLayout {
   /**
    * @description 外部引用
    */

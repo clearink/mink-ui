@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import type { AnyObj } from '@mink-ui/shared/interface'
-import type { CssAttrsItem, CssNamesItem } from '../../types/styled'
+import type { CssAttrsItem, CssNamesItem } from '../../types/has-semantics'
 
 import { isFunction } from '@mink-ui/shared/is/is-function'
 

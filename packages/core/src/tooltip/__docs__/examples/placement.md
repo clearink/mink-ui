@@ -20,7 +20,7 @@ export default function App() {
       <div className="placement-row">
         {topPlacements.map(placement => (
           <Tooltip key={placement} content={placement} placement={placement}>
-            <Button>{placement}</Button>
+            <Button theme="info">{placement}</Button>
           </Tooltip>
         ))}
       </div>
@@ -28,7 +28,7 @@ export default function App() {
         <div className="placement-side">
           {leftPlacements.map(placement => (
             <Tooltip key={placement} content={placement} placement={placement}>
-              <Button>{placement}</Button>
+              <Button theme="info">{placement}</Button>
             </Tooltip>
           ))}
         </div>
@@ -36,7 +36,7 @@ export default function App() {
         <div className="placement-side">
           {rightPlacements.map(placement => (
             <Tooltip key={placement} content={placement} placement={placement}>
-              <Button>{placement}</Button>
+              <Button theme="info">{placement}</Button>
             </Tooltip>
           ))}
         </div>
@@ -44,7 +44,7 @@ export default function App() {
       <div className="placement-row">
         {bottomPlacements.map(placement => (
           <Tooltip key={placement} content={placement} placement={placement}>
-            <Button>{placement}</Button>
+            <Button theme="info">{placement}</Button>
           </Tooltip>
         ))}
       </div>

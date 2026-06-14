@@ -8,16 +8,16 @@ import { isValidElement } from 'react'
 import { toArray } from '@mink-ui/shared/array/to-array'
 import { fallback } from '@mink-ui/shared/function/fallback'
 import { isNullish } from '@mink-ui/shared/is/is-nullish'
-import { rawType } from '@mink-ui/shared/object/raw-type'
 
 import { normalizeIsListField } from '../../../_shared/components/form/src'
+import { jsxId } from '../../../_shared/utils/jsx-id'
 
 /**
  * @description 格式化 提示信息
  */
 export function formatExplains(type: string, items: ReactNode[], status?: ValidateStatus) {
   return items.map((item, index) => ({
-    key: isValidElement(item) ? `${item.key}-${item.type}-${type}-${index}` : `${item}-${rawType(item)}`,
+    key: isValidElement(item) ? `${item.key}-${type}-${index}` : jsxId(item),
     status: fallback(status, type),
     value: item,
   }))

@@ -12,9 +12,9 @@ import { fallback } from '@mink-ui/shared/function/fallback'
 import { isUndefined } from '@mink-ui/shared/is/is-undefined'
 import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
+import { useCommitState } from '../../../../hooks/use-commit-state'
 import { useConstant } from '../../../../hooks/use-constant'
 import { useEvent } from '../../../../hooks/use-event'
-import { useFlushState } from '../../../../hooks/use-exact-state'
 import { useWatchValue } from '../../../../hooks/use-watch-value'
 import { cn } from '../../../../libs/cn'
 import { isAppear, isEntered, isEntering, isExit, isExited, isExiting } from '../_shared.constant'
@@ -48,7 +48,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
 
   const control = useConstant(() => new CssTransitionControl<E>(props, motions))
 
-  const [isMounted, setIsMounted] = useFlushState (when || !(unmountOnExit || mountOnEnter))
+  const [isMounted, setIsMounted] = useCommitState (when || !(unmountOnExit || mountOnEnter))
 
   const [cssValues, setCssValues] = useState<undefined | CSSProperties>(undefined)
 
@@ -57,7 +57,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
   const attrsGetter = useEvent(() => cssValues)
 
   const runTransitionFinish = (el: E, phase: TransitionPhase) => {
-    control.clearEvents()
+    control.runEventCleanup()
 
     setIsMounted(!unmountOnExit || !!when, () => {
       control.finish(el, phase, motions)
@@ -69,7 +69,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
   }
 
   const runTransitionCancel = (el: E, phase: TransitionPhase) => {
-    control.clearEvents()
+    control.runEventCleanup()
 
     if (!isEntering(control.state) && !isExiting(control.state)) return
 
@@ -126,10 +126,10 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
 
       setCssValues(attrs || undefined)
 
-      control.syncEvents(runTransitionEvents(el, phase))
+      control.setEventCleanup(runTransitionEvents(el, phase))
     })
 
-    control.syncFrames(() => { frameCleanup(); runTransitionCancel(el, phase) })
+    control.setFrameCleanup(() => { frameCleanup(); runTransitionCancel(el, phase) })
 
     const resume = control.begin(el, phase, motions, !!resumeOnCancel)
 
@@ -153,7 +153,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
   )
 
   useImperativeHandle(ref, () => ({
-    get element() { return control.$element },
+    get element() { return control.element },
     get isEntering() { return isEntering(control.state) },
     get isEntered() { return isEntered(control.state) },
     get isExiting() { return isExiting(control.state) },
@@ -163,16 +163,14 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
 
   useInsertionEffect(() => {
     const tickCleanup = nextTick(() => {
-      const { $element } = control
-
       const phase = control.compute(!!when)
 
-      if (!$element || isUndefined(phase)) return
+      if (!control.element || isUndefined(phase)) return
 
-      runCssTransition($element, phase)
+      runCssTransition(control.element, phase)
     })
 
-    return () => { tickCleanup(); control.clearFrames() }
+    return () => { tickCleanup(); control.runFrameCleanup() }
   }, [when, control, runCssTransition])
 
   useInsertionEffect(() => () => { control.destroy() }, [control])

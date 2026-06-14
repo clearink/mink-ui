@@ -5,8 +5,8 @@ import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-co
 import { useSegmentedItemClassNames } from './use-class-names'
 
 export function useSegmentedItemProps(props: SegmentedItemProps) {
-  const { config, outerCssNames, outerCssAttrs, onChange, onCollect } = props
-  const { ref, value, disabled } = config
+  const { option, outerCssNames, outerCssAttrs, onChange, onCollect } = props
+  const { ref, value, disabled } = option
 
   const { ns, classNames } = useSegmentedItemClassNames(props)
 
@@ -25,7 +25,7 @@ export function useSegmentedItemProps(props: SegmentedItemProps) {
     { meta: props },
   )
 
-  const refCombined = useCombinedRefs(ref, (el) => { onCollect(el, config) })
+  const refCombined = useCombinedRefs(ref, (el) => { onCollect(el, option) })
 
   const handleChange = () => { !disabled && onChange?.(value) }
 

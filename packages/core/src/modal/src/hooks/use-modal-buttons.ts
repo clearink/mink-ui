@@ -3,6 +3,7 @@ import { fallback } from '@mink-ui/shared/function/fallback'
 
 import { useControlledState } from '../../../_shared/hooks/use-controlled-state'
 import { ModalFooterContext } from '../_shared.context'
+import { defaultCancelButtonProps, defaultConfirmButtonProps } from '../modal-buttons.props'
 
 export function useModalCancelButtonProps() {
   const modalFooterContext = ModalFooterContext.use()
@@ -10,12 +11,11 @@ export function useModalCancelButtonProps() {
   const { cancelButtonProps, cancelText, onCancel } = modalFooterContext
 
   const {
-    theme = 'info',
-    children = fallback(cancelText, '取消'),
+    children = fallback(cancelText, defaultCancelButtonProps.children),
     onClick = onCancel,
   } = cancelButtonProps || {}
 
-  const picked = { children, theme, onClick }
+  const picked = { children, onClick }
 
   return {
     picked,
@@ -29,14 +29,14 @@ export function useModalConfirmButtonProps() {
   const { confirmLoading, confirmText, confirmButtonProps, onOk } = modalFooterContext
 
   const {
-    // TODO: 移到 .props.ts 中
-    variant = 'solid',
+    children = fallback(confirmText, defaultConfirmButtonProps.children),
+    theme = defaultConfirmButtonProps.theme,
+    variant = defaultConfirmButtonProps.variant,
     loading = confirmLoading,
-    children = fallback(confirmText, '确认'),
     onClick = onOk,
   } = confirmButtonProps || {}
 
-  const picked = { children, variant, loading, onClick }
+  const picked = { children, theme, variant, loading, onClick }
 
   return {
     picked,
@@ -56,13 +56,12 @@ export function useModalCancelActionProps() {
   } = modalFooterContext
 
   const {
-    theme = 'info',
     loading,
-    children = fallback(cancelText, '取消'),
+    children = fallback(cancelText, defaultCancelButtonProps.children),
     onClick = onCancel,
   } = cancelButtonProps || {}
 
-  const picked = { children, theme, onClick }
+  const picked = { children, onClick }
 
   const [isLoading, setIsLoading] = useControlledState(loading, () => false)
 
@@ -83,9 +82,9 @@ export function useModalConfirmActionProps() {
 
   const {
     loading,
-    theme = 'primary',
-    variant = 'solid',
-    children = fallback(confirmText, '确认'),
+    children = fallback(confirmText, defaultConfirmButtonProps.children),
+    theme = defaultConfirmButtonProps.theme,
+    variant = defaultConfirmButtonProps.variant,
     onClick = onOk,
   } = confirmButtonProps || {}
 

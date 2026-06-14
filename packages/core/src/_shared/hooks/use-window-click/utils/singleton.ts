@@ -20,7 +20,7 @@ class ClickSubject {
     }, true)
   }
 
-  private clear = () => {
+  private dispose = () => {
     this._cleanup?.()
 
     this._cleanup = null
@@ -32,7 +32,7 @@ class ClickSubject {
     this._subscribers++ === 0 && this.init()
 
     return () => {
-      --this._subscribers === 0 && this.clear()
+      --this._subscribers === 0 && this.dispose()
 
       this._subscribers = Math.max(this._subscribers, 0)
     }

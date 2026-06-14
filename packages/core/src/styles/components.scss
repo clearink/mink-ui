@@ -1,32 +1,34 @@
 // 预设样式与主题变量
-@forward './builtin.scss';
+@use './builtin.scss' as *;
 
 // dependencies
-@forward '../touch-effect/style/index.scss';
+@use '../touch-effect/style/index.scss' as *;
 
 // components
-@forward '../alert/style/index.scss';
+@use '../alert/style/index.scss' as *;
 
-@forward '../badge/style/index.scss';
+@use '../badge/style/index.scss' as *;
 
-@forward '../button/style/index.scss';
+@use '../button/style/index.scss' as *;
 
-@forward '../checkbox/style/index.scss';
+@use '../checkbox/style/index.scss' as *;
 
-@forward '../collapse/style/index.scss';
+@use '../collapse/style/index.scss' as *;
 
-@forward '../divider/style/index.scss';
+@use '../divider/style/index.scss' as *;
 
-@forward '../form/style/index.scss';
+@use '../form/style/index.scss' as *;
 
-@forward '../grid/style/index.scss';
+@use '../grid/style/index.scss' as *;
 
-@forward '../modal/style/index.scss';
+@use '../masonry/style/index.scss' as *;
 
-@forward '../notification/style/index.scss';
+@use '../modal/style/index.scss' as *;
 
-@forward '../segmented/style/index.scss';
+@use '../notification/style/index.scss' as *;
 
-@forward '../space/style/index.scss';
+@use '../segmented/style/index.scss' as *;
 
-@forward '../tooltip/style/index.scss';
+@use '../space/style/index.scss' as *;
+
+@use '../tooltip/style/index.scss' as *;

@@ -1,11 +1,17 @@
 import type { ReactElement } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
+import type { TooltipControl } from './utils/tooltip-control'
 
 export interface TooltipContentProps {
   /**
    * @description 子元素
    */
   children: ReactElement<any>
+
+  /**
+   * @description 控制器
+   */
+  ctrl: TooltipControl
 
   /**
    * @description 是否打开

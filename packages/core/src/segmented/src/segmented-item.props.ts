@@ -1,41 +1,14 @@
-import type { CSSProperties, ReactNode, Ref } from 'react'
-import type { GetSemanticsValues, SemanticsStyled } from '../../_shared/types/styled'
-import type { SegmentedOption, SegmentedValue } from './_shared.props'
+import type { CSSProperties } from 'react'
+import type { GetSemanticsValues, HasSemanticsStyled } from '../../_shared/types/has-semantics'
+import type { SegmentedOptionType, SegmentedValue } from './_shared.props'
 import type { SegmentedProps } from './segmented.props'
 
-export interface SegmentedItemConfig {
-  /**
-   * @description 外部引用
-   */
-  ref?: Ref<HTMLLabelElement>
-
-  /**
-   * @description 选项文本
-   */
-  label: ReactNode
-
-  /**
-   * @description html-title
-   */
-  title?: string
-
-  /**
-   * @description 选项值
-   */
-  value: SegmentedValue
-
-  /**
-   * @description 是否禁用
-   */
-  disabled?: boolean
-}
-
 export interface SegmentedItemInjectedProps extends
-  SemanticsStyled<'root' | 'label', SegmentedItemProps> {
+  HasSemanticsStyled<'root' | 'label', SegmentedItemProps> {
   /**
-   * @description 培训项
+   * @description 配置项
    */
-  config: SegmentedItemConfig
+  option: SegmentedOptionType
 
   /**
    * @description 是否选中
@@ -75,7 +48,7 @@ export interface SegmentedItemInjectedProps extends
   /**
    * @description 收集 DOM 元素
    */
-  onCollect: (el: HTMLElement | null, item: SegmentedOption) => void
+  onCollect: (el: HTMLElement | null, option: SegmentedOptionType) => void
 }
 
 export interface SegmentedItemProps extends SegmentedItemInjectedProps {}

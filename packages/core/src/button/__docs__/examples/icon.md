@@ -1,3 +1,11 @@
+## zh-CN
+
+使用图标按钮。
+
+## en-US
+
+Use icon button.
+
 ```tsx
 import { Button, Space, Tooltip } from '@mink-ui/core'
 import { SearchOutlined } from '@mink-ui/icons'
@@ -7,12 +15,12 @@ export default function App() {
     <div>
       <Space style={{ marginBottom: 16 }}>
         <Tooltip content="search">
-          <Button icon={<SearchOutlined />} shape="circle" variant="solid" />
+          <Button icon={<SearchOutlined />} shape="circle" theme="primary" variant="solid" />
         </Tooltip>
-        <Button shape="circle" variant="solid">
+        <Button shape="circle" theme="primary" variant="solid">
           A
         </Button>
-        <Button icon={<SearchOutlined />} variant="solid">
+        <Button icon={<SearchOutlined />} theme="primary" variant="solid">
           Search
         </Button>
         <Tooltip content="search">

@@ -8,7 +8,7 @@
   },
   {
     "name": "...",
-    "type": "SemanticsStyled<'root' | 'icon' | 'text', ButtonProps>",
+    "type": "HasSemanticsStyled<'root' | 'icon' | 'text', ButtonProps>",
     "zh-CN": "语义化样式",
     "en-US": "Semantics styles"
   }

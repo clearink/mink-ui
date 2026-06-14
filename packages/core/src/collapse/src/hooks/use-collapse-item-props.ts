@@ -10,7 +10,7 @@ import { useCollapseItemClassNames } from './use-class-names'
 
 export function useCollapseItemProps(props: CollapseItemProps) {
   const {
-    name,
+    item,
     accordion,
     collapsible,
     expanded,
@@ -19,19 +19,20 @@ export function useCollapseItemProps(props: CollapseItemProps) {
     onChange,
   } = props
 
+  const { name } = item
   const { ns, classNames } = useCollapseItemClassNames(props)
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [
       outerCssNames,
       classNames,
-      props.classNames,
-      { root: props.className },
+      item.classNames,
+      { root: item.className },
     ],
     [
       outerCssAttrs,
-      props.styles,
-      { root: props.style },
+      item.styles,
+      { root: item.style },
     ],
     { meta: props },
   )

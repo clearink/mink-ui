@@ -209,8 +209,8 @@ export class FormFieldControl {
   /**
    * @description 字段信息
    */
-  public getFieldInfo = ($state: FormStateControl) => {
-    const info = { ...this.getMetaInfo(), value: $state.getFieldValue(this._name) }
+  public getFieldInfo = ($$state: FormStateControl) => {
+    const info = { ...this.getMetaInfo(), value: $$state.getFieldValue(this._name) }
 
     // 添加特殊标记, 用于后续优化
     Object.defineProperty(info, FIELD_MARK, { value: true })
@@ -228,10 +228,10 @@ export class FormFieldControl {
   /**
    * @description 标记已经挂载
    */
-  public markIsMounted = ($state: FormStateControl) => {
+  public markIsMounted = ($$state: FormStateControl) => {
     this._mounted = true
 
-    const current = $state.getFieldValue(this._name)
+    const current = $$state.getFieldValue(this._name)
 
     this.__holder ??= { viewState: current }
 
@@ -359,7 +359,7 @@ export class FormFieldControl {
    * @description 字段校验
    * TODO: options?: unknown
    */
-  public validate = async ($state: FormStateControl) => {
+  public validate = async ($$state: FormStateControl) => {
     // 校验前更新 metaInfo
     this.updateMetaInfo(beforeValidateMetaInfo(), (meta) => {
       this._validating = !!meta.validating
@@ -371,7 +371,7 @@ export class FormFieldControl {
       if (!_id || !_mounted || !validator) return null
 
       const promise = validator
-        .validate($state.getFieldValue(this._name), { path: this._name })
+        .validate($$state.getFieldValue(this._name), { path: this._name })
         .catch((reason: any) => new FieldValidateError(reason, { path: this._name }))
         .then((result: any) => result instanceof FieldValidateError ? result : null)
 

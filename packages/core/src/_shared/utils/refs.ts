@@ -1,8 +1,6 @@
-import type { ReactElement, ReactNode, Ref, RefCallback } from 'react'
+import type { Ref, RefCallback } from 'react'
 import type { MayBe, VoidFn } from '@mink-ui/shared/interface'
 
-import { isFragment, isMemo } from 'react-is'
-import { Component, isValidElement } from 'react'
 import { batch } from '@mink-ui/shared/function/batch'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 import { isNullish } from '@mink-ui/shared/is/is-nullish'
@@ -24,14 +22,4 @@ export function combineRefs<T>(...refs: (MayBe<Ref<T>>)[]): RefCallback<T> | und
   if (!filtered.length) return undefined
 
   return batch(...filtered.map(ref => (el: T | null) => fillRef(el, ref)))
-}
-
-export function supportRef(el: ReactNode): el is { ref: Ref<any> } & ReactElement {
-  if (isFragment(el) || !isValidElement(el)) return false
-
-  const type = isMemo(el) ? el.type.type : el.type
-
-  if (isFunction(type) && !(type instanceof Component)) return false
-
-  return true
 }

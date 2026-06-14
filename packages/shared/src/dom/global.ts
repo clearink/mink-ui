@@ -12,7 +12,3 @@ export function ownerWindow(node?: MayBe<Node>) {
 export function ownerStyle(node: Element) {
   return ownerWindow(node).getComputedStyle(node, null)
 }
-
-export function ownerBody(node?: MayBe<Node>) {
-  return ownerDocument(node).body
-}

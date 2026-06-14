@@ -1,11 +1,17 @@
 import type { DOMAttributes, ReactElement, Ref } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
+import type { InternalTooltipInstance } from './tooltip.props'
 
 export interface TooltipTriggerProps {
   /**
    * @description 外部引用
    */
-  ref?: Ref<HTMLElement>
+  ref?: Ref<HTMLElement | InternalTooltipInstance>
+
+  /**
+   * @description 触发元素
+   */
+  triggerElement: HTMLElement | null
 
   /**
    * @description 子元素
@@ -18,9 +24,9 @@ export interface TooltipTriggerProps {
   isOpen: boolean
 
   /**
-   * @description div 事件
+   * @description 事件处理器
    */
-  events: DOMAttributes<HTMLElement>
+  handlers: DOMAttributes<HTMLElement>
 
   /**
    * @description 尺寸变化回调

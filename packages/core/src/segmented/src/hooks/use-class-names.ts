@@ -26,8 +26,8 @@ export function useSegmentedClassNames(_picked: PickedSegmentedProps, omitted: O
 }
 
 export function useSegmentedItemClassNames(omitted: SegmentedItemProps) {
-  const { outerNamespace: ons, checked, config, isShowThumb } = omitted
-  const { disabled } = config
+  const { outerNamespace: ons, checked, option, isShowThumb } = omitted
+  const { disabled } = option
 
   const ns = useNamespace(preset => `${ons || `${preset}-segmented`}-item`)
 

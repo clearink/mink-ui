@@ -11,7 +11,7 @@ export function useTooltipClassNames(omitted: OmittedTooltipProps) {
     classNames: {
       root: ns,
       arrow: `${ns}__arrow`,
-      wrapper: `${ns}-wrapper`,
+      popup: `${ns}-popup`,
     },
   }
 }

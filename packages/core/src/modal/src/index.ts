@@ -10,7 +10,7 @@ const Modal = Object.assign(GeneratedJsxModal, globalModalControl.expose(), { us
  * |---------------------------------------------------------|
  */
 
-export type { ModalConfig, ModalGlobalMethods, ModalHookMethods, ModalMethodParams } from './_shared.props'
+export type { ModalGlobalMethods, ModalHookMethods, ModalMethodParams } from './_shared.props'
 export type { ModalProps } from './modal.props'
 
 export { Modal }

@@ -1,14 +1,14 @@
 import type { HTMLAttributes, Ref } from 'react'
 import type { Breakpoint } from '../../_shared/hooks/use-breakpoint/_shared.props'
 import type { HasChildren } from '../../_shared/types/has-children'
-import type { SemanticsStyled } from '../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { GridAlign, GridGutter, GridJustify } from './_shared.props'
 
 import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface RowInjectedProps extends
   HasChildren,
-  SemanticsStyled<'root', RowProps> {
+  HasSemanticsStyled<'root', RowProps> {
   /**
    * @description 外部引用
    */

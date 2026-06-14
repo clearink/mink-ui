@@ -1,14 +1,14 @@
 import type { Ref } from 'react'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { CommonSize } from '../../_shared/types/size'
-import type { SemanticsStyled } from '../../_shared/types/styled'
-import type { CollapseItemType, ExpandedName } from './_shared.props'
-import type { CollapseItemForwardedProps } from './collapse-item.props'
+import type { ExpandedName } from './_shared.props'
+import type { CollapseItemForwardedProps, CollapseItemType } from './collapse-item.props'
 
 import CaretRightOutlined from '@mink-ui/icons/CaretRightOutlined'
 
 export interface CollapseProps extends
   CollapseItemForwardedProps,
-  SemanticsStyled<'root' | 'item' | 'header' | 'icon' | 'title' | 'extra' | 'content', CollapseProps> {
+  HasSemanticsStyled<'root' | 'item' | 'header' | 'icon' | 'title' | 'extra' | 'content', CollapseProps> {
   /**
    * @description 外部引用
    */

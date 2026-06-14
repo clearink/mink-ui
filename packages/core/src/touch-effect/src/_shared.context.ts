@@ -2,7 +2,7 @@ import type { TouchEffectInfo } from './_shared.props'
 
 import { ctxHelper } from '../../_shared/utils/ctx-helper'
 
-export interface TouchEffectGlobalConfig {
+export interface TouchEffectContextState {
   /**
    * @description 是否禁用
    */
@@ -17,4 +17,4 @@ export interface TouchEffectGlobalConfig {
 /**
  * @zh-CN 自定义组件点击反馈效果 Context
  */
-export const TouchEffectContext = ctxHelper<TouchEffectGlobalConfig | undefined>('TouchEffectContext', undefined)
+export const TouchEffectContext = ctxHelper<TouchEffectContextState | undefined>('TouchEffectContext', undefined)

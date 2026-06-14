@@ -21,7 +21,11 @@ Display extra information when hovering over or clicking an element. Suitable fo
 
 <code-example src="./examples/trigger.md" title="Trigger Mode" />
 
+<code-example src="./examples/adjust.md" title="Auto Adjust Position" />
+
 <code-example src="./examples/arrow.md" title="Arrow" />
+
+<code-example src="./examples/nested.md" title="Nested" />
 
 ## API
 

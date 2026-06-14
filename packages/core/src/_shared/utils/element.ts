@@ -1,6 +1,9 @@
+import type { ReactElement, ReactNode } from 'react'
 import type { MayBe } from '@mink-ui/shared/interface'
 import type { ContainerElement, GetContainerElement } from '../components/portal/src/_shared.props'
 
+import { isFragment } from 'react-is'
+import { isValidElement } from 'react'
 import { ownerDocument, ownerStyle } from '@mink-ui/shared/dom/global'
 import { isBrowser } from '@mink-ui/shared/dom/is-browser'
 import { isFunction } from '@mink-ui/shared/is/is-function'
@@ -47,4 +50,11 @@ export function findContainerElement<T extends ContainerElement>(
   if (isObject(target) && 'current' in target) return target.current
 
   return target
+}
+
+/**
+ * @description 判断是否为 ReactElement
+ */
+export function isConcreteElement(node: ReactNode): node is ReactElement {
+  return isValidElement(node) && !isFragment(node)
 }

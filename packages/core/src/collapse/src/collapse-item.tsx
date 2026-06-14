@@ -18,16 +18,14 @@ function CollapseItem(props: CollapseItemProps) {
   } = useCollapseItemProps(props)
 
   const {
-    ref,
-    children,
-    title,
-    extra,
-    name,
+    item,
     accordion,
     expanded,
     expandIcon,
     keepMounted,
   } = omitted
+
+  const { ref, name, title, extra, children } = item
 
   const renderExpandIcon = () => {
     const iconNode = isFunction(expandIcon) ? expandIcon({ expanded, name }) : expandIcon

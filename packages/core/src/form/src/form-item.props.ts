@@ -1,19 +1,19 @@
 import type { ReactNode } from 'react'
 import type { InternalFormFieldProps } from '../../_shared/components/form/src'
-import type { SemanticsStyled } from '../../_shared/types/styled'
-import type { FormItemChildren, ValidateStatus } from './_shared.props'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
+import type { FormItemRenderFunction, ValidateStatus } from './_shared.props'
 import type { FormItemInputForwardedProps } from './form-item-input.props'
 import type { FormItemLabelForwardedProps } from './form-item-label.props'
 
 export interface FormItemProps<V = any> extends
   FormItemInputForwardedProps,
   FormItemLabelForwardedProps,
-  Omit<InternalFormFieldProps<V>, 'children' | 'onMetaChange'>,
-  SemanticsStyled<'root' | 'label' | 'input', FormItemProps<V>> {
+  HasSemanticsStyled<'root' | 'label' | 'input', FormItemProps<V>>,
+  Omit<InternalFormFieldProps<V>, 'children' | 'onMetaChange'> {
   /**
    * @description 子元素
    */
-  children?: ReactNode | FormItemChildren
+  children?: ReactNode | FormItemRenderFunction
 
   /**
    * @description 纯净模式 (无任何样式)
@@ -44,7 +44,7 @@ export interface FormItemProps<V = any> extends
 export type DefaultNames = 'children'
 
 export interface PickedFormItemProps<V = any> extends Pick<FormItemProps<V>, DefaultNames> {
-  children: ReactNode | ReactNode[] | FormItemChildren
+  children: ReactNode | ReactNode[] | FormItemRenderFunction
 }
 
 export type OmittedFormItemProps<V = any> = Omit<FormItemProps<V>, DefaultNames>

@@ -12,7 +12,7 @@ import { Button, Space } from '@mink-ui/core'
 export default function App() {
   return (
     <Space orientation="vertical">
-      <Button block variant="solid">
+      <Button block theme="primary" variant="solid">
         Primary
       </Button>
       <Button block>Default</Button>

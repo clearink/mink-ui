@@ -22,6 +22,7 @@ function Button(props: ButtonProps) {
     ns,
     cssNames,
     cssAttrs,
+    ctrl,
     isLoading,
     loadingOptions,
     restAttrs,
@@ -49,8 +50,9 @@ function Button(props: ButtonProps) {
         unmountOnExit
         when={isLoading}
         onEnter={() => ({ width: 0 })}
-        onEntering={el => ({ width: el.scrollWidth })}
+        onEntering={ctrl.measure}
         onExit={el => ({ width: el.getBoundingClientRect().width })}
+        onExited={ctrl.reset}
         onExiting={() => ({ width: 0 })}
       >
         {($motion, getters) => (
@@ -90,9 +92,11 @@ function Button(props: ButtonProps) {
       >
         {renderIcon()}
 
-        <span className={cssNames.text} style={cssAttrs.text}>
-          {children}
-        </span>
+        {isRenderable(children) && (
+          <span className={cssNames.text} style={cssAttrs.text}>
+            {children}
+          </span>
+        )}
       </JsxTag>
     )
   }

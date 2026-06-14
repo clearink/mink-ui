@@ -18,7 +18,7 @@ function App() {
           style={{ marginBottom: 8 }}
           closable
           showIcon
-          action={<Button size="small" variant="solid">action</Button>}
+          action={<Button size="small" theme="primary" variant="solid">action</Button>}
           message={`${type} Text`}
           type={type}
         />

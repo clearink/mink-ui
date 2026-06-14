@@ -8,7 +8,7 @@ const Segmented = Object.assign(_Segmented, {})
  * |---------------------------------------------------------|
  */
 
-export type { SegmentedOption } from './_shared.props'
+export type { SegmentedOptionType } from './_shared.props'
 export type { SegmentedProps } from './segmented.props'
 
 export { Segmented }

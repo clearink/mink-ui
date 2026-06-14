@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode, RefObject } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
+import type { HasChildren } from '../../_shared/types/has-children'
 import type { ColProps } from '../../grid/src'
 import type { ValidateStatus } from './_shared.props'
 
@@ -22,16 +23,11 @@ export interface FormItemInputForwardedProps {
   wrapperCol?: ColProps
 }
 
-export interface FormItemInputInjectedProps {
+export interface FormItemInputInjectedProps extends HasChildren {
   /**
    * @description
    */
   ref: RefObject<VoidFn | null>
-
-  /**
-   * @description 子元素
-   */
-  children: ReactNode
 
   /**
    * @description 字段唯一 id

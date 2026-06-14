@@ -37,7 +37,7 @@ export function useNotificationListProps(props: NotificationListProps) {
     ctrl,
     isHovering,
     isExpanded,
-    listHeight,
+    rootHeight,
     itemCssVars,
     stackEnable,
     handleMouseEnter,
@@ -55,18 +55,18 @@ export function useNotificationListProps(props: NotificationListProps) {
       globalConfig.classNames,
       { root: globalConfig.className },
       classNames,
-      props.classNames,
-      { root: props.className },
+      omitted.classNames,
+      { root: omitted.className },
     ],
     [
       globalConfig.styles,
       { root: globalConfig.style },
-      props.styles,
-      { root: props.style },
-      { root: { height: listHeight } },
+      omitted.styles,
+      { root: omitted.style },
+      { root: { height: rootHeight } },
       { root: isTopSided(placement) ? { top } : { bottom } },
     ],
-    { meta: props },
+    { meta: { ...omitted, ...picked } },
   )
 
   const outerCssNames = { ...omit(cssNames, ['root', 'item']), root: cssNames.item }

@@ -1,14 +1,14 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react'
 import type { HasChildren } from '../../_shared/types/has-children'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { Orientation } from '../../_shared/types/orientation'
-import type { SemanticsStyled } from '../../_shared/types/styled'
 import type { SpaceAlign, SpaceSize } from './_shared.props'
 
 import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface SpaceInjectedProps extends
   HasChildren,
-  SemanticsStyled<'root' | 'item' | 'separator', SpaceProps> {
+  HasSemanticsStyled<'root' | 'item' | 'separator', SpaceProps> {
   /**
    * @description 外部引用
    */

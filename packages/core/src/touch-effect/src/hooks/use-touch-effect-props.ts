@@ -11,6 +11,7 @@ import { getElementRef, useCombinedRefs } from '../../../_shared/hooks/use-combi
 import { useThrottleFrame } from '../../../_shared/hooks/use-scheduler'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
 import { useNamespace } from '../../../_shared/hooks/use-settings/use-namespace'
+import { isNodeElement } from '../../../_shared/utils/element'
 import showWaveEffect from '../utils/show-wave-effect'
 
 export function useTouchEffectProps(props: TouchEffectProps) {
@@ -51,10 +52,7 @@ export function useTouchEffectProps(props: TouchEffectProps) {
   useEffect(() => {
     const container = $container.current
 
-    // NODE.ELEMENT_NODE === 1
-    if (!container || disabled || container.nodeType !== 1) {
-      return
-    }
+    if (disabled || !isNodeElement(container)) return
 
     const handler = (event: any) => { showTouchEffect(container, event) }
 

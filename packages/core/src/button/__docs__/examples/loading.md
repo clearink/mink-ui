@@ -36,15 +36,16 @@ export default function App() {
   return (
     <div>
       <Space style={{ marginBottom: 16 }}>
-        <Button loading={{ delay: 600 }} variant="solid">
+        <Button loading={{ delay: 600 }} theme="primary" variant="solid">
           Loading
         </Button>
-        <Button loading size="small" variant="solid">
+        <Button loading size="small" theme="primary" variant="solid">
           Loading
         </Button>
-        <Button loading icon={<PoweroffOutlined />} variant="solid" />
+        <Button loading icon={<PoweroffOutlined />} theme="primary" variant="solid" />
         <Button
           loading={{ icon: <SyncOutlined className="mink-spin" /> }}
+          theme="primary"
           variant="solid"
         >
           Loading Icon
@@ -53,6 +54,7 @@ export default function App() {
       <Space>
         <Button
           loading={loadings[0]}
+          theme="primary"
           variant="solid"
           onClick={() => enterLoading(0)}
         >
@@ -61,6 +63,7 @@ export default function App() {
         <Button
           iconPlacement="end"
           loading={loadings[2]}
+          theme="primary"
           variant="solid"
           onClick={() => enterLoading(2)}
         >
@@ -69,6 +72,7 @@ export default function App() {
         <Button
           icon={<PoweroffOutlined />}
           loading={loadings[1]}
+          theme="primary"
           variant="solid"
           onClick={() => enterLoading(1)}
         >
@@ -77,6 +81,7 @@ export default function App() {
         <Button
           icon={<PoweroffOutlined />}
           loading={loadings[3]}
+          theme="primary"
           variant="solid"
           onClick={() => enterLoading(3)}
         />

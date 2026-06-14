@@ -4,8 +4,8 @@ import type { OverlayProps } from '../../_shared/components/overlay/src'
 import type { HasClosable } from '../../_shared/types/closable'
 import type { HasFocusable } from '../../_shared/types/focusable'
 import type { HasChildren } from '../../_shared/types/has-children'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { HasSlots } from '../../_shared/types/has-slots'
-import type { SemanticsStyled } from '../../_shared/types/styled'
 import type { ModalVariant, ModalWidth, ResponsiveModalWidth } from './_shared.props'
 import type { ModalFooterForwardedProps } from './modal-footer.props'
 
@@ -22,17 +22,27 @@ export interface ModalOverlayProps extends Pick<
   | 'zIndex'
 > {}
 
-export interface ModalSharedConfig extends
+export interface ModalSharedParams extends
   HasClosable,
   HasFocusable,
+  HasSemanticsStyled<'mask' | 'root' | 'main' | 'header' | 'title' | 'statusIcon' | 'closeBtn' | 'body' | 'footer', ModalProps>,
   HasSlots<{ main: (node: ReactNode) => ReactNode }>,
   Omit<ModalOverlayProps, 'isOpen'>,
-  Omit<ModalFooterForwardedProps, 'confirmLoading' | 'onOk' | 'onCancel'>,
-  SemanticsStyled<'mask' | 'root' | 'main' | 'header' | 'title' | 'statusIcon' | 'closeBtn' | 'body' | 'footer', ModalProps> {
+  Omit<ModalFooterForwardedProps, 'confirmLoading'> {
   /**
    * @description 弹窗类型
    */
   type?: ModalVariant
+
+  /**
+   * @description 弹窗标题
+   */
+  title?: ReactNode
+
+  /**
+   * @description 弹窗内容
+   */
+  content?: ReactNode
 
   /**
    * @description 点击遮罩层是否关闭
@@ -60,20 +70,6 @@ export interface ModalSharedConfig extends
    * @description 弹窗宽度
    */
   width?: ModalWidth | ResponsiveModalWidth
-}
-
-export interface ModalSharedProps extends
-  ModalSharedConfig,
-  Pick<ModalFooterForwardedProps, 'onOk' | 'onCancel'> {
-  /**
-   * @description 弹窗标题
-   */
-  title?: ReactNode
-
-  /**
-   * @description 弹窗内容
-   */
-  content?: ReactNode
 
   /**
    * @description 完全打开后触发
@@ -88,7 +84,7 @@ export interface ModalSharedProps extends
 
 export interface ModalInjectedProps extends
   HasChildren,
-  Omit<ModalSharedProps, 'content'>,
+  Omit<ModalSharedParams, 'content'>,
   Pick<ModalFooterForwardedProps, 'confirmLoading'>,
   Pick<ModalOverlayProps, 'isOpen'> {
   /**

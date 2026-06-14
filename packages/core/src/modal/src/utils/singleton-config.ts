@@ -1,20 +1,18 @@
-import type { ModalConfig } from '../_shared.props'
+import type { ModalGlobalConfig } from '../_shared.props'
 
 import { shallowMerge } from '@mink-ui/shared/object/shallow-merge'
-
-import { defaultModalConfig } from '../_shared.props'
 
 /**
  * @description 全局模态框配置
  */
 class GlobalModalConfig {
-  private _config: ModalConfig = { ...defaultModalConfig }
+  private _config: ModalGlobalConfig = { }
 
-  public get = (): ModalConfig => {
+  public get = (): ModalGlobalConfig => {
     return { ...this._config }
   }
 
-  public set = (config: Partial<ModalConfig>) => {
+  public set = (config: Partial<ModalGlobalConfig>) => {
     this._config = shallowMerge(config, this.get())
   }
 }

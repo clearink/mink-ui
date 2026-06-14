@@ -1,4 +1,4 @@
-import type { SemanticsStyled } from '../../../types/styled'
+import type { HasSemanticsStyled } from '../../../types/has-semantics'
 import type { PortalProps } from '../../portal/src'
 import type { CssTransitionProps } from '../../transition/src'
 
@@ -15,7 +15,7 @@ export interface OverlayTransitionProps extends
   > {}
 
 export interface OverlayInjectedProps extends
-  SemanticsStyled<'root' | 'mask', OverlayProps> {
+  HasSemanticsStyled<'root' | 'mask', OverlayProps> {
   /**
    * @description 是否展示遮罩
    */

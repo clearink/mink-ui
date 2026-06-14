@@ -28,6 +28,7 @@ import { noop } from '@mink-ui/shared/function/noop'
 import { isArray } from '@mink-ui/shared/is/is-array'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 import { isUndefined } from '@mink-ui/shared/is/is-undefined'
+import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
 import { logger } from '../../../../utils/logger'
 import { HOOKS_SECRET } from '../_shared.constant'
@@ -38,40 +39,43 @@ import { _getId, getIn, hasIn, relation } from './path'
 import { defineIn, deleteIn, linkIn, mergeIn, unlinkIn } from './value'
 
 export class FormControl<S = any> {
-  private $other: FormOtherControl
+  private $$other: FormOtherControl
 
-  private $state: FormStateControl
+  private $$state: FormStateControl
 
-  private $scheduler: FormSchedulerControl
+  private $$scheduler: FormSchedulerControl
 
-  private $controls: FormControlsControl
+  private $$controls: FormControlsControl
 
-  private $initial: FormInitialControl
+  private $$initial: FormInitialControl
 
-  private $dispatch: FormDispatchControl
+  private $$dispatch: FormDispatchControl
 
   constructor(forceUpdate: VoidFn) {
-    this.$other = new FormOtherControl<S>(forceUpdate)
+    this.$$other = new FormOtherControl<S>(forceUpdate)
 
-    this.$state = new FormStateControl<S>()
+    this.$$state = new FormStateControl<S>()
 
-    this.$scheduler = new FormSchedulerControl<S>()
+    this.$$scheduler = new FormSchedulerControl<S>()
 
-    this.$controls = new FormControlsControl(this.$other)
-
-    this.$initial = new FormInitialControl<S>(
-      this.$other,
-      this.$state,
-      this.$scheduler,
-      this.$controls,
+    this.$$controls = new FormControlsControl(
+      this.$$other,
+      this.$$state,
     )
 
-    this.$dispatch = new FormDispatchControl<S>(
-      this.$other,
-      this.$state,
-      this.$scheduler,
-      this.$controls,
-      this.$initial,
+    this.$$initial = new FormInitialControl<S>(
+      this.$$other,
+      this.$$state,
+      this.$$scheduler,
+      this.$$controls,
+    )
+
+    this.$$dispatch = new FormDispatchControl<S>(
+      this.$$other,
+      this.$$state,
+      this.$$scheduler,
+      this.$$controls,
+      this.$$initial,
     )
   }
 
@@ -87,21 +91,21 @@ export class FormControl<S = any> {
       return undefined
     }
 
-    const { $other, $scheduler, $controls, $dispatch, $initial } = this
+    const { $$other, $$scheduler, $$controls, $$dispatch, $$initial } = this
 
     return {
-      _bind: $other._bind,
-      dispatch: $dispatch.dispatch,
-      registerField: $dispatch.registerField,
-      registerWatch: $other.registerWatch,
-      registerScheduler: $scheduler.registerScheduler,
-      setFieldsInfo: $dispatch.setFieldsInfo,
-      defineInitialValue: $initial.defineInitialValue,
-      updateControlsMap: $controls.updateControlsMap,
-      updateFieldEdges: $other.updateFieldEdges,
-      defineFormInitials: $dispatch.defineFormInitials,
-      saveInternalFields: $dispatch.saveInternalFields,
-      getFormListControl: $controls.getFormListControl,
+      _bind: $$other._bind,
+      dispatch: $$dispatch.dispatch,
+      registerField: $$dispatch.registerField,
+      registerWatch: $$other.registerWatch,
+      registerScheduler: $$scheduler.registerScheduler,
+      setFieldsInfo: $$dispatch.setFieldsInfo,
+      defineInitialValue: $$initial.defineInitialValue,
+      updateControlsMap: $$controls.updateControlsMap,
+      updateFieldEdges: $$other.updateFieldEdges,
+      defineFormInitials: $$dispatch.defineFormInitials,
+      saveInternalFields: $$dispatch.saveInternalFields,
+      getFormListControl: $$controls.getFormListControl,
     }
   }
 
@@ -109,33 +113,33 @@ export class FormControl<S = any> {
    * @description 向外暴露方法
    */
   public expose = (): InternalFormInstance<S> => {
-    const { $controls, $dispatch } = this
+    const { $$controls, $$dispatch } = this
 
     return {
       /** @private */
       getInternalHooks: this.getInternalHooks,
 
-      getFieldError: $controls.getFieldError,
-      getFieldsError: $controls.getFieldsError,
+      getFieldError: $$controls.getFieldError,
+      getFieldsError: $$controls.getFieldsError,
 
-      getFieldValue: $dispatch.getFieldValue,
-      getFieldsValue: $dispatch.getFieldsValue,
+      getFieldValue: $$dispatch.getFieldValue,
+      getFieldsValue: $$dispatch.getFieldsValue,
 
-      setFieldValue: $dispatch.setFieldValue,
-      setFieldsValue: $dispatch.setFieldsValue,
+      setFieldValue: $$dispatch.setFieldValue,
+      setFieldsValue: $$dispatch.setFieldsValue,
 
-      validateField: $dispatch.validateField,
-      validateFields: $dispatch.validateFields,
+      validateField: $$dispatch.validateField,
+      validateFields: $$dispatch.validateFields,
 
-      isFieldTouched: $controls.isFieldTouched,
-      isFieldsTouched: $controls.isFieldsTouched,
+      isFieldTouched: $$controls.isFieldTouched,
+      isFieldsTouched: $$controls.isFieldsTouched,
 
-      isFieldValidating: $controls.isFieldValidating,
-      isFieldsValidating: $controls.isFieldsValidating,
+      isFieldValidating: $$controls.isFieldValidating,
+      isFieldsValidating: $$controls.isFieldsValidating,
 
-      resetFields: $dispatch.resetFields,
+      resetFields: $$dispatch.resetFields,
 
-      submitForm: $dispatch.submitForm,
+      submitForm: $$dispatch.submitForm,
     }
   }
 }
@@ -281,11 +285,11 @@ export class FormOtherControl<S = any> {
   /**
    * @description 通知监听事件
    */
-  public publishWatch = ($dispatch: FormDispatchControl, $scheduler: FormSchedulerControl) => {
+  public publishWatch = ($$dispatch: FormDispatchControl, $$scheduler: FormSchedulerControl) => {
     if (!this._watchers.size) return
 
     // 或许可以减少一次计算 (数据量大时提升明显)
-    const values = $scheduler._events?.values || $dispatch.getFieldsValue()
+    const values = $$scheduler._events?.values || $$dispatch.getFieldsValue()
 
     this._watchers.forEach((fn) => { fn(values) })
   }
@@ -455,7 +459,10 @@ export class FormControlsControl {
 
   public _links = Object.create(null)
 
-  constructor(private $other: FormOtherControl) {}
+  constructor(
+    private $$other: FormOtherControl,
+    private $$state: FormStateControl,
+  ) {}
 
   /**
    * @description 是否有多个同名字段且存在多个 initialValue
@@ -758,8 +765,8 @@ export class FormControlsControl {
   /**
    * @description 注册字段
    */
-  public registerControl = (control: FormFieldControl, $initial: FormInitialControl) => {
-    control.setGetInitialValue(() => $initial.getFieldInitialValue(control))
+  public registerControl = (control: FormFieldControl, $$initial: FormInitialControl) => {
+    control.setGetInitialValue(() => $$initial.getFieldInitialValue(control))
 
     pushItem(this._list, control)
 
@@ -777,15 +784,17 @@ export class FormControlsControl {
   /**
    * @description 创建字段名链接
    */
-  public buildFieldLinks = (control: FormFieldControl, $scheduler: FormSchedulerControl) => {
-    if (!control._id) return noop
+  public buildFieldLinks = (control: FormFieldControl, $$scheduler: FormSchedulerControl) => {
+    const controls = this._map.get(control._id) || []
 
-    this._links = linkIn(this._links, control._name, $scheduler._initial.linked)
+    if (!control._id || controls.length > 1) return noop
+
+    this._links = linkIn(this._links, control._name, $$scheduler._initial.linked)
 
     return () => {
       if (this._map.has(control._id)) return
 
-      this._links = unlinkIn(this._links, control._name, $scheduler._cleanup.linked)
+      this._links = unlinkIn(this._links, control._name, $$scheduler._cleanup.linked)
     }
   }
 
@@ -796,7 +805,7 @@ export class FormControlsControl {
     const { isFormList } = control._props
 
     // 如果 Form.List 自身需要保持数据，则其子字段也强制需要 (不用判断 preserve)
-    const keepValue = control.__keepValue || this.$other.isKeepFieldValue(control)
+    const keepValue = control.__keepValue || this.$$other.isKeepFieldValue(control)
 
     isFormList && this._list.forEach((ctrl) => {
       const { isListField } = ctrl._props
@@ -835,6 +844,19 @@ export class FormControlsControl {
       return isFormList && isFormList.listControl === listControl
     })
   }
+
+  /**
+   * @description 移除未被 link 的字段值
+   */
+  public removeUnlinkedFieldValue = (name: InternalFieldName, copied: object) => {
+    const path = name.slice()
+
+    while (path.length && !getIn(this._links, path)) {
+      this.$$state.deleteFieldValue(path, copied)
+
+      path.pop()
+    }
+  }
 }
 
 /**
@@ -847,10 +869,10 @@ export class FormInitialControl<S = any> {
   private _initialValues = {} as Partial<S>
 
   constructor(
-    private $other: FormOtherControl,
-    private $state: FormStateControl<S>,
-    private $scheduler: FormSchedulerControl<S>,
-    private $controls: FormControlsControl,
+    private $$other: FormOtherControl,
+    private $$state: FormStateControl<S>,
+    private $$scheduler: FormSchedulerControl<S>,
+    private $$controls: FormControlsControl,
   ) {}
 
   /**
@@ -862,9 +884,9 @@ export class FormInitialControl<S = any> {
 
     if (isUndefined(displayValue)) return
 
-    const { _copied } = this.$scheduler
+    const { _copied } = this.$$scheduler
 
-    this.$state.defineFieldValue(control._name, displayValue, _copied)
+    this.$$state.defineFieldValue(control._name, displayValue, _copied)
   }
 
   /**
@@ -878,7 +900,7 @@ export class FormInitialControl<S = any> {
   //  * @description 获取字段最终的初始值
   //  */
   // public getFieldInitialValue = (control: FormFieldControl) => {
-  //   const controls = this.$controls._map.get(control._id) || []
+  //   const controls = this.$$controls._map.get(control._id) || []
 
   //   return atIndex(controls, -1).__holder?.viewState
   // }
@@ -891,10 +913,10 @@ export class FormInitialControl<S = any> {
 
     if (!isUndefined(formInitial)) return formInitial
 
-    function recursive($controls: FormControlsControl, _id: string): any {
+    function recursive($$controls: FormControlsControl, _id: string): any {
       let fieldInitial: any
 
-      const controls = $controls._map.get(_id) || []
+      const controls = $$controls._map.get(_id) || []
 
       for (let len = controls.length, i = 0; i < len; i++) {
         const { _name, _props: { initialValue, isListField } } = controls[i]
@@ -910,7 +932,7 @@ export class FormInitialControl<S = any> {
         const { initialValue: listInitial } = listControl._props
 
         // 尝试获取父级 Form.List 的初始值
-        const topListInitial = recursive($controls, listId)
+        const topListInitial = recursive($$controls, listId)
 
         const finallyInitial = fallback(topListInitial, listInitial)
 
@@ -926,7 +948,7 @@ export class FormInitialControl<S = any> {
       return fieldInitial
     }
 
-    return recursive(this.$controls, control._id)
+    return recursive(this.$$controls, control._id)
   }
 
   /**
@@ -936,32 +958,32 @@ export class FormInitialControl<S = any> {
     this._initialValues = { ...initialValues }
 
     // 初始值不能覆盖当前值
-    this.$state.mergeFieldsValue(this._initialValues, this.$state._state)
+    this.$$state.mergeFieldsValue(this._initialValues, this.$$state._state)
   }
 
   /**
    * @description 设置字段初始值 (同时返回当前字段值)
    */
   public defineInitialValue = (control: FormFieldControl) => {
-    const { $state, $scheduler } = this
+    const { $$state, $$scheduler } = this
     const { _name, _props: { initialValue } } = control
 
     // 初始化快照
-    $scheduler._snapshots ??= $state._state
+    $$scheduler._snapshots ??= $$state._state
 
     if (!control._id) return
 
-    const currentValue = $state.getFieldValue(_name)
+    const currentValue = $$state.getFieldValue(_name)
 
     const displayValue = fallback(currentValue, initialValue)
 
     if (isUndefined(displayValue)) return
 
-    const { _copied, _initial } = $scheduler
+    const { _copied, _initial } = $$scheduler
 
     _initial.defined.add(control)
 
-    $state.defineFieldValue(_name, displayValue, _copied)
+    $$state.defineFieldValue(_name, displayValue, _copied)
 
     return displayValue
   }
@@ -970,7 +992,7 @@ export class FormInitialControl<S = any> {
    * @description 确保字段已经初始化
    */
   public ensureInitialValue = (control: FormFieldControl) => {
-    const { $state, $controls } = this
+    const { $$state, $$controls } = this
 
     const { initialValue, isListField } = control._props
 
@@ -993,7 +1015,7 @@ export class FormInitialControl<S = any> {
     }
 
     // 有多个初始值
-    if ($controls.hasDuplicateInitializedControls(control)) {
+    if ($$controls.hasDuplicateInitializedControls(control)) {
       if (process.env.NODE_ENV !== 'production') {
         logger.error(
           'InternalForm.[Field | List]',
@@ -1005,30 +1027,30 @@ export class FormInitialControl<S = any> {
     }
 
     // 已经有值了
-    if (!isUndefined($state.getFieldValue(control._name))) return
+    if (!isUndefined($$state.getFieldValue(control._name))) return
 
-    const { _copied } = this.$scheduler
+    const { _copied } = this.$$scheduler
 
     // 设置初始值 (此处只设置 props.initialValue 即可)
-    $state.defineFieldValue(control._name, initialValue, _copied)
+    $$state.defineFieldValue(control._name, initialValue, _copied)
   }
 
   /**
    * @description 清除字段初始值
    */
   public cleanInitialValue = (control: FormFieldControl) => {
-    const { $controls, $state, $other } = this
+    const { $$controls, $$state, $$other, $$scheduler } = this
     const { _id, _name, __keepValue, _props } = control
     const { isFormList, isListField } = _props
 
     // Form.List 即将卸载，需要更新子字段的 behavior
-    if (isFormList) this.$controls.updateListFieldBehavior(control)
+    if (isFormList) this.$$controls.updateListFieldBehavior(control)
 
     // name 不合法 || 需要保留数据
-    if (!_id || $other.isKeepFieldValue(control)) return
+    if (!_id || $$other.isKeepFieldValue(control)) return
 
     // 存在同名字段未被卸载
-    if ($controls._map.has(_id)) return
+    if ($$controls._map.has(_id)) return
 
     // simple 字段 由 Form.List 直接管理
     if (isListField && isListField.type === 'simple') return
@@ -1036,45 +1058,32 @@ export class FormInitialControl<S = any> {
     // 已经标记为需要保留的字段
     if (isListField && __keepValue) return
 
-    // Form.List 还没有卸载，直接删除复杂字段的值
-    const initialValue = isListField && !__keepValue
-      ? undefined
-      // 字段已卸载，重置为 Form 上的初始值
-      : this.getFormInitialValue(_name)
+    // Form.List 还没有卸载，直接删除复杂字段的值，否则重置为 Form 上的初始值
+    const initialValue = isListField && !__keepValue ? undefined : this.getFormInitialValue(_name)
 
     const isNonInitial = !isUndefined(initialValue)
 
-    const isValueEqual = initialValue === $state.getFieldValue(_name)
+    const isValueEqual = shallowEqual(initialValue, $$state.getFieldValue(_name))
 
     // 初始值不为空 && 与当前值相等
     if (isNonInitial && isValueEqual) return
 
-    const { _copied } = this.$scheduler
-
-    // 回退至初始值
-    if (isNonInitial) return $state.defineFieldValue(_name, initialValue, _copied)
-
-    // 需要删除字段值, 包含额外创建的对象
-    for (let i = _name.length; i > 0; i--) {
-      const parent = _name.slice(0, i)
-
-      if (getIn($controls._links, parent)) return
-
-      $state.deleteFieldValue(parent, _copied)
-    }
+    // 没有初始值，删除该字段值，否则重置为初始值
+    if (!isNonInitial) $$controls.removeUnlinkedFieldValue(_name, $$scheduler._copied)
+    else $$state.defineFieldValue(_name, initialValue, $$scheduler._copied)
   }
 
   /**
    * @description 重置为字段默认值
    */
   public resetInitialValue = (resets: Map<string, FormFieldControl[]>, nameList?: ExternalFieldName[]) => {
-    const prev = this.$state._state
+    const prev = this.$$state._state
 
     const copied = Object.create(null)
 
     const hasNameList = !isUndefined(nameList)
 
-    if (!hasNameList) this.$state.mergeFieldsValue({}, this._initialValues)
+    if (!hasNameList) this.$$state.mergeFieldsValue({}, this._initialValues)
 
     resets.forEach((controls, _id) => {
       if (!_id || !controls.length) return
@@ -1084,7 +1093,7 @@ export class FormInitialControl<S = any> {
       // 阻止对父级字段的多次更新 (模拟字段初始化时的逻辑)
       if (hasIn(copied, _name, true)) return
 
-      const fieldCurrent = this.$state.getFieldValue(_name)
+      const fieldCurrent = this.$$state.getFieldValue(_name)
 
       const fieldInitial = this.getFieldInitialValue(controls[0])
 
@@ -1093,14 +1102,14 @@ export class FormInitialControl<S = any> {
       const isNonInitial = !isUndefined(fieldInitial)
 
       if (!isNonInitial && hasNameList) {
-        this.$state.deleteFieldValue(_name, copied)
+        this.$$state.deleteFieldValue(_name, copied)
       }
       else if (isNonInitial && hasChanged) {
-        this.$state.defineFieldValue(_name, fieldInitial, copied)
+        this.$$state.defineFieldValue(_name, fieldInitial, copied)
       }
     })
 
-    return [prev, this.$state._state, copied] as const
+    return [prev, this.$$state._state, copied] as const
   }
 }
 
@@ -1119,11 +1128,11 @@ export class FormDispatchControl<S = any> {
   private _fields: ExternalFieldInfo[] | undefined
 
   constructor(
-    private $other: FormOtherControl,
-    private $state: FormStateControl<S>,
-    private $scheduler: FormSchedulerControl<S>,
-    private $controls: FormControlsControl,
-    private $initial: FormInitialControl<S>,
+    private $$other: FormOtherControl,
+    private $$state: FormStateControl<S>,
+    private $$scheduler: FormSchedulerControl<S>,
+    private $$controls: FormControlsControl,
+    private $$initial: FormInitialControl<S>,
   ) {}
 
   /**
@@ -1135,7 +1144,7 @@ export class FormDispatchControl<S = any> {
 
     const dependencies = new Set<FormFieldControl>()
 
-    this.$other.collectFieldEdges(controls, dependencies)
+    this.$$other.collectFieldEdges(controls, dependencies)
 
     // 相关字段触发一次更新
     dependencies.forEach((ctrl) => { ctrl.forceUpdate() })
@@ -1156,8 +1165,8 @@ export class FormDispatchControl<S = any> {
   private updateControl = (predicate: (control: FormFieldControl) => unknown, defaults?: FormFieldControl[]) => {
     let controls: FormFieldControl[] = []
 
-    if (this.$other.isFunctional() && !defaults) this.$other.forceUpdate()
-    else controls = (defaults || this.$controls._list).filter(predicate)
+    if (this.$$other.isFunctional() && !defaults) this.$$other.forceUpdate()
+    else controls = (defaults || this.$$controls._list).filter(predicate)
 
     controls.forEach((control) => { control.forceUpdate() })
 
@@ -1169,14 +1178,14 @@ export class FormDispatchControl<S = any> {
    * @description 调度更新
    */
   private scheduleUpdate = () => {
-    // this.$scheduler.schedule('xxx', 0, () => {
+    // this.$$scheduler.schedule('xxx', 0, () => {
     //   // 字段的初始值是会根据当前字段变化的。
     //   // 所以需要在字段添加/卸载时 如果还存在同名字段，则将初始值计算出来。
     // })
 
-    this.$scheduler.schedule('update', 1, (tasks) => {
-      const { _snapshots: prev, _initial, _cleanup, _events } = this.$scheduler
-      const { _state: next } = this.$state
+    this.$$scheduler.schedule('update', 1, (tasks) => {
+      const { _snapshots: prev, _initial, _cleanup, _events } = this.$$scheduler
+      const { _state: next } = this.$$state
 
       const hasInitial = _initial.defined.size > 0
       const hasUpdated = _events.updated.size > 0
@@ -1201,8 +1210,8 @@ export class FormDispatchControl<S = any> {
    * @description 字段调度方法
    */
   public dispatch = (action: FormDispatchAction) => {
-    const { $other, $state, $scheduler, $controls, $initial } = this
-    const { _initial, _cleanup, _events } = $scheduler
+    const { $$other, $$state, $$scheduler, $$controls, $$initial } = this
+    const { _initial, _cleanup, _events } = $$scheduler
 
     switch (action.type) {
       // 字段注册
@@ -1210,11 +1219,11 @@ export class FormDispatchControl<S = any> {
         const { control, transient } = action
 
         // 初始化快照
-        $scheduler._snapshots ??= $state._state
+        $$scheduler._snapshots ??= $$state._state
 
-        $initial.ensureInitialValue(control)
+        $$initial.ensureInitialValue(control)
 
-        const current = control.markIsMounted($state)
+        const current = control.markIsMounted($$state)
 
         // 与视图不一致 && 不是 Form.List 时不能跳过更新
         transient !== current
@@ -1223,7 +1232,7 @@ export class FormDispatchControl<S = any> {
 
         this.scheduleUpdate()
 
-        $scheduler.schedule('publish', 3, () => { $other.publishWatch(this, $scheduler) })
+        $$scheduler.schedule('publish', 3, () => { $$other.publishWatch(this, $$scheduler) })
 
         break
       }
@@ -1232,17 +1241,17 @@ export class FormDispatchControl<S = any> {
         const { control } = action
 
         // 初始化快照
-        $scheduler._snapshots ??= $state._state
+        $$scheduler._snapshots ??= $$state._state
 
-        $initial.cleanInitialValue(control)
+        $$initial.cleanInitialValue(control)
 
         control.markIsUnmounted()
 
         this.scheduleUpdate()
 
-        $scheduler.schedule('cleanup', 2, () => { this.triggerDependencies(_cleanup.controls) })
+        $$scheduler.schedule('cleanup', 2, () => { this.triggerDependencies(_cleanup.controls) })
 
-        $scheduler.schedule('publish', 3, () => { $other.publishWatch(this, $scheduler) })
+        $$scheduler.schedule('publish', 3, () => { $$other.publishWatch(this, $$scheduler) })
 
         break
       }
@@ -1251,20 +1260,20 @@ export class FormDispatchControl<S = any> {
         const { value, control } = action
 
         // 初始化快照
-        $scheduler._snapshots ??= $state._state
+        $$scheduler._snapshots ??= $$state._state
 
-        const [prev, next] = $state.defineFieldValue(control._name, value, Object.create(null))
+        const [prev, next] = $$state.defineFieldValue(control._name, value, Object.create(null))
 
         // 同名字段优先更新
         this
-          .updateControl(ctrl => ctrl.shouldUpdate(prev, next), $controls._map.get(control._id))
+          .updateControl(ctrl => ctrl.shouldUpdate(prev, next), $$controls._map.get(control._id))
           .forEach((ctrl) => { _events.updated.add(ctrl) })
 
         control.updateMetaInfoByFieldEvent()
 
         this.scheduleUpdate()
 
-        $scheduler.schedule('events', 2, () => {
+        $$scheduler.schedule('events', 2, () => {
           _events.controls.forEach((ctrl) => { _events.updated.add(ctrl) })
 
           const controls = Array.from(_events.updated)
@@ -1276,7 +1285,7 @@ export class FormDispatchControl<S = any> {
           this.triggerOnFieldsChange(controls.concat(dependencies))
         })
 
-        $scheduler.schedule('publish', 3, () => { $other.publishWatch(this, $scheduler) })
+        $$scheduler.schedule('publish', 3, () => { $$other.publishWatch(this, $$scheduler) })
 
         break
       }
@@ -1284,15 +1293,15 @@ export class FormDispatchControl<S = any> {
       case 'resetFields':{
         const { nameList } = action
 
-        const resets = $controls.getControlsForResetFields(nameList)
+        const resets = $$controls.getControlsForResetFields(nameList)
 
-        const [prev, next, copied] = $initial.resetInitialValue(resets, nameList)
+        const [prev, next, copied] = $$initial.resetInitialValue(resets, nameList)
 
         this.updateControl(ctrl => !resets.has(ctrl._id) && ctrl.shouldUpdate(prev, next, copied))
 
-        $controls.updateMetaInfoByResetFields(resets)
+        $$controls.updateMetaInfoByResetFields(resets)
 
-        $scheduler.schedule('publish', 3, () => { $other.publishWatch(this, $scheduler) })
+        $$scheduler.schedule('publish', 3, () => { $$other.publishWatch(this, $$scheduler) })
 
         break
       }
@@ -1300,13 +1309,13 @@ export class FormDispatchControl<S = any> {
       case 'setFieldsValue':{
         const { values } = action
 
-        const [prev, next] = $state.mergeFieldsValue($state._state, values)
+        const [prev, next] = $$state.mergeFieldsValue($$state._state, values)
 
         this.updateControl(ctrl => ctrl.shouldUpdate(prev, next))
 
-        $controls.updateMetaInfoByFieldsValue(prev, next)
+        $$controls.updateMetaInfoByFieldsValue(prev, next)
 
-        $scheduler.schedule('publish', 3, () => { $other.publishWatch(this, $scheduler) })
+        $$scheduler.schedule('publish', 3, () => { $$other.publishWatch(this, $$scheduler) })
 
         break
       }
@@ -1314,13 +1323,13 @@ export class FormDispatchControl<S = any> {
       case 'setFieldsInfo':{
         const { fields } = action
 
-        const [prev, next, copied] = $state.setFieldsInfo(fields)
+        const [prev, next, copied] = $$state.setFieldsInfo(fields)
 
         this.updateControl(ctrl => ctrl.shouldUpdate(prev, next, copied))
 
-        $controls.updateMetaInfoByFieldsInfo(fields)
+        $$controls.updateMetaInfoByFieldsInfo(fields)
 
-        $scheduler.schedule('publish', 3, () => { $other.publishWatch(this, $scheduler) })
+        $$scheduler.schedule('publish', 3, () => { $$other.publishWatch(this, $$scheduler) })
 
         break
       }
@@ -1334,11 +1343,11 @@ export class FormDispatchControl<S = any> {
    * @description 注册字段 & 建立依赖图
    */
   public registerField = (control: FormFieldControl, transient: any) => {
-    const cleanup1 = this.$controls.registerControl(control, this.$initial)
+    const cleanup1 = this.$$controls.registerControl(control, this.$$initial)
 
-    const cleanup2 = this.$controls.buildFieldLinks(control, this.$scheduler)
+    const cleanup2 = this.$$controls.buildFieldLinks(control, this.$$scheduler)
 
-    const cleanup3 = this.$other.buildFieldEdges(control)
+    const cleanup3 = this.$$other.buildFieldEdges(control)
 
     this.dispatch({ type: 'fieldInitial', control, transient })
 
@@ -1354,7 +1363,7 @@ export class FormDispatchControl<S = any> {
   }
 
   public getFieldValue = (name: ExternalFieldName) => {
-    return this.$state.getFieldValue(toArray(name))
+    return this.$$state.getFieldValue(toArray(name))
   }
 
   /**
@@ -1363,14 +1372,14 @@ export class FormDispatchControl<S = any> {
   public getFieldsValue: GetFieldsValueFunction<S> = (arg1: any, arg2?: any) => {
     const [nameList, compare] = normalizeGetFieldsValueOptions(arg1, arg2)
 
-    const current = this.$state._state
+    const current = this.$$state._state
 
     if (nameList === true && !compare) return current
 
     const copied = Object.create(null)
 
     return this
-      .$controls
+      .$$controls
       .getControlsForGetFieldsValue(isArray(nameList) ? nameList : undefined)
       .reduce((values, ctrl) => {
         const { isFormList } = ctrl._props
@@ -1392,9 +1401,9 @@ export class FormDispatchControl<S = any> {
    */
   public getFieldsInfo = (nameList?: ExternalFieldName[]) => {
     return this
-      .$controls
+      .$$controls
       .getControlsForGetFieldsInfo(nameList)
-      .map(ctrl => ctrl.getFieldInfo(this.$state))
+      .map(ctrl => ctrl.getFieldInfo(this.$$state))
   }
 
   /**
@@ -1447,7 +1456,7 @@ export class FormDispatchControl<S = any> {
     // 初始化内部 fieldsInfo
     this._fields = fields
 
-    this.$initial.mergeInitialValues(initialValues)
+    this.$$initial.mergeInitialValues(initialValues)
   }
 
   /**
@@ -1455,7 +1464,7 @@ export class FormDispatchControl<S = any> {
    * @description 触发 onFieldsChange 回调 TODO: 待优化
    */
   private triggerOnFieldsChange = (controls: FormFieldControl[]) => {
-    const { _provider: provider, _omitted: { name, onFieldsChange } } = this.$other
+    const { _provider: provider, _omitted: { name, onFieldsChange } } = this.$$other
 
     if (!onFieldsChange && (!provider || isUndefined(name))) return
 
@@ -1473,7 +1482,7 @@ export class FormDispatchControl<S = any> {
    * @description 触发 onValuesChange 回调 (只有 fieldEvent 时才会触发)
    */
   private triggerOnValuesChange = (controls: FormFieldControl[], events: { values?: object }) => {
-    const { onValuesChange } = this.$other._omitted
+    const { onValuesChange } = this.$$other._omitted
 
     if (!onValuesChange) return
 
@@ -1501,12 +1510,12 @@ export class FormDispatchControl<S = any> {
    * @description 校验一组字段
    */
   public validateFields = (nameList?: ExternalFieldName[]) => {
-    const { $state, $controls } = this
+    const { $$state, $$controls } = this
 
     // 获取所有准备校验的字段
-    const controls = $controls.getControlsForValidateFields(nameList)
+    const controls = $$controls.getControlsForValidateFields(nameList)
 
-    const promises = controls.map(ctrl => ctrl.validate($state))
+    const promises = controls.map(ctrl => ctrl.validate($$state))
 
     const lastValidate = Promise.allSettled(promises)
       .then(results => FieldsValidateError.from(results))
@@ -1540,7 +1549,7 @@ export class FormDispatchControl<S = any> {
    * @description 触发 onFinish 回调
    */
   private triggerOnFinish = (values: S) => {
-    const { _provider: provider, _omitted: { name, onFinish } } = this.$other
+    const { _provider: provider, _omitted: { name, onFinish } } = this.$$other
 
     if (!onFinish && !provider) return
 
@@ -1556,7 +1565,7 @@ export class FormDispatchControl<S = any> {
    * @description 触发 onFailed 回调
    */
   private triggerOnFailed = (error: FormValidateError<S>) => {
-    const { onFailed } = this.$other._omitted
+    const { onFailed } = this.$$other._omitted
 
     if (!onFailed) return
 

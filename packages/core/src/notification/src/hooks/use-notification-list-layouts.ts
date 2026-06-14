@@ -5,9 +5,10 @@ import { useMemo, useState } from 'react'
 
 import { useConstant } from '../../../_shared/hooks/use-constant'
 import { useInvoke } from '../../../_shared/hooks/use-invoke'
+import { useIsomorphicEffect } from '../../../_shared/hooks/use-isomorphic-effect'
 import { useDebounceFrame } from '../../../_shared/hooks/use-scheduler'
 import { normalizeNotificationStackConfig } from '../utils/format'
-import { getNotificationListLayouts } from '../utils/helpers'
+import { resolveNotificationListLayouts } from '../utils/helpers'
 import { NotificationListControl } from '../utils/notification-list-control'
 
 export function useNotificationListLayouts(
@@ -31,28 +32,28 @@ export function useNotificationListLayouts(
 
   const isCollapsed = !isExpanded && stackEnable
 
-  const { itemCssVars, listHeight } = useMemo(() => getNotificationListLayouts(
-    items,
-    sizes,
-    gap!,
-    offset,
-    isCollapsed,
-  ), [sizes, items, gap, offset, isCollapsed])
+  const { itemCssVars, rootHeight } = useMemo(
+    () => resolveNotificationListLayouts(items, sizes, gap!, offset, isCollapsed),
+    [sizes, items, gap, offset, isCollapsed],
+  )
 
   const handleMouseEnter = () => { stackEnable && setIsHovering(true) }
 
   const handleMouseLeave = () => { setIsHovering(false) }
 
   const handleRecheckHover = useDebounceFrame(() => {
-    const el = ctrl.container
+    const el = ctrl.root
     el && setIsHovering(el.matches(':hover'))
   })
+
+  // items 改变时，重新计算 sizes
+  useIsomorphicEffect(() => { ctrl.measure(items) }, [ctrl, items])
 
   return {
     ctrl,
     isHovering,
     isExpanded,
-    listHeight,
+    rootHeight,
     itemCssVars,
     stackEnable,
     handleMouseEnter,

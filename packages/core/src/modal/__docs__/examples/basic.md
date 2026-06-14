@@ -15,7 +15,7 @@ export default function App() {
 
   return (
     <>
-      <Button variant="solid" onClick={() => setIsOpen(true)}>Open Modal</Button>
+      <Button theme="primary" variant="solid" onClick={() => setIsOpen(true)}>Open Modal</Button>
 
       <Modal
         isOpen={isOpen}

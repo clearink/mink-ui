@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import type { GetSemanticsConfig } from '../../_shared/types/has-semantics'
+import type { ButtonProps } from './button.props'
 
 export type IconPlacement = 'start' | 'end'
 
@@ -19,3 +21,12 @@ export interface ButtonLoading {
    */
   icon?: ReactNode
 }
+
+/**
+ * |---------------------------------------------------------|
+ * |                     global definition                   |
+ * |---------------------------------------------------------|
+ */
+
+export interface ButtonGlobalConfig extends GetSemanticsConfig<ButtonProps>,
+  Pick<ButtonProps, 'variant' | 'theme' | 'shape'> {}

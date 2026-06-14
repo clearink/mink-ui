@@ -33,6 +33,7 @@ export default antfu(
         'react/exhaustive-deps': ['warn', { additionalHooks: 'useIsomorphicEffect|useInsertionEffect' }],
         'react/set-state-in-effect': 'off',
         'react/use-state': ['warn', { enforceSetterName: false }],
+        'react/no-children-only': 'off',
         'react-dom/no-dangerously-set-innerhtml': 'off',
         'react-dom/no-flush-sync': 'off',
         'react-dom/no-missing-button-type': 'off',

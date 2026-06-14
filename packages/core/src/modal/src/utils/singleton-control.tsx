@@ -38,19 +38,10 @@ class GlobalModalControl {
   }
 
   /**
-   * @description 清理
-   */
-  private clear = () => {
-    this._cleanup?.()
-
-    this._cleanup = null
-  }
-
-  /**
    * @description 执行所有回调函数
    */
   private flush = () => {
-    this.clear()
+    this._cleanup?.()
 
     this._cleanup = nextTick(() => {
       const result = this.ensure()

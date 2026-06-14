@@ -1,35 +1,53 @@
-import type { RefObject } from 'react'
+import type { VoidFn } from '@mink-ui/shared/interface'
+import type { SetStateDispatch } from '../../../../types/state-dispatch'
+import type { InternalTooltipInstance } from '../tooltip.props'
 
 import { pushItem } from '@mink-ui/shared/array/push-item'
 import { removeItem } from '@mink-ui/shared/array/remove-item'
 import { getShadowRoot } from '@mink-ui/shared/dom/shadow'
 import { noop } from '@mink-ui/shared/function/noop'
 
-/**
- * @description 不涉及状态变更, 可以理解为多个 useRef
- */
+import { getTriggerElement } from './helpers'
+
 export class TooltipControl {
+  private _change!: SetStateDispatch<HTMLElement | null>
+
+  private _cleanup: VoidFn | null = null
+
+  /**
+   * @description 是否处于 popup 中
+   */
+  private _isInPopupElement = false
+
   /**
    * @description 浮层元素
    */
-  public $popup: RefObject<HTMLDivElement | null> = { current: null }
-
-  /**
-   * @description 触发元素
-   */
-  public $trigger: RefObject<HTMLElement | null> = { current: null }
+  public $popup = { current: null as HTMLDivElement | null }
 
   /**
    * @description popup chain
    */
   public chain: Element[] = []
 
-  get popup() {
+  /**
+   * @description popup getter
+   */
+  public get popupElement() {
     return this.$popup.current
   }
 
-  get trigger() {
-    return this.$trigger.current
+  /**
+   * @description 绑定最新的数据
+   */
+  public _bind = (change: TooltipControl['_change']) => {
+    this._change = change
+  }
+
+  /**
+   * @description Trigger 元素 refCallback
+   */
+  public $trigger = (el: InternalTooltipInstance | HTMLElement | null) => {
+    this._change(() => getTriggerElement(el))
   }
 
   /**
@@ -46,8 +64,8 @@ export class TooltipControl {
   /**
    * @description 是否处于 popup chain 中
    */
-  public inChain = (event: MouseEvent) => {
-    const { trigger, popup, chain } = this
+  public inChain = (event: MouseEvent, triggerElement: Element | null) => {
+    const { popupElement, chain } = this
 
     const el = event.target as Element
 
@@ -59,6 +77,39 @@ export class TooltipControl {
       return getShadowRoot(item)?.host === el
     }
 
-    return isInChain(trigger) || isInChain(popup) || chain.some(isInChain)
+    return this._isInPopupElement || isInChain(triggerElement) || isInChain(popupElement) || chain.some(isInChain)
+  }
+
+  public pointerEnterPopup = () => {
+    // this._isInPopupElement = true
+  }
+
+  public pointerLeavePopup = () => {
+    // this._isInPopupElement = false
+  }
+
+  /**
+   * @description 设置清理函数
+   */
+  public setCleanup = (fn: VoidFn) => {
+    this._cleanup = fn
+  }
+
+  /**
+   * @description 执行清理函数
+   */
+  public dispose = () => {
+    this._cleanup?.()
+
+    this._cleanup = null
+  }
+
+  /**
+   * @description 销毁
+   */
+  public destroy = () => {
+    this.dispose()
+
+    this._isInPopupElement = false
   }
 }

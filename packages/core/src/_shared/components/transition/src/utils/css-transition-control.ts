@@ -24,17 +24,17 @@ export class CssTransitionControl<E extends HTMLElement> {
   /**
    * @description 事件的清理函数
    */
-  private _eventsCleanup: null | VoidFn = null
+  private _eventCleanup: null | VoidFn = null
 
   /**
    * @description frame 的清理函数
    */
-  private _framesCleanup: null | VoidFn = null
+  private _frameCleanup: null | VoidFn = null
 
   /**
-   * @description DOM 元素引用
+   * @description DOM 元素
    */
-  public $element: E | null = null
+  public element: E | null = null
 
   /**
    * @description 是否渲染过
@@ -64,28 +64,12 @@ export class CssTransitionControl<E extends HTMLElement> {
   }
 
   /**
-   * @description 同步 events 清理函数
+   * @description DOM 元素 refCallback
    */
-  public syncEvents = (cleanup: VoidFn) => {
-    this._eventsCleanup = cleanup
-  }
-
-  /**
-   * @description 同步 frames 清理函数
-   */
-  public syncFrames = (cleanup: VoidFn) => {
-    this._framesCleanup = cleanup
-  }
-
-  /**
-   * @description 连接到 DOM 元素
-   */
-  public connect = (el: E | null) => {
-    this.$element = el
+  public $element = (el: E | null) => {
+    this.element = el
 
     if (el) this.connected = true
-
-    return () => { this.$element = null }
   }
 
   /**
@@ -167,30 +151,44 @@ export class CssTransitionControl<E extends HTMLElement> {
   }
 
   /**
-   * @description 清理 events 的回调
+   * @description 设置 event 清理函数
    */
-  public clearEvents = () => {
-    this._eventsCleanup?.()
-
-    this._eventsCleanup = null
+  public setEventCleanup = (fn: VoidFn) => {
+    this._eventCleanup = fn
   }
 
   /**
-   * @description 清理 frames 的回调
+   * @description 执行 event 清理函数
    */
-  public clearFrames = (): any => {
-    this._framesCleanup?.()
+  public runEventCleanup = () => {
+    this._eventCleanup?.()
 
-    this._framesCleanup = null
+    this._eventCleanup = null
+  }
+
+  /**
+   * @description 设置 frame 清理函数
+   */
+  public setFrameCleanup = (fn: VoidFn) => {
+    this._frameCleanup = fn
+  }
+
+  /**
+   * @description 执行 frame 清理函数
+   */
+  public runFrameCleanup = () => {
+    this._frameCleanup?.()
+
+    this._frameCleanup = null
   }
 
   /**
    * @description 销毁
    */
   public destroy = () => {
-    this.clearEvents()
+    this.runEventCleanup()
 
-    this.clearFrames()
+    this.runFrameCleanup()
 
     this._isInitial = true
 

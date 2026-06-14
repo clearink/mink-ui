@@ -1,7 +1,7 @@
 {
   "name": "@mink-ui/shared",
   "type": "module",
-  "version": "0.0.17",
+  "version": "0.0.19",
   "description": "mink-ui shared utils",
   "author": "clearink",
   "license": "MIT",
@@ -39,6 +39,11 @@
       "types": "./src/array/chunk.ts",
       "import": "./src/array/chunk.ts",
       "require": "./src/array/chunk.ts"
+    },
+    "./array/find-index": {
+      "types": "./src/array/find-index.ts",
+      "import": "./src/array/find-index.ts",
+      "require": "./src/array/find-index.ts"
     },
     "./array/push-item": {
       "types": "./src/array/push-item.ts",
@@ -100,6 +105,11 @@
       "import": "./src/dom/reflow.ts",
       "require": "./src/dom/reflow.ts"
     },
+    "./dom/scale": {
+      "types": "./src/dom/scale.ts",
+      "import": "./src/dom/scale.ts",
+      "require": "./src/dom/scale.ts"
+    },
     "./dom/shadow": {
       "types": "./src/dom/shadow.ts",
       "import": "./src/dom/shadow.ts",
@@ -129,6 +139,11 @@
       "types": "./src/function/noop.ts",
       "import": "./src/function/noop.ts",
       "require": "./src/function/noop.ts"
+    },
+    "./function/once": {
+      "types": "./src/function/once.ts",
+      "import": "./src/function/once.ts",
+      "require": "./src/function/once.ts"
     },
     "./interface": {
       "types": "./src/interface.ts",

@@ -32,13 +32,13 @@ function Collapse(props: CollapseProps) {
     >
       {isArray(items) && items.map(item => (
         <CollapseItem
-          {...item}
           key={item.name}
           accordion={accordion}
           collapsible={fallback(item.collapsible, collapsible)}
           expanded={accordion ? expandedNames[0] === item.name : expandedNames.includes(item.name)}
           expandIcon={fallback(item.expandIcon, expandIcon)}
           expandIconPlacement={fallback(item.expandIconPlacement, expandIconPlacement)}
+          item={item}
           keepMounted={fallback(item.keepMounted, keepMounted)}
           outerCssAttrs={outerCssAttrs}
           outerCssNames={outerCssNames}

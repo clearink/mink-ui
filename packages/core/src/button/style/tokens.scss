@@ -6,13 +6,13 @@ $mink-btn-padding-sm: 0 calc(var(--#{$ns}-padding-xs) - var(--#{$ns}-line-width)
 
 $mink-btn-padding: 0 calc(var(--#{$ns}-padding) - var(--#{$ns}-line-width));
 
-$mink-btn-padding-lg: 0 calc(var(--#{$ns}-padding-md) - var(--#{$ns}-line-width));
+$mink-btn-padding-lg: $mink-btn-padding;
 
 $mink-btn-height-sm: var(--#{$ns}-height-sm);
 
 $mink-btn-height: var(--#{$ns}-height);
 
-$mink-btn-height-lg: var(--#{$ns}-height-large);
+$mink-btn-height-lg: var(--#{$ns}-height-lg);
 
 $mink-btn-font-size-sm: var(--#{$ns}-font-size-sm);
 
