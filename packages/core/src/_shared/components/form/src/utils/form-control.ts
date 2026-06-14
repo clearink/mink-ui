@@ -28,6 +28,7 @@ import { noop } from '@mink-ui/shared/function/noop'
 import { isArray } from '@mink-ui/shared/is/is-array'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 import { isUndefined } from '@mink-ui/shared/is/is-undefined'
+import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
 import { logger } from '../../../../utils/logger'
 import { HOOKS_SECRET } from '../_shared.constant'
@@ -57,7 +58,10 @@ export class FormControl<S = any> {
 
     this.$scheduler = new FormSchedulerControl<S>()
 
-    this.$controls = new FormControlsControl(this.$other)
+    this.$controls = new FormControlsControl(
+      this.$other,
+      this.$state,
+    )
 
     this.$initial = new FormInitialControl<S>(
       this.$other,
@@ -455,7 +459,10 @@ export class FormControlsControl {
 
   public _links = Object.create(null)
 
-  constructor(private $other: FormOtherControl) {}
+  constructor(
+    private $other: FormOtherControl,
+    private $state: FormStateControl,
+  ) {}
 
   /**
    * @description 是否有多个同名字段且存在多个 initialValue
@@ -778,7 +785,9 @@ export class FormControlsControl {
    * @description 创建字段名链接
    */
   public buildFieldLinks = (control: FormFieldControl, $scheduler: FormSchedulerControl) => {
-    if (!control._id) return noop
+    const controls = this._map.get(control._id) || []
+
+    if (!control._id || controls.length > 1) return noop
 
     this._links = linkIn(this._links, control._name, $scheduler._initial.linked)
 
@@ -834,6 +843,19 @@ export class FormControlsControl {
 
       return isFormList && isFormList.listControl === listControl
     })
+  }
+
+  /**
+   * @description 移除未被 link 的字段值
+   */
+  public removeUnlinkedFieldValue = (name: InternalFieldName, copied: object) => {
+    const path = name.slice()
+
+    while (path.length && !getIn(this._links, path)) {
+      this.$state.deleteFieldValue(path, copied)
+
+      path.pop()
+    }
   }
 }
 
@@ -1017,7 +1039,7 @@ export class FormInitialControl<S = any> {
    * @description 清除字段初始值
    */
   public cleanInitialValue = (control: FormFieldControl) => {
-    const { $controls, $state, $other } = this
+    const { $controls, $state, $other, $scheduler } = this
     const { _id, _name, __keepValue, _props } = control
     const { isFormList, isListField } = _props
 
@@ -1036,32 +1058,19 @@ export class FormInitialControl<S = any> {
     // 已经标记为需要保留的字段
     if (isListField && __keepValue) return
 
-    // Form.List 还没有卸载，直接删除复杂字段的值
-    const initialValue = isListField && !__keepValue
-      ? undefined
-      // 字段已卸载，重置为 Form 上的初始值
-      : this.getFormInitialValue(_name)
+    // Form.List 还没有卸载，直接删除复杂字段的值，否则重置为 Form 上的初始值
+    const initialValue = isListField && !__keepValue ? undefined : this.getFormInitialValue(_name)
 
     const isNonInitial = !isUndefined(initialValue)
 
-    const isValueEqual = initialValue === $state.getFieldValue(_name)
+    const isValueEqual = shallowEqual(initialValue, $state.getFieldValue(_name))
 
     // 初始值不为空 && 与当前值相等
     if (isNonInitial && isValueEqual) return
 
-    const { _copied } = this.$scheduler
-
-    // 回退至初始值
-    if (isNonInitial) return $state.defineFieldValue(_name, initialValue, _copied)
-
-    // 需要删除字段值, 包含额外创建的对象
-    for (let i = _name.length; i > 0; i--) {
-      const parent = _name.slice(0, i)
-
-      if (getIn($controls._links, parent)) return
-
-      $state.deleteFieldValue(parent, _copied)
-    }
+    // 没有初始值，删除该字段值，否则重置为初始值
+    if (!isNonInitial) $controls.removeUnlinkedFieldValue(_name, $scheduler._copied)
+    else $state.defineFieldValue(_name, initialValue, $scheduler._copied)
   }
 
   /**

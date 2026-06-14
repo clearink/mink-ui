@@ -40,6 +40,11 @@
       "import": "./src/array/chunk.ts",
       "require": "./src/array/chunk.ts"
     },
+    "./array/find-index": {
+      "types": "./src/array/find-index.ts",
+      "import": "./src/array/find-index.ts",
+      "require": "./src/array/find-index.ts"
+    },
     "./array/push-item": {
       "types": "./src/array/push-item.ts",
       "import": "./src/array/push-item.ts",
@@ -129,6 +134,11 @@
       "types": "./src/function/noop.ts",
       "import": "./src/function/noop.ts",
       "require": "./src/function/noop.ts"
+    },
+    "./function/once": {
+      "types": "./src/function/once.ts",
+      "import": "./src/function/once.ts",
+      "require": "./src/function/once.ts"
     },
     "./interface": {
       "types": "./src/interface.ts",

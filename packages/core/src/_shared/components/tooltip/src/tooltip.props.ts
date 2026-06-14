@@ -1,7 +1,7 @@
 import type { ReactElement, ReactNode } from 'react'
 import type { HasChildren } from '../../../../_shared/types/has-children'
 import type { Orientation } from '../../../../_shared/types/orientation'
-import type { SemanticsStyled } from '../../../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../../types/has-semantics'
 import type { OverlayProps } from '../../overlay/src'
 import type { CssTransitionProps } from '../../transition/src'
 import type { PopupPlacement, PopupTriggerEvent } from './_shared.props'
@@ -9,7 +9,7 @@ import type { PopupPlacement, PopupTriggerEvent } from './_shared.props'
 export interface InternalTooltipProps extends
   Pick<OverlayProps, 'getContainer' | 'mountOnEnter' | 'unmountOnExit' | 'zIndex'>,
   Required<HasChildren<ReactElement>>,
-  SemanticsStyled<'root' | 'arrow' | 'wrapper', InternalTooltipProps> {
+  HasSemanticsStyled<'root' | 'arrow' | 'wrapper', InternalTooltipProps> {
 
   /**
    * @description 内容

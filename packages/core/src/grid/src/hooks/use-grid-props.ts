@@ -10,7 +10,7 @@ import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-co
 import { RowGutterContext } from '../_shared.context'
 import { excludedColProps } from '../col.props'
 import { defaultRowProps as defaultProps, excludedRowProps } from '../row.props'
-import { formatGridFlex, formatGridGutter } from '../utils/format'
+import { formatGridFlex, formatGridSpacing } from '../utils/format'
 import { useColClassNames, useRowClassNames } from './use-class-names'
 import { useResponsiveValues } from './use-responsive-values'
 
@@ -30,7 +30,7 @@ export function useRowProps(props: RowProps) {
   const extraCssAttrs = useMemo(() => {
     const result: CSSProperties = {}
 
-    const spacing = formatGridGutter(hGutter, -2)
+    const spacing = formatGridSpacing(hGutter, -2)
 
     if (spacing) result.marginLeft = spacing
 
@@ -69,6 +69,7 @@ export function useRowProps(props: RowProps) {
 export function useColProps(props: ColProps) {
   const rowGutterContext = RowGutterContext.use()
 
+  const { gutter, wrap } = rowGutterContext
   const { flex } = props
 
   const { cssVars, classNames } = useColClassNames(props)
@@ -76,7 +77,7 @@ export function useColProps(props: ColProps) {
   const extraCssAttrs = useMemo(() => {
     const result: CSSProperties = {}
 
-    const spacing = formatGridGutter(rowGutterContext.gutter, 2)
+    const spacing = formatGridSpacing(gutter, 2)
 
     if (spacing) result.paddingLeft = spacing
     if (spacing) result.paddingRight = spacing
@@ -87,10 +88,10 @@ export function useColProps(props: ColProps) {
 
     result.flex = alignment
 
-    if (!rowGutterContext.wrap) result.minWidth = 0
+    if (!wrap) result.minWidth = 0
 
     return result
-  }, [rowGutterContext.gutter, rowGutterContext.wrap, flex])
+  }, [gutter, wrap, flex])
 
   const [cssNames, cssAttrs] = useCombinedSemantics(
     [

@@ -8,6 +8,7 @@ import { atIndex } from '@mink-ui/shared/array/at-index'
 import { batch } from '@mink-ui/shared/function/batch'
 import { omit } from '@mink-ui/shared/object/omit'
 
+import { jsxId } from '../../../../utils/jsx-id'
 import { ENTRY_MARK } from '../_shared.constant'
 import CssTransition from '../css-transition'
 import { normalizeCssTransitionChildren, runCounter } from './helpers'
@@ -56,7 +57,7 @@ export class SwitchTransitionControl<T extends UniqueTransitionItem = UniqueTran
 
     const attrs = Object.assign(preset, params, {
       _item: item,
-      key: `${item.key}`,
+      key: jsxId(item.key),
       unmountOnExit: true,
       onEntered: batch(preset.onEntered, callback),
       children: normalizeCssTransitionChildren(this._props.children, item),

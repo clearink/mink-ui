@@ -1,7 +1,7 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, MouseEvent, ReactNode, Ref } from 'react'
 import type { HasChildren } from '../../_shared/types/has-children'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { CommonSize } from '../../_shared/types/size'
-import type { SemanticsStyled } from '../../_shared/types/styled'
 import type {
   ButtonLoading,
   ButtonShape,
@@ -14,7 +14,7 @@ import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface ButtonInjectedProps extends
   HasChildren,
-  SemanticsStyled<'root' | 'icon' | 'text', ButtonProps> {
+  HasSemanticsStyled<'root' | 'icon' | 'text', ButtonProps> {
   /**
    * @description 外部引用
    */
@@ -89,7 +89,8 @@ export interface ButtonInjectedProps extends
 export interface ButtonProps extends
   ButtonInjectedProps,
   Omit<AnchorHTMLAttributes<HTMLElement>, 'type' | 'onClick'>,
-  Omit<ButtonHTMLAttributes<HTMLElement>, 'type' | 'onClick'> {}
+  Omit<ButtonHTMLAttributes<HTMLElement>, 'onClick'> {
+}
 
 export type DefaultNames = 'shape' | 'size' | 'theme' | 'variant' | 'disabled' | 'iconPlacement'
 

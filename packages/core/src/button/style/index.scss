@@ -391,6 +391,12 @@ $ns-button: #{$ns}-button;
   --#{$ns}-btn-color-bg-active: transparent;
 }
 
+.#{$ns-button}--icon-only {
+  --#{$ns}-btn-padding: 0;
+
+  width: $mink-btn-height-sm;
+}
+
 .#{$ns-button}--icon-end {
   flex-direction: row-reverse;
 

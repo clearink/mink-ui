@@ -1,0 +1,50 @@
+[
+  {
+    "name": "items",
+    "type": "MasonryItemType<V>[]",
+    "zh-CN": "瀑布流数据源",
+    "en-US": "Masonry data source"
+  },
+  {
+    "name": "gutter",
+    "type": [
+      "number",
+      "Partial<Record<Breakpoint, number>>",
+      "[number | Partial<Record<Breakpoint, number>>, number | Partial<Record<Breakpoint, number>>]"
+    ],
+    "defaultValue": 0,
+    "zh-CN": "间距，支持响应式断点或水平/垂直分别设置",
+    "en-US": "Gutter, supports responsive breakpoints or separate horizontal/vertical values"
+  },
+  {
+    "name": "columns",
+    "type": ["number", "Partial<Record<Breakpoint, number>>"],
+    "defaultValue": 3,
+    "zh-CN": "列数，支持响应式断点",
+    "en-US": "Number of columns, supports responsive breakpoints"
+  },
+  {
+    "name": "watchItemLayout",
+    "type": "boolean",
+    "zh-CN": "是否监听子元素布局变化",
+    "en-US": "Whether to watch child element layout changes"
+  },
+  {
+    "name": "onLayoutChange",
+    "type": "() => void",
+    "zh-CN": "布局变化时的回调函数",
+    "en-US": "Callback function when layout changes"
+  },
+  {
+    "name": "slots",
+    "type": "{ item?: (node: React.ReactNode, params: MasonryItemType<V>) => React.ReactNode }",
+    "zh-CN": "自定义插槽渲染函数，用于自定义子项渲染",
+    "en-US": "Custom slot render functions for customizing item rendering"
+  },
+  {
+    "name": "...",
+    "type": "HasSemanticsStyled<'root' | 'item', MasonryProps<V>>",
+    "zh-CN": "语义化样式，包含 prefixCls / className / classNames / style / styles",
+    "en-US": "Semantic styles, includes prefixCls / className / classNames / style / styles"
+  }
+]

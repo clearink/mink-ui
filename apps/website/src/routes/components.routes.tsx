@@ -113,6 +113,18 @@ const routes: CustomRouteObject[] = [
         component: lazyLoad(() => import('../../../../packages/core/src/grid/__docs__/zh-CN.md')),
       },
       {
+        path: 'masonry',
+        meta: {
+          category: 'component',
+          path: 'masonry',
+          title: 'Masonry',
+          subtitle: '瀑布流',
+          desc: '瀑布流布局组件，用于展示不规则高度的卡片列表。',
+          group: { title: '布局', order: 0 },
+        },
+        component: lazyLoad(() => import('../../../../packages/core/src/masonry/__docs__/zh-CN.md')),
+      },
+      {
         path: 'modal',
         meta: {
           category: 'component',
@@ -280,6 +292,18 @@ const routes: CustomRouteObject[] = [
           group: { title: '布局', order: 1 },
         },
         component: lazyLoad(() => import('../../../../packages/core/src/grid/__docs__/en-US.md')),
+      },
+      {
+        path: 'masonry',
+        meta: {
+          category: 'component-en',
+          path: 'masonry',
+          title: 'Masonry',
+          subtitle: 'Masonry Layout',
+          desc: 'Masonry layout component for displaying irregular-height card lists.',
+          group: { title: 'Layout', order: 0 },
+        },
+        component: lazyLoad(() => import('../../../../packages/core/src/masonry/__docs__/en-US.md')),
       },
       {
         path: 'modal',

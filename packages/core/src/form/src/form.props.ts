@@ -2,7 +2,7 @@ import type { Ref } from 'react'
 import type { InternalFormProps } from '../../_shared/components/form/src'
 import type { CommonDisabled } from '../../_shared/types/disabled'
 import type { CommonSize } from '../../_shared/types/size'
-import type { SemanticsStyled } from '../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { FormInstance, FormLayout, FormVariant } from './_shared.props'
 import type { FormItemProps } from './form-item.props'
 
@@ -10,7 +10,7 @@ import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface FormInjectedProps<S = any> extends
   Pick<FormItemProps, 'colon' | 'labelAlign' | 'labelWrap' | 'labelCol' | 'wrapperCol' | 'requiredMark'>,
-  SemanticsStyled<'root' | 'label' | 'input', FormProps<S>> {
+  HasSemanticsStyled<'root' | 'label' | 'input', FormProps<S>> {
   /**
    * @description 外部引用
    */

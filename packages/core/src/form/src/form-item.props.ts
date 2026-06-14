@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { InternalFormFieldProps } from '../../_shared/components/form/src'
-import type { SemanticsStyled } from '../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { FormItemChildren, ValidateStatus } from './_shared.props'
 import type { FormItemInputForwardedProps } from './form-item-input.props'
 import type { FormItemLabelForwardedProps } from './form-item-label.props'
@@ -9,7 +9,7 @@ export interface FormItemProps<V = any> extends
   FormItemInputForwardedProps,
   FormItemLabelForwardedProps,
   Omit<InternalFormFieldProps<V>, 'children' | 'onMetaChange'>,
-  SemanticsStyled<'root' | 'label' | 'input', FormItemProps<V>> {
+  HasSemanticsStyled<'root' | 'label' | 'input', FormItemProps<V>> {
   /**
    * @description 子元素
    */

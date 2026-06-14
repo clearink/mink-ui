@@ -26,7 +26,7 @@ function NotificationList(props: NotificationListProps) {
 
   return (
     <div
-      ref={ctrl.$container}
+      ref={ctrl.$root}
       className={cssNames.root}
       style={cssAttrs.root}
       onMouseEnter={handleMouseEnter}
@@ -35,14 +35,14 @@ function NotificationList(props: NotificationListProps) {
       <GroupTransition
         classNames={`${ns}-motion`}
         appear
-        items={items as any[]}
+        items={items as Required<typeof items[number]>[]}
         onGroupExited={handleGroupExited}
       >
         {($motion, getters, item) => (
           <NotificationItem
             ref={$motion}
-            config={item}
             getters={getters}
+            item={item}
             listHovering={stackEnable && isHovering}
             outerCssAttrs={outerCssAttrs}
             outerCssNames={outerCssNames}

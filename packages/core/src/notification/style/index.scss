@@ -13,7 +13,7 @@ $ns-notification: #{$ns}-notification;
   &--stack {
     &:not(.#{$ns-notification}--expanded) {
       .#{$ns-notification}-item {
-        --nt-scale: calc(1 - min(var(--nt-order, 0), 2) * 0.06);
+        --nt-scale: calc(1 - min(var(--notification-item-order, 0), 2) * 0.06);
       }
 
       .#{$ns-notification}-item:nth-last-child(n + 4) {
@@ -45,7 +45,7 @@ $ns-notification: #{$ns}-notification;
     left: var(--#{$ns}-margin-lg);
 
     .#{$ns-notification}-item {
-      top: var(--nt-shift, 0);
+      top: var(--notification-item-shift, 0);
       left: 0;
       transform-origin: center bottom;
     }
@@ -70,7 +70,7 @@ $ns-notification: #{$ns}-notification;
     transform: translate3d(-50%, 0, 0);
 
     .#{$ns-notification}-item {
-      top: var(--nt-shift, 0);
+      top: var(--notification-item-shift, 0);
       left: 0;
       right: 0;
       transform-origin: center bottom;
@@ -95,7 +95,7 @@ $ns-notification: #{$ns}-notification;
     right: var(--#{$ns}-margin-lg);
 
     .#{$ns-notification}-item {
-      top: var(--nt-shift, 0);
+      top: var(--notification-item-shift, 0);
       right: 0;
       transform-origin: center bottom;
     }
@@ -117,7 +117,7 @@ $ns-notification: #{$ns}-notification;
     left: var(--#{$ns}-margin-lg);
 
     .#{$ns-notification}-item {
-      bottom: var(--nt-shift, 0);
+      bottom: var(--notification-item-shift, 0);
       left: 0;
       transform-origin: center top;
     }
@@ -140,7 +140,7 @@ $ns-notification: #{$ns}-notification;
     transform: translate3d(-50%, 0, 0);
 
     .#{$ns-notification}-item {
-      bottom: var(--nt-shift, 0);
+      bottom: var(--notification-item-shift, 0);
       left: 0;
       right: 0;
       transform-origin: center top;
@@ -163,7 +163,7 @@ $ns-notification: #{$ns}-notification;
     right: var(--#{$ns}-margin-lg);
 
     .#{$ns-notification}-item {
-      bottom: var(--nt-shift, 0);
+      bottom: var(--notification-item-shift, 0);
       right: 0;
       transform-origin: center top;
     }

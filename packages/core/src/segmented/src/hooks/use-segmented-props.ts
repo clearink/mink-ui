@@ -1,14 +1,12 @@
 import type { OmittedSegmentedProps, PickedSegmentedProps, SegmentedProps } from '../segmented.props'
 
 import { useEffect, useState } from 'react'
-import { arrayEqual } from '@mink-ui/shared/array/array-equal'
 import { fallback } from '@mink-ui/shared/function/fallback'
 import { omit } from '@mink-ui/shared/object/omit'
 
-import { useComputed } from '../../../_shared/hooks/use-computed'
 import { useConstant } from '../../../_shared/hooks/use-constant'
 import { useControlledState } from '../../../_shared/hooks/use-controlled-state'
-import { useFlushState } from '../../../_shared/hooks/use-exact-state'
+import { useCommitState } from '../../../_shared/hooks/use-commit-state'
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
 import { useWatchValue } from '../../../_shared/hooks/use-watch-value'
@@ -36,7 +34,7 @@ export function useSegmentedProps(props: SegmentedProps) {
 
   const ctrl = useConstant(() => new SegmentedControl())
 
-  const options = useComputed(() => normalizeSegmentedOptions(_options), _options, arrayEqual)
+  const options = normalizeSegmentedOptions(_options)
 
   const [value, handleChange] = useControlledState(
     _value,
@@ -63,7 +61,7 @@ export function useSegmentedProps(props: SegmentedProps) {
     { meta: { ...omitted, ...picked, options, value } },
   )
 
-  const [history, setHistory] = useFlushState (() => [null, value])
+  const [history, setHistory] = useCommitState (() => [null, value])
 
   const [isShowThumb, setIsShowThumb] = useState(false)
 

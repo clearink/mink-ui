@@ -1,82 +1,20 @@
-import type { ReactNode } from 'react'
 import type { CommonDisabled } from '../../_shared/types/disabled'
 import type { GetLayerLevel } from '../../_shared/types/layer'
 import type { CommonSize } from '../../_shared/types/size'
-import type { ComponentStyled } from '../../_shared/types/styled'
-import type { AlertProps } from '../../alert/src'
-import type { BadgeProps } from '../../badge/src'
-import type { ButtonProps } from '../../button/src'
-import type { CheckboxProps } from '../../checkbox/src'
-import type { CollapseProps } from '../../collapse/src'
-import type { DividerProps } from '../../divider/src'
-import type { FormProps } from '../../form/src'
-import type { ModalProps } from '../../modal/src'
-import type { NotificationConfig } from '../../notification/src'
-import type { SegmentedProps } from '../../segmented/src'
-import type { SpaceProps } from '../../space/src'
-import type { TooltipProps } from '../../tooltip/src'
-import type { TouchEffectGlobalConfig } from '../../touch-effect/src/_shared.context'
-
-export interface AlertGlobalConfig extends ComponentStyled<AlertProps>,
-  Pick<AlertProps, 'closable'> {
-  successIcon?: ReactNode
-  infoIcon?: ReactNode
-  errorIcon?: ReactNode
-  warningIcon?: ReactNode
-}
-
-export interface BadgeGlobalConfig extends ComponentStyled<BadgeProps>,
-  Pick<BadgeProps, 'overflowCount'> {}
-
-export interface ButtonGlobalConfig extends ComponentStyled<ButtonProps>,
-  Pick<ButtonProps, 'variant' | 'theme' | 'shape'> {}
-
-export interface CheckboxGlobalConfig extends ComponentStyled<CheckboxProps> {}
-
-export interface CollapseGlobalConfig extends ComponentStyled<CollapseProps> {}
-
-export interface DividerGlobalConfig extends ComponentStyled<DividerProps> {}
-
-export interface FormGlobalConfig extends ComponentStyled<FormProps>,
-  Pick<
-    FormProps,
-    | 'size'
-    | 'colon'
-    | 'requiredMark'
-    | 'validateMessages'
-    | 'variant'
-    | 'scrollToFirstError'
-  > {}
-
-export interface SegmentedGlobalConfig extends ComponentStyled<SegmentedProps>,
-  Pick<SegmentedProps, 'size'> {}
-
-export interface SpaceGlobalConfig extends ComponentStyled<SpaceProps>,
-  Pick<SpaceProps, 'size'> {}
-
-export interface TooltipGlobalConfig extends ComponentStyled<TooltipProps>,
-  Pick<TooltipProps, 'arrow' | 'trigger'> {
-  /**
-   * @description 共用一个 tooltip 实例
-   */
-  shared?: boolean
-}
-
-export interface ModalGlobalConfig extends ComponentStyled<ModalProps>,
-  Pick<
-    ModalProps,
-    | 'keyboard'
-    | 'maskClosable'
-    | 'centered'
-    | 'closable'
-    | 'focusable'
-    | 'slots'
-    | 'confirmButtonProps'
-    | 'cancelButtonProps'
-  > {}
-
-export interface NotificationGlobalConfig extends ComponentStyled<NotificationConfig>,
-  Pick<NotificationConfig, 'closable' | 'getContainer'> {}
+import type { AlertGlobalConfig } from '../../alert/src/_shared.props'
+import type { BadgeGlobalConfig } from '../../badge/src/_shared.props'
+import type { ButtonGlobalConfig } from '../../button/src/_shared.props'
+import type { CheckboxGlobalConfig } from '../../checkbox/src/_shared.props'
+import type { CollapseGlobalConfig } from '../../collapse/src/_shared.props'
+import type { DividerGlobalConfig } from '../../divider/src/_shared.props'
+import type { FormGlobalConfig } from '../../form/src/_shared.props'
+import type { MasonryGlobalConfig } from '../../masonry/src/_shared.props'
+import type { ModalGlobalConfig } from '../../modal/src/_shared.props'
+import type { NotificationGlobalConfig } from '../../notification/src/_shared.props'
+import type { SegmentedGlobalConfig } from '../../segmented/src/_shared.props'
+import type { SpaceGlobalConfig } from '../../space/src/_shared.props'
+import type { TooltipGlobalConfig } from '../../tooltip/src/_shared.props'
+import type { TouchEffectGlobalConfig } from '../../touch-effect/src/_shared.props'
 
 export interface ComponentGlobalConfig {
   alert?: AlertGlobalConfig
@@ -92,6 +30,8 @@ export interface ComponentGlobalConfig {
   divider?: DividerGlobalConfig
 
   form?: FormGlobalConfig
+
+  masonry?: MasonryGlobalConfig
 
   modal?: ModalGlobalConfig
 

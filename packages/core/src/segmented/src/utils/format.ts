@@ -1,10 +1,10 @@
-import type { SegmentedOption } from '../_shared.props'
+import type { SegmentedOptionType } from '../_shared.props'
 
 import { fallback } from '@mink-ui/shared/function/fallback'
 import { isArray } from '@mink-ui/shared/is/is-array'
 import { isObject } from '@mink-ui/shared/is/is-object'
 
-export function normalizeSegmentedOptions(options: SegmentedOption[]) {
+export function normalizeSegmentedOptions(options: SegmentedOptionType[]) {
   if (!isArray(options)) return []
 
   return options.map((item) => {
@@ -16,5 +16,5 @@ export function normalizeSegmentedOptions(options: SegmentedOption[]) {
       ...item,
       title: fallback(title, isObject(label) ? undefined : `${label}`),
     }
-  }) as SegmentedOption[]
+  }) as SegmentedOptionType[]
 }

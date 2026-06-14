@@ -1,11 +1,11 @@
-import type { GridAlign, GridJustify } from '../_shared.props'
+import type { GridAlign, GridJustify, GutterValue } from '../_shared.props'
 import type { OmittedRowProps, PickedRowProps } from '../row.props'
 
+import { useMemo } from 'react'
 import { toArray } from '@mink-ui/shared/array/to-array'
-import { isObject } from '@mink-ui/shared/is/is-object'
 
 import { useBreakpoint } from '../../../_shared/hooks/use-breakpoint'
-import { matchBreakpoint } from '../utils/helpers'
+import { resolveBreakpointValue } from '../../../_shared/hooks/use-breakpoint/utils/helpers'
 
 /**
  * @description 获取响应式数据
@@ -16,22 +16,14 @@ export function useResponsiveValues(picked: PickedRowProps, omitted: OmittedRowP
 
   const matches = useBreakpoint()
 
-  const [hGutter, vGutter] = toArray(gutter).map((item) => {
-    if (!isObject(item)) return item
+  const [hGutter, vGutter] = useMemo(
+    () => toArray(gutter).map(item => resolveBreakpointValue<GutterValue>(matches, item)),
+    [matches, gutter],
+  )
 
-    return matchBreakpoint(matches, item)
-  })
+  const hLayout = useMemo(() => resolveBreakpointValue<GridJustify>(matches, justify), [matches, justify])
 
-  const [hLayout, vLayout] = [justify, align].map((item) => {
-    if (!isObject(item)) return item
+  const vLayout = useMemo(() => resolveBreakpointValue<GridAlign>(matches, align), [matches, align])
 
-    return matchBreakpoint(matches, item)
-  })
-
-  return {
-    hGutter,
-    vGutter,
-    hLayout: hLayout as GridJustify | undefined,
-    vLayout: vLayout as GridAlign | undefined,
-  }
+  return { hGutter, vGutter, hLayout, vLayout }
 }

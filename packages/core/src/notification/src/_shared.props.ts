@@ -1,8 +1,11 @@
+import type { GetSemanticsConfig } from '../../_shared/types/has-semantics'
 import type { CommonStatus } from '../../_shared/types/status'
 import type { UniqueKey } from '../../_shared/types/unique-key'
 import type { NOTIFICATION_PLACEMENTS } from './_shared.constant'
-import type { NotificationHolderSharedProps } from './notification-holder.props'
-import type { NotificationItemMethodConfig, NotificationItemSharedProps } from './notification-item.props'
+import type { NotificationHolderSharedConfig } from './notification-holder.props'
+import type { NotificationItemSharedConfig, NotificationItemSharedParams } from './notification-item.props'
+
+export type NotificationSemanticNames = 'root' | 'item' | 'statusIcon' | 'closeBtn' | 'content' | 'title' | 'description' | 'progress'
 
 export type NotificationPlacement = typeof NOTIFICATION_PLACEMENTS[number]
 
@@ -17,9 +20,7 @@ export interface NotificationGlobalMethods extends NotificationHookMethods {
   config: (config: Partial<NotificationConfig>) => void
 }
 
-export interface NotificationMethodParams extends NotificationItemMethodConfig {}
-
-export interface NotificationConfig extends NotificationHolderSharedProps, NotificationItemSharedProps {}
+export interface NotificationMethodParams extends NotificationItemSharedParams {}
 
 export interface NotificationHolderGroup {
   /**
@@ -30,7 +31,7 @@ export interface NotificationHolderGroup {
   /**
    * @description 通知列表
    */
-  items: Map<UniqueKey, NotificationMethodParams>
+  items: Map<UniqueKey, NotificationItemSharedParams>
 }
 
 export interface NotificationStackConfig {
@@ -44,6 +45,16 @@ export interface NotificationStackConfig {
    */
   threshold: number
 }
+
+/**
+ * |---------------------------------------------------------|
+ * |                     global definition                   |
+ * |---------------------------------------------------------|
+ */
+
+export interface NotificationConfig extends NotificationHolderSharedConfig, NotificationItemSharedConfig {}
+export interface NotificationGlobalConfig extends GetSemanticsConfig<NotificationConfig>,
+  Pick<NotificationConfig, 'closable' | 'getContainer'> {}
 
 /**
  * |---------------------------------------------------------|

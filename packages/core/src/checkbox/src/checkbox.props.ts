@@ -1,10 +1,10 @@
 import type { InputHTMLAttributes } from 'react'
 import type { HasChildren } from '../../_shared/types/has-children'
-import type { SemanticsStyled } from '../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 
 export interface CheckboxInjectedProps extends
   HasChildren,
-  SemanticsStyled<'root' | 'input' | 'inner' | 'label', CheckboxProps> {
+  HasSemanticsStyled<'root' | 'input' | 'inner' | 'label', CheckboxProps> {
   /**
    * @description 是否选中
    */

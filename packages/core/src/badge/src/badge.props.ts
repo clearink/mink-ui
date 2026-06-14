@@ -1,8 +1,8 @@
 import type { HTMLAttributes, ReactNode } from 'react'
-import type { SemanticsStyled } from '../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 
 export interface BadgeInjectedProps extends
-  SemanticsStyled<'root' | 'indicator', BadgeProps> {
+  HasSemanticsStyled<'root' | 'indicator', BadgeProps> {
   /**
    * @description 徽标内容
    */

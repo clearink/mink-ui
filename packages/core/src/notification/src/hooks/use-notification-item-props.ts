@@ -3,6 +3,7 @@ import type { NotificationItemProps } from '../notification-item.props'
 import { useState } from 'react'
 
 import { useCombinedRefs } from '../../../_shared/hooks/use-combined-refs'
+import { useEvent } from '../../../_shared/hooks/use-event'
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
 import { normalizeClosable } from '../../../_shared/utils/closable'
@@ -13,7 +14,7 @@ export function useNotificationItemProps(props: NotificationItemProps) {
 
   const {
     ref,
-    config,
+    item,
     getters,
     listHovering,
     outerCssNames,
@@ -22,7 +23,7 @@ export function useNotificationItemProps(props: NotificationItemProps) {
     onCollect,
     onDismiss,
   } = props
-  const { closable, onClose } = config
+  const { closable, onClose } = item
 
   const { ns, classNames } = useNotificationItemClassNames(props)
 
@@ -30,23 +31,23 @@ export function useNotificationItemProps(props: NotificationItemProps) {
     [
       outerCssNames,
       classNames,
-      config.classNames,
-      { root: config.className },
+      item.classNames,
+      { root: item.className },
       { root: getters.names() },
     ],
     [
       outerCssAttrs,
-      config.styles,
-      { root: config.style },
+      item.styles,
+      { root: item.style },
       { root: outerCssVars },
       { root: getters.attrs() },
     ],
     { meta: props },
   )
 
-  const [itemHovering, setItemHovering] = useState(listHovering)
+  const [_hovering, setItemHovering] = useState(listHovering)
 
-  const refCombined = useCombinedRefs(ref, (el) => { onCollect(el, config) })
+  const refCombined = useCombinedRefs(ref, useEvent((el) => { onCollect(el, item) }))
 
   const [closableState, closeIconRender] = normalizeClosable({
     currentState: { closable },
@@ -54,7 +55,7 @@ export function useNotificationItemProps(props: NotificationItemProps) {
   })
 
   const handleClose = () => {
-    onDismiss(config.key!)
+    onDismiss(item.key!)
 
     onClose?.()
 

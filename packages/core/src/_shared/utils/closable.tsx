@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import type { MayBe } from '@mink-ui/shared/interface'
 import type { CloseIconRender, CommonClosable, HasClosable } from '../types/closable'
 

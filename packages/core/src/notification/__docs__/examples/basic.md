@@ -23,9 +23,10 @@ export default function App() {
     stack: stackEnable
   })
 
-  const openNotification = (placement) => {
+  const openNotification = (placement, key) => {
     const prefix = 'Hello'.repeat(Math.random() > 0.5 ? 12 : 32)
     api.info({
+      key,
       title: `Notification ${placement}`,
       description: <Context.Consumer>{({ name }) => `${prefix}, ${name}!`}</Context.Consumer>,
       placement,
@@ -64,6 +65,13 @@ export default function App() {
         >
           <RadiusUprightOutlined />
           topRight
+        </Button>
+        <Button
+          theme="info"
+          onClick={() => openNotification('topRight', '1')}
+        >
+          <RadiusUprightOutlined />
+          topRight--update-1
         </Button>
       </Space>
       <Divider />

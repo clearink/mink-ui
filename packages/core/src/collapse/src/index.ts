@@ -10,6 +10,7 @@ const Collapse = Object.assign(_Collapse, {})
  * |---------------------------------------------------------|
  */
 
+export type { CollapseItemType } from './collapse-item.props'
 export type { CollapseProps } from './collapse.props'
 
 export { Collapse }

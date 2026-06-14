@@ -29,10 +29,14 @@ class ResizeMonitor {
   }
 
   private init = () => {
+    if (typeof ResizeObserver !== 'undefined') return
+
     ownerWindow().addEventListener('resize', this.execute)
   }
 
   private clear = () => {
+    if (typeof ResizeObserver !== 'undefined') return
+
     ownerWindow().removeEventListener('resize', this.execute)
   }
 

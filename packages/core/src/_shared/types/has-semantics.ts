@@ -7,7 +7,10 @@ export type CssNamesItem<T extends string, U = AnyObj> = Partial<Record<T, Seman
 
 export type CssAttrsItem<T extends string, U = AnyObj> = Partial<Record<T, SemanticsItem<CSSProperties, U>>>
 
-export interface SemanticsStyled<T extends string, U extends AnyObj = AnyObj> {
+/**
+ * @description 组件语义化样式
+ */
+export interface HasSemanticsStyled<T extends string, U extends AnyObj = AnyObj> {
   /**
    * @description 样式前缀
    */
@@ -34,7 +37,10 @@ export interface SemanticsStyled<T extends string, U extends AnyObj = AnyObj> {
   styles?: CssAttrsItem<T, U>
 }
 
-export interface ComponentStyled<P> {
+/**
+ * @description 根据组件 props 获取语义化配置（不包含 prefixCls）
+ */
+export interface GetSemanticsConfig<P> {
   /**
    * @description 类名
    */
@@ -56,6 +62,6 @@ export interface ComponentStyled<P> {
   styles?: P extends { styles?: infer SemanticsCssAttrs } ? SemanticsCssAttrs : CssAttrsItem<string>
 }
 
-export type GetSemanticsValues<P, V> = P extends SemanticsStyled<infer T, infer _U>
+export type GetSemanticsValues<P, V> = P extends HasSemanticsStyled<infer T, infer _U>
   ? Partial<Record<T, V>>
   : never

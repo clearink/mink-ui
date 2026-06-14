@@ -90,9 +90,11 @@ function Button(props: ButtonProps) {
       >
         {renderIcon()}
 
-        <span className={cssNames.text} style={cssAttrs.text}>
-          {children}
-        </span>
+        {isRenderable(children) && (
+          <span className={cssNames.text} style={cssAttrs.text}>
+            {children}
+          </span>
+        )}
       </JsxTag>
     )
   }

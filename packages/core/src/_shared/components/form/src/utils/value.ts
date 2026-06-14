@@ -155,7 +155,7 @@ function _linkIn(
 }
 
 /**
- * @description 注册
+ * @description 链接
  */
 export function linkIn<V = any>(
   source: V,

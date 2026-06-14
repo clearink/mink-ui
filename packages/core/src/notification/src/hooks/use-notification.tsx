@@ -12,11 +12,12 @@ import { shallowMerge } from '@mink-ui/shared/object/shallow-merge'
 import { useConstant } from '../../../_shared/hooks/use-constant'
 import { useInvoke } from '../../../_shared/hooks/use-invoke'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
+import { jsxId } from '../../../_shared/utils/jsx-id'
 import { makeUniqueId } from '../../../_shared/utils/make-unique-id'
 import { defaultNotificationConfig } from '../_shared.props'
 import NotificationHolder from '../notification-holder'
-import { sharedNotificationHolderProps } from '../notification-holder.props'
-import { sharedNotificationItemProps } from '../notification-item.props'
+import { sharedNotificationHolderConfig } from '../notification-holder.props'
+import { sharedNotificationItemConfig } from '../notification-item.props'
 import { NotificationHookControl } from '../utils/notification-hook-control'
 
 export function useNotification(config: NotificationConfig = {}) {
@@ -32,20 +33,20 @@ export function useNotification(config: NotificationConfig = {}) {
     ctrl._bind(
       (updater) => { setGroups(updater) },
       params => shallowMerge<NotificationMethodParams>(
-        { ...params, key: isNullish(params.key) ? uniqueId() : `${params.key}` },
+        { ...params, key: isNullish(params.key) ? uniqueId() : jsxId(params.key) },
         // 从 config 中挑选 NotificationItem 需要的属性
-        pick(config, sharedNotificationItemProps),
+        pick(config, sharedNotificationItemConfig),
         // 从 globalConfig 中挑选 NotificationItem 需要的属性
         pick(globalConfig, ['closable']),
         // 从 defaultConfig 中挑选 NotificationItem 需要的属性
-        pick(defaultNotificationConfig, sharedNotificationItemProps),
+        pick(defaultNotificationConfig, sharedNotificationItemConfig),
       ),
     )
   })
 
   const methods = useMemo(() => ctrl.expose(), [ctrl])
 
-  const restAttrs = pick(config, sharedNotificationHolderProps)
+  const restAttrs = pick(config, sharedNotificationHolderConfig)
 
   return [
     methods,

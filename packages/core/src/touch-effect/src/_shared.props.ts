@@ -1,3 +1,5 @@
+import type { TouchEffectContextState } from './_shared.context'
+
 export interface TouchEffectInfo {
   /**
    * @description 组件名称
@@ -24,3 +26,11 @@ export interface TouchEffectInfo {
    */
   target: HTMLElement | null
 }
+
+/**
+ * |---------------------------------------------------------|
+ * |                     global definition                   |
+ * |---------------------------------------------------------|
+ */
+
+export interface TouchEffectGlobalConfig extends TouchEffectContextState {}

@@ -12,9 +12,9 @@ import { fallback } from '@mink-ui/shared/function/fallback'
 import { isUndefined } from '@mink-ui/shared/is/is-undefined'
 import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
+import { useCommitState } from '../../../../hooks/use-commit-state'
 import { useConstant } from '../../../../hooks/use-constant'
 import { useEvent } from '../../../../hooks/use-event'
-import { useFlushState } from '../../../../hooks/use-exact-state'
 import { useWatchValue } from '../../../../hooks/use-watch-value'
 import { cn } from '../../../../libs/cn'
 import { isAppear, isEntered, isEntering, isExit, isExited, isExiting } from '../_shared.constant'
@@ -48,7 +48,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
 
   const control = useConstant(() => new CssTransitionControl<E>(props, motions))
 
-  const [isMounted, setIsMounted] = useFlushState (when || !(unmountOnExit || mountOnEnter))
+  const [isMounted, setIsMounted] = useCommitState (when || !(unmountOnExit || mountOnEnter))
 
   const [cssValues, setCssValues] = useState<undefined | CSSProperties>(undefined)
 

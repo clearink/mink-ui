@@ -11,12 +11,9 @@ import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
  * @description 判断 ModalFooterContextState 是否相等
  */
 export function isModalFooterContextValueEqual(prev: ModalFooterContextState, next: ModalFooterContextState) {
-  const prevKeys = Object.keys(prev) as (keyof ModalFooterContextState)[]
-  const nextKeys = Object.keys(next)
+  const keys = Object.keys(prev) as (keyof ModalFooterContextState)[]
 
-  if (prevKeys.length !== nextKeys.length) return false
-
-  return prevKeys.every(key => shallowEqual(prev[key], next[key]))
+  return keys.every(key => shallowEqual(prev[key], next[key]))
 }
 
 /**

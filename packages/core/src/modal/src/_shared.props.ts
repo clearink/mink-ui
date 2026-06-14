@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
 import type { Breakpoint } from '../../_shared/hooks/use-breakpoint/_shared.props'
+import type { GetSemanticsConfig } from '../../_shared/types/has-semantics'
 import type { CommonStatus } from '../../_shared/types/status'
-import type { ModalSharedConfig, ModalSharedProps } from './modal.props'
+import type { ModalProps, ModalSharedParams } from './modal.props'
 
 export interface ModalMethodReturn {
   then: (callback: (confirmed: boolean) => void) => Promise<void>
@@ -14,12 +15,10 @@ export type ModalVariantMethods = Record<ModalVariant, (params: ModalMethodParam
 export interface ModalHookMethods extends ModalVariantMethods {}
 
 export interface ModalGlobalMethods extends ModalHookMethods {
-  config: (config: ModalConfig) => void
+  config: (config: ModalGlobalConfig) => void
 }
 
-export interface ModalMethodParams extends ModalSharedProps {}
-
-export interface ModalConfig extends ModalSharedConfig {}
+export interface ModalMethodParams extends ModalSharedParams {}
 
 export interface ModalFooterRenderFunction {
   (element: ReactNode, params: { confirmButton: ReactNode, cancelButton: ReactNode }): ReactNode
@@ -47,10 +46,19 @@ export interface ModalHolderItem {
 
 /**
  * |---------------------------------------------------------|
- * |---------------------------------------------------------|
- * |                        constants                        |
- * |---------------------------------------------------------|
+ * |                     global definition                   |
  * |---------------------------------------------------------|
  */
 
-export const defaultModalConfig: Partial<ModalConfig> = {}
+export interface ModalGlobalConfig extends GetSemanticsConfig<ModalProps>,
+  Pick<
+    ModalProps,
+    | 'keyboard'
+    | 'maskClosable'
+    | 'centered'
+    | 'closable'
+    | 'focusable'
+    | 'slots'
+    | 'confirmButtonProps'
+    | 'cancelButtonProps'
+  > {}

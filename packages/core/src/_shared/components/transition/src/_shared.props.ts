@@ -67,5 +67,5 @@ export interface UniqueTransitionItem {
   /**
    * @description 额外属性
    */
-  [extra: string]: unknown
+  [extra: string]: any
 }

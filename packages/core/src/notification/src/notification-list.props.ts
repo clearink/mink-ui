@@ -1,11 +1,11 @@
-import type { SemanticsStyled } from '../../_shared/types/styled'
-import type { NotificationMethodParams, NotificationPlacement, NotificationStackConfig } from './_shared.props'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
+import type { NotificationMethodParams, NotificationPlacement, NotificationSemanticNames, NotificationStackConfig } from './_shared.props'
 import type { NotificationItemInjectedProps } from './notification-item.props'
 
 import { defaultNotificationConfig } from './_shared.props'
 
 export interface NotificationListForwardedProps extends
-  SemanticsStyled<'root' | 'item' | 'statusIcon' | 'closeBtn' | 'content' | 'title' | 'description' | 'progress', NotificationListProps> {
+  HasSemanticsStyled<NotificationSemanticNames, NotificationListProps> {
   /**
    * @description 距离窗口顶部距离
    */

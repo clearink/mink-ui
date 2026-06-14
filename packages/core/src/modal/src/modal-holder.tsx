@@ -3,7 +3,9 @@ import type { ModalHolderProps } from './modal-holder.props'
 import { defineName } from '../../_shared/utils/define-name'
 import { GeneratedApiModal } from './modal'
 
-function ModalHolder({ items }: ModalHolderProps) {
+function ModalHolder(props: ModalHolderProps) {
+  const { items } = props
+
   return (
     <>
       {Array.from(items).map(([id, { config, isOpen }]) => (

@@ -1,0 +1,26 @@
+[
+  {
+    "name": "key",
+    "type": "React.Key",
+    "zh-CN": "唯一标识",
+    "en-US": "Unique key"
+  },
+  {
+    "name": "data",
+    "type": "V",
+    "zh-CN": "存储的数据",
+    "en-US": "Stored data"
+  },
+  {
+    "name": "column",
+    "type": "number",
+    "zh-CN": "固定在第 n 列（从 0 开始）",
+    "en-US": "Fixed at the nth column (0-based)"
+  },
+  {
+    "name": "children",
+    "type": "React.ReactNode",
+    "zh-CN": "子元素内容",
+    "en-US": "Children content"
+  }
+]

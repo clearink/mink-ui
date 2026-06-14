@@ -3,7 +3,7 @@ import type { ScrollNumberProps } from '../scroll-number.props'
 import { useState } from 'react'
 
 import { useConstant } from '../../../_shared/hooks/use-constant'
-import { useFlushState } from '../../../_shared/hooks/use-exact-state'
+import { useCommitState } from '../../../_shared/hooks/use-commit-state'
 import { useWatchValue } from '../../../_shared/hooks/use-watch-value'
 import { ScrollNumberControl } from '../utils/scroll-number-control'
 import { useScrollNumberClassNames } from './use-class-names'
@@ -13,7 +13,7 @@ export function useScrollNumberProps(props: ScrollNumberProps) {
 
   const ctrl = useConstant(() => new ScrollNumberControl())
 
-  const [history, setHistory] = useFlushState (() => [null, char])
+  const [history, setHistory] = useCommitState (() => [null, char])
 
   const [isShowChar, setIsShowChar] = useState(true)
 

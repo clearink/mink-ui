@@ -18,7 +18,7 @@ export function useTooltipContentProps(props: TooltipContentProps) {
 
   const restAttrs: AnyObj = { ref: refCombined }
 
-  useResizeObserver($el, onResize)
+  useResizeObserver($el, isOpen, onResize)
 
   useEffect(() => onMounted($el.current), [onMounted])
 

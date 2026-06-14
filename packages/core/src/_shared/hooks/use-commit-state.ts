@@ -3,6 +3,7 @@ import type { VoidFn } from '@mink-ui/shared/interface'
 
 import { useState } from 'react'
 import { noop } from '@mink-ui/shared/function/noop'
+import { once } from '@mink-ui/shared/function/once'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
@@ -10,7 +11,7 @@ import { useConstant } from './use-constant'
 import { useEvent } from './use-event'
 import { useIsomorphicEffect } from './use-isomorphic-effect'
 
-export function useFlushState<S>(initialState: (() => S) | S) {
+export function useCommitState<S>(initialState: (() => S) | S) {
   const store = useConstant(() => ({ fn: noop }))
 
   const [internal, setInternal] = useState(initialState)
@@ -20,7 +21,7 @@ export function useFlushState<S>(initialState: (() => S) | S) {
 
     if (shallowEqual(internal, next)) return callback?.()
 
-    store.fn = () => { store.fn = noop; callback?.() }
+    store.fn = callback ? once(() => { callback() }) : noop
 
     setInternal(() => next)
   })

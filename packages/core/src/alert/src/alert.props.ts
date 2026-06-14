@@ -2,13 +2,13 @@ import type { HTMLAttributes, ReactNode, Ref } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
 import type { HasClosable } from '../../_shared/types/closable'
 import type { CommonStatus } from '../../_shared/types/status'
-import type { SemanticsStyled } from '../../_shared/types/styled'
+import type { HasSemanticsStyled } from '../../_shared/types/has-semantics'
 
 import { exhaustive } from '../../_shared/utils/exhaustive'
 
 export interface AlertInjectedProps extends
   HasClosable,
-  SemanticsStyled<'root' | 'statusIcon' | 'closeBtn' | 'action' | 'content' | 'description' | 'message', AlertProps> {
+  HasSemanticsStyled<'root' | 'statusIcon' | 'closeBtn' | 'action' | 'content' | 'description' | 'message', AlertProps> {
   /**
    * @description 外部引用
    */

@@ -1,41 +1,15 @@
 import type { CSSProperties, ReactNode, Ref } from 'react'
 import type { HasChildren } from '../../_shared/types/has-children'
-import type { GetSemanticsValues, SemanticsStyled } from '../../_shared/types/styled'
+import type { GetSemanticsValues, HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { CollapsibleType, ExpandedName, ExpandIconPlacement } from './_shared.props'
 import type { CollapseProps } from './collapse.props'
 
 import { exhaustive } from '../../_shared/utils/exhaustive'
 
-export interface CollapseItemForwardedProps {
-  /**
-   * @description 是否为手风琴模式
-   */
-  accordion?: boolean
-
-  /**
-   * @description 展开触发区域
-   */
-  collapsible?: CollapsibleType
-
-  /**
-   * @description 自定义展开图标
-   */
-  expandIcon?: ReactNode | ((params: { expanded: boolean, name: ExpandedName }) => ReactNode)
-
-  /**
-   * @description 展开图标位置
-   */
-  expandIconPlacement?: ExpandIconPlacement
-
-  /**
-   * @description 收起时是否保留元素
-   */
-  keepMounted?: boolean
-}
-
-export interface CollapseItemInjectedProps extends
+export interface CollapseItemType extends
   HasChildren,
-  Omit<SemanticsStyled<'root' | 'header' | 'icon' | 'title' | 'extra' | 'content', CollapseItemProps>, 'prefixCls'> {
+  Omit<CollapseItemForwardedProps, 'accordion'>,
+  Omit<HasSemanticsStyled<'root' | 'header' | 'icon' | 'title' | 'extra' | 'content', CollapseItemProps>, 'prefixCls'> {
   /**
    * @description 外部引用
    */
@@ -55,6 +29,40 @@ export interface CollapseItemInjectedProps extends
    * @description 标题
    */
   title?: ReactNode
+}
+
+export interface CollapseItemForwardedProps {
+  /**
+   * @description 展开触发区域
+   */
+  collapsible?: CollapsibleType
+
+  /**
+   * @description 是否为手风琴模式
+   */
+  accordion?: boolean
+
+  /**
+   * @description 自定义展开图标
+   */
+  expandIcon?: ReactNode | ((params: { expanded: boolean, name: ExpandedName }) => ReactNode)
+
+  /**
+   * @description 展开图标位置
+   */
+  expandIconPlacement?: ExpandIconPlacement
+
+  /**
+   * @description 收起时是否保留元素
+   */
+  keepMounted?: boolean
+}
+
+export interface CollapseItemInjectedProps {
+  /**
+   * @description 折叠面板项
+   */
+  item: CollapseItemType
 
   /**
    * @description 是否展开
@@ -94,21 +102,13 @@ export interface CollapseItemProps extends CollapseItemForwardedProps, CollapseI
 
 export const excludedCollapseItemProps = exhaustive<keyof CollapseItemProps>()([
   // extends
-  'children',
-  'className',
-  'classNames',
-  'style',
-  'styles',
-  'accordion',
   'collapsible',
+  'accordion',
   'expandIcon',
   'expandIconPlacement',
   'keepMounted',
   // props
-  'ref',
-  'name',
-  'extra',
-  'title',
+  'item',
   'expanded',
   'outerNamespace',
   'outerCssNames',

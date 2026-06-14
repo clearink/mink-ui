@@ -2,43 +2,17 @@ import type { CSSProperties, ReactNode, Ref } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
 import type { CssTransitionGetters } from '../../_shared/components/transition/src'
 import type { HasClosable } from '../../_shared/types/closable'
+import type { GetSemanticsValues, HasSemanticsStyled } from '../../_shared/types/has-semantics'
 import type { CommonStatus } from '../../_shared/types/status'
-import type { GetSemanticsValues, SemanticsStyled } from '../../_shared/types/styled'
 import type { UniqueKey } from '../../_shared/types/unique-key'
-import type { NotificationPlacement } from './_shared.props'
+import type { NotificationPlacement, NotificationSemanticNames } from './_shared.props'
 import type { NotificationListProps } from './notification-list.props'
 
 import { exhaustive } from '../../_shared/utils/exhaustive'
 
-export interface NotificationItemSharedProps extends HasClosable {
-  /**
-   * @description 通知位置
-   */
-  placement?: NotificationPlacement
-
-  /**
-   * @description 持续时间
-   * @default 4500ms
-   */
-  duration?: number
-
-  /**
-   * @description 是否展示进度条
-   */
-  showProgress?: boolean
-
-  /**
-   * @description 悬停时暂停进度条计时
-   */
-  pauseOnHover?: boolean
-}
-
-export interface NotificationItemMethodConfig extends
-  NotificationItemSharedProps,
-  Omit<
-    SemanticsStyled<'root' | 'statusIcon' | 'closeBtn' | 'content' | 'title' | 'description' | 'progress', NotificationItemProps>,
-    'prefixCls'
-  > {
+export interface NotificationItemSharedParams extends
+  NotificationItemSharedConfig,
+  Omit<HasSemanticsStyled<Exclude<NotificationSemanticNames, 'item'>, NotificationItemProps>, 'prefixCls'> {
   /**
    * @description 唯一表示
    */
@@ -86,6 +60,29 @@ export interface NotificationItemMethodConfig extends
   onClose?: VoidFn
 }
 
+export interface NotificationItemSharedConfig extends HasClosable {
+  /**
+   * @description 通知位置
+   */
+  placement?: NotificationPlacement
+
+  /**
+   * @description 持续时间
+   * @default 4500ms
+   */
+  duration?: number
+
+  /**
+   * @description 是否展示进度条
+   */
+  showProgress?: boolean
+
+  /**
+   * @description 悬停时暂停进度条计时
+   */
+  pauseOnHover?: boolean
+}
+
 export interface NotificationItemInjectedProps {
   /**
    * @description 外部引用
@@ -95,7 +92,7 @@ export interface NotificationItemInjectedProps {
   /**
    * @description 配置项
    */
-  config: NotificationItemMethodConfig
+  item: NotificationItemSharedParams
 
   /**
    * @description 动画配置
@@ -135,7 +132,7 @@ export interface NotificationItemInjectedProps {
   /**
    * @description 收集 DOM 元素
    */
-  onCollect: (el: HTMLElement | null, item: NotificationItemMethodConfig) => void
+  onCollect: (el: HTMLElement | null, item: NotificationItemSharedParams) => void
 }
 
 export interface NotificationItemProps extends NotificationItemInjectedProps {}
@@ -148,7 +145,7 @@ export interface NotificationItemProps extends NotificationItemInjectedProps {}
  * |---------------------------------------------------------|
  */
 
-export const sharedNotificationItemProps = exhaustive<keyof NotificationItemSharedProps>()([
+export const sharedNotificationItemConfig = exhaustive<keyof NotificationItemSharedConfig>()([
   // props
   'placement',
   'duration',
