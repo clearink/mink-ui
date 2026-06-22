@@ -1,0 +1,16 @@
+import{j as e}from"./index-D2XA0yST.js";import{M as s}from"./index-JUsl1GQg.js";import{C as a}from"./index-CWi4WiNE.js";import{P as t}from"./index-DkxCf9nE.js";import{S as n}from"./index-y_4txZ_W.js";import{M as r,A as x,a as o,b as m,c as i,d as p,P as j}from"./virtual_dm-a228b6d4-EwkNqJ49.js";import"./index-CdUc7RmQ.js";import"./group-transition-DjpckULc.js";import"./slots-CU6jYVPh.js";import"./CloseOutlined-B-Mj6zzG.js";function l(){return e.jsx("div",{children:"建设中,敬请期待!"})}function I(){return e.jsxs("div",{className:"document-container",children:[e.jsx(s,{rawText:`## When to use
+
+`}),e.jsx(s,{rawText:"TODO: Describe use cases."}),e.jsx(s,{rawText:`## Examples
+
+`}),e.jsx(a,{...r,title:"Basic Usage",element:e.jsx(x,{})}),e.jsx(a,{...o,title:"响应式",element:e.jsx(m,{})}),e.jsx(a,{...i,title:"动态更新",element:e.jsx(p,{})}),e.jsx(s,{rawText:`## API
+
+`}),e.jsx(s,{rawText:`### Masonry Props
+
+`}),e.jsx(t,{columns:j}),e.jsx(s,{rawText:`## Semantic DOM
+
+`}),e.jsx(n,{element:e.jsx(l,{})}),e.jsx(s,{rawText:`## FAQ
+
+`}),e.jsx(s,{rawText:`### Q1
+
+`}),e.jsx(s,{rawText:`xxx
+`})]})}export{I as default};
