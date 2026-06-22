@@ -4,7 +4,7 @@ import { CssTransition } from '../../_shared/components/transition/src'
 import { cn } from '../../_shared/libs/cn'
 import { cloneElementWithOptions } from '../../_shared/utils/children'
 import { defineName } from '../../_shared/utils/define-name'
-import { combineRefs } from '../../_shared/utils/refs'
+import { composeRefs } from '../../_shared/utils/refs'
 import { isRenderable } from '../../_shared/utils/renderable'
 import { mapStatusIcon } from '../../_shared/utils/status'
 import { useAlertProps } from './hooks/use-alert-props'
@@ -62,14 +62,14 @@ function Alert(props: AlertProps) {
       unmountOnExit
       timeouts={{ appear: 0, enter: 0 }}
       when={visible}
-      onExit={el => ({ height: el.getBoundingClientRect().height })}
+      onExit={el => ({ height: el.clientHeight })}
       onExited={handleClosed}
       onExiting={() => ({ height: 0 })}
     >
       {($motion, getters) => (
         <div
           {...restAttrs}
-          ref={combineRefs($motion, $element)}
+          ref={composeRefs($motion, $element)}
           className={cn(cssNames.root, getters.names())}
           style={{ ...cssAttrs.root, ...getters.attrs() }}
         >

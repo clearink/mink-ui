@@ -3,7 +3,6 @@ import type { ScrollNumberProps } from './scroll-number.props'
 import { CssTransition } from '../../_shared/components/transition/src'
 import { cn } from '../../_shared/libs/cn'
 import { defineName } from '../../_shared/utils/define-name'
-import { combineRefs } from '../../_shared/utils/refs'
 import { naturals } from './_shared.constant'
 import { useScrollNumberProps } from './hooks/use-scroll-number-props'
 
@@ -38,17 +37,14 @@ function ScrollNumber(props: ScrollNumberProps) {
     >
       {($motion, getters) => (
         <span
-          ref={combineRefs($motion, ctrl.$wrapper)}
+          ref={$motion}
           className={cn(cssNames.root, getters.names())}
           style={getters.attrs()}
         >
           {naturals.map(natural => (
             <span
               key={natural}
-              ref={(el) => {
-                if (el) ctrl.items.set(natural, el)
-                else ctrl.items.delete(natural)
-              }}
+              ref={el => ctrl.collect(el, natural)}
             >
               {natural}
             </span>

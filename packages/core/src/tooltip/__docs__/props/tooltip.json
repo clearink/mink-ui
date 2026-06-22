@@ -143,13 +143,13 @@
   },
   {
     "name": "classNames",
-    "type": "Record<'arrow' | 'root' | 'wrapper', string>",
+    "type": "Record<'arrow' | 'root' | 'popup', string>",
     "zh-CN": "语义化类名",
     "en-US": "Semantic class names"
   },
   {
     "name": "styles",
-    "type": "Record<'arrow' | 'root' | 'wrapper', React.CSSProperties>",
+    "type": "Record<'arrow' | 'root' | 'popup', React.CSSProperties>",
     "zh-CN": "语义化样式",
     "en-US": "Semantic styles"
   }

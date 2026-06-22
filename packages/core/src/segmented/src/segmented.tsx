@@ -3,7 +3,7 @@ import type { SegmentedProps } from './segmented.props'
 import { CssTransition } from '../../_shared/components/transition/src'
 import { cn } from '../../_shared/libs/cn'
 import { defineName } from '../../_shared/utils/define-name'
-import { combineRefs } from '../../_shared/utils/refs'
+import { composeRefs } from '../../_shared/utils/refs'
 import { useSegmentedProps } from './hooks/use-segmented-props'
 import SegmentedItem from './segmented-item'
 
@@ -46,7 +46,7 @@ function Segmented(props: SegmentedProps) {
       >
         {($motion, getters) => (
           <div
-            ref={combineRefs($motion, ctrl.$thumb)}
+            ref={$motion}
             className={cn(cssNames.thumb, getters.names())}
             style={{ ...cssAttrs.thumb, ...getters.attrs() }}
           />
@@ -77,7 +77,7 @@ function Segmented(props: SegmentedProps) {
       className={cssNames.root}
       style={cssAttrs.root}
     >
-      <div ref={ctrl.$inner} className={cssNames.inner} style={cssAttrs.inner}>
+      <div className={cssNames.inner} style={cssAttrs.inner}>
         {renderSegmentedThumb()}
         {renderSegmentedOptions()}
       </div>

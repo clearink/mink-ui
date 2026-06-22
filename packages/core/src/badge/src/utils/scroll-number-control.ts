@@ -1,25 +1,24 @@
-import { getClientCoords } from '@mink-ui/shared/dom/rect'
-
 export class ScrollNumberControl {
-  public $wrapper = { current: null as HTMLDivElement | null }
+  private _items = new Map<string | null, HTMLSpanElement>()
 
-  public items = new Map<string | null, HTMLSpanElement>()
-
-  public get wrapper() {
-    return this.$wrapper.current
+  /**
+   * @description 收集元素
+   */
+  public collect = (el: HTMLSpanElement | null, natural: string) => {
+    if (el) this._items.set(natural, el)
+    else this._items.delete(natural)
   }
 
   /**
    * @description 解析 css 样式
    */
-  public resolve = (item: HTMLElement) => {
-    const wrapCoords = getClientCoords(this.wrapper!)
-    const itemCoords = getClientCoords(item)
+  public resolve = (key: string | null) => {
+    const element = this._items.get(key)
 
-    const delta = wrapCoords.top - itemCoords.top
+    if (!element) return
 
-    const value = `translate3d(0, ${delta}px, 0)`
+    const dy = -element.offsetTop
 
-    return { transform: value }
+    return { transform: `translate3d(0, ${dy}px, 0)` }
   }
 }

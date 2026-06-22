@@ -68,13 +68,13 @@ function CollapseItem(props: CollapseItemProps) {
       </div>
       <CssTransition
         classNames={`${ns}-motion`}
-        resumeOnCancel
+        skipBeginning
         mountOnEnter={!keepMounted}
         unmountOnExit={!keepMounted}
         when={expanded}
         onEnter={() => ({ height: 0 })}
         onEntering={el => ({ height: el.scrollHeight })}
-        onExit={el => ({ height: el.getBoundingClientRect().height })}
+        onExit={el => ({ height: el.clientHeight })}
         onExiting={() => ({ height: 0 })}
       >
         {($motion, getters) => (

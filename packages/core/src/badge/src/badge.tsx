@@ -29,7 +29,7 @@ function Badge(props: BadgeProps) {
           items={numberItems}
           onEnter={() => ({ width: 0 })}
           onEntering={el => ({ width: el.scrollWidth })}
-          onExit={el => ({ width: el.getBoundingClientRect().width })}
+          onExit={el => ({ width: el.clientWidth })}
           onExiting={() => ({ width: 0 })}
         >
           {($motion, getters, item) => {

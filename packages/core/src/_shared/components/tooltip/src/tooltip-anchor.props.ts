@@ -1,8 +1,10 @@
 import type { DOMAttributes, ReactElement, Ref } from 'react'
 import type { VoidFn } from '@mink-ui/shared/interface'
+import type { HasChildren } from '../../../types/has-children'
 import type { InternalTooltipInstance } from './tooltip.props'
 
-export interface TooltipTriggerProps {
+export interface TooltipAnchorProps extends
+  Required<HasChildren<ReactElement<any>>> {
   /**
    * @description 外部引用
    */
@@ -11,12 +13,7 @@ export interface TooltipTriggerProps {
   /**
    * @description 触发元素
    */
-  triggerElement: HTMLElement | null
-
-  /**
-   * @description 子元素
-   */
-  children: ReactElement<any>
+  anchor: HTMLElement | null
 
   /**
    * @description 是否打开 tooltip
@@ -29,12 +26,12 @@ export interface TooltipTriggerProps {
   handlers: DOMAttributes<HTMLElement>
 
   /**
-   * @description 尺寸变化回调
+   * @description 每一帧最多运行一次(用于 scroll)
    */
-  onResize: VoidFn
+  onFramedUpdate: VoidFn
 
   /**
-   * @description 滚动事件回调
+   * @description 一循环最多运行一次(用于 resize)
    */
-  onScroll: VoidFn
+  onTickedUpdate: VoidFn
 }

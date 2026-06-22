@@ -9,7 +9,7 @@ function SegmentedItem(props: SegmentedItemProps) {
     ns,
     cssNames,
     cssAttrs,
-    refCombined,
+    refComposed,
     handleChange,
   } = useSegmentedItemProps(props)
 
@@ -18,7 +18,7 @@ function SegmentedItem(props: SegmentedItemProps) {
   const { label, title } = option
 
   return (
-    <label ref={refCombined} className={cssNames.root} style={cssAttrs.root}>
+    <label ref={refComposed} className={cssNames.root} style={cssAttrs.root}>
       <input
         className={`${ns}__radio`}
         checked={checked}

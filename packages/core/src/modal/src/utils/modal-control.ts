@@ -3,6 +3,8 @@ import type { AnyFn, VoidFn } from '@mink-ui/shared/interface'
 import type { FocusTrapInstance } from '../../../_shared/components/focus-trap/src'
 import type { ModalButtonType } from '../_shared.props'
 
+import { getClientCoords } from '@mink-ui/shared/dom/rect'
+import { getElementScale } from '@mink-ui/shared/dom/scale'
 import { isThenable } from '@mink-ui/shared/is/is-promise'
 
 import { EventChannel } from '../../../_shared/utils/event-channel'
@@ -47,34 +49,59 @@ export class ModalLoadingControl {
 }
 
 export class ModalControl {
+  private _transform: CSSProperties | undefined = undefined
+
+  public $wrapper = { current: null as HTMLDivElement | null }
+
   public $$loading = new ModalLoadingControl()
 
   public $trap = { current: null as FocusTrapInstance | null }
 
-  public transform: CSSProperties | undefined = undefined
+  private get wrapper() {
+    return this.$wrapper.current
+  }
 
-  public get trap() {
+  private get trap() {
     return this.$trap.current
   }
 
-  public prepare = (el: HTMLElement) => {
+  /**
+   * @description 将
+   */
+  public onEnter = (el: HTMLElement, fromPointer: boolean) => {
     this.trap?.focus()
 
     const position = globalPointerTracker.position
 
-    if (!position) return this.transform
+    if (!position || !fromPointer) return
 
-    const rect = el.getBoundingClientRect()
+    const coords = getClientCoords(el)
 
-    const dx = position.x - rect.left - (rect.width - el.offsetWidth) / 2
-    const dy = position.y - rect.top - (rect.height - el.offsetHeight) / 2
+    const scale = getElementScale(this.wrapper!, 1000)
 
-    this.transform = { transformOrigin: `${dx}px ${dy}px` }
+    // 未变化前的中心点
+    const cx = coords.left + coords.width / 2 - el.offsetWidth / 2
 
-    return this.transform
+    const cy = coords.top + coords.height / 2 - el.offsetHeight / 2
+
+    const dx = (position.x - cx) / scale.sx
+
+    const dy = (position.y - cy) / scale.sy
+
+    this._transform = {
+      transformOrigin: `${dx.toFixed(3)}px ${dy.toFixed(3)}px`,
+    }
+
+    return this._transform
   }
 
+  public onEntering = () => this._transform
+
+  public onExit = () => this._transform
+
+  public onExiting = () => this._transform
+
   public reset = () => {
-    this.transform = undefined
+    this._transform = undefined
   }
 }

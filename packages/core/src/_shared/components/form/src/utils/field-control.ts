@@ -57,9 +57,9 @@ function setFieldsInfoMetaInfo(fieldInfo: ExternalFieldInfo) {
  */
 export class FormFieldControl {
   /**
-   * @description 额外的信息(字段加载时的初始值)
+   * @description 额外的信息 (current: 字段当前值
    */
-  public __holder: undefined | { viewState: unknown }
+  public __holder: undefined | { current: unknown } = undefined
 
   /**
    * @description 字段卸载时是否保留数据
@@ -228,16 +228,16 @@ export class FormFieldControl {
   /**
    * @description 标记已经挂载
    */
-  public markIsMounted = ($$state: FormStateControl) => {
+  public markIsMounted = ($$state: FormStateControl, transient: any) => {
     this._mounted = true
-
-    const current = $$state.getFieldValue(this._name)
-
-    this.__holder ??= { viewState: current }
 
     this.__keepValue = false
 
-    return current
+    this.__holder ??= { current: $$state.getFieldValue(this._name) }
+
+    const current = this.__holder.current
+
+    return transient !== current && !this._props.isFormList
   }
 
   /**

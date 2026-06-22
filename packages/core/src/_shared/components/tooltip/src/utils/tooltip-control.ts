@@ -1,5 +1,6 @@
 import type { VoidFn } from '@mink-ui/shared/interface'
 import type { SetStateDispatch } from '../../../../types/state-dispatch'
+import type { OverlayInstance } from '../../../overlay/src'
 import type { InternalTooltipInstance } from '../tooltip.props'
 
 import { pushItem } from '@mink-ui/shared/array/push-item'
@@ -7,7 +8,7 @@ import { removeItem } from '@mink-ui/shared/array/remove-item'
 import { getShadowRoot } from '@mink-ui/shared/dom/shadow'
 import { noop } from '@mink-ui/shared/function/noop'
 
-import { getTriggerElement } from './helpers'
+import { isInternalTooltipInstance } from './helpers'
 
 export class TooltipControl {
   private _change!: SetStateDispatch<HTMLElement | null>
@@ -15,9 +16,14 @@ export class TooltipControl {
   private _cleanup: VoidFn | null = null
 
   /**
-   * @description 是否处于 popup 中
+   * @description 是否处于 popup 元素中
    */
   private _isInPopupElement = false
+
+  /**
+   * @description overlay 实例
+   */
+  public $overlay = { current: null as OverlayInstance | null }
 
   /**
    * @description 浮层元素
@@ -30,9 +36,16 @@ export class TooltipControl {
   public chain: Element[] = []
 
   /**
+   * @description portal getter
+   */
+  public get portal() {
+    return this.$overlay.current?.portal
+  }
+
+  /**
    * @description popup getter
    */
-  public get popupElement() {
+  public get popup() {
     return this.$popup.current
   }
 
@@ -44,10 +57,10 @@ export class TooltipControl {
   }
 
   /**
-   * @description Trigger 元素 refCallback
+   * @description anchor 元素 refCallback
    */
-  public $trigger = (el: InternalTooltipInstance | HTMLElement | null) => {
-    this._change(() => getTriggerElement(el))
+  public $anchor = (el: InternalTooltipInstance | HTMLElement | null) => {
+    this._change(() => isInternalTooltipInstance(el) ? el.anchor : el)
   }
 
   /**
@@ -64,8 +77,8 @@ export class TooltipControl {
   /**
    * @description 是否处于 popup chain 中
    */
-  public inChain = (event: MouseEvent, triggerElement: Element | null) => {
-    const { popupElement, chain } = this
+  public inChain = (event: MouseEvent, anchor: Element | null) => {
+    const { popup, chain } = this
 
     const el = event.target as Element
 
@@ -77,7 +90,7 @@ export class TooltipControl {
       return getShadowRoot(item)?.host === el
     }
 
-    return this._isInPopupElement || isInChain(triggerElement) || isInChain(popupElement) || chain.some(isInChain)
+    return this._isInPopupElement || isInChain(anchor) || isInChain(popup) || chain.some(isInChain)
   }
 
   public pointerEnterPopup = () => {

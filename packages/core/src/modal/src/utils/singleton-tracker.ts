@@ -1,5 +1,6 @@
 import type { MayBe, VoidFn } from '@mink-ui/shared/interface'
 
+import { getClientCoords } from '@mink-ui/shared/dom/rect'
 import { makeTimeout } from '@mink-ui/shared/dom/timer'
 
 import { clickSubject as subject } from '../../../_shared/hooks/use-window-click/utils/singleton'
@@ -20,7 +21,7 @@ class GlobalPointerTracker {
 
     const keyboard = e.detail === 0 || (!e.pageX && !e.pageY)
 
-    const rect = keyboard && element ? element.getBoundingClientRect() : null
+    const rect = keyboard && element ? getClientCoords(element) : null
 
     // 获取到屏幕左上角的距离
     if (!rect && keyboard) this.position = undefined

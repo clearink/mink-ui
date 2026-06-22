@@ -39,10 +39,18 @@ export function useInternalModalProps(props: InternalModalProps) {
     centered = fallback(globalConfig.centered, defaultProps.centered),
     closable = fallback(globalConfig.closable, defaultProps.closable),
     focusable = fallback(globalConfig.focusable, defaultProps.focusable),
+    fromPointerOpen = fallback(globalConfig.fromPointerOpen, defaultProps.fromPointerOpen),
   } = props
 
   const omitted = props as OmittedInternalModalProps
-  const picked: PickedInternalModalProps = { maskClosable, centered, closable }
+  const picked: PickedInternalModalProps = {
+    keyboard,
+    maskClosable,
+    centered,
+    closable,
+    focusable,
+    fromPointerOpen,
+  }
 
   const ctrl = useConstant(() => new ModalControl())
 
@@ -149,6 +157,7 @@ export function useInternalModalProps(props: InternalModalProps) {
   useEscHandler(!!isOpen && !!keyboard, handleDismiss)
 
   return {
+    picked,
     omitted,
     rns,
     ns,

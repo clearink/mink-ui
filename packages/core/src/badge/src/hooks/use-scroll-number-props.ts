@@ -19,21 +19,9 @@ export function useScrollNumberProps(props: ScrollNumberProps) {
 
   const { ns, classNames } = useScrollNumberClassNames(props)
 
-  const handleEnter = () => {
-    const from = ctrl.items.get(history[0])
+  const handleEnter = () => ctrl.resolve(history[0])
 
-    if (!from || !ctrl.wrapper) return
-
-    return ctrl.resolve(from)
-  }
-
-  const handleEntering = () => {
-    const target = ctrl.items.get(history[1])
-
-    if (!target || !ctrl.wrapper) return
-
-    return ctrl.resolve(target)
-  }
+  const handleEntering = () => ctrl.resolve(history[1])
 
   const handleEntered = () => { setIsShowChar(true) }
 

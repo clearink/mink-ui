@@ -1,11 +1,7 @@
-import type { ReactNode } from 'react'
 import type { AnyObj } from '@mink-ui/shared/interface'
+import type { HasChildren } from '../../../types/has-children'
 
-export interface ShouldUpdateProps extends AnyObj {
-  /**
-   * @description 子元素 (必须为合法的 react-element)
-   */
-  children: ReactNode
+export interface ShouldUpdateProps extends AnyObj, HasChildren {
   /**
    * @description 比较函数 返回 true 需要更新
    */

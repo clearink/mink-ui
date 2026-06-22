@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import type { AnyObj, LiteralUnion, VoidFn } from '@mink-ui/shared/interface'
-import type { InternalFormListContextState } from './_shared.context'
-import type { ExternalFieldName, InternalFieldName, InternalFormFieldRenderFunction, MetaChangeEvent, RuleLike } from './_shared.props'
+import type { ExternalFieldName, InternalFieldName, InternalFormFieldMeta, InternalFormFieldRenderFunction, InternalFormListMeta, MetaChangeEvent, RuleLike } from './_shared.props'
 import type { FormListControl } from './utils/list-control'
 
 import { isObject } from '@mink-ui/shared/is/is-object'
@@ -67,13 +66,13 @@ export interface InternalFormFieldProps<V = any> {
    * @private
    * @description 标记该字段是否为 Form.List
    */
-  isFormList?: false | { listControl: FormListControl }
+  isFormList?: false | InternalFormListMeta
 
   /**
    * @private
    * @description 标记该字段是否为 ListField 的子字段
    */
-  isListField?: ({ type: 'simple' | 'complex' } & InternalFormListContextState) | false
+  isListField?: false | InternalFormFieldMeta
 
   /**
    * @description 数值格式化函数

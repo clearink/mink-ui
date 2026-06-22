@@ -1,19 +1,20 @@
+import type { PortalInstance } from '../../../portal/src'
 import type {
-  ArrowCoords,
+  ArrowCssAttrs,
   CrossAxis,
   ElementCoords,
   FlipPopupCoordsFunction,
   GetArrowCoordsFunction,
+  GetLayoutCoordsFunction,
   GetOriginCoordsFunction,
-  GetScreenCoordsFunction,
   HorizontalCrossAxis,
   HorizontalMainAxis,
   keepArrowCenterFunction,
+  LayoutCoords,
   MainAxis,
   OffsetPopupCoordsFunction,
-  PopupCoords,
+  PopupCssAttrs,
   PopupPlacement,
-  ScreenCoords,
   ShiftPopupCoordsFunction,
   VerticalCrossAxis,
   VerticalMainAxis,
@@ -21,332 +22,365 @@ import type {
 import type { PickedInternalTooltipProps } from '../tooltip.props'
 
 import isEqual from 'react-fast-compare'
-import { ownerDocument } from '@mink-ui/shared/dom/global'
 import { isArray } from '@mink-ui/shared/is/is-array'
 import { isObject } from '@mink-ui/shared/is/is-object'
 
-import { getElementCoords, getNonStaticCoords } from './element'
+import { units } from '../_shared.constant'
+import { resolveContainCoords, resolveElementCoords, resolveViewportCoords } from './format'
+import { findViewportElement } from './helpers'
 
-const _size = 8
-const _sqrt = (_size / 2) * 1.414
-const _px = _size
-const _py = _size / 2
-const _offset = _size / 2
-const _effect = _size / 2
+/* ****************************** layout coords ****************************** */
 
-/* ****************************** screen coords ****************************** */
-
-function getTopOrBottomScreenCoords(
+function getTopOrBottomLayoutCoords(
   main: VerticalMainAxis,
   cross: VerticalCrossAxis,
-): GetScreenCoordsFunction {
-  return (picked, popup, trigger) => {
-    const dy = (picked.arrow ? _effect : 0) + _offset
+): GetLayoutCoordsFunction {
+  return ({ arrow }, portal, popup, anchor) => {
+    const effect = units.effect * popup.sx
+    const offset = units.offset * popup.sx
 
-    const top = main === 'top' ? trigger.t - popup._ch - dy : trigger.b + dy
+    const dx = anchor.w - popup.w
 
-    const dx = trigger.w - popup._cw
+    const dy = (arrow ? effect : 0) + offset
 
-    const left = trigger.l + (cross === 'left' ? 0 : cross === 'right' ? dx : dx / 2)
+    const left = anchor.l + (cross === 'left' ? 0 : cross === 'right' ? dx : dx / 2)
 
-    const root = ownerDocument(trigger._el).documentElement
+    const top = main === 'top' ? anchor.t - popup.h - dy : anchor.b + dy
+
+    const view = findViewportElement(portal, popup._el)
 
     return {
-      _ch: popup._ch,
-      _cw: popup._cw,
-      _sh: root.clientHeight,
-      _sw: root.clientWidth,
-      _da: 0,
       _dx: left,
       _dy: top,
+      _da: 0,
       main,
-      cross,
+      view: resolveViewportCoords(view),
     }
   }
 }
 
-function getLeftOrRightScreenCoords(
+function getLeftOrRightLayoutCoords(
   main: HorizontalMainAxis,
   cross: HorizontalCrossAxis,
-): GetScreenCoordsFunction {
-  return (picked, popup, trigger) => {
-    const dx = (picked.arrow ? _effect : 0) + _offset
+): GetLayoutCoordsFunction {
+  return ({ arrow }, portal, popup, anchor) => {
+    const effect = units.effect * popup.sx
+    const offset = units.offset * popup.sx
 
-    const left = main === 'left' ? trigger.l - popup._cw - dx : trigger.r + dx
+    const dx = (arrow ? effect : 0) + offset
 
-    const dy = trigger.h - popup._ch
+    const dy = anchor.h - popup.h
 
-    const top = trigger.t + (cross === 'top' ? 0 : cross === 'bottom' ? dy : dy / 2)
+    const left = main === 'left' ? anchor.l - popup.w - dx : anchor.r + dx
 
-    const root = ownerDocument(trigger._el).documentElement
+    const top = anchor.t + (cross === 'top' ? 0 : cross === 'bottom' ? dy : dy / 2)
+
+    const view = findViewportElement(portal, popup._el)
 
     return {
-      _ch: popup._ch,
-      _cw: popup._cw,
-      _sh: root.clientHeight,
-      _sw: root.clientWidth,
-      _da: 0,
       _dx: left,
       _dy: top,
+      _da: 0,
       main,
-      cross,
+      view: resolveViewportCoords(view),
     }
   }
 }
 
 /* ****************************** arrow center ****************************** */
 
-function keepTopOrBottomArrowCenter(): keepArrowCenterFunction {
-  const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords) => {
-    const { cross } = screen
+function keepTopOrBottomArrowCenter(cross: VerticalCrossAxis): keepArrowCenterFunction {
+  const shouldUpdate = ({ arrow }: PickedInternalTooltipProps) => {
+    return isObject(arrow) && !!arrow.pointAtCenter
+  }
 
-    const dx = trigger.w / 2 - _px - _size
+  const getCoordsValues = (layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords) => {
+    const gapx = units.gapx * popup.sx
+    const base = units.base * popup.sx
+
+    const delta = anchor.w / 2 - (gapx + base)
 
     const sign = cross === 'left' ? 1 : cross === 'right' ? -1 : 0
 
-    return [screen._dx + sign * dx, dx] as const
+    return [layout._dx + sign * delta, delta] as const
   }
 
-  return ({ arrow }, screen, trigger) => {
-    if (!(isObject(arrow) && arrow.pointAtCenter)) return screen
+  return (picked, layout, popup, anchor) => {
+    if (!shouldUpdate(picked)) return layout
 
-    const [_dx, _da] = getDeltaCoords(screen, trigger)
+    const [_dx, _da] = getCoordsValues(layout, popup, anchor)
 
-    return { ...screen, _dx, _da }
+    return { ...layout, _dx, _da }
   }
 }
 
-function keepLeftOrRightArrowCenter(): keepArrowCenterFunction {
-  const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords) => {
-    const { cross } = screen
+function keepLeftOrRightArrowCenter(cross: HorizontalCrossAxis): keepArrowCenterFunction {
+  const shouldUpdate = ({ arrow }: PickedInternalTooltipProps) => {
+    return isObject(arrow) && !!arrow.pointAtCenter
+  }
 
-    const dy = trigger.h / 2 - _py - _size
+  const getCoordsValues = (layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords) => {
+    const gapy = units.gapy * popup.sy
+    const base = units.base * popup.sy
+
+    const delta = anchor.h / 2 - (gapy + base)
 
     const sign = cross === 'top' ? 1 : cross === 'bottom' ? -1 : 0
 
-    return [screen._dy + sign * dy, dy] as const
+    return [layout._dy + sign * delta, delta] as const
   }
 
-  return ({ arrow }, screen, trigger) => {
-    if (!(isObject(arrow) && arrow.pointAtCenter)) return screen
+  return (picked, layout, popup, anchor) => {
+    if (!shouldUpdate(picked)) return layout
 
-    const [_dy, _da] = getDeltaCoords(screen, trigger)
+    const [_dy, _da] = getCoordsValues(layout, popup, anchor)
 
-    return { ...screen, _da, _dy }
+    return { ...layout, _dy, _da }
   }
 }
 
 /* ****************************** popup offset ****************************** */
 
-function offsetTopOrBottomPopupCoords(): OffsetPopupCoordsFunction {
-  return ({ offset }, screen) => {
-    const { _dx, _dy, main } = screen
-
+function offsetTopOrBottomPopupCoords(main: VerticalMainAxis): OffsetPopupCoordsFunction {
+  return ({ offset }, layout) => {
     const [h, v] = isArray(offset) ? offset : [offset, 0]
 
     const sign = main === 'top' ? -1 : 1
 
-    return {
-      ...screen,
-      _dx: _dx + (h || 0) * sign,
-      _dy: _dy + (v || 0) * sign,
-    }
+    const dx = layout._dx + (h || 0) * sign
+    const dy = layout._dy + (v || 0) * sign
+
+    return { ...layout, _dx: dx, _dy: dy }
   }
 }
 
-function offsetLeftOrRightPopupCoords(): OffsetPopupCoordsFunction {
-  return ({ offset }, screen) => {
-    const { _dx, _dy, main } = screen
-
+function offsetLeftOrRightPopupCoords(main: HorizontalMainAxis): OffsetPopupCoordsFunction {
+  return ({ offset }, layout) => {
     const [h, v] = isArray(offset) ? offset : [offset, 0]
 
     const sign = main === 'left' ? -1 : 1
 
-    return {
-      ...screen,
-      _dx: _dx + (h || 0) * sign,
-      _dy: _dy + (v || 0) * sign,
-    }
+    const dx = layout._dx + (h || 0) * sign
+
+    const dy = layout._dy + (v || 0) * sign
+
+    return { ...layout, _dx: dx, _dy: dy }
   }
 }
 
 /* ****************************** shift coords ****************************** */
 
 function shiftTopOrBottomPopupCoords(): ShiftPopupCoordsFunction {
-  const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords) => {
-    const min = (_px + _size) * 2 + screen._da
-
-    const max = screen._sw - screen._cw
-
-    if (screen._dx <= 0) return Math.min(trigger.r - min, 0)
-
-    if (screen._dx >= max) return Math.max(trigger.l - screen._cw + min, max)
-
-    return screen._dx
+  const shouldUpdate = ({ shift }: PickedInternalTooltipProps) => {
+    return !!shift && !(isObject(shift) && shift.horizontal === false)
   }
 
-  return ({ shift }, screen, trigger) => {
-    if (!shift || (isObject(shift) && shift.horizontal === false)) return screen
+  const getCoordsValues = (layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords) => {
+    const gapx = units.gapx * popup.sx
+    const base = units.base * popup.sx
 
-    const _dx = getDeltaCoords(screen, trigger)
+    const delta = layout._da + (gapx + base) * 2
 
-    return { ...screen, _dx }
+    const min = layout.view.l
+
+    const max = layout.view.r - popup.w
+
+    if (layout._dx <= min) return Math.min(anchor.r - delta, min)
+
+    if (layout._dx >= max) return Math.max(anchor.l - popup.w + delta, max)
+
+    return layout._dx
+  }
+
+  return (picked, layout, popup, anchor) => {
+    if (!shouldUpdate(picked)) return layout
+
+    const _dx = getCoordsValues(layout, popup, anchor)
+
+    return { ...layout, _dx }
   }
 }
 
 function shiftLeftOrRightPopupCoords(): ShiftPopupCoordsFunction {
-  const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords) => {
-    const min = (_py + _size) * 2 + screen._da
-
-    const max = screen._sh - screen._ch
-
-    if (screen._dy <= 0) return Math.min(trigger.b - min, 0)
-
-    if (screen._dy >= max) return Math.max(trigger.t - screen._ch + min, max)
-
-    return screen._dy
+  const shouldUpdate = ({ shift }: PickedInternalTooltipProps) => {
+    return !!shift && !(isObject(shift) && shift.vertical === false)
   }
 
-  return ({ shift }, screen, trigger) => {
-    if (!shift || (isObject(shift) && shift.vertical === false)) return screen
+  const getCoordsValues = (layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords) => {
+    const gapy = units.gapy * popup.sy
+    const base = units.base * popup.sy
 
-    const _dy = getDeltaCoords(screen, trigger)
+    const delta = layout._da + (gapy + base) * 2
 
-    return { ...screen, _dy }
+    const min = layout.view.t
+
+    const max = layout.view.b - popup.h
+
+    if (layout._dy <= min) return Math.min(anchor.b - delta, min)
+
+    if (layout._dy >= max) return Math.max(anchor.t + delta - popup.h, max)
+
+    return layout._dy
+  }
+
+  return (picked, layout, popup, anchor) => {
+    if (!shouldUpdate(picked)) return layout
+
+    const _dy = getCoordsValues(layout, popup, anchor)
+
+    return { ...layout, _dy }
   }
 }
 
 /* ****************************** flip coords ****************************** */
 
-function flipTopOrBottomPopupCoords(): FlipPopupCoordsFunction {
-  const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords): [number, MainAxis] => {
-    const { _ch, _sh, _dy, main } = screen
-
-    const max = _ch + _dy
-
-    if (main === 'top' && _dy > 0) return [_dy, main]
-
-    if (main === 'bottom' && max < _sh) return [_dy, main]
-
-    // TODO: 保证有足够的空间
-
-    return [trigger.b + trigger.t - max, main === 'bottom' ? 'top' : 'bottom']
+function flipTopOrBottomPopupCoords(main: VerticalMainAxis): FlipPopupCoordsFunction {
+  const shouldUpdate = ({ flip }: PickedInternalTooltipProps) => {
+    return !!flip && !(isObject(flip) && flip.vertical === false)
   }
 
-  return ({ flip }, screen, trigger) => {
-    if (!flip || (isObject(flip) && flip.vertical === false)) return screen
+  const getCoordsValues = (layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords): [number, MainAxis] => {
+    const delta = layout._dy + popup.h
 
-    const [_dy, _main] = getDeltaCoords(screen, trigger)
+    const min = layout.view.t
 
-    return { ...screen, _dy, main: _main }
+    const max = layout.view.b - popup.h
+
+    if (main === 'top' && layout._dy >= min) return [layout._dy, main]
+
+    if (main === 'bottom' && layout._dy <= max) return [layout._dy, main]
+
+    return [anchor.t + anchor.b - delta, main === 'bottom' ? 'top' : 'bottom']
+  }
+
+  return (picked, layout, popup, anchor) => {
+    if (!shouldUpdate(picked)) return layout
+
+    const [_dy, main] = getCoordsValues(layout, popup, anchor)
+
+    return { ...layout, _dy, main }
   }
 }
 
-function flipLeftOrRightPopupCoords(): FlipPopupCoordsFunction {
-  const getDeltaCoords = (screen: ScreenCoords, trigger: ElementCoords): [number, MainAxis] => {
-    const { _cw, _sw, _dx, main } = screen
-
-    const max = _cw + _dx
-
-    if (main === 'left' && _dx > 0) return [_dx, main]
-
-    if (main === 'right' && max < _sw) return [_dx, main]
-
-    // TODO: 保证有足够的空间
-
-    return [trigger.r + trigger.l - max, main === 'left' ? 'right' : 'left']
+function flipLeftOrRightPopupCoords(main: HorizontalMainAxis): FlipPopupCoordsFunction {
+  const shouldUpdate = ({ flip }: PickedInternalTooltipProps) => {
+    return !!flip && !(isObject(flip) && flip.horizontal === false)
   }
 
-  return ({ flip }, screen, trigger) => {
-    if (!flip || (isObject(flip) && flip.horizontal === false)) return screen
+  const getCoordsValues = (layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords): [number, MainAxis] => {
+    const delta = layout._dx + popup.w
 
-    const [_dx, _main] = getDeltaCoords(screen, trigger)
+    const min = layout.view.l
 
-    return { ...screen, _dx, main: _main }
+    const max = layout.view.r - popup.w
+
+    if (main === 'left' && layout._dx >= min) return [layout._dx, main]
+
+    if (main === 'right' && layout._dx <= max) return [layout._dx, main]
+
+    return [anchor.r + anchor.l - delta, main === 'left' ? 'right' : 'left']
+  }
+
+  return (picked, layout, popup, anchor) => {
+    if (!shouldUpdate(picked)) return layout
+
+    const [_dx, main] = getCoordsValues(layout, popup, anchor)
+
+    return { ...layout, _dx, main }
   }
 }
 
 /* ****************************** arrow coords ****************************** */
 
-function getTopOrBottomArrowCoords(): GetArrowCoordsFunction {
-  return (screen: ScreenCoords, trigger: ElementCoords) => {
-    const { main, cross } = screen
+function getTopOrBottomArrowCoords(cross: VerticalCrossAxis): GetArrowCoordsFunction {
+  return (layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords) => {
+    const gapx = units.gapx * popup.sx
+    const base = units.base * popup.sx
 
-    const rotate = main === 'top' ? 0 : 180
+    const delta = gapx + base * 2
 
-    const top = (main === 'top' ? screen._ch : 0) - _size
+    const rotate = layout.main === 'top' ? 0 : 180
 
-    const delta = _px + _size * 2
+    const top = (layout.main === 'top' ? popup.h : 0) - base
 
-    const min = Math.max(trigger.l, screen._dx - screen._da)
+    const min = Math.max(anchor.l, layout._dx - layout._da)
 
-    const max = Math.min(trigger.r, screen._dx + screen._cw + screen._da)
+    const max = Math.min(anchor.r, layout._dx + popup.w + layout._da)
 
-    let left = -screen._dx
+    let left = -layout._dx
 
-    if (cross === 'left') left += min + _px + screen._da
-    else if (cross === 'right') left += max - delta - screen._da
-    else left += (min + max) / 2 - _size
+    if (cross === 'left') left += min + gapx + layout._da
+    else if (cross === 'right') left += max - delta - layout._da
+    else left += (min + max) / 2 - base
 
-    return { left, top, transform: `rotate(${rotate}deg)` }
+    return { l: left, t: top, rotate }
   }
 }
 
-function getLeftOrRightArrowCoords(): GetArrowCoordsFunction {
-  return (screen, trigger) => {
-    const { main, cross } = screen
+function getLeftOrRightArrowCoords(cross: HorizontalCrossAxis): GetArrowCoordsFunction {
+  return (layout, popup, anchor) => {
+    const gapy = units.gapy * popup.sy
+    const base = units.base * popup.sy
 
-    const rotate = main === 'left' ? 270 : 90
+    const delta = gapy + base * 2
 
-    const left = (main === 'left' ? screen._cw : 0) - _size
+    const rotate = layout.main === 'left' ? 270 : 90
 
-    const delta = _py + _size * 2
+    const left = (layout.main === 'left' ? popup.w : 0) - base
 
-    const min = Math.max(trigger.t, screen._dy - screen._da)
+    const min = Math.max(anchor.t, layout._dy - layout._da)
 
-    const max = Math.min(trigger.b, screen._dy + screen._ch + screen._da)
+    const max = Math.min(anchor.b, layout._dy + popup.h + layout._da)
 
-    let top = -screen._dy
+    let top = -layout._dy
 
-    if (cross === 'top') top += min + _py + screen._da
-    else if (cross === 'bottom') top += max - delta - screen._da
-    else top += (min + max) / 2 - _size
+    if (cross === 'top') top += min + gapy + layout._da
+    else if (cross === 'bottom') top += max - delta - layout._da
+    else top += (min + max) / 2 - base
 
-    return { left, top, transform: `rotate(${rotate}deg)` }
+    return { l: left, t: top, rotate }
   }
 }
 
 /* ****************************** origin coords ****************************** */
 
 function getTopOrBottomOriginCoords(): GetOriginCoordsFunction {
-  return (screen, arrow) => {
-    const sign = screen.main === 'top' ? 1 : -1
+  return (layout, popup, arrow) => {
+    const base = units.base * popup.sy
+    const sqrt = units.sqrt * popup.sy
 
-    return {
-      top: arrow.top + _size + sign * _sqrt,
-      left: arrow.left + _size,
-    }
+    const sign = layout.main === 'top' ? 1 : -1
+
+    const top = arrow.t + base + sign * sqrt
+
+    const left = arrow.l + base
+
+    return { t: top, l: left }
   }
 }
 
 function getLeftOrRightOriginCoords(): GetOriginCoordsFunction {
-  return (screen, arrow) => {
-    const sign = screen.main === 'left' ? 1 : -1
+  return (layout, popup, arrow) => {
+    const base = units.base * popup.sx
+    const sqrt = units.sqrt * popup.sx
 
-    return {
-      top: arrow.top + _size,
-      left: arrow.left + _size + sign * _sqrt,
-    }
+    const sign = layout.main === 'left' ? 1 : -1
+
+    const left = arrow.l + base + sign * sqrt
+
+    const top = arrow.t + base
+
+    return { t: top, l: left }
   }
 }
-/* ****************************** coords getter ****************************** */
+/* *************************** coords updater *************************** */
 
-function makePopupCoordsGetter(curr: PopupCoords) {
-  return (prev: Partial<PopupCoords>) => isEqual(prev, curr) ? prev : curr
+function makePopupCoordsUpdater(curr: PopupCssAttrs) {
+  return (prev: Partial<PopupCssAttrs>) => isEqual(prev, curr) ? prev : curr
 }
 
-function makeArrowCoordsGetter(curr: ArrowCoords) {
-  return (prev: Partial<ArrowCoords>) => isEqual(prev, curr) ? prev : curr
+function makeArrowCoordsUpdater(curr: ArrowCssAttrs) {
+  return (prev: Partial<ArrowCssAttrs>) => isEqual(prev, curr) ? prev : curr
 }
 
 /* ****************************** aligner ****************************** */
@@ -354,69 +388,79 @@ function makeArrowCoordsGetter(curr: ArrowCoords) {
 function aligner(main: MainAxis, cross: CrossAxis) {
   const isTopOrBottom = main === 'top' || main === 'bottom'
 
-  const getScreenCoords = isTopOrBottom
-    ? getTopOrBottomScreenCoords(main, cross as VerticalCrossAxis)
-    : getLeftOrRightScreenCoords(main, cross as HorizontalCrossAxis)
+  const getLayoutCoords = isTopOrBottom
+    ? getTopOrBottomLayoutCoords(main, cross as VerticalCrossAxis)
+    : getLeftOrRightLayoutCoords(main, cross as HorizontalCrossAxis)
 
   const keepArrowCenter = isTopOrBottom
-    ? keepTopOrBottomArrowCenter()
-    : keepLeftOrRightArrowCenter()
+    ? keepTopOrBottomArrowCenter(cross as VerticalCrossAxis)
+    : keepLeftOrRightArrowCenter(cross as HorizontalCrossAxis)
 
   const offsetPopupCoords = isTopOrBottom
-    ? offsetTopOrBottomPopupCoords()
-    : offsetLeftOrRightPopupCoords()
+    ? offsetTopOrBottomPopupCoords(main)
+    : offsetLeftOrRightPopupCoords(main)
 
   const shiftPopupCoords = isTopOrBottom
     ? shiftTopOrBottomPopupCoords()
     : shiftLeftOrRightPopupCoords()
 
   const flipPopupCoords = isTopOrBottom
-    ? flipTopOrBottomPopupCoords()
-    : flipLeftOrRightPopupCoords()
+    ? flipTopOrBottomPopupCoords(main)
+    : flipLeftOrRightPopupCoords(main)
 
   const getArrowCoords = isTopOrBottom
-    ? getTopOrBottomArrowCoords()
-    : getLeftOrRightArrowCoords()
+    ? getTopOrBottomArrowCoords(cross as VerticalCrossAxis)
+    : getLeftOrRightArrowCoords(cross as HorizontalCrossAxis)
 
   const getOriginCoords = isTopOrBottom
     ? getTopOrBottomOriginCoords()
     : getLeftOrRightOriginCoords()
 
-  return (picked: PickedInternalTooltipProps, popup: HTMLElement, trigger: HTMLElement) => {
-    // 依次获得各个元素的位置信息
-    const triggerCoords = getElementCoords(trigger)
+  return (
+    picked: PickedInternalTooltipProps,
+    portal: PortalInstance,
+    popup: HTMLElement,
+    anchor: HTMLElement,
+  ) => {
+    const anchorCoords = resolveElementCoords(anchor, false)
 
-    const popupCoords = getElementCoords(popup)
+    const popupCoords = resolveElementCoords(popup, true)
 
-    const nonStaticCoords = getNonStaticCoords(popup)
+    const containCoords = resolveContainCoords(popup)
 
-    let screenCoords = getScreenCoords(picked, popupCoords, triggerCoords)
+    let layoutCoords = getLayoutCoords(picked, portal, popupCoords, anchorCoords)
 
-    screenCoords = offsetPopupCoords(picked, screenCoords)
+    layoutCoords = offsetPopupCoords(picked, layoutCoords)
 
-    screenCoords = keepArrowCenter(picked, screenCoords, triggerCoords)
+    layoutCoords = keepArrowCenter(picked, layoutCoords, popupCoords, anchorCoords)
 
-    screenCoords = shiftPopupCoords(picked, screenCoords, triggerCoords)
+    layoutCoords = shiftPopupCoords(picked, layoutCoords, popupCoords, anchorCoords)
 
-    screenCoords = flipPopupCoords(picked, screenCoords, triggerCoords)
+    layoutCoords = flipPopupCoords(picked, layoutCoords, popupCoords, anchorCoords)
 
-    const arrowCoords = getArrowCoords(screenCoords, triggerCoords)
+    const arrowCoords = getArrowCoords(layoutCoords, popupCoords, anchorCoords)
 
-    const originCoords = getOriginCoords(screenCoords, arrowCoords)
+    const originCoords = getOriginCoords(layoutCoords, popupCoords, arrowCoords)
 
     return {
-      getArrowCoords: makeArrowCoordsGetter({
-        left: 0,
+      arrowUpdater: makeArrowCoordsUpdater({
         top: 0,
-        transform: `translate3d(${arrowCoords.left}px, ${arrowCoords.top}px, 0)`
-          + ` ${arrowCoords.transform}`,
+        left: 0,
+        transformOrigin: 'center center',
+        transform: 'translate3d('
+          + `${(arrowCoords.l / popupCoords.sx).toFixed(3)}px,`
+          + `${(arrowCoords.t / popupCoords.sy).toFixed(3)}px,`
+          + `0) rotate(${arrowCoords.rotate}deg)`,
       }),
-      getPopupCoords: makePopupCoordsGetter({
-        '--origin-x': `${originCoords.left.toFixed(2)}px`,
-        '--origin-y': `${originCoords.top.toFixed(2)}px`,
+      popupUpdater: makePopupCoordsUpdater({
+        'top': 0,
+        'left': 0,
+        'position': 'absolute',
+        '--origin-x': `${(originCoords.l / popupCoords.sx).toFixed(3)}px`,
+        '--origin-y': `${(originCoords.t / popupCoords.sy).toFixed(3)}px`,
         'transform': 'translate3d('
-          + `${screenCoords._dx - nonStaticCoords.l}px,`
-          + `${screenCoords._dy - nonStaticCoords.t}px,`
+          + `${((layoutCoords._dx - containCoords.l) / popupCoords.sx).toFixed(3)}px,`
+          + `${((layoutCoords._dy - containCoords.t) / popupCoords.sy).toFixed(3)}px,`
           + '0)',
       }),
     }

@@ -5,13 +5,19 @@ $ns-touch-effect: #{$ns}-touch-effect;
 .#{$ns-touch-effect} {
   @include reset-component();
 
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: inherit;
-  opacity: 0.2;
-  pointer-events: none;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
 
+  opacity: 0.2;
   animation: #{$ns}-wave 2s var(--#{$ns}-motion-ease-out-circ);
 
   @keyframes #{$ns}-wave {

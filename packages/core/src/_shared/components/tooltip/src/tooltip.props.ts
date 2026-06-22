@@ -6,22 +6,33 @@ import type { OverlayProps } from '../../overlay/src'
 import type { CssTransitionProps } from '../../transition/src'
 import type { PopupPlacement, PopupTriggerEvent } from './_shared.props'
 
+import { exhaustive } from '../../../utils/exhaustive'
+
 export interface InternalTooltipInstance {
   /**
    * @description 触发元素
    */
-  triggerElement: HTMLElement | null
+  anchor: HTMLElement | null
 
   /**
    * @description 弹出层元素
    */
-  popupElement: HTMLElement | null
+  popup: HTMLElement | null
 }
 
+export interface TooltipOverlayProps extends
+  Pick<
+    OverlayProps,
+    | 'getContainer'
+    | 'mountOnEnter'
+    | 'unmountOnExit'
+    | 'zIndex'
+  > {}
+
 export interface InternalTooltipProps extends
-  HasSemanticsStyled<'root' | 'arrow' | 'wrapper', InternalTooltipProps>,
-  Pick<OverlayProps, 'getContainer' | 'mountOnEnter' | 'unmountOnExit' | 'zIndex'>,
-  Required<HasChildren<ReactElement>> {
+  HasSemanticsStyled<'root' | 'arrow' | 'popup', InternalTooltipProps>,
+  Required<HasChildren<ReactElement>>,
+  TooltipOverlayProps {
   /**
    * @description 外部引用
    */
@@ -122,3 +133,10 @@ export const defaultInternalTooltipProps: PickedInternalTooltipProps = {
   openDelay: 100,
   closeDelay: 100,
 }
+
+export const tooltipOverlayProps = exhaustive<keyof TooltipOverlayProps>()([
+  'getContainer',
+  'mountOnEnter',
+  'unmountOnExit',
+  'zIndex',
+])

@@ -8,7 +8,7 @@ import Overlay from './overlay'
  * |---------------------------------------------------------|
  */
 
-export type { OverlayProps } from './overlay.props'
+export type { OverlayInstance, OverlayProps } from './overlay.props'
 
 export { Overlay }
 

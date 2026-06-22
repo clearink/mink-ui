@@ -2,7 +2,7 @@ import type { MasonryItemProps } from '../masonry-item.props'
 
 import { useRef } from 'react'
 
-import { useCombinedRefs } from '../../../_shared/hooks/use-combined-refs'
+import { useComposeRefs } from '../../../_shared/hooks/use-compose-refs'
 import { useEvent } from '../../../_shared/hooks/use-event'
 import { useResizeObserver } from '../../../_shared/hooks/use-observer'
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
@@ -45,7 +45,7 @@ export function useMasonryItemProps<V = any>(props: MasonryItemProps<V>) {
     currentState: { slots },
   })
 
-  const refCombined = useCombinedRefs(ref, $root, useEvent((el) => { onCollect(el, item) }))
+  const refComposed = useComposeRefs(ref, $root, useEvent((el) => { onCollect(el, item) }))
 
   useResizeObserver($root, enabled, onReLayout)
 
@@ -53,7 +53,7 @@ export function useMasonryItemProps<V = any>(props: MasonryItemProps<V>) {
     omitted: props,
     cssNames,
     cssAttrs,
-    refCombined,
+    refComposed,
     renderSlots,
   }
 }
