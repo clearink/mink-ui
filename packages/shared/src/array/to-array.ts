@@ -8,5 +8,5 @@ import { isNullish } from '../is/is-nullish'
 export function toArray<T>(value?: null | T | T[], strict = false): T[] {
   if (isArray(value)) return value
 
-  return isNullish(value) || strict ? [] : [value]
+  return strict || isNullish(value) ? [] : [value]
 }

@@ -57,10 +57,14 @@ const constants = new Constant().add(() => ({
     extensions: instance.jsExtensions,
     plugins: ['@babel/plugin-transform-runtime'],
     presets: [['@babel/preset-env', {
+      bugfixes: true,
       targets: instance.browserslist
     }], ['@babel/preset-react', {
       runtime: 'automatic'
-    }], '@babel/preset-typescript']
+    }], '@babel/preset-typescript'],
+    assumptions: {
+      setPublicClassFields: true
+    }
   },
   replaces: {
     'preventAssignment': true,

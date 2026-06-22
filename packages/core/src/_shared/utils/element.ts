@@ -12,22 +12,86 @@ import { isObject } from '@mink-ui/shared/is/is-object'
 import { isString } from '@mink-ui/shared/is/is-string'
 
 /**
- * @description 寻找不为 static 的父级元素
+ * @description 判断是否为 Element
  */
-export function findNonStaticElement(element: Element) {
+export function isNodeElement(value: any): value is Element {
+  return isObject(value) && value.nodeType === Node.ELEMENT_NODE
+}
+
+/**
+ * @description 判断是否为 HTMLElement
+ */
+export function isHTMLElement(value: any): value is HTMLElement {
+  return isObject(value) && value instanceof HTMLElement
+}
+
+/**
+ * @description 判断元素是否可以滚动
+ */
+export function isScrollableElement(element: Element) {
+  const excludes = new Set(['visible', 'hidden'])
+
+  const { overflowX: ox, overflowY: oy } = ownerStyle(element)
+
+  const canScrollX = element.scrollWidth > element.clientWidth && !excludes.has(ox)
+
+  const canScrollY = element.scrollHeight > element.clientHeight && !excludes.has(oy)
+
+  return canScrollX || canScrollY
+}
+
+/**
+ * @description 是 ReactElement && 不是 Fragment
+ */
+export function isConcreteElement(node: ReactNode): node is ReactElement {
+  return isValidElement(node) && !isFragment(node)
+}
+
+/**
+ * @description 寻找元素的包含块（定位参考元素）
+ * 包含块是 CSS 定位的参考坐标系；返回 null 代表以 viewport 为参考系
+ *
+ * 根据 CSS 规范，以下元素会为其后代创建包含块：
+ * 1. position 不为 static 的元素（relative、absolute、fixed、sticky）
+ * 2. transform 属性值不为 none 的元素
+ * 3. filter 属性值不为 none 的元素
+ * 4. perspective 属性值不为 none 的元素
+ * 5. contain 属性包含 layout、paint、content 或 strict 的元素
+ * 6. will-change 属性包含 transform、filter 或 perspective 的元素
+ */
+export function findContainBlock(element: Element) {
   let depth = 0
-  let current = element.parentElement
+  let parent = element.parentElement
+
+  const isFixed = ownerStyle(element).position === 'fixed'
 
   // 层级超过 5000 的 应该不存在吧
-  while (current && depth++ < 5000) {
-    const { position } = ownerStyle(current)
+  while (parent && depth++ < 5000) {
+    const styles = ownerStyle(parent)
 
-    if (position !== 'static') return current
+    const contains = (styles.contain || '').split(/\s+/)
 
-    current = current.parentElement
+    const changes = (styles.willChange || '').split(/\s*,\s*/)
+
+    const isContainBlock
+      = (!isFixed && styles.position !== 'static')
+        || styles.transform !== 'none'
+        || styles.filter !== 'none'
+        || styles.perspective !== 'none'
+        || contains.includes('paint')
+        || contains.includes('layout')
+        || contains.includes('content')
+        || contains.includes('strict')
+        || changes.includes('transform')
+        || changes.includes('filter')
+        || changes.includes('perspective')
+
+    if (isContainBlock) return parent
+
+    parent = parent.parentElement
   }
 
-  return ownerDocument(element).documentElement
+  return null
 }
 
 /**
@@ -53,8 +117,22 @@ export function findContainerElement<T extends ContainerElement>(
 }
 
 /**
- * @description 判断是否为 ReactElement
+ * @description 寻找所有可滚动父级元素
  */
-export function isConcreteElement(node: ReactNode): node is ReactElement {
-  return isValidElement(node) && !isFragment(node)
+export function findScrollElements(element: Element | null) {
+  const elements: HTMLElement[] = []
+
+  let depth = 0
+  let current = element?.parentElement
+
+  // 层级超过 5000 的 应该不存在吧
+  while (current && depth++ < 5000) {
+    if (isScrollableElement(current)) {
+      elements.push(current)
+    }
+
+    current = current.parentElement
+  }
+
+  return elements
 }

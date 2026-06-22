@@ -10,12 +10,12 @@ export default function CodeCollapse(props: CodeCollapseProps) {
   return (
     <CssTransition
       classNames="x-collapse"
-      resumeOnCancel
+      skipOnReenter
       unmountOnExit
       when={isOpen}
       onEnter={() => ({ height: 0 })}
       onEntering={el => ({ height: el.scrollHeight })}
-      onExit={el => ({ height: el.getBoundingClientRect().height })}
+      onExit={el => ({ height: el.clientHeight })}
       onExiting={() => ({ height: 0 })}
     >
       {($motion, getters) => (

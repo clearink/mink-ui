@@ -3,7 +3,10 @@ import type { ExternalFieldName, InternalFieldName } from '../_shared.props'
 import { toArray } from '@mink-ui/shared/array/to-array'
 import { isNullish } from '@mink-ui/shared/is/is-nullish'
 import { isUndefined } from '@mink-ui/shared/is/is-undefined'
+import { hasOwn } from '@mink-ui/shared/object/has-own'
 import { rawType } from '@mink-ui/shared/object/raw-type'
+
+import { LINKED } from '../_shared.constant'
 
 function _getIn(source: any, path: InternalFieldName) {
   let idx = 0
@@ -12,7 +15,7 @@ function _getIn(source: any, path: InternalFieldName) {
 
   if (len <= 0) return [undefined, idx === len]
 
-  for (; idx < len && !isNullish(source);) {
+  while (idx < len && !isNullish(source)) {
     source = source[path[idx++]]
   }
 
@@ -41,12 +44,23 @@ export function getIn(source: any, path: InternalFieldName) {
  * @description 判断 copied 中是否存在对应的路径 (不需要全部存在)
  * @param {any} copied
  * @param {any[]} path
- * @param {boolean=} exist 是否只判断已存在的路径
+ * @param {boolean=} strict 严格匹配
  */
-export function hasIn(copied: any, path: InternalFieldName, exist = false) {
-  if (exist) return !isUndefined(getIn(copied, path))
+export function hasIn(copied: any, path: InternalFieldName, strict = false) {
+  if (strict) return !isUndefined(getIn(copied, path))
 
   return !isUndefined(_getIn(copied, path)[0])
+}
+
+/**
+ * @description 判断 links 中是否存在对应路径
+ */
+export function hasLink(links: any, path: InternalFieldName) {
+  const result = getIn(links, path)
+
+  if (!result) return false
+
+  return hasOwn(result, LINKED) || Object.keys(result).length > 0
 }
 
 /**

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { AnyObj, VoidFn } from '@mink-ui/shared/interface'
-import type { InternalFormProviderContextState, InternalFormSharedContextState } from './_shared.context'
+import type { InternalFormListContextState, InternalFormProviderContextState, InternalFormSharedContextState } from './_shared.context'
 import type { ScheduleCallback } from './form-scheduler.props'
 import type { OmittedInternalFormProps, PickedInternalFormProps } from './form.props'
 import type { FormFieldControl } from './utils/field-control'
@@ -101,6 +101,20 @@ export interface InternalFormValidateErrorInfo<S = any> {
  * @description 监听回调
  */
 export type WatchCallBack = (values: any) => void
+
+/**
+ * @description 字段为 Form.List 时的 meta 信息
+ */
+export interface InternalFormListMeta {
+  listControl: FormListControl
+}
+
+/**
+ * @description 字段为 Form.Field 时的 meta 信息
+ */
+export interface InternalFormFieldMeta extends InternalFormListContextState {
+  direct: boolean
+}
 
 /**
  * @description 表单调度任务
@@ -292,7 +306,7 @@ export interface InternalHooksReturn<S = any> {
   defineFormInitials: (initialValues: Partial<S> | undefined, fields: ExternalFieldInfo[] | undefined) => void
 
   /**
-   * @description 获取 isFormList = true 的指定字段
+   * @description 获取 isFormList 有值的字段
    */
   getFormListControl: (listControl: FormListControl, name: InternalFieldName) => FormFieldControl | undefined
 }

@@ -67,7 +67,7 @@ export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
   /**
    * @description 取消后重新过渡时，是否直接从 Entering/Exiting 开始
    */
-  resumeOnCancel?: boolean
+  skipBeginning?: boolean
 
   /**
    * @internal

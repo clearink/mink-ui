@@ -8,7 +8,7 @@ export class EventChannel {
 
     this._subjects.set(name, cache.add(fn))
 
-    return () => this.off(name, fn)
+    return () => { this.off(name, fn) }
   }
 
   public off = (name: string, fn: AnyFn) => {
@@ -26,6 +26,6 @@ export class EventChannel {
 
     if (!cache) return
 
-    cache.forEach(fn => fn(...args))
+    cache.forEach((fn) => { fn(...args) })
   }
 }

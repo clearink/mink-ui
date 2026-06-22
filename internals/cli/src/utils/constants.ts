@@ -52,10 +52,13 @@ export const constants = new Constant()
       extensions: instance.jsExtensions,
       plugins: ['@babel/plugin-transform-runtime'],
       presets: [
-        ['@babel/preset-env', { targets: instance.browserslist }],
+        ['@babel/preset-env', { bugfixes: true, targets: instance.browserslist }],
         ['@babel/preset-react', { runtime: 'automatic' }],
         '@babel/preset-typescript',
       ],
+      assumptions: {
+        setPublicClassFields: true,
+      },
     },
     replaces: {
       'preventAssignment': true,

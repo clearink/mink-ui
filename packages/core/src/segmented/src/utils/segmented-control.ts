@@ -3,34 +3,16 @@ import type { CssTransitionInstance } from '../../../_shared/components/transiti
 import type { SegmentedOptionType, SegmentedValue } from '../_shared.props'
 
 import { nextTick } from '@mink-ui/shared/dom/raf'
-import { getClientCoords } from '@mink-ui/shared/dom/rect'
 
 export class SegmentedControl {
   private _cleanup = null as VoidFn | null
-
-  public $inner = { current: null as HTMLDivElement | null }
-
-  public $thumb = { current: null as HTMLDivElement | null }
 
   public $instance = { current: null as CssTransitionInstance<HTMLDivElement> | null }
 
   public items = new Map<SegmentedValue | null, HTMLElement>()
 
-  public get inner() {
-    return this.$inner.current!
-  }
-
-  public get thumb() {
-    return this.$thumb.current!
-  }
-
   public get instance() {
     return this.$instance.current!
-  }
-
-  public collect = (el: HTMLElement | null, item: SegmentedOptionType) => {
-    if (el) this.items.set(item.value, el)
-    else this.items.delete(item.value)
   }
 
   /**
@@ -42,42 +24,36 @@ export class SegmentedControl {
     this._cleanup = null
   }
 
-  /**
-   * @description 更新 thumb 位置
-   */
-  public update = (value: SegmentedValue) => {
-    this.dispose()
-
-    this._cleanup = nextTick(() => {
-      const target = this.items.get(value)
-
-      if (!target || !this.instance || !this.inner) return
-
-      const innerCoords = getClientCoords(this.inner)
-      const targetCoords = getClientCoords(target)
-
-      const delta = targetCoords.left - innerCoords.left
-
-      this.instance.setCssValues({
-        transform: `translateX(${delta}px)`,
-        width: `${targetCoords.width}px`,
-      })
-    })
+  public collect = (el: HTMLElement | null, item: SegmentedOptionType) => {
+    if (el) this.items.set(item.value, el)
+    else this.items.delete(item.value)
   }
 
   /**
    * @description 计算 thumb 位置
    */
-  public resolve = (item: HTMLElement) => {
-    const itemCoords = getClientCoords(item)
-    const innerCoords = getClientCoords(this.inner)
+  public resolve = (key: SegmentedValue | null) => {
+    const item = this.items.get(key)
 
-    const delta = itemCoords.left - innerCoords.left
+    if (!item) return
 
     return {
-      transform: `translate3d(${delta}px, 0, 0)`,
-      width: `${itemCoords.width}px`,
+      transform: `translate3d(${item.offsetLeft}px, 0, 0)`,
+      width: `${item.clientWidth}px`,
     }
+  }
+
+  /**
+   * @description 更新 thumb 位置
+   */
+  public update = (key: SegmentedValue) => {
+    this.dispose()
+
+    this._cleanup = nextTick(() => {
+      const cssValues = this.instance ? this.resolve(key) : null
+
+      cssValues && this.instance.setCssValues(cssValues)
+    })
   }
 
   /**

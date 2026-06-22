@@ -8,7 +8,7 @@ function MasonryItem<V>(props: MasonryItemProps<V>) {
     omitted,
     cssNames,
     cssAttrs,
-    refCombined,
+    refComposed,
     renderSlots,
   } = useMasonryItemProps(props)
 
@@ -17,7 +17,7 @@ function MasonryItem<V>(props: MasonryItemProps<V>) {
   const { children } = item
 
   return (
-    <div ref={refCombined} className={cssNames.root} style={cssAttrs.root}>
+    <div ref={refComposed} className={cssNames.root} style={cssAttrs.root}>
       {renderSlots({ name: 'item', children, params: item })}
     </div>
   )

@@ -28,14 +28,13 @@ import { noop } from '@mink-ui/shared/function/noop'
 import { isArray } from '@mink-ui/shared/is/is-array'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 import { isUndefined } from '@mink-ui/shared/is/is-undefined'
-import { shallowEqual } from '@mink-ui/shared/object/shallow-equal'
 
 import { logger } from '../../../../utils/logger'
 import { HOOKS_SECRET } from '../_shared.constant'
 import { FieldsValidateError, FormValidateError } from './error'
 import { FakeFieldControl } from './field-control'
 import { normalizeGetFieldsValueOptions, normalizeIsFieldsTouchedOptions } from './helpers'
-import { _getId, getIn, hasIn, relation } from './path'
+import { _getId, getIn, hasIn, hasLink, relation } from './path'
 import { defineIn, deleteIn, linkIn, mergeIn, unlinkIn } from './value'
 
 export class FormControl<S = any> {
@@ -58,10 +57,7 @@ export class FormControl<S = any> {
 
     this.$$scheduler = new FormSchedulerControl<S>()
 
-    this.$$controls = new FormControlsControl(
-      this.$$other,
-      this.$$state,
-    )
+    this.$$controls = new FormControlsControl(this.$$other)
 
     this.$$initial = new FormInitialControl<S>(
       this.$$other,
@@ -188,7 +184,7 @@ export class FormOtherControl<S = any> {
     this._omitted = omitted
     this._provider = provider
 
-    // TODO: 是否需要定义一个字段专门存储以优化性能
+    // TODO: 需要定义一个字段专门存储以优化性能
     // const validateMessages = {
     //   ...shared?.validateMessages,
     //   ...omitted.validateMessages,
@@ -203,10 +199,10 @@ export class FormOtherControl<S = any> {
   /**
    * @description 是否保留字段值
    */
-  public isKeepFieldValue = (control: FormFieldControl) => {
+  public isKeepFieldValue = (ctrl: FormFieldControl) => {
     const { preserve: formLevel } = this._picked
 
-    const { preserve: fieldLevel } = control._props
+    const { preserve: fieldLevel } = ctrl._props
 
     return fallback(fieldLevel, formLevel, true)!
   }
@@ -307,10 +303,16 @@ export class FormStateControl<S = any> {
   /**
    * @description 删除指定路径的数据
    */
-  public deleteFieldValue = (name: InternalFieldName, copied: object) => {
+  public deleteFieldValue = (name: InternalFieldName, links: object, copied: object) => {
     const prev = this._state
 
-    this._state = deleteIn(prev, name, copied)
+    const path = name.slice()
+
+    do {
+      this._state = deleteIn(this._state, path, copied)
+
+      path.pop()
+    } while (path.length && !hasLink(links, path))
 
     return [prev, this._state] as const
   }
@@ -459,10 +461,7 @@ export class FormControlsControl {
 
   public _links = Object.create(null)
 
-  constructor(
-    private $$other: FormOtherControl,
-    private $$state: FormStateControl,
-  ) {}
+  constructor(private $$other: FormOtherControl) {}
 
   /**
    * @description 是否有多个同名字段且存在多个 initialValue
@@ -481,38 +480,32 @@ export class FormControlsControl {
 
     const array = new Map<string, FormFieldControl>()
 
-    const explicit = new Map(nameList ? nameList.map(name => [_getId(name), name]) : [])
+    const names = new Map(toArray(nameList, true).map(name => [_getId(name), name]))
 
-    // 未提供 nameList 时，遍历一次即可拿到所有的 control
-    // 使用 map 遍历可以避免同名字段的影响
-    !explicit.size && this._map.forEach((cache, _id) => {
-      if (!_id) return
+    this._map.forEach((ctrls, _id) => {
+      if (!_id || (names.size && !names.has(_id))) return
 
-      const list = cache.find(ctrl => ctrl._props.isFormList)
+      const ctrl = ctrls.find(ctrl => ctrl._props.isFormList)
 
-      list ? array.set(_id, list) : result.set(_id, cache[0])
+      ctrl ? array.set(_id, ctrl) : result.set(_id, ctrls[0])
     })
 
-    // 提供 nameList 时，根据 nameList 找到到对应的字段，没有就进行占位
-    explicit.size && explicit.forEach((_name, _id) => {
-      if (!_id) return
+    // 还有未被添加的 name 使用 FakeFieldControl 占位
+    names.size && names.forEach((_name, _id) => {
+      if (!_id || result.has(_id) || array.has(_id)) return
 
-      const cache = this._map.get(_id)
-
-      if (!cache) return result.set(_id, new FakeFieldControl(_name))
-
-      const list = cache.find(ctrl => ctrl._props.isFormList)
-
-      list ? array.set(_id, list) : result.set(_id, cache[0])
+      result.set(_id, new FakeFieldControl(_name))
     })
 
     // 提供 nameList && array 不为空时，收集剩余的 isListField 字段
-    explicit.size && array.size && this._list.forEach((ctrl) => {
-      const { _id, _props: { isListField } } = ctrl
+    names.size && array.size && this._list.forEach((ctrl) => {
+      const { isListField } = ctrl._props
 
-      if (!_id || !isListField || result.has(_id)) return
+      if (!ctrl._id || result.has(ctrl._id)) return
 
-      if (array.has(isListField.listId)) result.set(_id, ctrl)
+      if (!isListField || !array.has(isListField.listId)) return
+
+      result.set(ctrl._id, ctrl)
     })
 
     // 将 array 中的字段追加到 result 中
@@ -633,31 +626,21 @@ export class FormControlsControl {
 
   /**
    * @description 获取 resetFields 时需要的 controls
-   * 这里的逻辑似乎有问题，需要重新整理
    */
   public getControlsForResetFields = (nameList: ExternalFieldName[] | undefined) => {
     const result = new Map<string, FormFieldControl[]>()
 
     const array = new Map<string, FormFieldControl[]>()
 
-    const explicit = new Map(nameList ? nameList.map(name => [_getId(name), name]) : [])
+    const names = new Set(toArray(nameList, true).map(name => _getId(name)))
 
-    // 未提供 nameList 时，遍历一次即可拿到所有的 control
-    !explicit.size && this._map.forEach((cache, _id) => {
-      const hasFormList = cache.some(ctrl => ctrl._props.isFormList)
+    this._map.forEach((ctrls, _id) => {
+      // 提供 nameList 时，根据 nameList 找到到对应的字段
+      if (names.size && !names.has(_id)) return
 
-      hasFormList ? array.set(_id, cache) : result.set(_id, cache)
-    })
+      const hasFormList = ctrls.some(ctrl => ctrl._props.isFormList)
 
-    // 提供 nameList 时，根据 nameList 找到到对应的字段
-    explicit.size && explicit.forEach((_name, _id) => {
-      const cache = this._map.get(_id)
-
-      if (!cache) return
-
-      const hasFormList = cache.some(ctrl => ctrl._props.isFormList)
-
-      hasFormList ? array.set(_id, cache) : result.set(_id, cache)
+      hasFormList ? array.set(_id, ctrls) : result.set(_id, ctrls)
     })
 
     // array 不为空时，将 ListField 的 behavior 设置为 keep
@@ -672,7 +655,20 @@ export class FormControlsControl {
     // 将 array 中的字段追加到 result 中
     array.forEach((controls, key) => { result.set(key, controls) })
 
-    return result
+    return [result, names.size > 0] as const
+  }
+
+  /**
+   * @description 获取 resetFields 所需要的 links
+   */
+  public getLinksForResetFields = (resets: Map<string, FormFieldControl[]>, hasNames: boolean) => {
+    if (!hasNames) return Object.create(null)
+
+    const copied = Object.create(null)
+
+    return Array.from(resets.values()).reduce((result, ctrls) => {
+      return unlinkIn(result, ctrls[0]._name, copied)
+    }, this._links)
   }
 
   /**
@@ -765,47 +761,47 @@ export class FormControlsControl {
   /**
    * @description 注册字段
    */
-  public registerControl = (control: FormFieldControl, $$initial: FormInitialControl) => {
-    control.setGetInitialValue(() => $$initial.getFieldInitialValue(control))
+  public registerControl = (ctrl: FormFieldControl, $$initial: FormInitialControl) => {
+    ctrl.setGetInitialValue(() => $$initial.getFieldInitialValue(ctrl))
 
-    pushItem(this._list, control)
+    pushItem(this._list, ctrl)
 
-    this._map.set(control._id, pushItem(this._map.get(control._id) || [], control))
+    this._map.set(ctrl._id, pushItem(this._map.get(ctrl._id) || [], ctrl))
 
     return () => {
-      removeItem(this._list, control)
+      removeItem(this._list, ctrl)
 
-      const cache = removeItem(this._map.get(control._id) || [], control)
+      const cache = removeItem(this._map.get(ctrl._id) || [], ctrl)
 
-      if (!cache.length) this._map.delete(control._id)
+      if (!cache.length) this._map.delete(ctrl._id)
     }
   }
 
   /**
    * @description 创建字段名链接
    */
-  public buildFieldLinks = (control: FormFieldControl, $$scheduler: FormSchedulerControl) => {
-    const controls = this._map.get(control._id) || []
+  public buildFieldLinks = (ctrl: FormFieldControl, $$scheduler: FormSchedulerControl) => {
+    const controls = this._map.get(ctrl._id) || []
 
-    if (!control._id || controls.length > 1) return noop
+    if (!ctrl._id || controls.length > 1) return noop
 
-    this._links = linkIn(this._links, control._name, $$scheduler._initial.linked)
+    this._links = linkIn(this._links, ctrl._name, $$scheduler._initial.linked)
 
     return () => {
-      if (this._map.has(control._id)) return
+      if (this._map.has(ctrl._id)) return
 
-      this._links = unlinkIn(this._links, control._name, $$scheduler._cleanup.linked)
+      this._links = unlinkIn(this._links, ctrl._name, $$scheduler._cleanup.linked)
     }
   }
 
   /**
    * @description 更新 Form.List 子字段在卸载时的行为
    */
-  public updateListFieldBehavior = (control: FormFieldControl) => {
-    const { isFormList } = control._props
+  public updateListFieldBehavior = (ctrl: FormFieldControl) => {
+    const { isFormList } = ctrl._props
 
     // 如果 Form.List 自身需要保持数据，则其子字段也强制需要 (不用判断 preserve)
-    const keepValue = control.__keepValue || this.$$other.isKeepFieldValue(control)
+    const keepValue = ctrl.__keepValue || this.$$other.isKeepFieldValue(ctrl)
 
     isFormList && this._list.forEach((ctrl) => {
       const { isListField } = ctrl._props
@@ -819,23 +815,23 @@ export class FormControlsControl {
   /**
    * @description 更新 map 关系
    */
-  public updateControlsMap = (control: FormFieldControl, preName: InternalFieldName) => {
+  public updateControlsMap = (ctrl: FormFieldControl, preName: InternalFieldName) => {
     const prevId = _getId(preName)
 
-    const prevControls = removeItem(this._map.get(prevId) || [], control)
+    const prevControls = removeItem(this._map.get(prevId) || [], ctrl)
 
     if (!prevControls.length) this._map.delete(prevId)
 
-    const currControls = this._map.get(control._id) || []
+    const currControls = this._map.get(ctrl._id) || []
 
     // 避免重复
-    if (currControls.includes(control)) return
+    if (currControls.includes(ctrl)) return
 
-    this._map.set(control._id, pushItem(currControls, control))
+    this._map.set(ctrl._id, pushItem(currControls, ctrl))
   }
 
   /**
-   * @description 获取 isFormList = true 的指定字段
+   * @description 获取 isFormList 有值的字段
    */
   public getFormListControl = (listControl: FormListControl, name: InternalFieldName) => {
     return this._map.get(_getId(name))?.find((ctrl) => {
@@ -843,19 +839,6 @@ export class FormControlsControl {
 
       return isFormList && isFormList.listControl === listControl
     })
-  }
-
-  /**
-   * @description 移除未被 link 的字段值
-   */
-  public removeUnlinkedFieldValue = (name: InternalFieldName, copied: object) => {
-    const path = name.slice()
-
-    while (path.length && !getIn(this._links, path)) {
-      this.$$state.deleteFieldValue(path, copied)
-
-      path.pop()
-    }
   }
 }
 
@@ -877,16 +860,16 @@ export class FormInitialControl<S = any> {
 
   /**
    * @private
-   * @description 回退至首次的视图状态
+   * @description 回退至首次挂载时的状态
    */
-  private fallbackViewState = (control: FormFieldControl) => {
-    const displayValue = control.__holder!.viewState
+  private fallbackHolderState = (ctrl: FormFieldControl) => {
+    const { $$state, $$scheduler } = this
 
-    if (isUndefined(displayValue)) return
+    const snapshot = ctrl.__holder!.current
 
-    const { _copied } = this.$$scheduler
+    if (isUndefined(snapshot)) return
 
-    this.$$state.defineFieldValue(control._name, displayValue, _copied)
+    $$state.defineFieldValue(ctrl._name, snapshot, $$scheduler._copied)
   }
 
   /**
@@ -895,15 +878,6 @@ export class FormInitialControl<S = any> {
   public getFormInitialValue = (name: InternalFieldName) => {
     return getIn(this._initialValues, name)
   }
-
-  // /**
-  //  * @description 获取字段最终的初始值
-  //  */
-  // public getFieldInitialValue = (control: FormFieldControl) => {
-  //   const controls = this.$$controls._map.get(control._id) || []
-
-  //   return atIndex(controls, -1).__holder?.viewState
-  // }
 
   /**
    * @description 获取字段最终的初始值 (TODO: 希望获得的是初次渲染时的字段值)
@@ -975,39 +949,43 @@ export class FormInitialControl<S = any> {
 
     const currentValue = $$state.getFieldValue(_name)
 
-    const displayValue = fallback(currentValue, initialValue)
+    const hasCurrentVal = !isUndefined(currentValue)
 
-    if (isUndefined(displayValue)) return
+    const hasInitialVal = !isUndefined(initialValue)
 
-    const { _copied, _initial } = $$scheduler
+    // 有当前值 || 有初始值 => 跳过首次 shouldUpdate 判断
+    if (hasCurrentVal || hasInitialVal) {
+      $$scheduler._initial.defined.add(control)
+    }
 
-    _initial.defined.add(control)
+    // 无当前值 && 有初始值 => 设置初始值
+    if (!hasCurrentVal && hasInitialVal) {
+      $$state.defineFieldValue(_name, initialValue, $$scheduler._copied)
+    }
 
-    $$state.defineFieldValue(_name, displayValue, _copied)
-
-    return displayValue
+    return hasCurrentVal ? currentValue : initialValue
   }
 
   /**
    * @description 确保字段已经初始化
    */
   public ensureInitialValue = (control: FormFieldControl) => {
-    const { $$state, $$controls } = this
-
-    const { initialValue, isListField } = control._props
+    const { $$controls, $$state, $$scheduler } = this
+    const { _id, _name, __holder, _props } = control
+    const { initialValue, isListField } = _props
 
     // 修复 strict mode 下的问题
-    if (control.__holder) return this.fallbackViewState(control)
+    if (__holder) return this.fallbackHolderState(control)
 
     // name 不合法 || 字段没有初始值
-    if (!control._id || isUndefined(initialValue)) return
+    if (!_id || isUndefined(initialValue)) return
 
     // Form 上有初始值
-    if (!isListField && !isUndefined(this.getFormInitialValue(control._name))) {
+    if (!isListField && !isUndefined(this.getFormInitialValue(_name))) {
       if (process.env.NODE_ENV !== 'production') {
         logger.error(
           'InternalForm.[Field | List]',
-          `Form already set 'initialValues' with path '${control._name.join('.')}', Field can not overwrite it`,
+          `Form already set 'initialValues' with path '${_name.join('.')}', Field can not overwrite it`,
         )
       }
 
@@ -1019,7 +997,7 @@ export class FormInitialControl<S = any> {
       if (process.env.NODE_ENV !== 'production') {
         logger.error(
           'InternalForm.[Field | List]',
-          `Multiple Field with path '${control._name.join('.')}' set 'initialValue'. Can not decide which one to pick.`,
+          `Multiple Field with path '${_name.join('.')}' set 'initialValue'. Can not decide which one to pick.`,
         )
       }
 
@@ -1027,12 +1005,10 @@ export class FormInitialControl<S = any> {
     }
 
     // 已经有值了
-    if (!isUndefined($$state.getFieldValue(control._name))) return
-
-    const { _copied } = this.$$scheduler
+    if (!isUndefined($$state.getFieldValue(_name))) return
 
     // 设置初始值 (此处只设置 props.initialValue 即可)
-    $$state.defineFieldValue(control._name, initialValue, _copied)
+    $$state.defineFieldValue(_name, initialValue, $$scheduler._copied)
   }
 
   /**
@@ -1046,70 +1022,63 @@ export class FormInitialControl<S = any> {
     // Form.List 即将卸载，需要更新子字段的 behavior
     if (isFormList) this.$$controls.updateListFieldBehavior(control)
 
-    // name 不合法 || 需要保留数据
-    if (!_id || $$other.isKeepFieldValue(control)) return
+    // name 不合法 || 存在同名字段未被卸载
+    if (!_id || $$controls._map.has(_id)) return
 
-    // 存在同名字段未被卸载
-    if ($$controls._map.has(_id)) return
+    // 需要保留数据
+    if ($$other.isKeepFieldValue(control)) return
 
-    // simple 字段 由 Form.List 直接管理
-    if (isListField && isListField.type === 'simple') return
+    // 由 Form.List 管理
+    if (isListField && (isListField.direct || __keepValue)) return
 
-    // 已经标记为需要保留的字段
-    if (isListField && __keepValue) return
+    // 无需保留字段值
+    const asUndefined = isListField && !__keepValue
 
-    // Form.List 还没有卸载，直接删除复杂字段的值，否则重置为 Form 上的初始值
-    const initialValue = isListField && !__keepValue ? undefined : this.getFormInitialValue(_name)
+    const initialValue = asUndefined ? undefined : this.getFormInitialValue(_name)
 
-    const isNonInitial = !isUndefined(initialValue)
+    const hasInitialVal = !isUndefined(initialValue)
 
-    const isValueEqual = shallowEqual(initialValue, $$state.getFieldValue(_name))
+    const isValueEqual = initialValue === $$state.getFieldValue(_name)
 
-    // 初始值不为空 && 与当前值相等
-    if (isNonInitial && isValueEqual) return
-
-    // 没有初始值，删除该字段值，否则重置为初始值
-    if (!isNonInitial) $$controls.removeUnlinkedFieldValue(_name, $$scheduler._copied)
-    else $$state.defineFieldValue(_name, initialValue, $$scheduler._copied)
+    if (!hasInitialVal) $$state.deleteFieldValue(_name, $$controls._links, $$scheduler._copied)
+    else if (!isValueEqual) $$state.defineFieldValue(_name, initialValue, $$scheduler._copied)
   }
 
   /**
    * @description 重置为字段默认值
    */
-  public resetInitialValue = (resets: Map<string, FormFieldControl[]>, nameList?: ExternalFieldName[]) => {
-    const prev = this.$$state._state
+  public resetInitialValue = (resets: Map<string, FormFieldControl[]>, links: object, hasNames: boolean) => {
+    const { $$state } = this
+
+    const prev = $$state._state
 
     const copied = Object.create(null)
 
-    const hasNameList = !isUndefined(nameList)
+    if (!hasNames) $$state.mergeFieldsValue({}, this._initialValues)
 
-    if (!hasNameList) this.$$state.mergeFieldsValue({}, this._initialValues)
+    resets.forEach((ctrls, _id) => {
+      // _id 不合法 || 由 Form.List 管理，跳过
+      if (!_id || ctrls.some(ctrl => ctrl.__keepValue)) return
 
-    resets.forEach((controls, _id) => {
-      if (!_id || !controls.length) return
+      const { _name } = ctrls[0]
 
-      const { _name } = controls[0]
+      const hasFormList = ctrls.some(ctrl => ctrl._props.isFormList)
 
-      // 阻止对父级字段的多次更新 (模拟字段初始化时的逻辑)
-      if (hasIn(copied, _name, true)) return
+      if (!hasFormList && hasIn(copied, _name, true)) return
 
-      const fieldCurrent = this.$$state.getFieldValue(_name)
+      const fieldInitial = this.getFieldInitialValue(ctrls[0])
 
-      const fieldInitial = this.getFieldInitialValue(controls[0])
+      const fieldCurrent = $$state.getFieldValue(_name)
 
-      const hasChanged = fieldCurrent !== fieldInitial
+      const isValueEqual = fieldCurrent === fieldInitial
 
-      const isNonInitial = !isUndefined(fieldInitial)
+      const hasInitialVal = !isUndefined(fieldInitial)
 
-      if (!isNonInitial && hasNameList) {
-        this.$$state.deleteFieldValue(_name, copied)
-      }
-      else if (isNonInitial && hasChanged) {
-        this.$$state.defineFieldValue(_name, fieldInitial, copied)
-      }
+      if (!hasInitialVal && hasNames) $$state.deleteFieldValue(_name, links, copied)
+      else if (hasInitialVal && !isValueEqual) $$state.defineFieldValue(_name, fieldInitial, copied)
     })
 
-    return [prev, this.$$state._state, copied] as const
+    return [prev, $$state._state, copied] as const
   }
 }
 
@@ -1178,11 +1147,6 @@ export class FormDispatchControl<S = any> {
    * @description 调度更新
    */
   private scheduleUpdate = () => {
-    // this.$$scheduler.schedule('xxx', 0, () => {
-    //   // 字段的初始值是会根据当前字段变化的。
-    //   // 所以需要在字段添加/卸载时 如果还存在同名字段，则将初始值计算出来。
-    // })
-
     this.$$scheduler.schedule('update', 1, (tasks) => {
       const { _snapshots: prev, _initial, _cleanup, _events } = this.$$scheduler
       const { _state: next } = this.$$state
@@ -1215,7 +1179,7 @@ export class FormDispatchControl<S = any> {
 
     switch (action.type) {
       // 字段注册
-      case 'fieldInitial':{
+      case 'fieldInitial': {
         const { control, transient } = action
 
         // 初始化快照
@@ -1223,12 +1187,10 @@ export class FormDispatchControl<S = any> {
 
         $$initial.ensureInitialValue(control)
 
-        const current = control.markIsMounted($$state)
+        const asUndefined = control.markIsMounted($$state, transient)
 
-        // 与视图不一致 && 不是 Form.List 时不能跳过更新
-        transient !== current
-        && !control._props.isFormList
-        && _initial.defined.delete(control)
+        // 不能跳过更新 (与视图不一致 && 不是 Form.List)
+        asUndefined && _initial.defined.delete(control)
 
         this.scheduleUpdate()
 
@@ -1237,7 +1199,7 @@ export class FormDispatchControl<S = any> {
         break
       }
       // 字段卸载
-      case 'fieldCleanup':{
+      case 'fieldCleanup': {
         const { control } = action
 
         // 初始化快照
@@ -1256,7 +1218,7 @@ export class FormDispatchControl<S = any> {
         break
       }
       // 触发事件
-      case 'fieldEvent':{
+      case 'fieldEvent': {
         const { value, control } = action
 
         // 初始化快照
@@ -1290,12 +1252,14 @@ export class FormDispatchControl<S = any> {
         break
       }
       // 字段重置
-      case 'resetFields':{
+      case 'resetFields': {
         const { nameList } = action
 
-        const resets = $$controls.getControlsForResetFields(nameList)
+        const [resets, hasNames] = $$controls.getControlsForResetFields(nameList)
 
-        const [prev, next, copied] = $$initial.resetInitialValue(resets, nameList)
+        const links = $$controls.getLinksForResetFields(resets, hasNames)
+
+        const [prev, next, copied] = $$initial.resetInitialValue(resets, links, hasNames)
 
         this.updateControl(ctrl => !resets.has(ctrl._id) && ctrl.shouldUpdate(prev, next, copied))
 
@@ -1306,7 +1270,7 @@ export class FormDispatchControl<S = any> {
         break
       }
       // 调用 setFieldsValue
-      case 'setFieldsValue':{
+      case 'setFieldsValue': {
         const { values } = action
 
         const [prev, next] = $$state.mergeFieldsValue($$state._state, values)
@@ -1320,7 +1284,7 @@ export class FormDispatchControl<S = any> {
         break
       }
       // 调用 setFieldsInfo
-      case 'setFieldsInfo':{
+      case 'setFieldsInfo': {
         const { fields } = action
 
         const [prev, next, copied] = $$state.setFieldsInfo(fields)
@@ -1333,6 +1297,7 @@ export class FormDispatchControl<S = any> {
 
         break
       }
+      // 未定义事件类型
       default: {
         throw new Error(`unknown action\n ${JSON.stringify(action, null, 2)}`)
       }
@@ -1461,7 +1426,7 @@ export class FormDispatchControl<S = any> {
 
   /**
    * @private
-   * @description 触发 onFieldsChange 回调 TODO: 待优化
+   * @description 触发 onFieldsChange 回调
    */
   private triggerOnFieldsChange = (controls: FormFieldControl[]) => {
     const { _provider: provider, _omitted: { name, onFieldsChange } } = this.$$other

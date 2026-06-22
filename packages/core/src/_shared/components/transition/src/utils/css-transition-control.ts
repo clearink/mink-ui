@@ -90,18 +90,18 @@ export class CssTransitionControl<E extends HTMLElement> {
   /**
    * @description 开始
    */
-  public begin = (el: E, phase: TransitionPhase, motions: TransitionMotions, resumeOnCancel: boolean) => {
+  public begin = (el: E, phase: TransitionPhase, motions: TransitionMotions, skipBeginning: boolean) => {
     this.state = isExit(phase) ? EXITING : ENTERING
 
     removeClassNames(el, this.names)
 
-    const resume = this._hasCanceled && resumeOnCancel
+    const skip = this._hasCanceled && skipBeginning
 
-    this.names = [motions[phase].from, resume ? motions[phase].active : null]
+    this.names = [motions[phase].from, skip ? motions[phase].active : null]
 
     updateClassNames(el, this.names)
 
-    return resume
+    return skip
   }
 
   /**

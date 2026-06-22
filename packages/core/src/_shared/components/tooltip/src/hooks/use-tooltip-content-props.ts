@@ -7,27 +7,27 @@ import { makeEventListener } from '@mink-ui/shared/dom/listener'
 import { batch } from '@mink-ui/shared/function/batch'
 
 import { useResizeObserver } from '../../../../hooks/use-observer'
-import { getScrollElements } from '../utils/element'
+import { findScrollElements } from '../../../../utils/element'
 
 export function useTooltipContentProps(props: TooltipContentProps) {
-  const { ctrl, isOpen, onResize, onMounted, onScroll } = props
+  const { ctrl, isOpen, onEnqueue, onFramedUpdate, onTickedUpdate } = props
 
-  useResizeObserver(ctrl.$popup, isOpen, onResize)
+  useResizeObserver(ctrl.$popup, isOpen, onTickedUpdate)
 
-  useEffect(() => onMounted(ctrl.popupElement), [ctrl, onMounted])
+  useEffect(() => onEnqueue(ctrl.popup), [ctrl, onEnqueue])
 
   useEffect(() => {
-    if (!isOpen || !ctrl.popupElement) return
+    if (!isOpen || !ctrl.popup) return
 
-    const thisWindow = ownerWindow(ctrl.popupElement)
+    const thisWindow = ownerWindow(ctrl.popup)
 
-    const elements = getScrollElements(ctrl.popupElement)
+    const elements = findScrollElements(ctrl.popup)
 
     return batch(
-      makeEventListener(pushItem(elements, thisWindow as any), 'scroll', onScroll),
-      makeEventListener(thisWindow, 'resize', onScroll),
+      makeEventListener(pushItem(elements, thisWindow as any), 'scroll', onFramedUpdate),
+      makeEventListener(thisWindow, 'resize', onFramedUpdate),
     )
-  }, [ctrl, isOpen, onScroll])
+  }, [ctrl, isOpen, onFramedUpdate])
 
   return {
     omitted: props,

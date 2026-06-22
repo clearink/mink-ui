@@ -31,7 +31,7 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
     type,
     mountOnEnter,
     unmountOnExit,
-    resumeOnCancel,
+    skipBeginning,
     onEnter,
     onEntering,
     onEntered,
@@ -131,13 +131,13 @@ export function useCssTransitionProps<E extends HTMLElement>(props: CssTransitio
 
     control.setFrameCleanup(() => { frameCleanup(); runTransitionCancel(el, phase) })
 
-    const resume = control.begin(el, phase, motions, !!resumeOnCancel)
+    const skip = control.begin(el, phase, motions, !!skipBeginning)
 
-    const attrs = resume ? null : isExit(phase) ? onExit?.(el, _item) : onEnter?.(el, isAppear(phase), _item)
+    const attrs = skip ? null : isExit(phase) ? onExit?.(el, _item) : onEnter?.(el, isAppear(phase), _item)
 
-    !resume && flushSync(() => { setCssValues(attrs || undefined) })
+    !skip && flushSync(() => { setCssValues(attrs || undefined) })
 
-    !resume && control.active(el, phase, motions)
+    !skip && control.active(el, phase, motions)
   })
 
   const returnEarly1 = useWatchValue(

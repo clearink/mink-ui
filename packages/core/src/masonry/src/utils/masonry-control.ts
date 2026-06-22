@@ -35,7 +35,7 @@ export class MasonryControl {
       let changed = this._elements.size !== prev.size
 
       this._elements.forEach((el, key) => {
-        const { height } = el.getBoundingClientRect()
+        const height = el.clientHeight
 
         next.set(key, height)
 
@@ -60,7 +60,7 @@ export class MasonryControl {
       this._elements.forEach((el, key) => {
         if (!keys.has(key)) return
 
-        const { height } = el.getBoundingClientRect()
+        const height = el.clientHeight
 
         next.set(key, height)
 

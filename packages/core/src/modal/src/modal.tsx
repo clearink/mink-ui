@@ -17,6 +17,7 @@ import ModalFooter from './modal-footer'
 
 function InternalModal(props: InternalModalProps) {
   const {
+    picked,
     omitted,
     rns,
     ns,
@@ -37,6 +38,7 @@ function InternalModal(props: InternalModalProps) {
     handleClick,
   } = useInternalModalProps(props)
 
+  const { fromPointerOpen } = picked
   const {
     _isJsxModal,
     _showCancel,
@@ -105,8 +107,9 @@ function InternalModal(props: InternalModalProps) {
   return (
     <Overlay
       classNames={{ mask: cssNames.mask }}
+      style={{ left: 0, top: 0 }}
       styles={{ mask: cssAttrs.mask }}
-      resumeOnCancel
+      skipBeginning
       getContainer={getContainer}
       isOpen={isOpen}
       mask={mask}
@@ -117,16 +120,17 @@ function InternalModal(props: InternalModalProps) {
       }}
       unmountOnExit={unmountOnExit}
       zIndex={zIndex}
-      onEnter={el => ctrl.prepare(el)}
+      onEnter={el => ctrl.onEnter(el, !!fromPointerOpen)}
       onEntered={handleEntered}
-      onEntering={() => ctrl.transform}
-      onExit={() => ctrl.transform}
+      onEntering={ctrl.onEntering}
+      onExit={ctrl.onExit}
       onExited={handleExited}
-      onExiting={() => ctrl.transform}
+      onExiting={ctrl.onExiting}
     >
       {($motion, getters) => {
         return (
           <div
+            ref={ctrl.$wrapper}
             className={`${ns}-wrapper`}
             style={visible ? undefined : { display: 'none' }}
             tabIndex={-1}

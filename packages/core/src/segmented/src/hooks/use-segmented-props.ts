@@ -68,21 +68,9 @@ export function useSegmentedProps(props: SegmentedProps) {
   const outerCssNames = { ...omit(cssNames, ['root', 'inner', 'item']), root: cssNames.item }
   const outerCssAttrs = { ...omit(cssAttrs, ['root', 'inner', 'item']), root: cssAttrs.item }
 
-  const handleEnter = () => {
-    const from = ctrl.items.get(history[0])
+  const handleEnter = () => ctrl.resolve(history[0])
 
-    if (!from || !ctrl.inner) return
-
-    return ctrl.resolve(from)
-  }
-
-  const handleEntering = () => {
-    const target = ctrl.items.get(history[1])
-
-    if (!target || !ctrl.inner) return
-
-    return ctrl.resolve(target)
-  }
+  const handleEntering = () => ctrl.resolve(history[1])
 
   const handleEntered = () => { setIsShowThumb(false) }
 

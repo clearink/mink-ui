@@ -12,7 +12,7 @@ function NotificationItem(props: NotificationItemProps) {
     omitted,
     cssNames,
     cssAttrs,
-    refCombined,
+    refComposed,
     closeIconRender,
     handleClose,
     handleMouseEnter,
@@ -52,7 +52,7 @@ function NotificationItem(props: NotificationItemProps) {
 
   return (
     <div
-      ref={refCombined}
+      ref={refComposed}
       className={cssNames.root}
       style={cssAttrs.root}
       onMouseEnter={handleMouseEnter}

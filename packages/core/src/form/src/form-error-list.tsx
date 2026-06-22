@@ -24,7 +24,7 @@ function FormErrorList(props: FormErrorListProps) {
         items={explains}
         onEnter={() => ({ height: 0 })}
         onEntering={el => ({ height: el.scrollHeight })}
-        onExit={el => ({ height: el.getBoundingClientRect().height })}
+        onExit={el => ({ height: el.clientHeight })}
         onExiting={() => ({ height: 0 })}
         onGroupExited={onGroupExited}
       >

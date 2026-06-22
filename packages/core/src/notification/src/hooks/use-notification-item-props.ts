@@ -2,7 +2,7 @@ import type { NotificationItemProps } from '../notification-item.props'
 
 import { useState } from 'react'
 
-import { useCombinedRefs } from '../../../_shared/hooks/use-combined-refs'
+import { useComposeRefs } from '../../../_shared/hooks/use-compose-refs'
 import { useEvent } from '../../../_shared/hooks/use-event'
 import { useCombinedSemantics } from '../../../_shared/hooks/use-settings/use-combined'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
@@ -47,7 +47,7 @@ export function useNotificationItemProps(props: NotificationItemProps) {
 
   const [_hovering, setItemHovering] = useState(listHovering)
 
-  const refCombined = useCombinedRefs(ref, useEvent((el) => { onCollect(el, item) }))
+  const refComposed = useComposeRefs(ref, useEvent((el) => { onCollect(el, item) }))
 
   const [closableState, closeIconRender] = normalizeClosable({
     currentState: { closable },
@@ -81,7 +81,7 @@ export function useNotificationItemProps(props: NotificationItemProps) {
     ns,
     cssNames,
     cssAttrs,
-    refCombined,
+    refComposed,
     globalConfig,
     closeIconRender,
     handleClose,

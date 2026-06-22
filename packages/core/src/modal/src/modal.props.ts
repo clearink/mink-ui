@@ -72,6 +72,11 @@ export interface ModalSharedParams extends
   width?: ModalWidth | ResponsiveModalWidth
 
   /**
+   * @description 是否从鼠标指针位置打开
+   */
+  fromPointerOpen?: boolean
+
+  /**
    * @description 完全打开后触发
    */
   onOpened?: VoidFn
@@ -116,13 +121,13 @@ export interface ModalProps extends Omit<
   | '_onDismiss'
 > {}
 
-export type DefaultNames = 'keyboard' | 'maskClosable' | 'centered' | 'closable' | 'focusable'
+export type DefaultNames = 'keyboard' | 'maskClosable' | 'centered' | 'closable' | 'focusable' | 'fromPointerOpen'
 
 export type PickedInternalModalProps = Pick<InternalModalProps, DefaultNames>
 
 export type OmittedInternalModalProps = Omit<InternalModalProps, DefaultNames>
 
-export type ModalHookDefaultNames = 'width' | 'type' | 'maskClosable' | 'closable'
+export type HookDefaultNames = 'width' | 'type' | 'maskClosable' | 'closable'
 
 /**
  * |---------------------------------------------------------|
@@ -138,6 +143,7 @@ export const defaultInternalModalProps: PickedInternalModalProps = {
   centered: false,
   closable: true,
   focusable: true,
+  fromPointerOpen: true,
 }
 
 export const defaultApiModalProps: Partial<InternalModalProps> = {
@@ -147,7 +153,7 @@ export const defaultApiModalProps: Partial<InternalModalProps> = {
   maskClosable: false,
 }
 
-export const includedApiModalProps = exhaustive<ModalHookDefaultNames>()([
+export const includedApiModalProps = exhaustive<HookDefaultNames>()([
   'width',
   'type',
   'closable',

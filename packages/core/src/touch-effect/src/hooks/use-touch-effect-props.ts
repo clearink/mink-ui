@@ -7,7 +7,7 @@ import { makeEventListener } from '@mink-ui/shared/dom/listener'
 import { isBoolean } from '@mink-ui/shared/is/is-boolean'
 import { isFunction } from '@mink-ui/shared/is/is-function'
 
-import { getElementRef, useCombinedRefs } from '../../../_shared/hooks/use-combined-refs'
+import { getElementRef, useComposeRefs } from '../../../_shared/hooks/use-compose-refs'
 import { useThrottleFrame } from '../../../_shared/hooks/use-scheduler'
 import { useConfiguration } from '../../../_shared/hooks/use-settings/use-configuration'
 import { useNamespace } from '../../../_shared/hooks/use-settings/use-namespace'
@@ -30,9 +30,9 @@ export function useTouchEffectProps(props: TouchEffectProps) {
 
   const $container = useRef<HTMLElement>(null)
 
-  const refCombined = useCombinedRefs($container, getElementRef(children))
+  const refComposed = useComposeRefs($container, getElementRef(children))
 
-  const restAttrs: AnyObj = { ref: refCombined }
+  const restAttrs: AnyObj = { ref: refComposed }
 
   const showTouchEffect = useThrottleFrame((container: HTMLElement, event: MouseEvent) => {
     if (isBoolean(disabled) && disabled) return

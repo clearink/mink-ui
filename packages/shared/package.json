@@ -1,7 +1,7 @@
 {
   "name": "@mink-ui/shared",
   "type": "module",
-  "version": "0.0.19",
+  "version": "0.0.26",
   "description": "mink-ui shared utils",
   "author": "clearink",
   "license": "MIT",

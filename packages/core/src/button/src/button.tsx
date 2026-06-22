@@ -46,12 +46,12 @@ function Button(props: ButtonProps) {
     return (
       <CssTransition
         classNames={`${ns}-icon-motion`}
-        resumeOnCancel
+        skipBeginning
         unmountOnExit
         when={isLoading}
         onEnter={() => ({ width: 0 })}
         onEntering={ctrl.measure}
-        onExit={el => ({ width: el.getBoundingClientRect().width })}
+        onExit={el => ({ width: el.clientWidth })}
         onExited={ctrl.reset}
         onExiting={() => ({ width: 0 })}
       >

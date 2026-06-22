@@ -1,11 +1,10 @@
 import type { TouchEffectInfo } from '../_shared.props'
 
-import { ownerStyle } from '@mink-ui/shared/dom/global'
-import { getClientCoords } from '@mink-ui/shared/dom/rect'
+import { ownerDocument, ownerStyle } from '@mink-ui/shared/dom/global'
 import { makeTimeout } from '@mink-ui/shared/dom/timer'
 
 import { resizeMonitor as monitor } from '../../../_shared/hooks/use-observer/utils/singleton'
-import { findNonStaticElement } from '../../../_shared/utils/element'
+import { findContainBlock } from '../../../_shared/utils/element'
 
 // 白色，透明 不合格
 function isValidColor(color: string) {
@@ -31,46 +30,47 @@ function getWaveColor(node: HTMLElement) {
 export default function showWaveEffect(info: TouchEffectInfo) {
   const { className, target } = info
 
-  if (!target) return
+  const waveColor = target ? getWaveColor(target) : undefined
 
-  const waveColor = getWaveColor(target)
-
-  if (!waveColor) return
+  if (!target || !waveColor) return
 
   const div = document.createElement('div')
 
   div.style.cssText = `
-    position: absolute; top: 0; left: 0;
-    --wave-color: ${waveColor}; 
-    box-shadow: 0 0 0 0 var(--wave-color);
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    pointer-events: none !important;
+    --wave-color: ${waveColor} !important
   `
-
   className && div.classList.add(className)
 
   const resize = () => {
-    const wrapper = findNonStaticElement(div)
+    const contain = findContainBlock(div)
 
-    const targetStyles = ownerStyle(target)
+    const isContain = contain === target
 
-    const wrapperStyles = ownerStyle(wrapper)
+    const { width, height, borderLeftWidth, borderTopWidth } = ownerStyle(target)
 
-    const targetCoords = getClientCoords(target)
+    const bl = Number.parseFloat(borderLeftWidth) || 0
 
-    const wrapperCoords = getClientCoords(wrapper)
+    const bt = Number.parseFloat(borderTopWidth) || 0
 
-    const offsetX = Number.parseFloat(wrapperStyles.borderLeftWidth) || 0
+    const dx = isContain ? -bl : target.offsetLeft
 
-    const offsetY = Number.parseFloat(wrapperStyles.borderTopWidth) || 0
+    const dy = isContain ? -bt : target.offsetTop
 
-    const dx = targetCoords.left - wrapperCoords.left - offsetX
+    div.style.setProperty('width', width, 'important')
 
-    const dy = targetCoords.top - wrapperCoords.top - offsetY
+    div.style.setProperty('height', height, 'important')
 
-    div.style.width = targetStyles.width
-
-    div.style.height = targetStyles.height
-
-    div.style.transform = `translate3d(${dx}px, ${dy}px, 0)`
+    div.style.setProperty('transform', `translate3d(${dx}px, ${dy}px, 0)`, 'important')
   }
 
   const unsubscribe = monitor.subscribe()

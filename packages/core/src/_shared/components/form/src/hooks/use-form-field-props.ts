@@ -88,7 +88,7 @@ export function useInternalGeneratedProps<V>(
   const fieldName = isListField ? isListField.listName.concat(arrayName) : arrayName
 
   if (process.env.NODE_ENV !== 'production') {
-    if (preserve === false && isListField && isListField.type === 'simple') {
+    if (preserve === false && isListField && isListField.direct) {
       logger.warn('InternalForm.Field', '`preserve` should not apply on Form.List direct field.')
     }
   }
@@ -97,7 +97,7 @@ export function useInternalGeneratedProps<V>(
     key: isListField ? 'controlled' : _getId(fieldName),
     attrs: {
       ...props,
-      isFormList: (isFormList ? { listControl } : false) as InternalFormFieldProps['isFormList'],
+      isFormList: isFormList ? { listControl } : false as const,
       isListField,
       name: fieldName,
     },

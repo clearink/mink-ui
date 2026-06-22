@@ -10,10 +10,10 @@ import { rawType } from '@mink-ui/shared/object/raw-type'
 
 import { COPIED, LINKED } from '../_shared.constant'
 
-function _mark(source: any, tag: symbol, enumerable = false) {
+function _mark(source: any, tag: symbol) {
   const target = isObject(source) ? source : Object.create(null)
 
-  return Object.defineProperty(target, tag, { value: true, enumerable })
+  return Object.defineProperty(target, tag, { value: true })
 }
 
 function _define(source: any, attr: InternalFieldName[number], clone: boolean) {
@@ -137,13 +137,15 @@ function _linkIn(
   copied: Record<string, any>,
   cursor: number,
 ) {
-  if (cursor >= path.length) return [_mark(source, LINKED, true), null]
+  if (cursor >= path.length) return [_mark(source, LINKED), null]
 
   const attr = path[cursor]
 
   const data = _define(source, attr, !hasOwn(copied, COPIED))
 
   if (!copied[attr]) copied[attr] = Object.create(null)
+
+  if (hasOwn(source, LINKED)) _mark(data, LINKED)
 
   const result = _linkIn(data[attr], path, copied[attr], cursor + 1)
 
@@ -182,6 +184,8 @@ function _unlinkIn(
   if (!hasOwn(source, attr)) return [source, null]
 
   const data = _define(source, attr, !hasOwn(copied, COPIED))
+
+  if (hasOwn(source, LINKED)) _mark(data, LINKED)
 
   if (!copied[attr]) copied[attr] = Object.create(null)
 

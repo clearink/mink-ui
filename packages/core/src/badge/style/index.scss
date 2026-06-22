@@ -34,6 +34,7 @@ $ns-badge: #{$ns}-badge;
   }
 
   &-scroll-number {
+    position: relative;
     display: flex;
     flex-direction: column;
   }

@@ -50,6 +50,5 @@ export function normalizeIsListField<V>(
   // List 不存在 name || 自身没有 name
   if (!listContext.listName.length || !arrayName.length) return false
 
-  // 确定 type
-  return { type: arrayName.length > 1 ? 'complex' : 'simple', ...listContext }
+  return { direct: arrayName.length <= 1, ...listContext }
 }

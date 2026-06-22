@@ -1,56 +1,41 @@
+import type { PortalInstance } from '../../portal/src'
 import type { PickedInternalTooltipProps } from './tooltip.props'
 
 export type PopupTriggerEvent = 'click' | 'contextMenu' | 'focus' | 'hover'
 
 export type PopupPlacement = 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftBottom' | 'leftTop' | 'right' | 'rightBottom' | 'rightTop' | 'top' | 'topLeft' | 'topRight'
 
-export interface PopupCoords {
+export interface PopupCssAttrs {
+  'left': number
+  'top': number
+  'position': 'absolute'
+  'transform': string
   '--origin-x': string
   '--origin-y': string
-  'transform': string
 }
 
-export interface ArrowCoords {
+export interface ArrowCssAttrs {
   left: number
   top: number
+  transformOrigin: 'center center'
   transform: string
 }
 
-export interface ScreenCoords {
+export interface LayoutCoords {
   /**
-   * @description clientHeight
-   */
-  _ch: number
-
-  /**
-   * @description clientWidth
-   */
-  _cw: number
-
-  /**
-   * @description 屏幕高度
-   */
-  _sh: number
-
-  /**
-   * @description 屏幕宽度
-   */
-  _sw: number
-
-  /**
-   * @description arrow center 时需要调整的距离
-   */
-  _da: number
-
-  /**
-   * @description 水平方向偏移量
+   * @description popup delta x
    */
   _dx: number
 
   /**
-   * @description 水平方向偏移量
+   * @description popup delta y
    */
   _dy: number
+
+  /**
+   * @description arrow delta
+   */
+  _da: number
 
   /**
    * @description 主轴
@@ -58,59 +43,106 @@ export interface ScreenCoords {
   main: MainAxis
 
   /**
-   * @description 交叉轴
+   * @description viewport 坐标信息
    */
-  cross: CrossAxis
+  view: ViewportCoords
 }
 
 export interface ElementCoords {
   /**
-   * @description 元素本身
+   * @description html 元素
    */
   _el: HTMLElement
 
   /**
-   * @description clientHeight
-   */
-  _ch: number
-
-  /**
-   * @description clientWidth
-   */
-  _cw: number
-
-  /**
-   * @description height
+   * @description rect height
    */
   h: number
 
   /**
-   * @description width
+   * @description rect width
    */
   w: number
 
   /**
-   * @description top
+   * @description rect top
    */
   t: number
 
   /**
-   * @description right
+   * @description rect right
    */
   r: number
 
   /**
-   * @description bottom
+   * @description rect bottom
    */
   b: number
 
   /**
-   * @description left
+   * @description rect left
+   */
+  l: number
+
+  /**
+   * @description 水平缩放
+   */
+  sx: number
+
+  /**
+   * @description 垂直缩放
+   */
+  sy: number
+}
+
+export interface ViewportCoords {
+  /**
+   * @description viewport height ( rect.width 去除滚动区域)
+   */
+  h: number
+
+  /**
+   * @description viewport width
+   */
+  w: number
+
+  /**
+   * @description viewport top
+   */
+  t: number
+
+  /**
+   * @description viewport right
+   */
+  r: number
+
+  /**
+   * @description viewport bottom
+   */
+  b: number
+
+  /**
+   * @description viewport left
    */
   l: number
 }
 
-export type OriginCoords = Pick<ArrowCoords, 'left' | 'top'>
+export interface ArrowCoords {
+  /**
+   * @description arrow left
+   */
+  l: number
+
+  /**
+   * @description arrow top
+   */
+  t: number
+
+  /**
+   * @description arrow rotate
+   */
+  rotate: number
+}
 
 export type HorizontalMainAxis = 'left' | 'right'
 export type VerticalMainAxis = 'bottom' | 'top'
@@ -120,30 +152,30 @@ export type HorizontalCrossAxis = 'bottom' | 'center' | 'top'
 export type VerticalCrossAxis = 'center' | 'left' | 'right'
 export type CrossAxis = HorizontalCrossAxis | VerticalCrossAxis
 
-export interface GetScreenCoordsFunction {
-  (picked: PickedInternalTooltipProps, popup: ElementCoords, trigger: ElementCoords): ScreenCoords
+export interface GetLayoutCoordsFunction {
+  (picked: PickedInternalTooltipProps, portal: PortalInstance, popup: ElementCoords, anchor: ElementCoords): LayoutCoords
 }
 
 export interface keepArrowCenterFunction {
-  (picked: PickedInternalTooltipProps, screen: ScreenCoords, trigger: ElementCoords): ScreenCoords
+  (picked: PickedInternalTooltipProps, layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords): LayoutCoords
 }
 
 export interface OffsetPopupCoordsFunction {
-  (picked: PickedInternalTooltipProps, screen: ScreenCoords): ScreenCoords
+  (picked: PickedInternalTooltipProps, layout: LayoutCoords): LayoutCoords
 }
 
 export interface ShiftPopupCoordsFunction {
-  (picked: PickedInternalTooltipProps, screen: ScreenCoords, trigger: ElementCoords): ScreenCoords
+  (picked: PickedInternalTooltipProps, layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords): LayoutCoords
 }
 
 export interface FlipPopupCoordsFunction {
-  (picked: PickedInternalTooltipProps, screen: ScreenCoords, trigger: ElementCoords): ScreenCoords
+  (picked: PickedInternalTooltipProps, layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords): LayoutCoords
 }
 
 export interface GetArrowCoordsFunction {
-  (screen: ScreenCoords, trigger: ElementCoords): ArrowCoords
+  (layout: LayoutCoords, popup: ElementCoords, anchor: ElementCoords): ArrowCoords
 }
 
 export interface GetOriginCoordsFunction {
-  (screen: ScreenCoords, arrow: ArrowCoords): OriginCoords
+  (layout: LayoutCoords, popup: ElementCoords, arrow: ArrowCoords): Omit<ArrowCoords, 'rotate'>
 }

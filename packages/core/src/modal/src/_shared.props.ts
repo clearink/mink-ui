@@ -59,6 +59,7 @@ export interface ModalGlobalConfig extends GetSemanticsConfig<ModalProps>,
     | 'closable'
     | 'focusable'
     | 'slots'
+    | 'fromPointerOpen'
     | 'confirmButtonProps'
     | 'cancelButtonProps'
   > {}

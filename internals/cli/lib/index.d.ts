@@ -43,6 +43,7 @@ export declare const constants: Constant & Readonly<{
         extensions: string[];
         plugins: string[];
         presets: (string | (string | {
+            bugfixes: boolean;
             targets: {
                 chrome: string;
                 firefox: string;
@@ -52,6 +53,9 @@ export declare const constants: Constant & Readonly<{
         })[] | (string | {
             runtime: string;
         })[])[];
+        assumptions: {
+            setPublicClassFields: boolean;
+        };
     };
     replaces: {
         preventAssignment: boolean;
