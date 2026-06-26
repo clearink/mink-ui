@@ -1,0 +1,1 @@
+import{s as u}from"./index-GR_R5rY9.js";function i(o){const{currentState:n,contextState:e,defaultState:r}=o,a=u(n?.slots||{},e?.slots||{},r?.slots||{});return l=>{const{name:c,params:m,children:t}=l,s=a[c];return s?s(t,m):t}}export{i as n};
